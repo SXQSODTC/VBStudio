@@ -23,23 +23,24 @@ Partial Class TestColorListForm
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.RootSpliter = New System.Windows.Forms.SplitContainer()
-        Me.AppearanceTabs = New System.Windows.Forms.TabControl()
-        Me.TabPage1 = New System.Windows.Forms.TabPage()
-        Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.TopSpliter = New System.Windows.Forms.SplitContainer()
         Me.AppearancesPanel = New System.Windows.Forms.TableLayoutPanel()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.AppearanceTabs = New System.Windows.Forms.TabControl()
+        Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.Button1 = New System.Windows.Forms.Button()
         CType(Me.RootSpliter, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.RootSpliter.Panel1.SuspendLayout()
         Me.RootSpliter.Panel2.SuspendLayout()
         Me.RootSpliter.SuspendLayout()
-        Me.AppearanceTabs.SuspendLayout()
         CType(Me.TopSpliter, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TopSpliter.Panel1.SuspendLayout()
         Me.TopSpliter.SuspendLayout()
         Me.AppearancesPanel.SuspendLayout()
+        Me.AppearanceTabs.SuspendLayout()
         Me.SuspendLayout()
         '
         'RootSpliter
@@ -59,37 +60,6 @@ Partial Class TestColorListForm
         Me.RootSpliter.Size = New System.Drawing.Size(464, 311)
         Me.RootSpliter.SplitterDistance = 129
         Me.RootSpliter.TabIndex = 0
-        '
-        'AppearanceTabs
-        '
-        Me.AppearanceTabs.Controls.Add(Me.TabPage1)
-        Me.AppearanceTabs.Controls.Add(Me.TabPage2)
-        Me.AppearanceTabs.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.AppearanceTabs.Location = New System.Drawing.Point(0, 0)
-        Me.AppearanceTabs.Name = "AppearanceTabs"
-        Me.AppearanceTabs.SelectedIndex = 0
-        Me.AppearanceTabs.Size = New System.Drawing.Size(464, 178)
-        Me.AppearanceTabs.TabIndex = 0
-        '
-        'TabPage1
-        '
-        Me.TabPage1.Location = New System.Drawing.Point(4, 26)
-        Me.TabPage1.Name = "TabPage1"
-        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(456, 148)
-        Me.TabPage1.TabIndex = 0
-        Me.TabPage1.Text = "TabPage1"
-        Me.TabPage1.UseVisualStyleBackColor = True
-        '
-        'TabPage2
-        '
-        Me.TabPage2.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage2.Name = "TabPage2"
-        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(263, 122)
-        Me.TabPage2.TabIndex = 1
-        Me.TabPage2.Text = "TabPage2"
-        Me.TabPage2.UseVisualStyleBackColor = True
         '
         'TopSpliter
         '
@@ -113,11 +83,14 @@ Partial Class TestColorListForm
         Me.AppearancesPanel.Controls.Add(Me.Label1, 0, 0)
         Me.AppearancesPanel.Controls.Add(Me.Label2, 0, 1)
         Me.AppearancesPanel.Controls.Add(Me.TextBox1, 1, 1)
+        Me.AppearancesPanel.Controls.Add(Me.Button1, 1, 3)
         Me.AppearancesPanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.AppearancesPanel.Location = New System.Drawing.Point(0, 0)
         Me.AppearancesPanel.Name = "AppearancesPanel"
-        Me.AppearancesPanel.RowCount = 3
+        Me.AppearancesPanel.RowCount = 5
         Me.AppearancesPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
+        Me.AppearancesPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
+        Me.AppearancesPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
         Me.AppearancesPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.AppearancesPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.AppearancesPanel.Size = New System.Drawing.Size(208, 129)
@@ -157,6 +130,49 @@ Partial Class TestColorListForm
         Me.TextBox1.Size = New System.Drawing.Size(126, 23)
         Me.TextBox1.TabIndex = 2
         '
+        'AppearanceTabs
+        '
+        Me.AppearanceTabs.Controls.Add(Me.TabPage1)
+        Me.AppearanceTabs.Controls.Add(Me.TabPage2)
+        Me.AppearanceTabs.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.AppearanceTabs.Location = New System.Drawing.Point(0, 0)
+        Me.AppearanceTabs.Name = "AppearanceTabs"
+        Me.AppearanceTabs.SelectedIndex = 0
+        Me.AppearanceTabs.Size = New System.Drawing.Size(464, 178)
+        Me.AppearanceTabs.TabIndex = 0
+        '
+        'TabPage1
+        '
+        Me.TabPage1.Location = New System.Drawing.Point(4, 26)
+        Me.TabPage1.Name = "TabPage1"
+        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage1.Size = New System.Drawing.Size(456, 148)
+        Me.TabPage1.TabIndex = 0
+        Me.TabPage1.Text = "TabPage1"
+        Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'TabPage2
+        '
+        Me.TabPage2.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage2.Name = "TabPage2"
+        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage2.Size = New System.Drawing.Size(456, 152)
+        Me.TabPage2.TabIndex = 1
+        Me.TabPage2.Text = "TabPage2"
+        Me.TabPage2.UseVisualStyleBackColor = True
+        '
+        'Button1
+        '
+        Me.AppearancesPanel.SetColumnSpan(Me.Button1, 2)
+        Me.Button1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Button1.Location = New System.Drawing.Point(81, 61)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(1)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(126, 23)
+        Me.Button1.TabIndex = 3
+        Me.Button1.Text = "Gen Code"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'TestColorListForm
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -169,12 +185,12 @@ Partial Class TestColorListForm
         Me.RootSpliter.Panel2.ResumeLayout(False)
         CType(Me.RootSpliter, System.ComponentModel.ISupportInitialize).EndInit()
         Me.RootSpliter.ResumeLayout(False)
-        Me.AppearanceTabs.ResumeLayout(False)
         Me.TopSpliter.Panel1.ResumeLayout(False)
         CType(Me.TopSpliter, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TopSpliter.ResumeLayout(False)
         Me.AppearancesPanel.ResumeLayout(False)
         Me.AppearancesPanel.PerformLayout()
+        Me.AppearanceTabs.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -188,4 +204,5 @@ Partial Class TestColorListForm
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents Button1 As Button
 End Class

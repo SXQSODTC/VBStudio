@@ -155,10 +155,11 @@ Public Class StartForm
 
     Private Sub UCTestToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UCTestToolStripMenuItem.Click
         'FormSwitch(UCTestDialog, "Test", False, False)
+        FormSwitch(ListViewOwnerDraw)
     End Sub
 
     Private Sub SampleTestToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SampleTestToolStripMenuItem.Click
-        FormSwitch(Form1)
+        FormSwitch(TestListForm)
     End Sub
 
 

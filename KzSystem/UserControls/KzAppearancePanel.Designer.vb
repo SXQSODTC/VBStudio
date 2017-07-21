@@ -50,8 +50,9 @@ Partial Class KzAppearancePanel
         Me.NameTB = New System.Windows.Forms.TextBox()
         Me.RootTools = New System.Windows.Forms.ToolStrip()
         Me.ResetButton = New System.Windows.Forms.ToolStripButton()
-        Me.BraceButton = New System.Windows.Forms.ToolStripButton()
-        Me.CopyButton = New System.Windows.Forms.ToolStripButton()
+        Me.SaveButton = New System.Windows.Forms.ToolStripButton()
+        Me.WithButton = New System.Windows.Forms.ToolStripButton()
+        Me.FullButton = New System.Windows.Forms.ToolStripButton()
         Me.CodeButton = New System.Windows.Forms.ToolStripButton()
         Me.RootPanel.SuspendLayout()
         CType(Me.BorderSizeUD, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -372,7 +373,7 @@ Partial Class KzAppearancePanel
         'RootTools
         '
         Me.RootTools.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.RootTools.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ResetButton, Me.BraceButton, Me.CopyButton, Me.CodeButton})
+        Me.RootTools.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ResetButton, Me.SaveButton, Me.WithButton, Me.FullButton, Me.CodeButton})
         Me.RootTools.Location = New System.Drawing.Point(0, 0)
         Me.RootTools.Name = "RootTools"
         Me.RootTools.Size = New System.Drawing.Size(293, 25)
@@ -388,23 +389,34 @@ Partial Class KzAppearancePanel
         Me.ResetButton.Size = New System.Drawing.Size(44, 22)
         Me.ResetButton.Text = "Reset"
         '
-        'BraceButton
+        'SaveButton
         '
-        Me.BraceButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.BraceButton.Image = CType(resources.GetObject("BraceButton.Image"), System.Drawing.Image)
-        Me.BraceButton.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BraceButton.Name = "BraceButton"
-        Me.BraceButton.Size = New System.Drawing.Size(38, 22)
-        Me.BraceButton.Text = "With"
+        Me.SaveButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.SaveButton.Image = CType(resources.GetObject("SaveButton.Image"), System.Drawing.Image)
+        Me.SaveButton.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.SaveButton.Name = "SaveButton"
+        Me.SaveButton.Size = New System.Drawing.Size(39, 22)
+        Me.SaveButton.Text = "Save"
         '
-        'CopyButton
+        'WithButton
         '
-        Me.CopyButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.CopyButton.Image = CType(resources.GetObject("CopyButton.Image"), System.Drawing.Image)
-        Me.CopyButton.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.CopyButton.Name = "CopyButton"
-        Me.CopyButton.Size = New System.Drawing.Size(42, 22)
-        Me.CopyButton.Text = "Copy"
+        Me.WithButton.CheckOnClick = True
+        Me.WithButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.WithButton.Image = CType(resources.GetObject("WithButton.Image"), System.Drawing.Image)
+        Me.WithButton.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.WithButton.Name = "WithButton"
+        Me.WithButton.Size = New System.Drawing.Size(38, 22)
+        Me.WithButton.Text = "With"
+        '
+        'FullButton
+        '
+        Me.FullButton.CheckOnClick = True
+        Me.FullButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.FullButton.Image = CType(resources.GetObject("FullButton.Image"), System.Drawing.Image)
+        Me.FullButton.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.FullButton.Name = "FullButton"
+        Me.FullButton.Size = New System.Drawing.Size(31, 22)
+        Me.FullButton.Text = "Full"
         '
         'CodeButton
         '
@@ -464,7 +476,8 @@ Partial Class KzAppearancePanel
     Friend WithEvents NameTB As TextBox
     Friend WithEvents RootTools As ToolStrip
     Friend WithEvents ResetButton As ToolStripButton
-    Friend WithEvents BraceButton As ToolStripButton
-    Friend WithEvents CopyButton As ToolStripButton
+    Friend WithEvents WithButton As ToolStripButton
     Friend WithEvents CodeButton As ToolStripButton
+    Friend WithEvents FullButton As ToolStripButton
+    Friend WithEvents SaveButton As ToolStripButton
 End Class

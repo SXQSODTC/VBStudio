@@ -29,5 +29,7 @@ E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.Form1.resources
 E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.TestColorListForm.resources
 E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.AppearancePanel.resources
 E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzAppearancePanel.resources
-D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzTextDialog.resources
 D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.vbprojResolveAssemblyReference.cache
+D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzTextViewDialog.resources
+D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzColorListView.resources
+D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzColorSticker.resources

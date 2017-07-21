@@ -87,9 +87,6 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LibraryDialogs.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="EndForm.Designer.vb">
       <DependentUpon>EndForm.vb</DependentUpon>
     </Compile>
@@ -118,6 +115,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Samples\3PartySample.vb" />
+    <Compile Include="Samples\MsSample.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Samples\Form1.Designer.vb">
       <DependentUpon>Form1.vb</DependentUpon>
     </Compile>
@@ -136,19 +136,40 @@
     <Compile Include="Tempcode\TestColorListForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Tempcode\TestListForm.Designer.vb">
+      <DependentUpon>TestListForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Tempcode\TestListForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="UserControls\KzAppearancePanel.Designer.vb">
       <DependentUpon>KzAppearancePanel.vb</DependentUpon>
     </Compile>
     <Compile Include="UserControls\KzAppearancePanel.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="UserControls\KzColorListView.Designer.vb">
+      <DependentUpon>KzColorListView.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\KzColorListView.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\KzColorSticker.Designer.vb">
+      <DependentUpon>KzColorSticker.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\KzColorSticker.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserDialogs\KzTextViewDialog.Designer.vb">
+      <DependentUpon>KzTextViewDialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserDialogs\KzTextViewDialog.vb">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EndForm.resx">
       <DependentUpon>EndForm.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LibraryDialogs.resx">
-      <DependentUpon>LibraryDialogs.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -167,6 +188,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\KzAppearancePanel.resx">
       <DependentUpon>KzAppearancePanel.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\KzColorListView.resx">
+      <DependentUpon>KzColorListView.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\KzColorSticker.resx">
+      <DependentUpon>KzColorSticker.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserDialogs\KzTextViewDialog.resx">
+      <DependentUpon>KzTextViewDialog.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
