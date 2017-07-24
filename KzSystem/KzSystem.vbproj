@@ -65,6 +65,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -96,9 +97,7 @@
     <Compile Include="LibraryEnums.vb" />
     <Compile Include="LibraryFunctions.vb" />
     <Compile Include="LibraryPaint.vb" />
-    <Compile Include="LibraryPanels.vb">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="LibraryPanels.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -130,6 +129,9 @@
     <Compile Include="StartForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Tempcode\TestSlideBar.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Tempcode\TestColorListForm.Designer.vb">
       <DependentUpon>TestColorListForm.vb</DependentUpon>
     </Compile>
@@ -142,16 +144,17 @@
     <Compile Include="Tempcode\TestListForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="UserControls\KzSlideBar.Designer.vb">
+      <DependentUpon>KzSlideBar.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\KzSlideBar.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\KzTrackbar.vb" />
     <Compile Include="UserControls\KzAppearancePanel.Designer.vb">
       <DependentUpon>KzAppearancePanel.vb</DependentUpon>
     </Compile>
     <Compile Include="UserControls\KzAppearancePanel.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\KzColorListView.Designer.vb">
-      <DependentUpon>KzColorListView.vb</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\KzColorListView.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserControls\KzColorSticker.Designer.vb">
@@ -159,6 +162,12 @@
     </Compile>
     <Compile Include="UserControls\KzColorSticker.vb">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserDialogs\KzColorPicker.Designer.vb">
+      <DependentUpon>KzColorPicker.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserDialogs\KzColorPicker.vb">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="UserDialogs\KzTextViewDialog.Designer.vb">
       <DependentUpon>KzTextViewDialog.vb</DependentUpon>
@@ -186,14 +195,23 @@
     <EmbeddedResource Include="Tempcode\TestColorListForm.resx">
       <DependentUpon>TestColorListForm.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Tempcode\TestListForm.resx">
+      <DependentUpon>TestListForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tempcode\TestSlideBar.resx">
+      <DependentUpon>TestSlideBar.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\KzAppearancePanel.resx">
       <DependentUpon>KzAppearancePanel.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\KzColorListView.resx">
-      <DependentUpon>KzColorListView.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\KzColorSticker.resx">
       <DependentUpon>KzColorSticker.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\KzSlideBar.resx">
+      <DependentUpon>KzSlideBar.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserDialogs\KzColorPicker.resx">
+      <DependentUpon>KzColorPicker.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserDialogs\KzTextViewDialog.resx">
       <DependentUpon>KzTextViewDialog.vb</DependentUpon>
@@ -211,7 +229,6 @@
     </None>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
       <Visible>False</Visible>

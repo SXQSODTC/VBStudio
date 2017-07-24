@@ -19,7 +19,7 @@ Public Class StartForm
 
                     If OpenAsMDI Then
                         .MdiParent = Me
-                        .ControlBox = False
+                        '.ControlBox = False
                     Else
                         .MdiParent = Nothing
                         .ControlBox = True
@@ -31,7 +31,10 @@ Public Class StartForm
                         .WindowState = FormWindowState.Normal
                     End If
 
-                    .Text = FormText
+                    If FormText IsNot Nothing Then
+                        .Text = FormText
+                    End If
+
                     .Show()
                     CommandsPanel.Hide()
                 End With
@@ -155,7 +158,7 @@ Public Class StartForm
 
     Private Sub UCTestToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UCTestToolStripMenuItem.Click
         'FormSwitch(UCTestDialog, "Test", False, False)
-        FormSwitch(ListViewOwnerDraw)
+        FormSwitch(TestSlideBar)
     End Sub
 
     Private Sub SampleTestToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SampleTestToolStripMenuItem.Click
