@@ -522,5 +522,19 @@ KzSystem
  <param name="blend"></param>
  <returns></returns>
 </member>
+<member name="M:KzSystem.KzColorHelper.GetColorName(System.Drawing.Color)">
+ <summary>
+ Return a color name in KnownColorName else in Hex string.
+ </summary>
+ <param name="color"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzColorHelper.GetColorByName(System.String)">
+ <summary>
+ Return a color by name string both a KnownColorName and a Hex string.
+ </summary>
+ <param name="name"></param>
+ <returns></returns>
+</member>
 </members>
 </doc>

@@ -44,9 +44,9 @@
             Dim c As Color = Me.ColorLabel.BackColor
             Select Case iShown
                 Case KzColorProperties.HexARGB
-                    Me.PropertyLabel.Text = "ARGB: &H" & Hex(c.ToArgb)
+                    Me.PropertyLabel.Text = " &H" & Hex(c.ToArgb)
                 Case KzColorProperties.IntARGB
-                    Me.PropertyLabel.Text = "ARGB: " & c.ToArgb
+                    Me.PropertyLabel.Text = " " & c.ToArgb
                 Case KzColorProperties.ARGB
                     Me.PropertyLabel.Text = "ARGB(" & c.A & ", " & c.R & ", " & c.G & ", " & c.B & ")"
                 Case KzColorProperties.HSB
@@ -54,6 +54,8 @@
                         Strings.Format(c.GetHue, "Scientific") & ", " &
                         Strings.Format(c.GetSaturation, "Scientific") & ", " &
                         Strings.Format(c.GetBrightness, "Scientific") & ")"
+                Case Else
+                    Me.PropertyLabel.Text = Nothing
             End Select
         End Set
     End Property
@@ -348,6 +350,15 @@ Public Class KzColorListPanel
         End Get
         Set(value As KzColorStickerCollection)
             iListForShow = value
+
+            If iListForShow.Count > 0 Then
+                For Each cs As KzColorSticker In iListForShow
+                    cs.Checker.Checked = False
+                    AddHandler cs.CheckedStatusChanged, AddressOf SetCheckedStickers
+                    AddHandler cs.SelectedStatusChanged, AddressOf SetSelectedSticker
+                Next
+            End If
+
             RaiseEvent StickersChanged(Me, Nothing)
             ShowListToPanel()
         End Set
@@ -404,13 +415,13 @@ Public Class KzColorListPanel
 
         End Select
 
-        If kcsc.Count > 0 Then
-            For Each cs As KzColorSticker In kcsc
-                cs.Checker.Checked = False
-                AddHandler cs.CheckedStatusChanged, AddressOf SetCheckedStickers
-                AddHandler cs.SelectedStatusChanged, AddressOf SetSelectedSticker
-            Next
-        End If
+        'If kcsc.Count > 0 Then
+        '    For Each cs As KzColorSticker In kcsc
+        '        cs.Checker.Checked = False
+        '        AddHandler cs.CheckedStatusChanged, AddressOf SetCheckedStickers
+        '        AddHandler cs.SelectedStatusChanged, AddressOf SetSelectedSticker
+        '    Next
+        'End If
 
         Return kcsc
     End Function
@@ -506,6 +517,7 @@ Public Class KzColorStickerCollection
 End Class
 
 Public Enum KzColorProperties
+    None
     ARGB
     IntARGB
     HexARGB

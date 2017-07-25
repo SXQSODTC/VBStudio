@@ -97,14 +97,19 @@ Public Class KzTrackBarDesigner
     Public Overrides ReadOnly Property SelectionRules() As SelectionRules
 
         Get
-            Dim control As KzTrackBar = CType(IIf(TypeOf Me.Control Is KzTrackBar, Me.Control, Nothing), KzTrackBar)
+            Dim control As KzTrackBar =
+                CType(IIf(TypeOf Me.Control Is KzTrackBar, Me.Control, Nothing), KzTrackBar)
 
             ' Disallow vertical or horizontal sizing when AutoSize = True
             If Not control Is Nothing AndAlso control.AutoSize = True Then
                 If control.Orientation = Orientation.Horizontal Then
-                    Return (MyBase.SelectionRules And (Not SelectionRules.TopSizeable)) And Not SelectionRules.BottomSizeable
+                    Return (MyBase.SelectionRules And
+                        (Not SelectionRules.TopSizeable)) And
+                        Not SelectionRules.BottomSizeable
                 Else 'control.Orientation == Orientation.Vertical
-                    Return (MyBase.SelectionRules And (Not SelectionRules.LeftSizeable)) And Not SelectionRules.RightSizeable
+                    Return (MyBase.SelectionRules And
+                        (Not SelectionRules.LeftSizeable)) And
+                        Not SelectionRules.RightSizeable
                 End If
             Else
                 Return MyBase.SelectionRules
@@ -1757,7 +1762,9 @@ Public NotInheritable Class KzDrawStyleHelper
     ''' <param name="drawRectF"></param>
     ''' <param name="drawColor"></param>
     ''' <param name="orientation"></param>
-    Public Shared Sub DrawAquaPill(ByVal g As Graphics, ByVal drawRectF As RectangleF, ByVal drawColor As Color, ByVal orientation As Orientation)
+    Public Shared Sub DrawAquaPill _
+        (ByVal g As Graphics, ByVal drawRectF As RectangleF,
+         ByVal drawColor As Color, ByVal orientation As Orientation)
 
         Dim color1 As Color
         Dim color2 As Color
@@ -1767,19 +1774,30 @@ Public NotInheritable Class KzDrawStyleHelper
         Dim gradientBrush As System.Drawing.Drawing2D.LinearGradientBrush
         Dim colorBlend As System.Drawing.Drawing2D.ColorBlend = New System.Drawing.Drawing2D.ColorBlend()
 
-        color1 = KzColorHelper.OpacityMix(Color.White, KzColorHelper.SoftLightMix(drawColor, Color.Black, 100), 40)
-        color2 = KzColorHelper.OpacityMix(Color.White, KzColorHelper.SoftLightMix(drawColor, KzColorHelper.CreateColorFromRGB(64, 64, 64), 100), 20)
-        color3 = KzColorHelper.SoftLightMix(drawColor, KzColorHelper.CreateColorFromRGB(128, 128, 128), 100)
-        color4 = KzColorHelper.SoftLightMix(drawColor, KzColorHelper.CreateColorFromRGB(192, 192, 192), 100)
-        color5 = KzColorHelper.OverlayMix(KzColorHelper.SoftLightMix(drawColor, Color.White, 100), Color.White, 75)
+        color1 = KzColorHelper.OpacityMix _
+            (Color.White, KzColorHelper.SoftLightMix(drawColor, Color.Black, 100), 40)
+        color2 = KzColorHelper.OpacityMix _
+            (Color.White, KzColorHelper.SoftLightMix(drawColor, KzColorHelper.CreateColorFromRGB(64, 64, 64), 100), 20)
+        color3 = KzColorHelper.SoftLightMix _
+            (drawColor, KzColorHelper.CreateColorFromRGB(128, 128, 128), 100)
+        color4 = KzColorHelper.SoftLightMix _
+            (drawColor, KzColorHelper.CreateColorFromRGB(192, 192, 192), 100)
+        color5 = KzColorHelper.OverlayMix _
+            (KzColorHelper.SoftLightMix(drawColor, Color.White, 100), Color.White, 75)
 
         '			
         colorBlend.Colors = New Color() {color1, color2, color3, color4, color5}
         colorBlend.Positions = New Single() {0, 0.25F, 0.5F, 0.75F, 1}
         If orientation = Orientation.Horizontal Then
-            gradientBrush = New System.Drawing.Drawing2D.LinearGradientBrush(New Point(CInt(Fix(drawRectF.Left)), CInt(Fix(drawRectF.Top - 1))), New Point(CInt(Fix(drawRectF.Left)), CInt(Fix(drawRectF.Top)) + CInt(Fix(drawRectF.Height)) + 1), color1, color5)
+            gradientBrush = New System.Drawing.Drawing2D.LinearGradientBrush _
+                (New Point(CInt(Fix(drawRectF.Left)), CInt(Fix(drawRectF.Top - 1))),
+                 New Point(CInt(Fix(drawRectF.Left)), CInt(Fix(drawRectF.Top)) + CInt(Fix(drawRectF.Height)) + 1),
+                 color1, color5)
         Else
-            gradientBrush = New System.Drawing.Drawing2D.LinearGradientBrush(New Point(CInt(Fix(drawRectF.Left - 1)), CInt(Fix(drawRectF.Top))), New Point(CInt(Fix(drawRectF.Left)) + CInt(Fix(drawRectF.Width)) + 1, CInt(Fix(drawRectF.Top))), color1, color5)
+            gradientBrush = New System.Drawing.Drawing2D.LinearGradientBrush _
+                (New Point(CInt(Fix(drawRectF.Left - 1)), CInt(Fix(drawRectF.Top))),
+                 New Point(CInt(Fix(drawRectF.Left)) + CInt(Fix(drawRectF.Width)) + 1, CInt(Fix(drawRectF.Top))),
+                 color1, color5)
         End If
         gradientBrush.InterpolationColors = colorBlend
         FillPill(gradientBrush, drawRectF, g)
@@ -1789,9 +1807,15 @@ Public NotInheritable Class KzDrawStyleHelper
         colorBlend.Colors = New Color() {color2, color3, color4, color5}
         colorBlend.Positions = New Single() {0, 0.5F, 0.75F, 1}
         If orientation = Orientation.Horizontal Then
-            gradientBrush = New System.Drawing.Drawing2D.LinearGradientBrush(New Point(CInt(Fix(drawRectF.Left)) + 1, CInt(Fix(drawRectF.Top))), New Point(CInt(Fix(drawRectF.Left)) + 1, CInt(Fix(drawRectF.Top)) + CInt(Fix(drawRectF.Height - 1))), color2, color5)
+            gradientBrush = New System.Drawing.Drawing2D.LinearGradientBrush _
+                (New Point(CInt(Fix(drawRectF.Left)) + 1, CInt(Fix(drawRectF.Top))),
+                 New Point(CInt(Fix(drawRectF.Left)) + 1, CInt(Fix(drawRectF.Top)) + CInt(Fix(drawRectF.Height - 1))),
+                 color2, color5)
         Else
-            gradientBrush = New System.Drawing.Drawing2D.LinearGradientBrush(New Point(CInt(Fix(drawRectF.Left)), CInt(Fix(drawRectF.Top)) + 1), New Point(CInt(Fix(drawRectF.Left)) + CInt(Fix(drawRectF.Width - 1)), CInt(Fix(drawRectF.Top)) + 1), color2, color5)
+            gradientBrush = New System.Drawing.Drawing2D.LinearGradientBrush _
+                (New Point(CInt(Fix(drawRectF.Left)), CInt(Fix(drawRectF.Top)) + 1),
+                 New Point(CInt(Fix(drawRectF.Left)) + CInt(Fix(drawRectF.Width - 1)), CInt(Fix(drawRectF.Top)) + 1),
+                 color2, color5)
         End If
         gradientBrush.InterpolationColors = colorBlend
         FillPill(gradientBrush, RectangleF.Inflate(drawRectF, -3, -3), g)
@@ -1805,7 +1829,10 @@ Public NotInheritable Class KzDrawStyleHelper
     ''' <param name="drawRectF"></param>
     ''' <param name="drawColor"></param>
     ''' <param name="orientation"></param>
-    Public Shared Sub DrawAquaPillSingleLayer(ByVal g As Graphics, ByVal drawRectF As RectangleF, ByVal drawColor As Color, ByVal orientation As Orientation)
+    Public Shared Sub DrawAquaPillSingleLayer _
+        (ByVal g As Graphics, ByVal drawRectF As RectangleF,
+         ByVal drawColor As Color, ByVal orientation As Orientation)
+
         Dim color1 As Color
         Dim color2 As Color
         Dim color3 As Color
@@ -1822,9 +1849,15 @@ Public NotInheritable Class KzDrawStyleHelper
         colorBlend.Positions = New Single() {0, 0.25F, 0.65F, 1}
 
         If orientation = Orientation.Horizontal Then
-            gradientBrush = New System.Drawing.Drawing2D.LinearGradientBrush(New Point(CInt(Fix(drawRectF.Left)), CInt(Fix(drawRectF.Top))), New Point(CInt(Fix(drawRectF.Left)), CInt(Fix(drawRectF.Top)) + CInt(Fix(drawRectF.Height))), color1, color4)
+            gradientBrush = New System.Drawing.Drawing2D.LinearGradientBrush _
+                (New Point(CInt(Fix(drawRectF.Left)), CInt(Fix(drawRectF.Top))),
+                 New Point(CInt(Fix(drawRectF.Left)), CInt(Fix(drawRectF.Top)) + CInt(Fix(drawRectF.Height))),
+                 color1, color4)
         Else
-            gradientBrush = New System.Drawing.Drawing2D.LinearGradientBrush(New Point(CInt(Fix(drawRectF.Left)), CInt(Fix(drawRectF.Top))), New Point(CInt(Fix(drawRectF.Left)) + CInt(Fix(drawRectF.Width)), CInt(Fix(drawRectF.Top))), color1, color4)
+            gradientBrush = New System.Drawing.Drawing2D.LinearGradientBrush _
+                (New Point(CInt(Fix(drawRectF.Left)), CInt(Fix(drawRectF.Top))),
+                 New Point(CInt(Fix(drawRectF.Left)) + CInt(Fix(drawRectF.Width)), CInt(Fix(drawRectF.Top))),
+                 color1, color4)
         End If
         gradientBrush.InterpolationColors = colorBlend
 
@@ -1839,11 +1872,15 @@ Public NotInheritable Class KzDrawStyleHelper
     ''' <param name="b"></param>
     ''' <param name="rect"></param>
     ''' <param name="g"></param>
-    Public Shared Sub FillPill(ByVal b As Brush, ByVal rect As RectangleF, ByVal g As Graphics)
+    Public Shared Sub FillPill _
+        (ByVal b As Brush, ByVal rect As RectangleF, ByVal g As Graphics)
+
         If rect.Width > rect.Height Then
             g.SmoothingMode = SmoothingMode.HighQuality
-            g.FillEllipse(b, New RectangleF(rect.Left, rect.Top, rect.Height, rect.Height))
-            g.FillEllipse(b, New RectangleF(rect.Left + rect.Width - rect.Height, rect.Top, rect.Height, rect.Height))
+            g.FillEllipse(b, New RectangleF _
+                          (rect.Left, rect.Top, rect.Height, rect.Height))
+            g.FillEllipse(b, New RectangleF _
+                          (rect.Left + rect.Width - rect.Height, rect.Top, rect.Height, rect.Height))
 
             Dim w As Single = rect.Width - rect.Height
             Dim l As Single = rect.Left + ((rect.Height) / 2)
@@ -1851,8 +1888,10 @@ Public NotInheritable Class KzDrawStyleHelper
             g.SmoothingMode = SmoothingMode.Default
         ElseIf rect.Width < rect.Height Then
             g.SmoothingMode = SmoothingMode.HighQuality
-            g.FillEllipse(b, New RectangleF(rect.Left, rect.Top, rect.Width, rect.Width))
-            g.FillEllipse(b, New RectangleF(rect.Left, rect.Top + rect.Height - rect.Width, rect.Width, rect.Width))
+            g.FillEllipse(b, New RectangleF _
+                          (rect.Left, rect.Top, rect.Width, rect.Width))
+            g.FillEllipse(b, New RectangleF _
+                          (rect.Left, rect.Top + rect.Height - rect.Width, rect.Width, rect.Width))
 
             Dim t As Single = rect.Top + (rect.Width / 2)
             Dim h As Single = rect.Height - rect.Width
@@ -1880,7 +1919,9 @@ Friend Class KzColorHelper
     ''' <param name="green"></param>
     ''' <param name="blue"></param>
     ''' <returns></returns>
-    Public Shared Function CreateColorFromRGB(ByVal red As Integer, ByVal green As Integer, ByVal blue As Integer) As Color
+    Public Shared Function CreateColorFromRGB _
+        (ByVal red As Integer, ByVal green As Integer, ByVal blue As Integer) As Color
+
         'Corect Red element
         Dim r As Integer = red
         If r > 255 Then
@@ -1915,7 +1956,9 @@ Friend Class KzColorHelper
     ''' <param name="baseColor"></param>
     ''' <param name="opacity"></param>
     ''' <returns></returns>
-    Public Shared Function OpacityMix(ByVal blendColor As Color, ByVal baseColor As Color, ByVal opacity As Integer) As Color
+    Public Shared Function OpacityMix _
+        (ByVal blendColor As Color, ByVal baseColor As Color, ByVal opacity As Integer) As Color
+
         Dim r1 As Integer
         Dim g1 As Integer
         Dim b1 As Integer
@@ -1944,7 +1987,9 @@ Friend Class KzColorHelper
     ''' <param name="blendColor"></param>
     ''' <param name="opacity"></param>
     ''' <returns></returns>
-    Public Shared Function SoftLightMix(ByVal baseColor As Color, ByVal blendColor As Color, ByVal opacity As Integer) As Color
+    Public Shared Function SoftLightMix _
+        (ByVal baseColor As Color, ByVal blendColor As Color, ByVal opacity As Integer) As Color
+
         Dim r1 As Integer
         Dim g1 As Integer
         Dim b1 As Integer
@@ -1973,7 +2018,9 @@ Friend Class KzColorHelper
     ''' <param name="blendColor"></param>
     ''' <param name="opacity"></param>
     ''' <returns></returns>
-    Public Shared Function OverlayMix(ByVal baseColor As Color, ByVal blendColor As Color, ByVal opacity As Integer) As Color
+    Public Shared Function OverlayMix _
+        (ByVal baseColor As Color, ByVal blendColor As Color, ByVal opacity As Integer) As Color
+
         Dim r1 As Integer
         Dim g1 As Integer
         Dim b1 As Integer
@@ -2002,7 +2049,9 @@ Friend Class KzColorHelper
     ''' <param name="ibase"></param>
     ''' <param name="blend"></param>
     ''' <returns></returns>
-    Private Shared Function SoftLightMath(ByVal ibase As Integer, ByVal blend As Integer) As Integer
+    Private Shared Function SoftLightMath _
+        (ByVal ibase As Integer, ByVal blend As Integer) As Integer
+
         Dim dbase As Single
         Dim dblend As Single
         dbase = CSng(ibase) / 255
@@ -2020,7 +2069,9 @@ Friend Class KzColorHelper
     ''' <param name="ibase"></param>
     ''' <param name="blend"></param>
     ''' <returns></returns>
-    Public Shared Function OverlayMath(ByVal ibase As Integer, ByVal blend As Integer) As Integer
+    Public Shared Function OverlayMath _
+        (ByVal ibase As Integer, ByVal blend As Integer) As Integer
+
         Dim dbase As Double
         Dim dblend As Double
         dbase = CDbl(ibase) / 255
@@ -2032,4 +2083,35 @@ Friend Class KzColorHelper
         End If
     End Function
 
+    ''' <summary>
+    ''' Return a color name in KnownColorName else in Hex string.
+    ''' </summary>
+    ''' <param name="color"></param>
+    ''' <returns></returns>
+    Public Shared Function GetColorName(color As Color) As String
+        If color.IsEmpty Then
+            Return "[Empty]"
+        ElseIf color.IsKnownColor Then
+            Return color.Name
+        Else
+            Return ("&H" & Hex(color.ToArgb)).ToUpper
+        End If
+    End Function
+
+    ''' <summary>
+    ''' Return a color by name string both a KnownColorName and a Hex string.
+    ''' </summary>
+    ''' <param name="name"></param>
+    ''' <returns></returns>
+    Public Shared Function GetColorByName(ByVal name As String) As Color
+        Try
+            If name.StartsWith("&H") Then
+                Return Color.FromArgb(name)
+            Else
+                Return Color.FromName(name)
+            End If
+        Catch ex As Exception
+            Return Color.FromArgb(0)
+        End Try
+    End Function
 End Class

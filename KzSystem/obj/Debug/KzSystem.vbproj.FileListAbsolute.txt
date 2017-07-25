@@ -20,7 +20,6 @@ D:\OneDrive\KzSystem\KzSystem\bin\Debug\KzSystem.pdb
 D:\OneDrive\KzSystem\KzSystem\bin\Debug\KzSystem.xml
 D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.EndForm.resources
 D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.Resources.resources
-D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.Form1.resources
 D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.StartForm.resources
 D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.vbproj.GenerateResource.Cache
 D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.TestColorListForm.resources

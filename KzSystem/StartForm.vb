@@ -153,7 +153,7 @@ Public Class StartForm
         'c = Color.FromName("&HEE3A4C8E")
         'MsgBox(c.ToArgb) ' & " IsNumber " & Int("EE3A4C8E"))
         'FormSwitch(KzAprsDialog, "測試")
-        FormSwitch(TestColorListForm)
+        FormSwitch(KzColorPicker)
     End Sub
 
     Private Sub UCTestToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UCTestToolStripMenuItem.Click
