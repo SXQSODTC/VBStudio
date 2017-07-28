@@ -113,7 +113,14 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Samples\3PartySample.vb" />
+    <Compile Include="Samples\PListReaderForm.Designer.vb">
+      <DependentUpon>PListReaderForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\PListReaderForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Samples\SamplePList.vb" />
+    <Compile Include="Samples\SampleImg.vb" />
     <Compile Include="Samples\MsSample.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -132,17 +139,14 @@
     <Compile Include="Tempcode\TestColorListForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Tempcode\TestListForm.Designer.vb">
-      <DependentUpon>TestListForm.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Tempcode\TestListForm.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="UserControls\KzSlideBar.Designer.vb">
       <DependentUpon>KzSlideBar.vb</DependentUpon>
     </Compile>
     <Compile Include="UserControls\KzSlideBar.vb">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\KzTabControl.vb">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="UserControls\KzTrackbar.vb" />
     <Compile Include="UserControls\KzAppearancePanel.Designer.vb">
@@ -163,6 +167,12 @@
     <Compile Include="UserDialogs\KzColorPicker.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="UserDialogs\KzTabsDesigner.Designer.vb">
+      <DependentUpon>KzTabsDesigner.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserDialogs\KzTabsDesigner.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="UserDialogs\KzTextViewDialog.Designer.vb">
       <DependentUpon>KzTextViewDialog.vb</DependentUpon>
     </Compile>
@@ -180,14 +190,14 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Samples\PListReaderForm.resx">
+      <DependentUpon>PListReaderForm.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="StartForm.resx">
       <DependentUpon>StartForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tempcode\TestColorListForm.resx">
       <DependentUpon>TestColorListForm.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tempcode\TestListForm.resx">
-      <DependentUpon>TestListForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tempcode\TestSlideBar.resx">
       <DependentUpon>TestSlideBar.vb</DependentUpon>
@@ -203,6 +213,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserDialogs\KzColorPicker.resx">
       <DependentUpon>KzColorPicker.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserDialogs\KzTabsDesigner.resx">
+      <DependentUpon>KzTabsDesigner.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserDialogs\KzTextViewDialog.resx">
       <DependentUpon>KzTextViewDialog.vb</DependentUpon>
@@ -237,6 +250,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ODTC.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LinerBasicUI\liner_copy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LinerBasicUI\liner_edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LinerBasicUI\liner_export.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LinerBasicUI\liner_import.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LinerBasicUI\liner_search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LinerBasicUI\liner_view.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

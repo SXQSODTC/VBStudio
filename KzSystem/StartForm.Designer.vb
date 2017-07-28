@@ -40,11 +40,11 @@ Partial Class StartForm
         Me.HomeMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExitMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TestMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.StyleFormToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ColorsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.UCTestToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Test01 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Test02 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Test03 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Test04 = New System.Windows.Forms.ToolStripMenuItem()
         Me.GenToolTip = New System.Windows.Forms.ToolTip(Me.components)
-        Me.SampleTestToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CommandsPanel.SuspendLayout()
         Me.StartMenu.SuspendLayout()
         Me.SuspendLayout()
@@ -216,40 +216,40 @@ Partial Class StartForm
         '
         'TestMenuItem
         '
-        Me.TestMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StyleFormToolStripMenuItem, Me.ColorsToolStripMenuItem, Me.UCTestToolStripMenuItem, Me.SampleTestToolStripMenuItem})
+        Me.TestMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Test01, Me.Test02, Me.Test03, Me.Test04})
         Me.TestMenuItem.Name = "TestMenuItem"
         Me.TestMenuItem.Size = New System.Drawing.Size(44, 21)
         Me.TestMenuItem.Text = "Test"
         '
-        'StyleFormToolStripMenuItem
+        'Test01
         '
-        Me.StyleFormToolStripMenuItem.Name = "StyleFormToolStripMenuItem"
-        Me.StyleFormToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.StyleFormToolStripMenuItem.Text = "StyleForm"
+        Me.Test01.Name = "Test01"
+        Me.Test01.Size = New System.Drawing.Size(156, 22)
+        Me.Test01.Text = "TabsDesigner"
         '
-        'ColorsToolStripMenuItem
+        'Test02
         '
-        Me.ColorsToolStripMenuItem.Name = "ColorsToolStripMenuItem"
-        Me.ColorsToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.ColorsToolStripMenuItem.Text = "Colors"
+        Me.Test02.Name = "Test02"
+        Me.Test02.Size = New System.Drawing.Size(152, 22)
+        Me.Test02.Text = "ColorPicker"
         '
-        'UCTestToolStripMenuItem
+        'Test03
         '
-        Me.UCTestToolStripMenuItem.Name = "UCTestToolStripMenuItem"
-        Me.UCTestToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.UCTestToolStripMenuItem.Text = "UCTest"
+        Me.Test03.Name = "Test03"
+        Me.Test03.Size = New System.Drawing.Size(152, 22)
+        Me.Test03.Text = "TestSlideBar"
         '
-        'SampleTestToolStripMenuItem
+        'Test04
         '
-        Me.SampleTestToolStripMenuItem.Name = "SampleTestToolStripMenuItem"
-        Me.SampleTestToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.SampleTestToolStripMenuItem.Text = "SampleTest"
+        Me.Test04.Name = "Test04"
+        Me.Test04.Size = New System.Drawing.Size(152, 22)
+        Me.Test04.Text = "PListReader"
         '
         'StartForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(607, 477)
+        Me.ClientSize = New System.Drawing.Size(607, 397)
         Me.Controls.Add(Me.CommandsPanel)
         Me.Controls.Add(Me.StartMenu)
         Me.Font = New System.Drawing.Font("Microsoft YaHei UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
@@ -283,9 +283,9 @@ Partial Class StartForm
     Friend WithEvents HomeMenuItem As ToolStripMenuItem
     Friend WithEvents ExitMenuItem As ToolStripMenuItem
     Friend WithEvents TestMenuItem As ToolStripMenuItem
-    Friend WithEvents StyleFormToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ColorsToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents UCTestToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents Test01 As ToolStripMenuItem
+    Friend WithEvents Test02 As ToolStripMenuItem
+    Friend WithEvents Test03 As ToolStripMenuItem
     Friend WithEvents GenToolTip As ToolTip
-    Friend WithEvents SampleTestToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents Test04 As ToolStripMenuItem
 End Class

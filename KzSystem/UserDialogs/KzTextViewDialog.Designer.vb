@@ -66,7 +66,7 @@ Partial Class KzTextViewDialog
         Me.RootSplitContainer.Panel2.Controls.Add(Me.OKCmd)
         Me.RootSplitContainer.Panel2.Controls.Add(Me.CancelCmd)
         Me.RootSplitContainer.Size = New System.Drawing.Size(443, 357)
-        Me.RootSplitContainer.SplitterDistance = 305
+        Me.RootSplitContainer.SplitterDistance = 303
         Me.RootSplitContainer.SplitterWidth = 6
         Me.RootSplitContainer.TabIndex = 1
         '
@@ -79,13 +79,13 @@ Partial Class KzTextViewDialog
         Me.ContentsTextBox.Multiline = True
         Me.ContentsTextBox.Name = "ContentsTextBox"
         Me.ContentsTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.ContentsTextBox.Size = New System.Drawing.Size(443, 254)
+        Me.ContentsTextBox.Size = New System.Drawing.Size(443, 252)
         Me.ContentsTextBox.TabIndex = 1
         '
         'TextDialogStatusStrip
         '
         Me.TextDialogStatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CountLabel, Me.SelectionLabel, Me.PositionLabel})
-        Me.TextDialogStatusStrip.Location = New System.Drawing.Point(0, 279)
+        Me.TextDialogStatusStrip.Location = New System.Drawing.Point(0, 277)
         Me.TextDialogStatusStrip.Name = "TextDialogStatusStrip"
         Me.TextDialogStatusStrip.Size = New System.Drawing.Size(443, 26)
         Me.TextDialogStatusStrip.TabIndex = 2
@@ -117,7 +117,6 @@ Partial Class KzTextViewDialog
         Me.TextDialogToolStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SaveToolStripButton, Me.CopyToolStripButton, Me.ToolStripSeparator1, Me.SearchToolStripTextBox, Me.GoToolStripButton})
         Me.TextDialogToolStrip.Location = New System.Drawing.Point(0, 0)
         Me.TextDialogToolStrip.Name = "TextDialogToolStrip"
-        Me.TextDialogToolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
         Me.TextDialogToolStrip.Size = New System.Drawing.Size(443, 25)
         Me.TextDialogToolStrip.TabIndex = 0
         Me.TextDialogToolStrip.Text = "ToolStrip1"
@@ -165,7 +164,7 @@ Partial Class KzTextViewDialog
         Me.InfoLabel.Dock = System.Windows.Forms.DockStyle.Left
         Me.InfoLabel.Location = New System.Drawing.Point(0, 0)
         Me.InfoLabel.Name = "InfoLabel"
-        Me.InfoLabel.Size = New System.Drawing.Size(245, 46)
+        Me.InfoLabel.Size = New System.Drawing.Size(245, 48)
         Me.InfoLabel.TabIndex = 2
         Me.InfoLabel.Text = "Description"
         '

@@ -16,8 +16,6 @@
         Me.PerformLayout()
     End Sub
 
-
-
     Public Property Color As Color
         Get
             Return iColor
@@ -65,6 +63,7 @@
             If .IsKnownColor Then CodeCombo.Items.Add("= Color.FromKnownColor(Color." & .Name & ")")
 
             CodeCombo.SelectedIndex = 0
+
         End With
     End Sub
 
@@ -81,7 +80,10 @@
 
     End Sub
 
-    Private Sub ShowColorsButton_DropDownItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles ShowColorsButton.DropDownItemClicked
+    Private Sub ShowColorsButton_DropDownItemClicked _
+        (sender As Object, e As ToolStripItemClickedEventArgs) _
+        Handles ShowColorsButton.DropDownItemClicked
+
         With ColorsPanel
             Me.Cursor = Cursors.WaitCursor
 
@@ -123,20 +125,31 @@
         (sender As Object, e As EventArgs) Handles _
         ColorsPanel.StickersChanged, ColorsPanel.CheckedStickersChanged
 
-        ColorsLabel.Text = ColorsPanel.Stickers.Count
-        CheckedLabel.Text = ColorsPanel.CheckedStickers.Count
+        ColorsLabel.Text = ColorsPanel.Stickers.Count & " listed"
+        CheckedLabel.Text = ColorsPanel.CheckedStickers.Count & " checked"
     End Sub
 
-    Private Sub AlphaBar_ValueChanged _
+    Private Sub BarValueChanged _
         (sender As Object, e As EventArgs) Handles _
         AlphaBar.ValueChanged, RedBar.ValueChanged, GreenBar.ValueChanged, BlueBar.ValueChanged
 
-        'If iHandleMode Then
-        '    SetColorToUI(Color.FromArgb(AlphaBar.Value, RedBar.Value, GreenBar.Value, BlueBar.Value))
-        'End If
+        If HandleChecker.Checked Then
+            iColor = Color.FromArgb(AlphaBar.Value, RedBar.Value, GreenBar.Value, BlueBar.Value)
+            SetColorToUI(iColor)
+        End If
     End Sub
 
-    Private Sub HandleChecker_CheckedChanged(sender As Object, e As EventArgs) Handles HandleChecker.CheckedChanged
+    Private Sub BarMouseEnter(sender As Object, e As EventArgs) _
+        Handles AlphaBar.MouseEnter, RedBar.MouseEnter, GreenBar.MouseEnter, BlueBar.MouseEnter
+
+        HandleChecker.Checked = True
+    End Sub
+
+    Private Sub BarMouseLeave(sender As Object, e As EventArgs) _
+        Handles AlphaBar.MouseLeave, RedBar.MouseLeave, GreenBar.MouseLeave, BlueBar.MouseLeave
+
+        HandleChecker.Checked = False
 
     End Sub
+
 End Class

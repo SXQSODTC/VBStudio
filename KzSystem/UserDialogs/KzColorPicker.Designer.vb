@@ -22,7 +22,6 @@ Partial Class KzColorPicker
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(KzColorPicker))
         Me.RootTools = New System.Windows.Forms.ToolStrip()
         Me.ImportButton = New System.Windows.Forms.ToolStripButton()
         Me.Separator1 = New System.Windows.Forms.ToolStripSeparator()
@@ -56,6 +55,7 @@ Partial Class KzColorPicker
         Me.ColorsLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.CheckedLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.RootSpliter = New System.Windows.Forms.SplitContainer()
+        Me.ColorsPanel = New KzSystem.KzColorListPanel()
         Me.ColorPanel = New System.Windows.Forms.TableLayoutPanel()
         Me.HueLB = New System.Windows.Forms.Label()
         Me.SaturationLB = New System.Windows.Forms.Label()
@@ -65,17 +65,16 @@ Partial Class KzColorPicker
         Me.HueTB = New System.Windows.Forms.TextBox()
         Me.SaturationTB = New System.Windows.Forms.TextBox()
         Me.BrightnessTB = New System.Windows.Forms.TextBox()
+        Me.RedBar = New KzSystem.KzSlideBar()
+        Me.GreenBar = New KzSystem.KzSlideBar()
+        Me.BlueBar = New KzSystem.KzSlideBar()
+        Me.AlphaBar = New KzSystem.KzSlideBar()
         Me.OkBT = New System.Windows.Forms.Button()
         Me.CancelBT = New System.Windows.Forms.Button()
         Me.NameTB = New System.Windows.Forms.TextBox()
         Me.NumTB = New System.Windows.Forms.TextBox()
         Me.NumBT = New System.Windows.Forms.Button()
         Me.HasCodeLB = New System.Windows.Forms.Label()
-        Me.ColorsPanel = New KzSystem.KzColorListPanel()
-        Me.RedBar = New KzSystem.KzSlideBar()
-        Me.GreenBar = New KzSystem.KzSlideBar()
-        Me.BlueBar = New KzSystem.KzSlideBar()
-        Me.AlphaBar = New KzSystem.KzSlideBar()
         Me.HandleChecker = New System.Windows.Forms.CheckBox()
         Me.RootTools.SuspendLayout()
         Me.RootStatus.SuspendLayout()
@@ -98,11 +97,11 @@ Partial Class KzColorPicker
         'ImportButton
         '
         Me.ImportButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.ImportButton.Image = CType(resources.GetObject("ImportButton.Image"), System.Drawing.Image)
+        Me.ImportButton.Image = Global.KzSystem.My.Resources.Resources.liner_import
         Me.ImportButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ImportButton.Name = "ImportButton"
         Me.ImportButton.Size = New System.Drawing.Size(23, 22)
-        Me.ImportButton.Text = "Import"
+        Me.ImportButton.Text = "IM"
         Me.ImportButton.ToolTipText = "Import from constructed file"
         '
         'Separator1
@@ -114,11 +113,11 @@ Partial Class KzColorPicker
         '
         Me.ShowColorsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.ShowColorsButton.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.KnownItem, Me.SystemItem, Me.WebItem, Me.CustomItem, Me.Separator4, Me.CheckedItem, Me.Separator5, Me.ClearListItem})
-        Me.ShowColorsButton.Image = CType(resources.GetObject("ShowColorsButton.Image"), System.Drawing.Image)
+        Me.ShowColorsButton.Image = Global.KzSystem.My.Resources.Resources.liner_view
         Me.ShowColorsButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ShowColorsButton.Name = "ShowColorsButton"
         Me.ShowColorsButton.Size = New System.Drawing.Size(29, 22)
-        Me.ShowColorsButton.Text = "All"
+        Me.ShowColorsButton.Text = "V"
         Me.ShowColorsButton.ToolTipText = "Show color list"
         '
         'KnownItem
@@ -183,11 +182,11 @@ Partial Class KzColorPicker
         'SearchButton
         '
         Me.SearchButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.SearchButton.Image = CType(resources.GetObject("SearchButton.Image"), System.Drawing.Image)
+        Me.SearchButton.Image = Global.KzSystem.My.Resources.Resources.liner_search
         Me.SearchButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.SearchButton.Name = "SearchButton"
         Me.SearchButton.Size = New System.Drawing.Size(23, 22)
-        Me.SearchButton.Text = "Search"
+        Me.SearchButton.Text = "S"
         '
         'Separator3
         '
@@ -196,19 +195,20 @@ Partial Class KzColorPicker
         '
         'CodeCombo
         '
+        Me.CodeCombo.AutoSize = False
         Me.CodeCombo.DropDownWidth = 256
         Me.CodeCombo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.CodeCombo.Name = "CodeCombo"
-        Me.CodeCombo.Size = New System.Drawing.Size(121, 25)
+        Me.CodeCombo.Size = New System.Drawing.Size(128, 25)
         '
         'CopyButton
         '
         Me.CopyButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.CopyButton.Image = CType(resources.GetObject("CopyButton.Image"), System.Drawing.Image)
+        Me.CopyButton.Image = Global.KzSystem.My.Resources.Resources.liner_copy
         Me.CopyButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.CopyButton.Name = "CopyButton"
         Me.CopyButton.Size = New System.Drawing.Size(23, 22)
-        Me.CopyButton.Text = "Copy"
+        Me.CopyButton.Text = "C"
         Me.CopyButton.ToolTipText = "Copy to clipboard"
         '
         'Separator6
@@ -220,11 +220,11 @@ Partial Class KzColorPicker
         '
         Me.EditListButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.EditListButton.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AddToToolStripMenuItem, Me.InsertToToolStripMenuItem, Me.ToolStripSeparator1, Me.RemoveSelectedToolStripMenuItem, Me.RemoveCheckedToolStripMenuItem})
-        Me.EditListButton.Image = CType(resources.GetObject("EditListButton.Image"), System.Drawing.Image)
+        Me.EditListButton.Image = Global.KzSystem.My.Resources.Resources.liner_edit
         Me.EditListButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.EditListButton.Name = "EditListButton"
         Me.EditListButton.Size = New System.Drawing.Size(29, 22)
-        Me.EditListButton.Text = "Edit"
+        Me.EditListButton.Text = "ED"
         '
         'AddToToolStripMenuItem
         '
@@ -259,11 +259,11 @@ Partial Class KzColorPicker
         '
         Me.ExportButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.ExportButton.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SaveCurrentToolStripMenuItem, Me.ExportListToolStripMenuItem})
-        Me.ExportButton.Image = CType(resources.GetObject("ExportButton.Image"), System.Drawing.Image)
+        Me.ExportButton.Image = Global.KzSystem.My.Resources.Resources.liner_export
         Me.ExportButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ExportButton.Name = "ExportButton"
         Me.ExportButton.Size = New System.Drawing.Size(29, 22)
-        Me.ExportButton.Text = "Export"
+        Me.ExportButton.Text = "EX"
         Me.ExportButton.ToolTipText = "Export or save current color"
         '
         'SaveCurrentToolStripMenuItem
@@ -280,8 +280,9 @@ Partial Class KzColorPicker
         '
         'RootStatus
         '
+        Me.RootStatus.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.RootStatus.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TypeLabel, Me.ColorsLabel, Me.CheckedLabel})
-        Me.RootStatus.Location = New System.Drawing.Point(0, 428)
+        Me.RootStatus.Location = New System.Drawing.Point(0, 392)
         Me.RootStatus.Name = "RootStatus"
         Me.RootStatus.Size = New System.Drawing.Size(475, 26)
         Me.RootStatus.TabIndex = 1
@@ -322,9 +323,22 @@ Partial Class KzColorPicker
         '
         Me.RootSpliter.Panel2.AutoScroll = True
         Me.RootSpliter.Panel2.Controls.Add(Me.ColorPanel)
-        Me.RootSpliter.Size = New System.Drawing.Size(475, 403)
-        Me.RootSpliter.SplitterDistance = 184
+        Me.RootSpliter.Size = New System.Drawing.Size(475, 367)
+        Me.RootSpliter.SplitterDistance = 205
         Me.RootSpliter.TabIndex = 2
+        '
+        'ColorsPanel
+        '
+        Me.ColorsPanel.AutoScroll = True
+        Me.ColorsPanel.BackColor = System.Drawing.Color.DarkGray
+        Me.ColorsPanel.DefaultColorListType = KzSystem.KzColorListType.None
+        Me.ColorsPanel.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ColorsPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
+        Me.ColorsPanel.Location = New System.Drawing.Point(0, 0)
+        Me.ColorsPanel.Name = "ColorsPanel"
+        Me.ColorsPanel.Size = New System.Drawing.Size(205, 367)
+        Me.ColorsPanel.TabIndex = 0
+        Me.ColorsPanel.WrapContents = False
         '
         'ColorPanel
         '
@@ -371,14 +385,14 @@ Partial Class KzColorPicker
         Me.ColorPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28.0!))
         Me.ColorPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28.0!))
         Me.ColorPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.ColorPanel.Size = New System.Drawing.Size(287, 362)
+        Me.ColorPanel.Size = New System.Drawing.Size(266, 362)
         Me.ColorPanel.TabIndex = 0
         '
         'HueLB
         '
         Me.HueLB.AutoSize = True
         Me.HueLB.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.HueLB.Location = New System.Drawing.Point(190, 25)
+        Me.HueLB.Location = New System.Drawing.Point(169, 25)
         Me.HueLB.Name = "HueLB"
         Me.HueLB.Size = New System.Drawing.Size(94, 20)
         Me.HueLB.TabIndex = 2
@@ -389,7 +403,7 @@ Partial Class KzColorPicker
         '
         Me.SaturationLB.AutoSize = True
         Me.SaturationLB.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SaturationLB.Location = New System.Drawing.Point(190, 65)
+        Me.SaturationLB.Location = New System.Drawing.Point(169, 65)
         Me.SaturationLB.Name = "SaturationLB"
         Me.SaturationLB.Size = New System.Drawing.Size(94, 20)
         Me.SaturationLB.TabIndex = 3
@@ -400,7 +414,7 @@ Partial Class KzColorPicker
         '
         Me.BrightnessLB.AutoSize = True
         Me.BrightnessLB.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BrightnessLB.Location = New System.Drawing.Point(190, 105)
+        Me.BrightnessLB.Location = New System.Drawing.Point(169, 105)
         Me.BrightnessLB.Name = "BrightnessLB"
         Me.BrightnessLB.Size = New System.Drawing.Size(94, 20)
         Me.BrightnessLB.TabIndex = 4
@@ -429,13 +443,13 @@ Partial Class KzColorPicker
         Me.ColorShowPanel.Margin = New System.Windows.Forms.Padding(10)
         Me.ColorShowPanel.Name = "ColorShowPanel"
         Me.ColorPanel.SetRowSpan(Me.ColorShowPanel, 7)
-        Me.ColorShowPanel.Size = New System.Drawing.Size(167, 125)
+        Me.ColorShowPanel.Size = New System.Drawing.Size(146, 125)
         Me.ColorShowPanel.TabIndex = 5
         '
         'HueTB
         '
         Me.HueTB.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.HueTB.Location = New System.Drawing.Point(187, 45)
+        Me.HueTB.Location = New System.Drawing.Point(166, 45)
         Me.HueTB.Margin = New System.Windows.Forms.Padding(0)
         Me.HueTB.Name = "HueTB"
         Me.HueTB.Size = New System.Drawing.Size(100, 16)
@@ -444,7 +458,7 @@ Partial Class KzColorPicker
         'SaturationTB
         '
         Me.SaturationTB.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.SaturationTB.Location = New System.Drawing.Point(187, 85)
+        Me.SaturationTB.Location = New System.Drawing.Point(166, 85)
         Me.SaturationTB.Margin = New System.Windows.Forms.Padding(0)
         Me.SaturationTB.Name = "SaturationTB"
         Me.SaturationTB.Size = New System.Drawing.Size(100, 16)
@@ -453,17 +467,93 @@ Partial Class KzColorPicker
         'BrightnessTB
         '
         Me.BrightnessTB.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.BrightnessTB.Location = New System.Drawing.Point(187, 125)
+        Me.BrightnessTB.Location = New System.Drawing.Point(166, 125)
         Me.BrightnessTB.Margin = New System.Windows.Forms.Padding(0)
         Me.BrightnessTB.Name = "BrightnessTB"
         Me.BrightnessTB.Size = New System.Drawing.Size(100, 16)
         Me.BrightnessTB.TabIndex = 8
         '
+        'RedBar
+        '
+        Me.ColorPanel.SetColumnSpan(Me.RedBar, 3)
+        Me.RedBar.Dock = System.Windows.Forms.DockStyle.Top
+        Me.RedBar.Font = New System.Drawing.Font("Consolas", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.RedBar.Location = New System.Drawing.Point(0, 215)
+        Me.RedBar.Margin = New System.Windows.Forms.Padding(0)
+        Me.RedBar.Maximum = 255
+        Me.RedBar.Minimum = 0
+        Me.RedBar.Name = "RedBar"
+        Me.RedBar.NumberWidth = 55
+        Me.RedBar.Size = New System.Drawing.Size(266, 28)
+        Me.RedBar.TabIndex = 9
+        Me.RedBar.TickFrequency = 20
+        Me.RedBar.TickStyle = System.Windows.Forms.TickStyle.BottomRight
+        Me.RedBar.Title = "Red"
+        Me.RedBar.TitleWidth = 45
+        Me.RedBar.Value = 0
+        '
+        'GreenBar
+        '
+        Me.ColorPanel.SetColumnSpan(Me.GreenBar, 3)
+        Me.GreenBar.Dock = System.Windows.Forms.DockStyle.Top
+        Me.GreenBar.Font = New System.Drawing.Font("Consolas", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GreenBar.Location = New System.Drawing.Point(0, 243)
+        Me.GreenBar.Margin = New System.Windows.Forms.Padding(0)
+        Me.GreenBar.Maximum = 255
+        Me.GreenBar.Minimum = 0
+        Me.GreenBar.Name = "GreenBar"
+        Me.GreenBar.NumberWidth = 55
+        Me.GreenBar.Size = New System.Drawing.Size(266, 28)
+        Me.GreenBar.TabIndex = 10
+        Me.GreenBar.TickFrequency = 20
+        Me.GreenBar.TickStyle = System.Windows.Forms.TickStyle.BottomRight
+        Me.GreenBar.Title = "Green"
+        Me.GreenBar.TitleWidth = 45
+        Me.GreenBar.Value = 0
+        '
+        'BlueBar
+        '
+        Me.ColorPanel.SetColumnSpan(Me.BlueBar, 3)
+        Me.BlueBar.Dock = System.Windows.Forms.DockStyle.Top
+        Me.BlueBar.Font = New System.Drawing.Font("Consolas", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BlueBar.Location = New System.Drawing.Point(0, 271)
+        Me.BlueBar.Margin = New System.Windows.Forms.Padding(0)
+        Me.BlueBar.Maximum = 255
+        Me.BlueBar.Minimum = 0
+        Me.BlueBar.Name = "BlueBar"
+        Me.BlueBar.NumberWidth = 55
+        Me.BlueBar.Size = New System.Drawing.Size(266, 28)
+        Me.BlueBar.TabIndex = 11
+        Me.BlueBar.TickFrequency = 20
+        Me.BlueBar.TickStyle = System.Windows.Forms.TickStyle.BottomRight
+        Me.BlueBar.Title = "Blue"
+        Me.BlueBar.TitleWidth = 45
+        Me.BlueBar.Value = 0
+        '
+        'AlphaBar
+        '
+        Me.ColorPanel.SetColumnSpan(Me.AlphaBar, 3)
+        Me.AlphaBar.Dock = System.Windows.Forms.DockStyle.Top
+        Me.AlphaBar.Font = New System.Drawing.Font("Consolas", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.AlphaBar.Location = New System.Drawing.Point(0, 299)
+        Me.AlphaBar.Margin = New System.Windows.Forms.Padding(0)
+        Me.AlphaBar.Maximum = 255
+        Me.AlphaBar.Minimum = 0
+        Me.AlphaBar.Name = "AlphaBar"
+        Me.AlphaBar.NumberWidth = 55
+        Me.AlphaBar.Size = New System.Drawing.Size(266, 28)
+        Me.AlphaBar.TabIndex = 12
+        Me.AlphaBar.TickFrequency = 20
+        Me.AlphaBar.TickStyle = System.Windows.Forms.TickStyle.BottomRight
+        Me.AlphaBar.Title = "Alpha"
+        Me.AlphaBar.TitleWidth = 45
+        Me.AlphaBar.Value = 0
+        '
         'OkBT
         '
         Me.OkBT.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.OkBT.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.OkBT.Location = New System.Drawing.Point(188, 156)
+        Me.OkBT.Location = New System.Drawing.Point(167, 156)
         Me.OkBT.Margin = New System.Windows.Forms.Padding(1)
         Me.OkBT.Name = "OkBT"
         Me.OkBT.Size = New System.Drawing.Size(98, 23)
@@ -475,7 +565,7 @@ Partial Class KzColorPicker
         '
         Me.CancelBT.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.CancelBT.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.CancelBT.Location = New System.Drawing.Point(188, 181)
+        Me.CancelBT.Location = New System.Drawing.Point(167, 181)
         Me.CancelBT.Margin = New System.Windows.Forms.Padding(1)
         Me.CancelBT.Name = "CancelBT"
         Me.CancelBT.Size = New System.Drawing.Size(98, 23)
@@ -490,7 +580,7 @@ Partial Class KzColorPicker
         Me.NameTB.Location = New System.Drawing.Point(52, 157)
         Me.NameTB.Margin = New System.Windows.Forms.Padding(2)
         Me.NameTB.Name = "NameTB"
-        Me.NameTB.Size = New System.Drawing.Size(133, 23)
+        Me.NameTB.Size = New System.Drawing.Size(112, 23)
         Me.NameTB.TabIndex = 15
         '
         'NumTB
@@ -499,7 +589,7 @@ Partial Class KzColorPicker
         Me.NumTB.Location = New System.Drawing.Point(52, 182)
         Me.NumTB.Margin = New System.Windows.Forms.Padding(2)
         Me.NumTB.Name = "NumTB"
-        Me.NumTB.Size = New System.Drawing.Size(133, 23)
+        Me.NumTB.Size = New System.Drawing.Size(112, 23)
         Me.NumTB.TabIndex = 16
         '
         'NumBT
@@ -521,106 +611,17 @@ Partial Class KzColorPicker
         Me.HasCodeLB.AutoSize = True
         Me.ColorPanel.SetColumnSpan(Me.HasCodeLB, 3)
         Me.HasCodeLB.Font = New System.Drawing.Font("Consolas", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.HasCodeLB.Location = New System.Drawing.Point(119, 337)
+        Me.HasCodeLB.Location = New System.Drawing.Point(108, 337)
         Me.HasCodeLB.Margin = New System.Windows.Forms.Padding(3, 10, 3, 0)
         Me.HasCodeLB.Name = "HasCodeLB"
         Me.HasCodeLB.Size = New System.Drawing.Size(49, 14)
         Me.HasCodeLB.TabIndex = 18
         Me.HasCodeLB.Text = "Label2"
         '
-        'ColorsPanel
-        '
-        Me.ColorsPanel.AutoScroll = True
-        Me.ColorsPanel.BackColor = System.Drawing.Color.DarkGray
-        Me.ColorsPanel.DefaultColorListType = KzSystem.KzColorListType.None
-        Me.ColorsPanel.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ColorsPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
-        Me.ColorsPanel.Location = New System.Drawing.Point(0, 0)
-        Me.ColorsPanel.Name = "ColorsPanel"
-        Me.ColorsPanel.Size = New System.Drawing.Size(184, 403)
-        Me.ColorsPanel.TabIndex = 0
-        Me.ColorsPanel.WrapContents = False
-        '
-        'RedBar
-        '
-        Me.ColorPanel.SetColumnSpan(Me.RedBar, 3)
-        Me.RedBar.Dock = System.Windows.Forms.DockStyle.Top
-        Me.RedBar.Font = New System.Drawing.Font("Consolas", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.RedBar.Location = New System.Drawing.Point(0, 215)
-        Me.RedBar.Margin = New System.Windows.Forms.Padding(0)
-        Me.RedBar.Maximum = 255
-        Me.RedBar.Minimum = 0
-        Me.RedBar.Name = "RedBar"
-        Me.RedBar.NumberWidth = 55
-        Me.RedBar.Size = New System.Drawing.Size(287, 28)
-        Me.RedBar.TabIndex = 9
-        Me.RedBar.TickFrequency = 20
-        Me.RedBar.TickStyle = System.Windows.Forms.TickStyle.BottomRight
-        Me.RedBar.Title = "Red"
-        Me.RedBar.TitleWidth = 45
-        Me.RedBar.Value = 0
-        '
-        'GreenBar
-        '
-        Me.ColorPanel.SetColumnSpan(Me.GreenBar, 3)
-        Me.GreenBar.Dock = System.Windows.Forms.DockStyle.Top
-        Me.GreenBar.Font = New System.Drawing.Font("Consolas", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GreenBar.Location = New System.Drawing.Point(0, 243)
-        Me.GreenBar.Margin = New System.Windows.Forms.Padding(0)
-        Me.GreenBar.Maximum = 255
-        Me.GreenBar.Minimum = 0
-        Me.GreenBar.Name = "GreenBar"
-        Me.GreenBar.NumberWidth = 55
-        Me.GreenBar.Size = New System.Drawing.Size(287, 28)
-        Me.GreenBar.TabIndex = 10
-        Me.GreenBar.TickFrequency = 20
-        Me.GreenBar.TickStyle = System.Windows.Forms.TickStyle.BottomRight
-        Me.GreenBar.Title = "Green"
-        Me.GreenBar.TitleWidth = 45
-        Me.GreenBar.Value = 0
-        '
-        'BlueBar
-        '
-        Me.ColorPanel.SetColumnSpan(Me.BlueBar, 3)
-        Me.BlueBar.Dock = System.Windows.Forms.DockStyle.Top
-        Me.BlueBar.Font = New System.Drawing.Font("Consolas", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BlueBar.Location = New System.Drawing.Point(0, 271)
-        Me.BlueBar.Margin = New System.Windows.Forms.Padding(0)
-        Me.BlueBar.Maximum = 255
-        Me.BlueBar.Minimum = 0
-        Me.BlueBar.Name = "BlueBar"
-        Me.BlueBar.NumberWidth = 55
-        Me.BlueBar.Size = New System.Drawing.Size(287, 28)
-        Me.BlueBar.TabIndex = 11
-        Me.BlueBar.TickFrequency = 20
-        Me.BlueBar.TickStyle = System.Windows.Forms.TickStyle.BottomRight
-        Me.BlueBar.Title = "Blue"
-        Me.BlueBar.TitleWidth = 45
-        Me.BlueBar.Value = 0
-        '
-        'AlphaBar
-        '
-        Me.ColorPanel.SetColumnSpan(Me.AlphaBar, 3)
-        Me.AlphaBar.Dock = System.Windows.Forms.DockStyle.Top
-        Me.AlphaBar.Font = New System.Drawing.Font("Consolas", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.AlphaBar.Location = New System.Drawing.Point(0, 299)
-        Me.AlphaBar.Margin = New System.Windows.Forms.Padding(0)
-        Me.AlphaBar.Maximum = 255
-        Me.AlphaBar.Minimum = 0
-        Me.AlphaBar.Name = "AlphaBar"
-        Me.AlphaBar.NumberWidth = 55
-        Me.AlphaBar.Size = New System.Drawing.Size(287, 28)
-        Me.AlphaBar.TabIndex = 12
-        Me.AlphaBar.TickFrequency = 20
-        Me.AlphaBar.TickStyle = System.Windows.Forms.TickStyle.BottomRight
-        Me.AlphaBar.Title = "Alpha"
-        Me.AlphaBar.TitleWidth = 45
-        Me.AlphaBar.Value = 0
-        '
         'HandleChecker
         '
         Me.HandleChecker.AutoSize = True
-        Me.HandleChecker.Location = New System.Drawing.Point(190, 3)
+        Me.HandleChecker.Location = New System.Drawing.Point(169, 3)
         Me.HandleChecker.Name = "HandleChecker"
         Me.HandleChecker.Size = New System.Drawing.Size(68, 19)
         Me.HandleChecker.TabIndex = 19
@@ -630,7 +631,7 @@ Partial Class KzColorPicker
         'KzColorPicker
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(475, 454)
+        Me.ClientSize = New System.Drawing.Size(475, 418)
         Me.Controls.Add(Me.RootSpliter)
         Me.Controls.Add(Me.RootStatus)
         Me.Controls.Add(Me.RootTools)

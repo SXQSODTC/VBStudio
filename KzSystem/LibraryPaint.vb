@@ -1,4 +1,62 @@
 ﻿
+Public Class KzPainting
+
+
+    Public Shared Sub SetHighQuality(g As Graphics)
+        g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality '合成图像的呈现质量
+        g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic '插补模式
+        g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias '平滑模式
+        g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit '文本呈现的质量
+    End Sub
+
+    Public Shared Sub DrawBorder _
+        (g As Graphics, rectangle As Rectangle, style As KzBorderStyle,
+         Optional color As Color = Nothing, Optional width As Integer = 1,
+         Optional sides As Border3DSide = Border3DSide.All)
+
+        If color = Nothing Then
+            color = SystemColors.ActiveBorder
+        End If
+
+        Select Case style
+            Case KzBorderStyle.Dashed 'from ButtonBorderStyle Enumeration
+                ControlPaint.DrawBorder(g, rectangle, color, ButtonBorderStyle.Dashed)
+            Case KzBorderStyle.Dotted 'from ButtonBorderStyle Enumeration
+                ControlPaint.DrawBorder(g, rectangle, color, ButtonBorderStyle.Dotted)
+            Case KzBorderStyle.Inset 'from ButtonBorderStyle Enumeration
+                ControlPaint.DrawBorder(g, rectangle, color, ButtonBorderStyle.Inset)
+            Case KzBorderStyle.Outset 'from ButtonBorderStyle Enumeration
+                ControlPaint.DrawBorder(g, rectangle, color, ButtonBorderStyle.Outset)
+            Case KzBorderStyle.Solid 'from ButtonBorderStyle Enumeration
+                ControlPaint.DrawBorder(g, rectangle, color, ButtonBorderStyle.Solid)
+
+            Case KzBorderStyle.Adjust 'from Border3DStyle Enumeration
+                ControlPaint.DrawBorder3D(g, rectangle, Border3DStyle.Adjust, sides)
+            Case KzBorderStyle.Bump 'from Border3DStyle Enumeration
+                ControlPaint.DrawBorder3D(g, rectangle, Border3DStyle.Bump, sides)
+            Case KzBorderStyle.Etched 'from Border3DStyle Enumeration
+                ControlPaint.DrawBorder3D(g, rectangle, Border3DStyle.Etched, sides)
+            Case KzBorderStyle.Flat 'from Border3DStyle Enumeration
+                ControlPaint.DrawBorder3D(g, rectangle, Border3DStyle.Flat, sides)
+            Case KzBorderStyle.Raised 'from Border3DStyle Enumeration
+                ControlPaint.DrawBorder3D(g, rectangle, Border3DStyle.Raised, sides)
+            Case KzBorderStyle.RaisedInner 'from Border3DStyle Enumeration
+                ControlPaint.DrawBorder3D(g, rectangle, Border3DStyle.RaisedInner, sides)
+            Case KzBorderStyle.RaisedOuter 'from Border3DStyle Enumeration
+                ControlPaint.DrawBorder3D(g, rectangle, Border3DStyle.RaisedOuter, sides)
+            Case KzBorderStyle.Sunken 'from Border3DStyle Enumeration
+                ControlPaint.DrawBorder3D(g, rectangle, Border3DStyle.Sunken, sides)
+            Case KzBorderStyle.SunkenInner 'from Border3DStyle Enumeration
+                ControlPaint.DrawBorder3D(g, rectangle, Border3DStyle.SunkenInner, sides)
+            Case KzBorderStyle.SunkenOuter 'from Border3DStyle Enumeration
+                ControlPaint.DrawBorder3D(g, rectangle, Border3DStyle.SunkenOuter, sides)
+            Case Else
+
+        End Select
+    End Sub
+End Class
+
+
 Public Class KzAppearances
     Public Property Name As String = "NewApr"
 
@@ -68,3 +126,5 @@ Public Class KzAppearance
         End If
     End Function
 End Class
+
+

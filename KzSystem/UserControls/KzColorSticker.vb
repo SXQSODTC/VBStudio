@@ -203,6 +203,8 @@
             .ColumnStyles(0).Width = Math.Min(Math.Max(.Height, .Width / 3), .Height * 2)
         End With
     End Sub
+
+
 End Class
 
 

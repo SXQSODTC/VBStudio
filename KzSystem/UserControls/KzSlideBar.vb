@@ -93,9 +93,37 @@
         NumberUD.Value = Bar.Value
     End Sub
 
-    Private Sub Bar_ValueChanged(sender As Object, e As EventArgs) Handles Bar.ValueChanged, NumberUD.ValueChanged
+    Private Sub Bar_ValueChanged(sender As Object, e As EventArgs) _
+        Handles Bar.ValueChanged, NumberUD.ValueChanged
+
         RaiseEvent ValueChanged(Me, e)
     End Sub
 
+    Private Sub Bar_MouseEnter(sender As Object, e As EventArgs) _
+        Handles RootPanel.MouseEnter, TitleLabel.MouseEnter, Bar.MouseEnter, NumberUD.MouseEnter ', RootPanel.MouseEnter
+
+        RaiseEvent MouseEnter(Me, e)
+    End Sub
+
+    Private Sub Bar_MouseLeave(sender As Object, e As EventArgs) _
+        Handles RootPanel.MouseLeave, TitleLabel.MouseLeave, Bar.MouseLeave, NumberUD.MouseLeave  ', RootPanel.MouseLeave
+
+        RaiseEvent MouseLeave(Me, e)
+    End Sub
+
+    Private Sub NumberUD_MouseDown(sender As Object, e As MouseEventArgs) Handles NumberUD.MouseDown
+        RaiseEvent MouseEnter(Me, New EventArgs)
+    End Sub
+
+    Private Sub NumberUD_MouseHover(sender As Object, e As EventArgs) Handles NumberUD.MouseHover
+        RaiseEvent MouseEnter(Me, New EventArgs)
+    End Sub
+
+    Private Sub NumberUD_MouseMove(sender As Object, e As MouseEventArgs) Handles NumberUD.MouseMove
+        RaiseEvent MouseEnter(Me, New EventArgs)
+    End Sub
+
     Public Event ValueChanged(sender As Object, e As EventArgs)
+    Public Shadows Event MouseEnter(sender As Object, e As EventArgs)
+    Public Shadows Event MouseLeave(sender As Object, e As EventArgs)
 End Class

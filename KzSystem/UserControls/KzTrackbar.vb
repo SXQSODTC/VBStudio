@@ -932,9 +932,14 @@ Public Class KzTrackBar
                 If _maximum = _minimum Then
                     currentTrackerPos = workingRect.Left
                 Else
-                    currentTrackerPos = (workingRect.Width - _trackerSize.Width) * (_value - _minimum) / (_maximum - _minimum) + workingRect.Left
+                    currentTrackerPos = (workingRect.Width - _trackerSize.Width) *
+                        (_value - _minimum) / (_maximum - _minimum) + workingRect.Left
                 End If
-                trackerRect_Renamed = New RectangleF(currentTrackerPos, currentUsedPos, _trackerSize.Width, _trackerSize.Height) ' Remember this for drawing the Tracker later
+
+                trackerRect_Renamed = New RectangleF _
+                    (currentTrackerPos, currentUsedPos,
+                     _trackerSize.Width, _trackerSize.Height) ' Remember this for drawing the Tracker later
+
                 trackerRect_Renamed.Inflate(0, -1)
             Else '_orientation == Orientation.Vertical
                 currentUsedPos = _indentWidth
@@ -958,10 +963,13 @@ Public Class KzTrackBar
                 If _maximum = _minimum Then
                     currentTrackerPos = workingRect.Top
                 Else
-                    currentTrackerPos = (workingRect.Height - _trackerSize.Width) * (_value - _minimum) / (_maximum - _minimum)
+                    currentTrackerPos = (workingRect.Height - _trackerSize.Width) *
+                        (_value - _minimum) / (_maximum - _minimum)
                 End If
 
-                trackerRect_Renamed = New RectangleF(currentUsedPos, workingRect.Bottom - currentTrackerPos - _trackerSize.Width, _trackerSize.Height, _trackerSize.Width) ' Remember this for drawing the Tracker later
+                trackerRect_Renamed = New RectangleF _
+                    (currentUsedPos, workingRect.Bottom - currentTrackerPos - _trackerSize.Width,
+                     _trackerSize.Height, _trackerSize.Width) ' Remember this for drawing the Tracker later
                 trackerRect_Renamed.Inflate(-1, 0)
 
 
@@ -1207,7 +1215,8 @@ Public Class KzTrackBar
         ' Draw the background of the ProgressBar control.
         '==========================================================================
         brush = New SolidBrush(Me.BackColor)
-        rectTemp = New RectangleF(Me.ClientRectangle.X, Me.ClientRectangle.Y, Me.ClientRectangle.Width, Me.ClientRectangle.Height)
+        rectTemp = New RectangleF(Me.ClientRectangle.X, Me.ClientRectangle.Y,
+                                  Me.ClientRectangle.Width, Me.ClientRectangle.Height)
 
         e.Graphics.FillRectangle(brush, rectTemp)
         brush.Dispose()
@@ -1229,7 +1238,8 @@ Public Class KzTrackBar
                 drawRect.Inflate(-_trackerSize.Width / 2, 0)
                 currentUsedPos += textAreaSize
 
-                DrawTickTextLine(e.Graphics, drawRect, _tickFrequency, _minimum, _maximum, Me.ForeColor, Me.Font, _orientation)
+                DrawTickTextLine(e.Graphics, drawRect, _tickFrequency,
+                                 _minimum, _maximum, Me.ForeColor, Me.Font, _orientation)
                 '==========================================================================
             End If
 
@@ -1252,15 +1262,19 @@ Public Class KzTrackBar
             If _maximum = _minimum Then
                 currentTrackerPos = workingRect.Left
             Else
-                currentTrackerPos = (workingRect.Width - _trackerSize.Width) * (_value - _minimum) / (_maximum - _minimum) + workingRect.Left
+                currentTrackerPos = (workingRect.Width - _trackerSize.Width) *
+                    (_value - _minimum) / (_maximum - _minimum) + workingRect.Left
             End If
-            _trackerRect = New RectangleF(currentTrackerPos, currentUsedPos, _trackerSize.Width, _trackerSize.Height) ' Remember this for drawing the Tracker later
+            _trackerRect = New RectangleF(currentTrackerPos, currentUsedPos,
+                                          _trackerSize.Width, _trackerSize.Height) ' Remember this for drawing the Tracker later
             '_trackerRect.Inflate(0,-1);
 
             '==========================================================================
             ' Draw the Track Line
             '==========================================================================
-            drawRect = New RectangleF(workingRect.Left, currentUsedPos + _trackerSize.Height / 2 - _trackLineHeight / 2, workingRect.Width, _trackLineHeight)
+            drawRect = New RectangleF(workingRect.Left,
+                                      currentUsedPos + _trackerSize.Height / 2 - _trackLineHeight / 2,
+                                      workingRect.Width, _trackLineHeight)
             DrawTrackLine(e.Graphics, drawRect)
             currentUsedPos += _trackerSize.Height
 
@@ -1272,11 +1286,13 @@ Public Class KzTrackBar
                 ' Draw the 2st Tick Line.
                 '==========================================================================
                 currentUsedPos += 1
-                drawRect = New RectangleF(workingRect.Left, currentUsedPos, workingRect.Width, _tickHeight)
+                drawRect = New RectangleF(workingRect.Left, currentUsedPos,
+                                          workingRect.Width, _tickHeight)
                 drawRect.Inflate(-_trackerSize.Width / 2, 0)
                 currentUsedPos += _tickHeight
 
-                DrawTickLine(e.Graphics, drawRect, _tickFrequency, _minimum, _maximum, _tickColor, _orientation)
+                DrawTickLine(e.Graphics, drawRect, _tickFrequency, _minimum,
+                             _maximum, _tickColor, _orientation)
                 '==========================================================================
             End If
 
@@ -1285,11 +1301,13 @@ Public Class KzTrackBar
                 ' Draw the 2st Text Line.
                 '==========================================================================
                 ' Get Height of Text Area
-                drawRect = New RectangleF(workingRect.Left, currentUsedPos, workingRect.Width, textAreaSize)
+                drawRect = New RectangleF(workingRect.Left, currentUsedPos,
+                                          workingRect.Width, textAreaSize)
                 drawRect.Inflate(-_trackerSize.Width / 2, 0)
                 currentUsedPos += textAreaSize
 
-                DrawTickTextLine(e.Graphics, drawRect, _tickFrequency, _minimum, _maximum, Me.ForeColor, Me.Font, _orientation)
+                DrawTickTextLine(e.Graphics, drawRect, _tickFrequency,
+                                 _minimum, _maximum, Me.ForeColor, Me.Font, _orientation)
                 '==========================================================================
             End If
         Else '_orientation == Orientation.Vertical
@@ -1304,11 +1322,13 @@ Public Class KzTrackBar
                 ' Draw the 1st Text Line.
                 '==========================================================================
                 ' Get Height of Text Area
-                drawRect = New RectangleF(currentUsedPos, workingRect.Top, textAreaSize, workingRect.Height)
+                drawRect = New RectangleF(currentUsedPos, workingRect.Top,
+                                          textAreaSize, workingRect.Height)
                 drawRect.Inflate(0, -_trackerSize.Width / 2)
                 currentUsedPos += textAreaSize
 
-                DrawTickTextLine(e.Graphics, drawRect, _tickFrequency, _minimum, _maximum, Me.ForeColor, Me.Font, _orientation)
+                DrawTickTextLine(e.Graphics, drawRect, _tickFrequency,
+                                 _minimum, _maximum, Me.ForeColor, Me.Font, _orientation)
                 '==========================================================================
             End If
 
@@ -1316,11 +1336,13 @@ Public Class KzTrackBar
                 '==========================================================================
                 ' Draw the 1st Tick Line.
                 '==========================================================================
-                drawRect = New RectangleF(currentUsedPos, workingRect.Top, _tickHeight, workingRect.Height)
+                drawRect = New RectangleF(currentUsedPos, workingRect.Top,
+                                          _tickHeight, workingRect.Height)
                 drawRect.Inflate(0, -_trackerSize.Width / 2)
                 currentUsedPos += _tickHeight + 1
 
-                DrawTickLine(e.Graphics, drawRect, _tickFrequency, _minimum, _maximum, _tickColor, _orientation)
+                DrawTickLine(e.Graphics, drawRect, _tickFrequency,
+                             _minimum, _maximum, _tickColor, _orientation)
                 '==========================================================================
             End If
 
@@ -1331,10 +1353,13 @@ Public Class KzTrackBar
             If _maximum = _minimum Then
                 currentTrackerPos = workingRect.Top
             Else
-                currentTrackerPos = (workingRect.Height - _trackerSize.Width) * (_value - _minimum) / (_maximum - _minimum)
+                currentTrackerPos = (workingRect.Height - _trackerSize.Width) *
+                    (_value - _minimum) / (_maximum - _minimum)
             End If
 
-            _trackerRect = New RectangleF(currentUsedPos, workingRect.Bottom - currentTrackerPos - _trackerSize.Width, _trackerSize.Height, _trackerSize.Width) ' Remember this for drawing the Tracker later
+            _trackerRect = New RectangleF(currentUsedPos,
+                                          workingRect.Bottom - currentTrackerPos - _trackerSize.Width,
+                                          _trackerSize.Height, _trackerSize.Width) ' Remember this for drawing the Tracker later
             '_trackerRect.Inflate(-1,0);
 
             rectTemp = _trackerRect 'Testing
@@ -1342,7 +1367,8 @@ Public Class KzTrackBar
             '==========================================================================
             ' Draw the Track Line
             '==========================================================================
-            drawRect = New RectangleF(currentUsedPos + _trackerSize.Height / 2 - _trackLineHeight / 2, workingRect.Top, _trackLineHeight, workingRect.Height)
+            drawRect = New RectangleF(currentUsedPos + _trackerSize.Height / 2 - _trackLineHeight / 2,
+                                      workingRect.Top, _trackLineHeight, workingRect.Height)
             DrawTrackLine(e.Graphics, drawRect)
             currentUsedPos += _trackerSize.Height
             '==========================================================================
@@ -1352,11 +1378,13 @@ Public Class KzTrackBar
                 ' Draw the 2st Tick Line.
                 '==========================================================================
                 currentUsedPos += 1
-                drawRect = New RectangleF(currentUsedPos, workingRect.Top, _tickHeight, workingRect.Height)
+                drawRect = New RectangleF(currentUsedPos, workingRect.Top,
+                                          _tickHeight, workingRect.Height)
                 drawRect.Inflate(0, -_trackerSize.Width / 2)
                 currentUsedPos += _tickHeight
 
-                DrawTickLine(e.Graphics, drawRect, _tickFrequency, _minimum, _maximum, _tickColor, _orientation)
+                DrawTickLine(e.Graphics, drawRect, _tickFrequency,
+                             _minimum, _maximum, _tickColor, _orientation)
                 '==========================================================================
             End If
 
@@ -1365,11 +1393,13 @@ Public Class KzTrackBar
                 ' Draw the 2st Text Line.
                 '==========================================================================
                 ' Get Height of Text Area
-                drawRect = New RectangleF(currentUsedPos, workingRect.Top, textAreaSize, workingRect.Height)
+                drawRect = New RectangleF(currentUsedPos, workingRect.Top,
+                                          textAreaSize, workingRect.Height)
                 drawRect.Inflate(0, -_trackerSize.Width / 2)
                 currentUsedPos += textAreaSize
 
-                DrawTickTextLine(e.Graphics, drawRect, _tickFrequency, _minimum, _maximum, Me.ForeColor, Me.Font, _orientation)
+                DrawTickTextLine(e.Graphics, drawRect, _tickFrequency,
+                                 _minimum, _maximum, Me.ForeColor, Me.Font, _orientation)
                 '==========================================================================
             End If
         End If
@@ -1410,33 +1440,36 @@ Public Class KzTrackBar
         KzDrawStyleHelper.DrawAquaPillSingleLayer(g, drawRect, _trackLineColor, _orientation)
     End Sub
 
-    '' <summary>
-    '' 
-    '' </summary>
-    '' <param name="g"></param>
-    '' <param name="trackerRect"></param>
-    'INSTANT VB NOTE: The parameter trackerRect was renamed since Visual Basic will not uniquely identify class members when parameters have the same name:
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="g"></param>
+    ''' <param name="trackerRect_Renamed"></param>
     Private Sub DrawTracker(ByVal g As Graphics, ByVal trackerRect_Renamed As RectangleF)
+        'INSTANT VB NOTE: The parameter trackerRect was renamed since Visual Basic will not uniquely identify class members when parameters have the same name:
         KzDrawStyleHelper.DrawAquaPill(g, trackerRect_Renamed, _trackerColor, _orientation)
     End Sub
 
-    '' <summary>
-    '' 
-    '' </summary>
-    '' <param name="g"></param>
-    '' <param name="drawRect"></param>
-    '' <param name="tickFrequency"></param>
-    '' <param name="minimum"></param>
-    '' <param name="maximum"></param>
-    '' <param name="foreColor"></param>
-    '' <param name="font"></param>
-    '' <param name="orientation"></param>
-    'INSTANT VB NOTE: The parameter tickFrequency was renamed since Visual Basic will not uniquely identify class members when parameters have the same name:
-    'INSTANT VB NOTE: The parameter minimum was renamed since Visual Basic will not uniquely identify class members when parameters have the same name:
-    'INSTANT VB NOTE: The parameter maximum was renamed since Visual Basic will not uniquely identify class members when parameters have the same name:
-    'INSTANT VB NOTE: The parameter orientation was renamed since Visual Basic will not uniquely identify class members when parameters have the same name:
-
-    Private Sub DrawTickTextLine(ByVal g As Graphics, ByVal drawRect As RectangleF, ByVal tickFrequency_Renamed As Integer, ByVal minimum_Renamed As Integer, ByVal maximum_Renamed As Integer, ByVal foreColor As Color, ByVal font As Font, ByVal orientation_Renamed As Orientation)
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="g"></param>
+    ''' <param name="drawRect"></param>
+    ''' <param name="tickFrequency_Renamed"></param>
+    ''' <param name="minimum_Renamed"></param>
+    ''' <param name="maximum_Renamed"></param>
+    ''' <param name="foreColor"></param>
+    ''' <param name="font"></param>
+    ''' <param name="orientation_Renamed"></param>
+    Private Sub DrawTickTextLine _
+        (ByVal g As Graphics, ByVal drawRect As RectangleF,
+         ByVal tickFrequency_Renamed As Integer, ByVal minimum_Renamed As Integer,
+         ByVal maximum_Renamed As Integer, ByVal foreColor As Color,
+         ByVal font As Font, ByVal orientation_Renamed As Orientation)
+        'INSTANT VB NOTE: The parameter tickFrequency was renamed since Visual Basic will not uniquely identify class members when parameters have the same name:
+        'INSTANT VB NOTE: The parameter minimum was renamed since Visual Basic will not uniquely identify class members when parameters have the same name:
+        'INSTANT VB NOTE: The parameter maximum was renamed since Visual Basic will not uniquely identify class members when parameters have the same name:
+        'INSTANT VB NOTE: The parameter orientation was renamed since Visual Basic will not uniquely identify class members when parameters have the same name:
 
         'Check input value
         If maximum_Renamed = minimum_Renamed Then
@@ -1474,13 +1507,15 @@ Public Class KzTrackBar
             Dim i As Integer = 0
             Do While i <= tickCount
                 text = Convert.ToString(_minimum + tickFrequency_Renamed * i, 10)
-                g.DrawString(text, font, brush, drawRect.Left + tickFrequencySize * i, drawRect.Top + drawRect.Height / 2, stringFormat)
+                g.DrawString(text, font, brush, drawRect.Left + tickFrequencySize * i,
+                             drawRect.Top + drawRect.Height / 2, stringFormat)
 
                 i += 1
             Loop
             ' Draw last tick text at Maximum
             text = Convert.ToString(_maximum, 10)
-            g.DrawString(text, font, brush, drawRect.Right, drawRect.Top + drawRect.Height / 2, stringFormat)
+            g.DrawString(text, font, brush, drawRect.Right,
+                         drawRect.Top + drawRect.Height / 2, stringFormat)
 
             '===============================================================
         Else 'Orientation.Vertical
@@ -1492,33 +1527,39 @@ Public Class KzTrackBar
             Dim i As Integer = 0
             Do While i <= tickCount
                 text = Convert.ToString(_minimum + tickFrequency_Renamed * i, 10)
-                g.DrawString(text, font, brush, drawRect.Left + drawRect.Width / 2, drawRect.Bottom - tickFrequencySize * i, stringFormat)
+                g.DrawString(text, font, brush, drawRect.Left + drawRect.Width / 2,
+                             drawRect.Bottom - tickFrequencySize * i, stringFormat)
                 i += 1
             Loop
             ' Draw last tick text at Maximum
             text = Convert.ToString(_maximum, 10)
-            g.DrawString(text, font, brush, drawRect.Left + drawRect.Width / 2, drawRect.Top, stringFormat)
+            g.DrawString(text, font, brush, drawRect.Left + drawRect.Width / 2,
+                         drawRect.Top, stringFormat)
             '===============================================================
 
         End If
     End Sub
 
-    '' <summary>
-    '' 
-    '' </summary>
-    '' <param name="g"></param>
-    '' <param name="drawRect"></param>
-    '' <param name="tickFrequency"></param>
-    '' <param name="minimum"></param>
-    '' <param name="maximum"></param>
-    '' <param name="tickColor"></param>
-    '' <param name="orientation"></param>
-    'INSTANT VB NOTE: The parameter tickFrequency was renamed since Visual Basic will not uniquely identify class members when parameters have the same name:
-    'INSTANT VB NOTE: The parameter minimum was renamed since Visual Basic will not uniquely identify class members when parameters have the same name:
-    'INSTANT VB NOTE: The parameter maximum was renamed since Visual Basic will not uniquely identify class members when parameters have the same name:
-    'INSTANT VB NOTE: The parameter tickColor was renamed since Visual Basic will not uniquely identify class members when parameters have the same name:
-    'INSTANT VB NOTE: The parameter orientation was renamed since Visual Basic will not uniquely identify class members when parameters have the same name:
-    Private Sub DrawTickLine(ByVal g As Graphics, ByVal drawRect As RectangleF, ByVal tickFrequency_Renamed As Integer, ByVal minimum_Renamed As Integer, ByVal maximum_Renamed As Integer, ByVal tickColor_Renamed As Color, ByVal orientation_Renamed As Orientation)
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="g"></param>
+    ''' <param name="drawRect"></param>
+    ''' <param name="tickFrequency_Renamed"></param>
+    ''' <param name="minimum_Renamed"></param>
+    ''' <param name="maximum_Renamed"></param>
+    ''' <param name="tickColor_Renamed"></param>
+    ''' <param name="orientation_Renamed"></param>
+    Private Sub DrawTickLine _
+        (ByVal g As Graphics, ByVal drawRect As RectangleF, ByVal tickFrequency_Renamed As Integer,
+         ByVal minimum_Renamed As Integer, ByVal maximum_Renamed As Integer,
+         ByVal tickColor_Renamed As Color, ByVal orientation_Renamed As Orientation)
+        'INSTANT VB NOTE: The parameter tickFrequency was renamed since Visual Basic will not uniquely identify class members when parameters have the same name:
+        'INSTANT VB NOTE: The parameter minimum was renamed since Visual Basic will not uniquely identify class members when parameters have the same name:
+        'INSTANT VB NOTE: The parameter maximum was renamed since Visual Basic will not uniquely identify class members when parameters have the same name:
+        'INSTANT VB NOTE: The parameter tickColor was renamed since Visual Basic will not uniquely identify class members when parameters have the same name:
+        'INSTANT VB NOTE: The parameter orientation was renamed since Visual Basic will not uniquely identify class members when parameters have the same name:
+
         'Check input value
         If maximum_Renamed = minimum_Renamed Then
             Return
@@ -1543,7 +1584,8 @@ Public Class KzTrackBar
             ' Draw each tick
             Dim i As Integer = 0
             Do While i <= tickCount
-                g.DrawLine(pen, drawRect.Left + tickFrequencySize * i, drawRect.Top, drawRect.Left + tickFrequencySize * i, drawRect.Bottom)
+                g.DrawLine(pen, drawRect.Left + tickFrequencySize * i, drawRect.Top,
+                           drawRect.Left + tickFrequencySize * i, drawRect.Bottom)
                 i += 1
             Loop
             ' Draw last tick at Maximum
@@ -1557,7 +1599,8 @@ Public Class KzTrackBar
             ' Draw each tick
             Dim i As Integer = 0
             Do While i <= tickCount
-                g.DrawLine(pen, drawRect.Left, drawRect.Bottom - tickFrequencySize * i, drawRect.Right, drawRect.Bottom - tickFrequencySize * i)
+                g.DrawLine(pen, drawRect.Left, drawRect.Bottom - tickFrequencySize * i,
+                           drawRect.Right, drawRect.Bottom - tickFrequencySize * i)
                 i += 1
             Loop
             ' Draw last tick at Maximum
@@ -1639,7 +1682,8 @@ Public Class KzTrackBar
                     ElseIf currentPoint.X - _trackerSize.Width / 2 <= _indentWidth Then
                         offsetValue = 0
                     Else
-                        offsetValue = CInt(Fix(((currentPoint.X - _indentWidth - _trackerSize.Width / 2) * (_maximum - _minimum)) / (Me.Width - 2 * _indentWidth - _trackerSize.Width) + 0.5))
+                        offsetValue = CInt(Fix(((currentPoint.X - _indentWidth - _trackerSize.Width / 2) *
+                                        (_maximum - _minimum)) / (Me.Width - 2 * _indentWidth - _trackerSize.Width) + 0.5))
                     End If
 
 
@@ -1649,7 +1693,8 @@ Public Class KzTrackBar
                     ElseIf currentPoint.Y - _trackerSize.Width / 2 <= _indentHeight Then
                         offsetValue = _maximum - _minimum
                     Else
-                        offsetValue = CInt(Fix(((Me.Height - currentPoint.Y - _indentHeight - _trackerSize.Width / 2) * (_maximum - _minimum)) / (Me.Height - 2 * _indentHeight - _trackerSize.Width) + 0.5))
+                        offsetValue = CInt(Fix(((Me.Height - currentPoint.Y - _indentHeight - _trackerSize.Width / 2) *
+                                        (_maximum - _minimum)) / (Me.Height - 2 * _indentHeight - _trackerSize.Width) + 0.5))
                     End If
 
 
@@ -1704,7 +1749,8 @@ Public Class KzTrackBar
                         ElseIf currentPoint.X - mouseStartPos <= _indentWidth Then
                             offsetValue = 0
                         Else
-                            offsetValue = CInt(Fix(((currentPoint.X - mouseStartPos - _indentWidth) * (_maximum - _minimum)) / (Me.Width - 2 * _indentWidth - _trackerSize.Width) + 0.5))
+                            offsetValue = CInt(Fix(((currentPoint.X - mouseStartPos - _indentWidth) *
+                                            (_maximum - _minimum)) / (Me.Width - 2 * _indentWidth - _trackerSize.Width) + 0.5))
                         End If
 
 
@@ -1714,7 +1760,8 @@ Public Class KzTrackBar
                         ElseIf currentPoint.Y + _trackerSize.Width / 2 <= _indentHeight Then
                             offsetValue = _maximum - _minimum
                         Else
-                            offsetValue = CInt(Fix(((Me.Height - currentPoint.Y + _trackerSize.Width / 2 - mouseStartPos - _indentHeight) * (_maximum - _minimum)) / (Me.Height - 2 * _indentHeight) + 0.5))
+                            offsetValue = CInt(Fix(((Me.Height - currentPoint.Y + _trackerSize.Width / 2 - mouseStartPos - _indentHeight) *
+                                                (_maximum - _minimum)) / (Me.Height - 2 * _indentHeight) + 0.5))
                         End If
 
                 End Select

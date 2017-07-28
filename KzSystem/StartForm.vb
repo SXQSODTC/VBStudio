@@ -143,26 +143,20 @@ Public Class StartForm
         FormSwitch(Nothing)
     End Sub
 
-    Private Sub StyleFormToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StyleFormToolStripMenuItem.Click
-        'FormSwitch(StylesForm, "測試", False, False)
+    Private Sub Test01_Click(sender As Object, e As EventArgs) Handles Test01.Click
+        FormSwitch(KzTabsDesigner)
     End Sub
 
-    Private Sub ColorsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ColorsToolStripMenuItem.Click
-        'Dim c As New Color
-        ''c = Color.FromArgb(&HEE3A4C8E)
-        'c = Color.FromName("&HEE3A4C8E")
-        'MsgBox(c.ToArgb) ' & " IsNumber " & Int("EE3A4C8E"))
-        'FormSwitch(KzAprsDialog, "測試")
+    Private Sub Test02_Click(sender As Object, e As EventArgs) Handles Test02.Click
         FormSwitch(KzColorPicker)
     End Sub
 
-    Private Sub UCTestToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UCTestToolStripMenuItem.Click
-        'FormSwitch(UCTestDialog, "Test", False, False)
+    Private Sub Test03_Click(sender As Object, e As EventArgs) Handles Test03.Click
         FormSwitch(TestSlideBar)
     End Sub
 
-    Private Sub SampleTestToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SampleTestToolStripMenuItem.Click
-        FormSwitch(TestListForm)
+    Private Sub Test04_Click(sender As Object, e As EventArgs) Handles Test04.Click
+        FormSwitch(PListReaderForm)
     End Sub
 
 

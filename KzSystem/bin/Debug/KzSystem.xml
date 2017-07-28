@@ -22,6 +22,36 @@ KzSystem
   重写当前线程的 CurrentUICulture 属性。
 </summary>
 </member>
+<member name="P:KzSystem.My.Resources.Resources.liner_copy">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.liner_edit">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.liner_export">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.liner_import">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.liner_search">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.liner_view">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
 <member name="P:KzSystem.My.Resources.Resources.ODTC">
 <summary>
   查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
@@ -46,6 +76,242 @@ KzSystem
 <member name="M:KzSystem.TestSlideBar.Main">
  <summary>
  The main entry point for the application.
+ </summary>
+</member>
+<member name="P:KzSystem.KzTabControl.NewTitlePrefix">
+ <summary>
+ 用於命名新 TabPage 的前綴，與 NewSerialNumber 同時使用。格式為 NewTitlePrefix + NewSerialNumber 的字符串
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzTabControl.NewAddedAutoSelect">
+ <summary>
+ 指示新增 TabPage 時是否即使應用選擇
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzTabControl.TabsAppearance">
+ <summary>
+ 讀取或設置用於繪製 Tabs 的呈現
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzTabControl.NewSerialNumber">
+ <summary>
+ 在當前狀態下取得用於命名新 TabPage 的索引號，從 0 開始按 1 遞增
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzTabControl.OnDrawItem(System.Windows.Forms.DrawItemEventArgs)">
+ <summary>
+ 
+ </summary>
+ <param name="e"></param>
+</member>
+<member name="M:KzSystem.KzTabControl.OnPaint(System.Windows.Forms.PaintEventArgs)">
+ <summary>
+ 繪製 Tabs，以最高質量繪製
+ </summary>
+ <param name="e"></param>
+</member>
+<member name="T:KzSystem.KzTabsAppearance">
+ <summary>
+ 用於描述 TabControl 的描畫呈現
+ </summary>
+</member>
+<member name="T:KzSystem.KzTabStatusAppearance">
+ <summary>
+ 依據狀態描述單個 Tab 的呈現 
+ </summary>
+</member>
+<member name="T:KzSystem.KzTabPageStyle">
+ <summary>
+ KzSystem 定制 TabPage 形式
+ </summary>
+</member>
+<member name="F:KzSystem.KzTabPageStyle.None">
+ <summary>
+ 未指定，對 Page 不作修飾
+ </summary>
+</member>
+<member name="F:KzSystem.KzTabPageStyle.PageFrame">
+ <summary>
+ Page 呈現範圍周邊描畫 Frame，可應用 Tab 的 BorderColor 或 BackColor
+ </summary>
+</member>
+<member name="F:KzSystem.KzTabPageStyle.SideLine">
+ <summary>
+ 在 Tab 和 Page 之間描畫分割線，可應用 Tab 的 BorderColor 或 BackColor
+ </summary>
+</member>
+<member name="F:KzSystem.KzTabPageStyle.OpenPageFrame">
+ <summary>
+ Page 呈現範圍周邊描畫 Frame，但 Tab 接壤處不描畫
+ </summary>
+</member>
+<member name="F:KzSystem.KzTabPageStyle.OpenSideLine">
+ <summary>
+ 在 Tab 和 Page 之間描畫分割線，但 Tab 接壤處不描畫
+ </summary>
+</member>
+<member name="T:KzSystem.KzFlatSides">
+ <summary>
+ KzSystem 定制針對方形對象之「邊」的描述
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatSides.None">
+ <summary>
+ 未指定
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatSides.All">
+ <summary>
+ 四邊皆有
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatSides.Top">
+ <summary>
+ 上邊
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatSides.Bottom">
+ <summary>
+ 下邊
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatSides.Left">
+ <summary>
+ 左邊
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatSides.Right">
+ <summary>
+ 右邊
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatSides.Horizontal">
+ <summary>
+ 水平兩邊，即 Left and Right
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatSides.Vertical">
+ <summary>
+ 垂直兩邊，即 Top and Bottom
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatSides.LeftTop">
+ <summary>
+ 左邊及上邊，等同於 TopLeft，可用於描畫順序之區別
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatSides.TopLeft">
+ <summary>
+ 上邊及左邊，等同於 LeftTop，可用於描畫順序之區別
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatSides.RightTop">
+ <summary>
+ 右邊及上邊，等同於 TopRight，可用於描畫順序之區別
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatSides.TopRight">
+ <summary>
+ 上邊及右邊，等同於 RightTop，可用於描畫順序之區別
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatSides.LeftBottom">
+ <summary>
+ 左邊及下邊，等同於 BottomLeft，可用於描畫順序之區別
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatSides.BottomLeft">
+ <summary>
+ 下邊及左邊，等同於 BottomLeft，可用於描畫順序之區別
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatSides.RightBottom">
+ <summary>
+ 右邊及下邊，等同於 BottomRight，可用於描畫順序之區別
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatSides.BottomRight">
+ <summary>
+ 下邊及右邊，等同於 RightBottom，可用於描畫順序之區別
+ </summary>
+</member>
+<member name="T:KzSystem.KzFlatCorners">
+ <summary>
+ KzSystem 定制針對方形對象之「角」的描述
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatCorners.None">
+ <summary>
+ 未設定
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatCorners.All">
+ <summary>
+ 四角皆有
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatCorners.LeftTop">
+ <summary>
+ 左上角，等同於 TopLeft
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatCorners.TopLeft">
+ <summary>
+ 左上角，等同於 LeftTop
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatCorners.RightTop">
+ <summary>
+ 右上角，等同於 TopRight
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatCorners.TopRight">
+ <summary>
+ 右上角，等同於 RightTop
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatCorners.LeftBottom">
+ <summary>
+ 左下角，等同於 BottomLeft
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatCorners.BottomLeft">
+ <summary>
+ 左下角，等同於 LeftBottom
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatCorners.RightBottom">
+ <summary>
+ 右上角，等同於 BottomRight
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatCorners.BottomRight">
+ <summary>
+ 右上角，等同於 RightBottom
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatCorners.Top">
+ <summary>
+ 上方兩角，即 TopLeft + TopRight
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatCorners.Left">
+ <summary>
+ 左方兩角，即 TopLeft + LeftBottom
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatCorners.Right">
+ <summary>
+ 右方兩角，即 TopRight + RightBottom
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatCorners.Bottom">
+ <summary>
+ 下方兩角，即 LeftBottom + RightBottom
  </summary>
 </member>
 <member name="T:KzSystem.ValueChangedHandler">
@@ -422,6 +688,38 @@ KzSystem
  </summary>
  <param name="g"></param>
  <param name="drawRect"></param>
+</member>
+<member name="M:KzSystem.KzTrackBar.DrawTracker(System.Drawing.Graphics,System.Drawing.RectangleF)">
+ <summary>
+ 
+ </summary>
+ <param name="g"></param>
+ <param name="trackerRect_Renamed"></param>
+</member>
+<member name="M:KzSystem.KzTrackBar.DrawTickTextLine(System.Drawing.Graphics,System.Drawing.RectangleF,System.Int32,System.Int32,System.Int32,System.Drawing.Color,System.Drawing.Font,System.Windows.Forms.Orientation)">
+ <summary>
+ 
+ </summary>
+ <param name="g"></param>
+ <param name="drawRect"></param>
+ <param name="tickFrequency_Renamed"></param>
+ <param name="minimum_Renamed"></param>
+ <param name="maximum_Renamed"></param>
+ <param name="foreColor"></param>
+ <param name="font"></param>
+ <param name="orientation_Renamed"></param>
+</member>
+<member name="M:KzSystem.KzTrackBar.DrawTickLine(System.Drawing.Graphics,System.Drawing.RectangleF,System.Int32,System.Int32,System.Int32,System.Drawing.Color,System.Windows.Forms.Orientation)">
+ <summary>
+ 
+ </summary>
+ <param name="g"></param>
+ <param name="drawRect"></param>
+ <param name="tickFrequency_Renamed"></param>
+ <param name="minimum_Renamed"></param>
+ <param name="maximum_Renamed"></param>
+ <param name="tickColor_Renamed"></param>
+ <param name="orientation_Renamed"></param>
 </member>
 <member name="M:KzSystem.KzTrackBar.DrawBorder(System.Drawing.Graphics)">
  <summary>
