@@ -22,6 +22,7 @@ Partial Class KzTextViewDialog
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(KzTextViewDialog))
         Me.RootSplitContainer = New System.Windows.Forms.SplitContainer()
         Me.ContentsTextBox = New System.Windows.Forms.TextBox()
         Me.TextDialogStatusStrip = New System.Windows.Forms.StatusStrip()
@@ -34,6 +35,8 @@ Partial Class KzTextViewDialog
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.SearchToolStripTextBox = New System.Windows.Forms.ToolStripTextBox()
         Me.GoToolStripButton = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.WrapToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.InfoLabel = New System.Windows.Forms.Label()
         Me.OKCmd = New System.Windows.Forms.Button()
         Me.CancelCmd = New System.Windows.Forms.Button()
@@ -49,7 +52,7 @@ Partial Class KzTextViewDialog
         '
         Me.RootSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill
         Me.RootSplitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel2
-        Me.RootSplitContainer.Location = New System.Drawing.Point(0, 0)
+        Me.RootSplitContainer.Location = New System.Drawing.Point(1, 1)
         Me.RootSplitContainer.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.RootSplitContainer.Name = "RootSplitContainer"
         Me.RootSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal
@@ -65,10 +68,11 @@ Partial Class KzTextViewDialog
         Me.RootSplitContainer.Panel2.Controls.Add(Me.InfoLabel)
         Me.RootSplitContainer.Panel2.Controls.Add(Me.OKCmd)
         Me.RootSplitContainer.Panel2.Controls.Add(Me.CancelCmd)
-        Me.RootSplitContainer.Size = New System.Drawing.Size(443, 357)
-        Me.RootSplitContainer.SplitterDistance = 303
+        Me.RootSplitContainer.Size = New System.Drawing.Size(441, 355)
+        Me.RootSplitContainer.SplitterDistance = 297
         Me.RootSplitContainer.SplitterWidth = 6
         Me.RootSplitContainer.TabIndex = 1
+        Me.RootSplitContainer.TabStop = False
         '
         'ContentsTextBox
         '
@@ -79,15 +83,16 @@ Partial Class KzTextViewDialog
         Me.ContentsTextBox.Multiline = True
         Me.ContentsTextBox.Name = "ContentsTextBox"
         Me.ContentsTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.ContentsTextBox.Size = New System.Drawing.Size(443, 252)
+        Me.ContentsTextBox.Size = New System.Drawing.Size(441, 246)
         Me.ContentsTextBox.TabIndex = 1
+        Me.ContentsTextBox.TabStop = False
         '
         'TextDialogStatusStrip
         '
         Me.TextDialogStatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CountLabel, Me.SelectionLabel, Me.PositionLabel})
-        Me.TextDialogStatusStrip.Location = New System.Drawing.Point(0, 277)
+        Me.TextDialogStatusStrip.Location = New System.Drawing.Point(0, 271)
         Me.TextDialogStatusStrip.Name = "TextDialogStatusStrip"
-        Me.TextDialogStatusStrip.Size = New System.Drawing.Size(443, 26)
+        Me.TextDialogStatusStrip.Size = New System.Drawing.Size(441, 26)
         Me.TextDialogStatusStrip.TabIndex = 2
         Me.TextDialogStatusStrip.Text = "StatusStrip1"
         '
@@ -114,10 +119,10 @@ Partial Class KzTextViewDialog
         'TextDialogToolStrip
         '
         Me.TextDialogToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.TextDialogToolStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SaveToolStripButton, Me.CopyToolStripButton, Me.ToolStripSeparator1, Me.SearchToolStripTextBox, Me.GoToolStripButton})
+        Me.TextDialogToolStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SaveToolStripButton, Me.CopyToolStripButton, Me.ToolStripSeparator1, Me.SearchToolStripTextBox, Me.GoToolStripButton, Me.ToolStripSeparator2, Me.WrapToolStripButton})
         Me.TextDialogToolStrip.Location = New System.Drawing.Point(0, 0)
         Me.TextDialogToolStrip.Name = "TextDialogToolStrip"
-        Me.TextDialogToolStrip.Size = New System.Drawing.Size(443, 25)
+        Me.TextDialogToolStrip.Size = New System.Drawing.Size(441, 25)
         Me.TextDialogToolStrip.TabIndex = 0
         Me.TextDialogToolStrip.Text = "ToolStrip1"
         '
@@ -159,12 +164,26 @@ Partial Class KzTextViewDialog
         Me.GoToolStripButton.Size = New System.Drawing.Size(29, 22)
         Me.GoToolStripButton.Text = "Go"
         '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(6, 25)
+        '
+        'WrapToolStripButton
+        '
+        Me.WrapToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.WrapToolStripButton.Image = CType(resources.GetObject("WrapToolStripButton.Image"), System.Drawing.Image)
+        Me.WrapToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.WrapToolStripButton.Name = "WrapToolStripButton"
+        Me.WrapToolStripButton.Size = New System.Drawing.Size(44, 22)
+        Me.WrapToolStripButton.Text = "Wrap"
+        '
         'InfoLabel
         '
         Me.InfoLabel.Dock = System.Windows.Forms.DockStyle.Left
         Me.InfoLabel.Location = New System.Drawing.Point(0, 0)
         Me.InfoLabel.Name = "InfoLabel"
-        Me.InfoLabel.Size = New System.Drawing.Size(245, 48)
+        Me.InfoLabel.Size = New System.Drawing.Size(245, 52)
         Me.InfoLabel.TabIndex = 2
         Me.InfoLabel.Text = "Description"
         '
@@ -172,7 +191,7 @@ Partial Class KzTextViewDialog
         '
         Me.OKCmd.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.OKCmd.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.OKCmd.Location = New System.Drawing.Point(254, 7)
+        Me.OKCmd.Location = New System.Drawing.Point(252, 7)
         Me.OKCmd.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.OKCmd.Name = "OKCmd"
         Me.OKCmd.Size = New System.Drawing.Size(87, 28)
@@ -184,7 +203,7 @@ Partial Class KzTextViewDialog
         '
         Me.CancelCmd.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.CancelCmd.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.CancelCmd.Location = New System.Drawing.Point(347, 7)
+        Me.CancelCmd.Location = New System.Drawing.Point(345, 7)
         Me.CancelCmd.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.CancelCmd.Name = "CancelCmd"
         Me.CancelCmd.Size = New System.Drawing.Size(87, 28)
@@ -199,9 +218,10 @@ Partial Class KzTextViewDialog
         Me.ClientSize = New System.Drawing.Size(443, 357)
         Me.Controls.Add(Me.RootSplitContainer)
         Me.Font = New System.Drawing.Font("Microsoft YaHei UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Name = "KzTextViewDialog"
+        Me.Padding = New System.Windows.Forms.Padding(1)
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "KzTextViewDialog"
         Me.RootSplitContainer.Panel1.ResumeLayout(False)
         Me.RootSplitContainer.Panel1.PerformLayout()
@@ -231,4 +251,6 @@ Partial Class KzTextViewDialog
     Friend WithEvents SelectionLabel As ToolStripStatusLabel
     Friend WithEvents PositionLabel As ToolStripStatusLabel
     Friend WithEvents InfoLabel As Label
+    Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
+    Friend WithEvents WrapToolStripButton As ToolStripButton
 End Class

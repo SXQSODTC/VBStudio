@@ -1,29 +1,45 @@
-﻿Public Class KzStr
+﻿Imports System.Net
+Imports System.IO
+Imports System.Text
 
-    Public Shared Function ExCharWidth _
-        (ByVal inputString As String,
-         ByVal Optional isHalfToFull As Boolean = True)
-
-        Dim c As Char() = inputString.ToCharArray
+Public Class KzStr
+    ''' <summary>
+    ''' Convert all half width char to full width in InputString
+    ''' 半角轉全角
+    ''' </summary>
+    ''' <param name="InputString"></param>
+    ''' <returns></returns>
+    Public Shared Function CFullWidth(ByVal InputString As String) As String
+        Dim c As Char() = InputString.ToCharArray
         Dim i As Integer = 0
 
-        While inputString < c.Length
-            If isHalfToFull Then
-                '半角转全角
-                If c(i) = ChrW(32) Then
-                    c(i) = ChrW(12288)
-                ElseIf AscW(c(i)) < 127 Then
-                    c(i) = ChrW((AscW(c(i)) + 65248))
-                End If
+        While InputString < c.Length
+            If c(i) = ChrW(32) Then
+                c(i) = ChrW(12288)
+            ElseIf AscW(c(i)) < 127 Then
+                c(i) = ChrW((AscW(c(i)) + 65248))
+            End If
 
-            Else
-                '全角转半角
-                If AscW(c(i)) = 12288 Then
-                    c(i) = ChrW(32)
-                ElseIf AscW(c(i)) > 65280 AndAlso AscW(c(i)) < 65375 Then
-                    c(i) = ChrW(AscW(c(i)) - 65248)
-                End If
+            Math.Min(System.Threading.Interlocked.Increment(i), i - 1)
+        End While
 
+        Return New String(c)
+    End Function
+    ''' <summary>
+    ''' Convert full width char to half width in InputString if the char's half form exists.
+    ''' 全角轉半角
+    ''' </summary>
+    ''' <param name="InputString"></param>
+    ''' <returns></returns>
+    Public Shared Function CHalfWidth(ByVal InputString As String) As String
+        Dim c As Char() = InputString.ToCharArray
+        Dim i As Integer = 0
+
+        While InputString < c.Length
+            If AscW(c(i)) = 12288 Then
+                c(i) = ChrW(32)
+            ElseIf AscW(c(i)) > 65280 AndAlso AscW(c(i)) < 65375 Then
+                c(i) = ChrW(AscW(c(i)) - 65248)
             End If
 
             Math.Min(System.Threading.Interlocked.Increment(i), i - 1)
@@ -32,7 +48,8 @@
         Return New String(c)
     End Function
 
-End Class
+
+End Class 'KzStr
 
 Public Class KzFont
     Public Shared Function Resize _
@@ -56,7 +73,7 @@ Public Class KzFont
             Return New Font(theFont.FontFamily, theFont.Size, value)
         End If
     End Function
-End Class
+End Class 'KzFont
 
 Public Class KzColor
     Public Shared Function Add _
@@ -100,96 +117,80 @@ Public Class KzColor
 
         Return Color.FromArgb(a, r, g, b)
     End Function
-End Class
+End Class 'KzColor
 
-Public Class KzTimeShift
-    Dim iStart, iEnd As DateTime
+Public Class KzWeb
+    ''' <summary>
+    ''' Get source code from the html page indecated by URL string
+    ''' </summary>
+    ''' <param name="strURL"></param>
+    ''' <returns></returns>
+    Public Shared Function GetWebCode(ByVal strURL As String) As String
+        Dim httpReq As System.Net.HttpWebRequest
+        Dim httpResp As System.Net.HttpWebResponse
+        Dim httpURL As New System.Uri(strURL)
+        Dim ioS As System.IO.Stream, charSet As String, tCode As String
+        Dim k() As Byte
+        ReDim k(0)
+        Dim dataQue As New Queue(Of Byte)
+        httpReq = CType(WebRequest.Create(httpURL), HttpWebRequest)
+        Dim sTime As Date = #1990-09-21 00:00:00# ' CDate("1990-09-21 00:00:00")
+        httpReq.IfModifiedSince = sTime
+        httpReq.Method = "GET"
+        httpReq.Timeout = 7000
 
-    Public Sub New(Optional ByVal StartTime As DateTime = #1/1/1 0:00:00#)
-        SetDefault(StartTime)
-    End Sub
-
-    Private Sub SetDefault(Optional ByVal StartTime As DateTime = #1/1/1 0:00:00#)
         Try
-            If StartTime <= #0:00:00# Then
-                iStart = Now()
-            Else
-                iStart = StartTime
-            End If
-        Catch ex As Exception
-            iStart = Now()
+            httpResp = CType(httpReq.GetResponse(), HttpWebResponse)
+        Catch
+            Debug.Print("weberror")
+            GetWebCode = "<title>no thing found</title>" : Exit Function
         End Try
-
-        iEnd = iStart
-    End Sub
-
-    Public Property StartTime As DateTime
-        Get
-            Return iStart
-        End Get
-        Set(value As DateTime)
-            SetDefault(value)
-        End Set
-    End Property
-
-    Public Property EndTime As DateTime
-        Get
-            Return iEnd
-        End Get
-        Set(value As DateTime)
-            If iEnd < iStart Then
-                iEnd = iStart
+        '以上为网络数据获取  
+        ioS = CType(httpResp.GetResponseStream, Stream)
+        Do While ioS.CanRead = True
+            Try
+                dataQue.Enqueue(ioS.ReadByte)
+            Catch
+                Debug.Print("read error")
+                Exit Do
+            End Try
+        Loop
+        ReDim k(dataQue.Count - 1)
+        For j As Integer = 0 To dataQue.Count - 1
+            k(j) = dataQue.Dequeue
+        Next
+        '以上，为获取流中的的二进制数据  
+        tCode = Encoding.GetEncoding("UTF-8").GetString(k) '获取特定编码下的情况，毕竟UTF-8支持英文正常的显示  
+        charSet = Replace(GetByDiv2(tCode, "charset=", """"), """", "") '进行编码类型识别  
+        '以上，获取编码类型  
+        If charSet = "" Then 'defalt  
+            If httpResp.CharacterSet = "" Then
+                tCode = Encoding.GetEncoding("UTF-8").GetString(k)
             Else
-                iEnd = value
+                tCode = Encoding.GetEncoding(httpResp.CharacterSet).GetString(k)
             End If
-        End Set
-    End Property
+        Else
+            tCode = Encoding.GetEncoding(charSet).GetString(k)
+        End If
+        Debug.Print(charSet)
+        'Stop  
+        '以上，按照获得的编码类型进行数据转换  
+        '将得到的内容进行最后处理，比如判断是不是有出现字符串为空的情况  
+        GetWebCode = tCode
+        If tCode = "" Then GetWebCode = "<title>no thing found</title>"
+    End Function
 
-    Public ReadOnly Property Span As TimeSpan
-        Get
-            Return iEnd.Subtract(iStart)
-        End Get
-    End Property
+    Private Shared Function GetByDiv2(ByVal code As String, ByVal divBegin As String, ByVal divEnd As String)  '获取分隔符所夹的内容[完成，未测试]  
+        '仅用于获取编码数据  
+        Dim lgStart As Integer
+        Dim lens As Integer
+        Dim lgEnd As Integer
+        lens = Len(divBegin)
+        If InStr(1, code, divBegin) = 0 Then GetByDiv2 = "" : Exit Function
+        lgStart = InStr(1, code, divBegin) + CInt(lens)
 
-    Public ReadOnly Property SpanText As String
-        Get
-            Dim Unit As String()
-            If InChinese Then
-                Unit = {"日"， "時", "分", "秒", "微秒"}
-            Else
-                Unit = {"D"， "h", "m", "s", "ms"}
-            End If
-
-            Dim sb As New System.Text.StringBuilder
-
-            With Me.Span
-                If .Days > 0 Then
-                    sb.Append(" " & .Days.ToString & " " & Unit(0))
-                End If
-
-                If .Hours > 0 Then
-                    sb.Append(" " & .Hours.ToString & " " & Unit(1))
-                End If
-
-                If .Minutes > 0 Then
-                    sb.Append(" " & .Minutes.ToString & " " & Unit(2))
-                End If
-
-                If .Seconds > 0 Then
-                    sb.Append(" " & .Seconds.ToString & " " & Unit(3))
-                End If
-
-                sb.Append(" " & .Milliseconds.ToString & " " & Unit(4))
-            End With
-
-            If WithoutSpace Then
-                sb.Replace(" ", "")
-            End If
-
-            Return sb.ToString
-        End Get
-    End Property
-
-    Public Property InChinese As Boolean = False
-    Public Property WithoutSpace As Boolean = False
-End Class 'KzTimeShift
+        lgEnd = InStr(lgStart + 1, code, divEnd)
+        If lgEnd = 0 Then GetByDiv2 = "" : Exit Function
+        GetByDiv2 = Mid(code, lgStart, lgEnd - lgStart)
+    End Function
+End Class 'KzWeb

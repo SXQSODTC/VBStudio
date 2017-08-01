@@ -159,6 +159,10 @@ Public Class StartForm
         FormSwitch(PListReaderForm)
     End Sub
 
+    Private Sub HDLibToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HDLibToolStripMenuItem.Click
+        FormSwitch(HDLibForm)
+    End Sub
+
 
 #End Region
 End Class

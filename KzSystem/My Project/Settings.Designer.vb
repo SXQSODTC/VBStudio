@@ -126,6 +126,30 @@ Namespace My
                 Me("FileInitialDirectory") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property HDLibPath() As String
+            Get
+                Return CType(Me("HDLibPath"),String)
+            End Get
+            Set
+                Me("HDLibPath") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("http://www.haodoo.net/")>  _
+        Public Property HDLibHome() As String
+            Get
+                Return CType(Me("HDLibHome"),String)
+            End Get
+            Set
+                Me("HDLibHome") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

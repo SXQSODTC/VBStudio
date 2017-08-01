@@ -62,6 +62,117 @@ KzSystem
   查找 System.Drawing.Bitmap 类型的本地化资源。
 </summary>
 </member>
+<member name="M:KzSystem.DirectoryScanner.DirectoryScanner_Load(System.Object,System.EventArgs)">
+ <summary>
+ Handles the Load event for the DirectoryScanner.
+ </summary>
+</member>
+<member name="M:KzSystem.DirectoryScanner.AddToListView(System.String,System.String)">
+ <summary>
+ This subroutine adds the strSubDirectory that the user selects on the TreeView 
+ to the ListView, and sets the text, size, and color.
+ </summary>
+</member>
+<member name="M:KzSystem.DirectoryScanner.GetSizeColor(System.String)">
+ <summary>
+ This subroutine returns a Color based on the combined size of the directory 
+ and all its subdirectories. This is one of two overloads.
+ </summary>
+</member>
+<member name="M:KzSystem.DirectoryScanner.GetSizeColor(System.Int64)">
+ <summary>
+ This function returns a Color based on the combined size of the directory 
+ and all its subdirectories. This is the second of two overloads.
+ </summary>
+</member>
+<member name="M:KzSystem.DirectoryScanner.GetDirectorySize(System.String,KzSystem.DirectoryNode)">
+ <summary>
+ This function returns the size of a directory, and all its sub-directories.
+ </summary>
+</member>
+<member name="M:KzSystem.DirectoryScanner.ShowSubDirectories(KzSystem.DirectoryNode)">
+ <summary>
+ When a directory node is expanded, add its subdirectories to the ListView. 
+ </summary>
+</member>
+<member name="M:KzSystem.DirectoryScanner.exitToolStripMenuItem_Click(System.Object,System.EventArgs)">
+ <summary>
+ Close the application
+ </summary>
+</member>
+<member name="M:KzSystem.DirectoryScanner.TreeView1_AfterExpand(System.Object,System.Windows.Forms.TreeViewEventArgs)">
+ <summary>
+ Handles the AfterExpand event for the TreeView, which does not occur after 
+ the TreeView is selected, but after the application decides that the user's 
+ attempt to expand the node should be allowed. The corresponding BeforeExpand 
+ event handler is used for this decision making, if desired. All Before
+ events pass a TreeViewCancelEventArgs object that contains a Cancel property.
+ This property can be used for vetoing the user's action. Thus, the "AfterExpand"
+ event could rightly be named "AfterExpandApproval".
+ </summary>
+</member>
+<member name="M:KzSystem.DirectoryScanner.TreeView1_AfterSelect(System.Object,System.Windows.Forms.TreeViewEventArgs)">
+ <summary>
+ Handles the AfterSelect event for the TreeView, which does not occur after 
+ the TreeView is selected, but after the application decides that the user's 
+ attempt to select the node should be allowed. The corresponding BeforeSelect 
+ event handler is used for this decision making, if desired. All Before
+ events pass a TreeViewCancelEventArgs object that contains a Cancel property.
+ This property can be used for vetoing the user's action. Thus, the "AfterSelect"
+ event could rightly be named "AfterSelectApproval".
+ </summary>
+</member>
+<member name="M:KzSystem.HDLibForm.GetSizeColor(System.Int64)">
+ <summary>
+ This function returns a Color based on the combined size of the directory 
+ and all its subdirectories. This is the second of two overloads.
+ </summary>
+ <param name="intSize"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.HDLibForm.GetDirectorySize(System.String,KzSystem.DirectoryNode)">
+ <summary>
+ This function returns the size of a directory, and all its sub-directories.
+ </summary>
+ <param name="strDirPath"></param>
+ <param name="dnDriveOrDirectory"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzStr.CFullWidth(System.String)">
+ <summary>
+ Convert all half width char to full width in InputString
+ 半角轉全角
+ </summary>
+ <param name="InputString"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzStr.CHalfWidth(System.String)">
+ <summary>
+ Convert full width char to half width in InputString if the char's half form exists.
+ 全角轉半角
+ </summary>
+ <param name="InputString"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzWeb.GetWebCode(System.String)">
+ <summary>
+ Get source code from the html page indecated by URL string
+ </summary>
+ <param name="strURL"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.FileListView.OnItemActivate(System.EventArgs)">
+ <summary>
+ Overrides the base class OnItemActivate event handler. Extends the base
+ class implementation to run any .exe or file with an associated executable.
+ </summary>
+</member>
+<member name="M:KzSystem.FileListView.ShowFiles(System.String)">
+ <summary>
+ This subroutine is used to display a list of all files in the directory
+ currently selected by the user from the custom TreeView control.
+ </summary>
+</member>
 <member name="M:KzSystem.TestSlideBar.Dispose(System.Boolean)">
  <summary>
  Clean up any resources being used.

@@ -20,5 +20,11 @@
     <Setting Name="FileInitialDirectory" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="HDLibPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="HDLibHome" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://www.haodoo.net/</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -13,6 +13,7 @@
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -25,7 +26,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -88,16 +88,31 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Samples\DirectoryScanner.designer.vb">
+      <DependentUpon>DirectoryScanner.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\DirectoryScanner.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="EndForm.Designer.vb">
       <DependentUpon>EndForm.vb</DependentUpon>
     </Compile>
     <Compile Include="EndForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="HDLibForm.Designer.vb">
+      <DependentUpon>HDLibForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="HDLibForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="LibraryEnums.vb" />
     <Compile Include="LibraryFunctions.vb" />
+    <Compile Include="LibraryIO.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="LibraryPaint.vb" />
-    <Compile Include="LibraryPanels.vb" />
+    <Compile Include="LibraryComponents.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -167,10 +182,22 @@
     <Compile Include="UserDialogs\KzColorPicker.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="UserDialogs\KzInputDialog.Designer.vb">
+      <DependentUpon>KzInputDialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserDialogs\KzInputDialog.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="UserDialogs\KzTabsDesigner.Designer.vb">
       <DependentUpon>KzTabsDesigner.vb</DependentUpon>
     </Compile>
     <Compile Include="UserDialogs\KzTabsDesigner.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserDialogs\KzTextInputDialog.Designer.vb">
+      <DependentUpon>KzTextInputDialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserDialogs\KzTextInputDialog.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UserDialogs\KzTextViewDialog.Designer.vb">
@@ -181,8 +208,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Samples\DirectoryScanner.resx">
+      <DependentUpon>DirectoryScanner.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EndForm.resx">
       <DependentUpon>EndForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HDLibForm.resx">
+      <DependentUpon>HDLibForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -216,6 +249,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserDialogs\KzTabsDesigner.resx">
       <DependentUpon>KzTabsDesigner.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserDialogs\KzTextInputDialog.resx">
+      <DependentUpon>KzTextInputDialog.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserDialogs\KzTextViewDialog.resx">
       <DependentUpon>KzTextViewDialog.vb</DependentUpon>
@@ -268,6 +304,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\LinerBasicUI\liner_view.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\KzBooks.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\KzBooks_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>KzBooks.mdf</DependentUpon>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

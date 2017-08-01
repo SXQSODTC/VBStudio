@@ -45,6 +45,7 @@ Partial Class StartForm
         Me.Test03 = New System.Windows.Forms.ToolStripMenuItem()
         Me.Test04 = New System.Windows.Forms.ToolStripMenuItem()
         Me.GenToolTip = New System.Windows.Forms.ToolTip(Me.components)
+        Me.HDLibToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CommandsPanel.SuspendLayout()
         Me.StartMenu.SuspendLayout()
         Me.SuspendLayout()
@@ -216,7 +217,7 @@ Partial Class StartForm
         '
         'TestMenuItem
         '
-        Me.TestMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Test01, Me.Test02, Me.Test03, Me.Test04})
+        Me.TestMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Test01, Me.Test02, Me.Test03, Me.Test04, Me.HDLibToolStripMenuItem})
         Me.TestMenuItem.Name = "TestMenuItem"
         Me.TestMenuItem.Size = New System.Drawing.Size(44, 21)
         Me.TestMenuItem.Text = "Test"
@@ -230,20 +231,26 @@ Partial Class StartForm
         'Test02
         '
         Me.Test02.Name = "Test02"
-        Me.Test02.Size = New System.Drawing.Size(152, 22)
+        Me.Test02.Size = New System.Drawing.Size(156, 22)
         Me.Test02.Text = "ColorPicker"
         '
         'Test03
         '
         Me.Test03.Name = "Test03"
-        Me.Test03.Size = New System.Drawing.Size(152, 22)
+        Me.Test03.Size = New System.Drawing.Size(156, 22)
         Me.Test03.Text = "TestSlideBar"
         '
         'Test04
         '
         Me.Test04.Name = "Test04"
-        Me.Test04.Size = New System.Drawing.Size(152, 22)
+        Me.Test04.Size = New System.Drawing.Size(156, 22)
         Me.Test04.Text = "PListReader"
+        '
+        'HDLibToolStripMenuItem
+        '
+        Me.HDLibToolStripMenuItem.Name = "HDLibToolStripMenuItem"
+        Me.HDLibToolStripMenuItem.Size = New System.Drawing.Size(156, 22)
+        Me.HDLibToolStripMenuItem.Text = "HDLib"
         '
         'StartForm
         '
@@ -288,4 +295,5 @@ Partial Class StartForm
     Friend WithEvents Test03 As ToolStripMenuItem
     Friend WithEvents GenToolTip As ToolTip
     Friend WithEvents Test04 As ToolStripMenuItem
+    Friend WithEvents HDLibToolStripMenuItem As ToolStripMenuItem
 End Class

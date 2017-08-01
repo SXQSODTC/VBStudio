@@ -65,4 +65,8 @@
         ContentsTextBox.SelectAll()
         ContentsTextBox.Copy()
     End Sub
+
+    Private Sub WrapToolStripButton_Click(sender As Object, e As EventArgs) Handles WrapToolStripButton.Click
+        ContentsTextBox.WordWrap = Not ContentsTextBox.WordWrap
+    End Sub
 End Class
