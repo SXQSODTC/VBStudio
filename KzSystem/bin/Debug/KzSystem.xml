@@ -22,6 +22,21 @@ KzSystem
   重写当前线程的 CurrentUICulture 属性。
 </summary>
 </member>
+<member name="P:KzSystem.My.Resources.Resources.drive_hdd">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.folder_close">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.folder_open">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
 <member name="P:KzSystem.My.Resources.Resources.liner_copy">
 <summary>
   查找 System.Drawing.Bitmap 类型的本地化资源。
@@ -61,6 +76,31 @@ KzSystem
 <summary>
   查找 System.Drawing.Bitmap 类型的本地化资源。
 </summary>
+</member>
+<member name="P:KzSystem.KzDirectoryTreeView.ShowAllDirectories">
+ <summary>
+ 指示是否顯示全系統的資料夾樹形結構，True：全部顯示；False：從指定的分支開始顯示。
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzDirectoryTreeView.StartDirectory">
+ <summary>
+ 指定樹形結構的開始資料夾，用以創建路徑起點。 
+ 如 ShowAllDirectories 設為 True，本屬性將失效。
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzFileListView.OnItemActivate(System.EventArgs)">
+ <summary>
+ Overrides the base class OnItemActivate event handler. Extends the base
+ class implementation to run any .exe or file with an associated executable.
+ </summary>
+</member>
+<member name="M:KzSystem.KzFileListView.ShowFiles(System.String)">
+ <summary>
+ This subroutine is used to display a list of all files in the directory
+ currently selected by the user from the custom TreeView control.
+ </summary>
 </member>
 <member name="M:KzSystem.DirectoryScanner.DirectoryScanner_Load(System.Object,System.EventArgs)">
  <summary>
@@ -122,22 +162,6 @@ KzSystem
  event could rightly be named "AfterSelectApproval".
  </summary>
 </member>
-<member name="M:KzSystem.HDLibForm.GetSizeColor(System.Int64)">
- <summary>
- This function returns a Color based on the combined size of the directory 
- and all its subdirectories. This is the second of two overloads.
- </summary>
- <param name="intSize"></param>
- <returns></returns>
-</member>
-<member name="M:KzSystem.HDLibForm.GetDirectorySize(System.String,KzSystem.DirectoryNode)">
- <summary>
- This function returns the size of a directory, and all its sub-directories.
- </summary>
- <param name="strDirPath"></param>
- <param name="dnDriveOrDirectory"></param>
- <returns></returns>
-</member>
 <member name="M:KzSystem.KzStr.CFullWidth(System.String)">
  <summary>
  Convert all half width char to full width in InputString
@@ -160,18 +184,6 @@ KzSystem
  </summary>
  <param name="strURL"></param>
  <returns></returns>
-</member>
-<member name="M:KzSystem.FileListView.OnItemActivate(System.EventArgs)">
- <summary>
- Overrides the base class OnItemActivate event handler. Extends the base
- class implementation to run any .exe or file with an associated executable.
- </summary>
-</member>
-<member name="M:KzSystem.FileListView.ShowFiles(System.String)">
- <summary>
- This subroutine is used to display a list of all files in the directory
- currently selected by the user from the custom TreeView control.
- </summary>
 </member>
 <member name="M:KzSystem.TestSlideBar.Dispose(System.Boolean)">
  <summary>

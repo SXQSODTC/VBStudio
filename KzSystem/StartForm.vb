@@ -148,7 +148,7 @@ Public Class StartForm
     End Sub
 
     Private Sub Test02_Click(sender As Object, e As EventArgs) Handles Test02.Click
-        FormSwitch(KzColorPicker)
+        FormSwitch(KzColorsDialog)
     End Sub
 
     Private Sub Test03_Click(sender As Object, e As EventArgs) Handles Test03.Click
@@ -161,6 +161,7 @@ Public Class StartForm
 
     Private Sub HDLibToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HDLibToolStripMenuItem.Click
         FormSwitch(HDLibForm)
+        'FormSwitch(TestExplorer)
     End Sub
 
 

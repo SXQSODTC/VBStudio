@@ -1,9 +1,11 @@
 ﻿Imports System.Drawing.Drawing2D
+Imports System.Drawing.Text
+Imports System.Text
 
 Public Class KzTabControl
     Inherits TabControl
 
-    Private iA As KzTabsAppearance
+    Private iA As KzTabsAppearance = New KzTabsAppearance
 
     Public Sub New()
         DrawMode = TabDrawMode.OwnerDrawFixed
@@ -17,8 +19,10 @@ Public Class KzTabControl
                 True)                                           '// 设置以上值为 true
 
         MyBase.UpdateStyles()
-        iA = New KzTabsAppearance
+        'iA = New KzTabsAppearance
     End Sub
+
+#Region "Properties"
     ''' <summary>
     ''' 用於命名新 TabPage 的前綴，與 NewSerialNumber 同時使用。格式為 NewTitlePrefix + NewSerialNumber 的字符串
     ''' </summary>
@@ -38,10 +42,8 @@ Public Class KzTabControl
             Return iA
         End Get
         Set(value As KzTabsAppearance)
-            If Not iA.Equals(value) Then
-                iA = value
-
-            End If
+            iA = value
+            Invalidate()
         End Set
     End Property
     ''' <summary>
@@ -75,32 +77,97 @@ Public Class KzTabControl
             Return i + 1
         End Get
     End Property
-    ''' <summary>
-    ''' 
-    ''' </summary>
-    ''' <param name="e"></param>
+
+#End Region 'Properties
+
+#Region "ProtectedMethods"
+    Private TabLocatedMouse As TabPage
+    Private ButtonLocatedMouse As Rectangle
+
     Protected Overrides Sub OnDrawItem(e As DrawItemEventArgs)
         MyBase.OnDrawItem(e)
     End Sub
-    ''' <summary>
-    ''' 繪製 Tabs，以最高質量繪製
-    ''' </summary>
-    ''' <param name="e"></param>
+
     Protected Overrides Sub OnPaint(e As PaintEventArgs)
         MyBase.OnPaint(e)
         Dim g As Graphics = e.Graphics
+
         KzPainting.SetHighQuality(g)
 
-        Dim rTab As Rectangle
-        Dim rDisp As Rectangle = Me.DisplayRectangle
+        Dim PageRect As Rectangle = Me.DisplayRectangle
+        Dim TabRect As Rectangle 'Bounds of TabHeader
+        'Dim CloseRect As Rectangle 'Bounds of CloseButton
+        'Dim PlusRect As Rectangle 'Bounds of PlusButton
+        'Dim TitleRect As Rectangle 'Bounds of Title's text
 
-        For Each tp As TabPage In TabPages
-            rTab = GetTabRect(TabPages.IndexOf(tp))
-            g.DrawRectangle(New Pen(Color.Blue), rTab)
-        Next
-        rDisp.Inflate(1, 1)
-        g.DrawRectangle(New Pen(Color.Red), rDisp)
+        '測試繪製
+        Try
+            For Each tp As TabPage In TabPages
+                TabRect = GetTabRect(TabPages.IndexOf(tp))
+                If iA.Tab.ShowBorder Then g.DrawRectangle(iA.Tab.BorderPen, TabRect)
+            Next
+            PageRect.Inflate(1, 1)
+            If iA.Tab.ShowBorder Then g.DrawRectangle(iA.Tab.BorderPen, PageRect)
+
+        Catch ex As Exception
+            Console.WriteLine("<Paint exception!>")
+        End Try
+
+
+        Select Case Alignment
+            Case TabAlignment.Top
+            Case TabAlignment.Bottom
+            Case TabAlignment.Left
+            Case TabAlignment.Right
+        End Select
+
     End Sub
+
+    Protected Overrides Sub OnMouseMove(e As MouseEventArgs)
+        MyBase.OnMouseMove(e)
+
+        Dim TabRect As Rectangle
+
+        If TabPages.Count > 0 Then
+            For Each tp As TabPage In TabPages
+                TabRect = GetTabRect(TabPages.IndexOf(tp))
+                If TabRect.Contains(e.Location) Then
+                    TabLocatedMouse = tp
+
+                End If
+            Next
+        End If
+
+    End Sub
+#End Region 'ProtectedMethods
+
+#Region "PrivatePainting"
+    Private Sub DrawButton(g As Graphics, tp As TabPage)
+
+    End Sub
+
+    Private Function GetCloseRect(tp As TabPage) As Rectangle
+
+    End Function
+
+    Private Function GetPlusRect() As Rectangle
+
+    End Function
+
+    Private Function GetIconRect(tp As TabPage) As Rectangle
+
+    End Function
+#End Region 'PrivatePainting
+
+#Region "PublicMethods"
+    Public Sub AddTab(tb As TabPage)
+
+    End Sub
+
+    Public Sub RemoveTab()
+
+    End Sub
+#End Region 'PublicMethods
 End Class
 
 
@@ -108,12 +175,7 @@ End Class
 ''' 用於描述 TabControl 的描畫呈現
 ''' </summary>
 Public Class KzTabsAppearance
-
-#Region "InternalDeclaration"
-    Private _theAppearance As TabAppearance
-    Private _theAlignment As TabAlignment
-
-#End Region 'InternalDeclaration
+    'Public Property Name As String = "NewLook"
 
     Public Property Appearance As TabAppearance = TabAppearance.Normal
     Public Property Alignment As TabAlignment = TabAlignment.Top
@@ -124,24 +186,43 @@ Public Class KzTabsAppearance
     Public Property SelectedTabCanClose As Boolean = False
     Public Property NormalTabCanClose As Boolean = False
 
-    Public Property Tab As KzTabStatusAppearance
-    Public Property TabHover As KzTabStatusAppearance
-    Public Property SelectedTab As KzTabStatusAppearance
-    Public Property SelectedTabHover As KzTabStatusAppearance
-    Public Property Button As KzTabStatusAppearance
-    Public Property ButtonHover As KzTabStatusAppearance
-    Public Property SelectedButton As KzTabStatusAppearance
-    Public Property SelectedButtonHover As KzTabStatusAppearance
-    Public Property AddTab As KzTabStatusAppearance
-    Public Property AddTabHover As KzTabStatusAppearance
+    Public Property Tab As KzTabStatusAppearance = New KzTabStatusAppearance
+    Public Property TabHover As KzTabStatusAppearance = New KzTabStatusAppearance
+    Public Property SelectedTab As KzTabStatusAppearance = New KzTabStatusAppearance
+    Public Property SelectedTabHover As KzTabStatusAppearance = New KzTabStatusAppearance
+    Public Property Button As KzTabStatusAppearance = New KzTabStatusAppearance
+    Public Property ButtonHover As KzTabStatusAppearance = New KzTabStatusAppearance
+    Public Property SelectedButton As KzTabStatusAppearance = New KzTabStatusAppearance
+    Public Property SelectedButtonHover As KzTabStatusAppearance = New KzTabStatusAppearance
+    Public Property AddTab As KzTabStatusAppearance = New KzTabStatusAppearance
+    Public Property AddTabHover As KzTabStatusAppearance = New KzTabStatusAppearance
 
-    Public ReadOnly Property Elements As KzTabStatusAppearance()
-        Get
-            Return {Tab, TabHover, SelectedTab, SelectedTabHover,
-                Button, ButtonHover, SelectedButton, SelectedButtonHover,
-                AddTab, AddTabHover}
-        End Get
-    End Property
+    Public Function GetCode(name As String, Optional tabWidth As Integer = 4) As String
+        Dim sb As New StringBuilder
+        Dim tab As String = Strings.StrDup(tabWidth, " ")
+
+        sb.AppendLine("' " & name)
+        sb.AppendLine("Dim " & name & " As New KzTabsAppearance")
+        sb.AppendLine("With " & name)
+        sb.AppendLine(tab & ".Appearance = TabAppearance." & Appearance.ToString)
+        sb.AppendLine(tab & ".Alignment = TabAlignment." & Alignment.ToString)
+        sb.AppendLine(tab & ".TabPageStyle = KzTabPageStyle." & TabPageStyle.ToString)
+        sb.AppendLine(tab & ".ShowAddNewTab = " & ShowAddNewTab.ToString)
+        sb.AppendLine(tab & ".SelectedTabCanClose = " & SelectedTabCanClose.ToString)
+        sb.AppendLine(tab & ".NormalTabCanClose = " & NormalTabCanClose.ToString)
+        sb.AppendLine(tab & ".Tab = " & name & "Tab")
+        sb.AppendLine(tab & ".TabHover = " & name & "TabHover")
+        sb.AppendLine(tab & ".SelectedTab = " & name & "SelectedTab")
+        sb.AppendLine(tab & ".SelectedTabHover = " & name & "SelectedTabHover")
+        sb.AppendLine(tab & ".Button = " & name & "Button")
+        sb.AppendLine(tab & ".ButtonHover = " & name & "ButtonHover")
+        sb.AppendLine(tab & ".SelectedButton = " & name & "SelectedButton")
+        sb.AppendLine(tab & ".SelectedButtonHover = " & name & "SelectedButtonHover")
+        sb.AppendLine(tab & ".AddTab = " & name & "AddTab")
+        sb.AppendLine(tab & ".AddTabHover = " & name & "AddTabHover")
+        sb.AppendLine("End With")
+        Return sb.ToString
+    End Function
 End Class
 ''' <summary>
 ''' 依據狀態描述單個 Tab 的呈現 
@@ -162,14 +243,10 @@ Public Class KzTabStatusAppearance
 
     Public ReadOnly Property BorderPen As Pen
         Get
-            If ShowBorder Then
-                If BlodBorder Then
-                    Return New Pen(BorderColor, 2)
-                Else
-                    Return New Pen(BorderColor, 1)
-                End If
+            If BlodBorder Then
+                Return New Pen(BorderColor, 2)
             Else
-                Return Nothing
+                Return New Pen(BorderColor, 1)
             End If
         End Get
     End Property
@@ -197,6 +274,27 @@ Public Class KzTabStatusAppearance
             Return baseFont
         End If
     End Function
+
+    Public Function GetCode(name As String, Optional tabWidth As Integer = 4) As String
+        Dim sb As New StringBuilder
+        Dim tab As String = Strings.StrDup(tabWidth, " ")
+
+        sb.AppendLine("' " & name)
+        sb.AppendLine("Dim " & name & " As New KzTabStatusAppearance")
+        sb.AppendLine("With " & name)
+        sb.AppendLine(tab & ".ShowBorder = " & ShowBorder.ToString)
+        sb.AppendLine(tab & ".BlodBorder = " & BlodBorder.ToString)
+        sb.AppendLine(tab & ".ShowShadow = " & ShowShadow.ToString)
+        sb.AppendLine(tab & ".ShadowSide = KzFlatSides." & ShadowSide.ToString)
+        sb.AppendLine(tab & ".ShowRadius = " & ShowRadius.ToString)
+        sb.AppendLine(tab & ".RadiusSide = KzFlatCorners." & RadiusSide.ToString)
+        sb.AppendLine(tab & ".BorderColor = " & KzColorHelper.GetColorDescription(BorderColor))
+        sb.AppendLine(tab & ".BackColor = " & KzColorHelper.GetColorDescription(BackColor))
+        sb.AppendLine(tab & ".ForeColor = " & KzColorHelper.GetColorDescription(ForeColor))
+        sb.AppendLine(tab & ".BlodFore = " & BlodFore.ToString)
+        sb.AppendLine("End With")
+        Return sb.ToString
+    End Function
 End Class
 ''' <summary>
 ''' KzSystem 定制 TabPage 形式
@@ -223,134 +321,18 @@ Public Enum KzTabPageStyle
     ''' </summary>
     OpenSideLine
 End Enum
-''' <summary>
-''' KzSystem 定制針對方形對象之「邊」的描述
-''' </summary>
-Public Enum KzFlatSides
-    ''' <summary>
-    ''' 未指定
-    ''' </summary>
-    None
-    ''' <summary>
-    ''' 四邊皆有
-    ''' </summary>
-    All
-    ''' <summary>
-    ''' 上邊
-    ''' </summary>
-    Top
-    ''' <summary>
-    ''' 下邊
-    ''' </summary>
-    Bottom
-    ''' <summary>
-    ''' 左邊
-    ''' </summary>
-    Left
-    ''' <summary>
-    ''' 右邊
-    ''' </summary>
-    Right
-    ''' <summary>
-    ''' 水平兩邊，即 Left and Right
-    ''' </summary>
-    Horizontal
-    ''' <summary>
-    ''' 垂直兩邊，即 Top and Bottom
-    ''' </summary>
-    Vertical
-    ''' <summary>
-    ''' 左邊及上邊，等同於 TopLeft，可用於描畫順序之區別
-    ''' </summary>
-    LeftTop
-    ''' <summary>
-    ''' 上邊及左邊，等同於 LeftTop，可用於描畫順序之區別
-    ''' </summary>
-    TopLeft
-    ''' <summary>
-    ''' 右邊及上邊，等同於 TopRight，可用於描畫順序之區別
-    ''' </summary>
-    RightTop
-    ''' <summary>
-    ''' 上邊及右邊，等同於 RightTop，可用於描畫順序之區別
-    ''' </summary>
-    TopRight
-    ''' <summary>
-    ''' 左邊及下邊，等同於 BottomLeft，可用於描畫順序之區別
-    ''' </summary>
-    LeftBottom
-    ''' <summary>
-    ''' 下邊及左邊，等同於 BottomLeft，可用於描畫順序之區別
-    ''' </summary>
-    BottomLeft
-    ''' <summary>
-    ''' 右邊及下邊，等同於 BottomRight，可用於描畫順序之區別
-    ''' </summary>
-    RightBottom
-    ''' <summary>
-    ''' 下邊及右邊，等同於 RightBottom，可用於描畫順序之區別
-    ''' </summary>
-    BottomRight
-End Enum
-''' <summary>
-''' KzSystem 定制針對方形對象之「角」的描述
-''' </summary>
-Public Enum KzFlatCorners
-    ''' <summary>
-    ''' 未設定
-    ''' </summary>
-    None
-    ''' <summary>
-    ''' 四角皆有
-    ''' </summary>
-    All
-    ''' <summary>
-    ''' 左上角，等同於 TopLeft
-    ''' </summary>
-    LeftTop
-    ''' <summary>
-    ''' 左上角，等同於 LeftTop
-    ''' </summary>
-    TopLeft
-    ''' <summary>
-    ''' 右上角，等同於 TopRight
-    ''' </summary>
-    RightTop
-    ''' <summary>
-    ''' 右上角，等同於 RightTop
-    ''' </summary>
-    TopRight
-    ''' <summary>
-    ''' 左下角，等同於 BottomLeft
-    ''' </summary>
-    LeftBottom
-    ''' <summary>
-    ''' 左下角，等同於 LeftBottom
-    ''' </summary>
-    BottomLeft
-    ''' <summary>
-    ''' 右上角，等同於 BottomRight
-    ''' </summary>
-    RightBottom
-    ''' <summary>
-    ''' 右上角，等同於 RightBottom
-    ''' </summary>
-    BottomRight
-    ''' <summary>
-    ''' 上方兩角，即 TopLeft + TopRight
-    ''' </summary>
-    Top
-    ''' <summary>
-    ''' 左方兩角，即 TopLeft + LeftBottom
-    ''' </summary>
-    Left
-    ''' <summary>
-    ''' 右方兩角，即 TopRight + RightBottom
-    ''' </summary>
-    Right
-    ''' <summary>
-    ''' 下方兩角，即 LeftBottom + RightBottom
-    ''' </summary>
-    Bottom
-End Enum
 
+Public Class KzTextTab
+    Inherits TabPage
+
+End Class
+
+Public Class KzRichTab
+    Inherits TabPage
+
+End Class
+
+Public Class KzWebTap
+    Inherits TabPage
+
+End Class

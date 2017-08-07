@@ -2161,4 +2161,18 @@ Friend Class KzColorHelper
             Return Color.FromArgb(0)
         End Try
     End Function
+
+    Public Shared Function GetColorDescription(color As Color, Optional byHex As Boolean = True) As String
+        If color.IsSystemColor Then
+            Return "SystemColors." & color.Name
+        ElseIf color.IsKnownColor Then
+            Return "Color." & color.Name
+        Else
+            If byHex Then
+                Return "Color.FromARGB(&H" & Hex(color.ToArgb) & ")"
+            Else
+                Return "Color.FromARGB(" & color.ToArgb & ")"
+            End If
+        End If
+    End Function
 End Class

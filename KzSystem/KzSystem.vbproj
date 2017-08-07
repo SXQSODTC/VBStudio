@@ -88,6 +88,14 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LibraryIOSystem.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Samples\DirectoryScanner.designer.vb">
       <DependentUpon>DirectoryScanner.vb</DependentUpon>
     </Compile>
@@ -108,20 +116,13 @@
     </Compile>
     <Compile Include="LibraryEnums.vb" />
     <Compile Include="LibraryFunctions.vb" />
-    <Compile Include="LibraryIO.vb">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="LibraryIO.vb" />
     <Compile Include="LibraryPaint.vb" />
     <Compile Include="LibraryComponents.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
-    </Compile>
-    <Compile Include="My Project\Resources.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="My Project\Settings.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -145,6 +146,12 @@
     <Compile Include="StartForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Tempcode\TestExplorer.Designer.vb">
+      <DependentUpon>TestExplorer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Tempcode\TestExplorer.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Tempcode\TestSlideBar.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -153,6 +160,18 @@
     </Compile>
     <Compile Include="Tempcode\TestColorListForm.vb">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserControls\KzColorPicker.Designer.vb">
+      <DependentUpon>KzColorPicker.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\KzColorPicker.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\KzExplorer.Designer.vb">
+      <DependentUpon>KzExplorer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\KzExplorer.vb">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserControls\KzSlideBar.Designer.vb">
       <DependentUpon>KzSlideBar.vb</DependentUpon>
@@ -176,10 +195,10 @@
     <Compile Include="UserControls\KzColorSticker.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserDialogs\KzColorPicker.Designer.vb">
-      <DependentUpon>KzColorPicker.vb</DependentUpon>
+    <Compile Include="UserDialogs\KzColorsDialog.Designer.vb">
+      <DependentUpon>KzColorsDialog.vb</DependentUpon>
     </Compile>
-    <Compile Include="UserDialogs\KzColorPicker.vb">
+    <Compile Include="UserDialogs\KzColorsDialog.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UserDialogs\KzInputDialog.Designer.vb">
@@ -219,9 +238,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Samples\PListReaderForm.resx">
       <DependentUpon>PListReaderForm.vb</DependentUpon>
@@ -232,20 +251,29 @@
     <EmbeddedResource Include="Tempcode\TestColorListForm.resx">
       <DependentUpon>TestColorListForm.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Tempcode\TestExplorer.resx">
+      <DependentUpon>TestExplorer.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Tempcode\TestSlideBar.resx">
       <DependentUpon>TestSlideBar.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\KzAppearancePanel.resx">
       <DependentUpon>KzAppearancePanel.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\KzColorPicker.resx">
+      <DependentUpon>KzColorPicker.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\KzColorSticker.resx">
       <DependentUpon>KzColorSticker.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\KzExplorer.resx">
+      <DependentUpon>KzExplorer.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\KzSlideBar.resx">
       <DependentUpon>KzSlideBar.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserDialogs\KzColorPicker.resx">
-      <DependentUpon>KzColorPicker.vb</DependentUpon>
+    <EmbeddedResource Include="UserDialogs\KzColorsDialog.resx">
+      <DependentUpon>KzColorsDialog.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserDialogs\KzTabsDesigner.resx">
       <DependentUpon>KzTabsDesigner.vb</DependentUpon>
@@ -306,13 +334,13 @@
     <None Include="Resources\LinerBasicUI\liner_view.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Data\KzBooks.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\KzBooks_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>KzBooks.mdf</DependentUpon>
-    </Content>
+    <None Include="Resources\LinerPngIcon\drive_hdd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LinerPngIcon\folder_close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LinerPngIcon\folder_open.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

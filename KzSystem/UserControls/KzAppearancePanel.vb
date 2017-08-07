@@ -13,9 +13,9 @@
         Dim i, ub As Integer
 
         With ShadowDirectionCB
-            ub = [Enum].GetNames(GetType(KzSidePosition)).Count - 1
+            ub = [Enum].GetNames(GetType(KzFlatSides)).Count - 1
             For i = 0 To ub
-                .Items.Add(CType(i, KzSidePosition))
+                .Items.Add(CType(i, KzFlatSides))
             Next
         End With
 

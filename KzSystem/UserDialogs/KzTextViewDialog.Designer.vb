@@ -69,7 +69,7 @@ Partial Class KzTextViewDialog
         Me.RootSplitContainer.Panel2.Controls.Add(Me.OKCmd)
         Me.RootSplitContainer.Panel2.Controls.Add(Me.CancelCmd)
         Me.RootSplitContainer.Size = New System.Drawing.Size(441, 355)
-        Me.RootSplitContainer.SplitterDistance = 297
+        Me.RootSplitContainer.SplitterDistance = 295
         Me.RootSplitContainer.SplitterWidth = 6
         Me.RootSplitContainer.TabIndex = 1
         Me.RootSplitContainer.TabStop = False
@@ -83,14 +83,14 @@ Partial Class KzTextViewDialog
         Me.ContentsTextBox.Multiline = True
         Me.ContentsTextBox.Name = "ContentsTextBox"
         Me.ContentsTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.ContentsTextBox.Size = New System.Drawing.Size(441, 246)
+        Me.ContentsTextBox.Size = New System.Drawing.Size(441, 244)
         Me.ContentsTextBox.TabIndex = 1
         Me.ContentsTextBox.TabStop = False
         '
         'TextDialogStatusStrip
         '
         Me.TextDialogStatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CountLabel, Me.SelectionLabel, Me.PositionLabel})
-        Me.TextDialogStatusStrip.Location = New System.Drawing.Point(0, 271)
+        Me.TextDialogStatusStrip.Location = New System.Drawing.Point(0, 269)
         Me.TextDialogStatusStrip.Name = "TextDialogStatusStrip"
         Me.TextDialogStatusStrip.Size = New System.Drawing.Size(441, 26)
         Me.TextDialogStatusStrip.TabIndex = 2
@@ -183,7 +183,7 @@ Partial Class KzTextViewDialog
         Me.InfoLabel.Dock = System.Windows.Forms.DockStyle.Left
         Me.InfoLabel.Location = New System.Drawing.Point(0, 0)
         Me.InfoLabel.Name = "InfoLabel"
-        Me.InfoLabel.Size = New System.Drawing.Size(245, 52)
+        Me.InfoLabel.Size = New System.Drawing.Size(245, 54)
         Me.InfoLabel.TabIndex = 2
         Me.InfoLabel.Text = "Description"
         '

@@ -78,7 +78,7 @@ Public Class KzAppearance
     Public Property ForeColor As Color = SystemColors.ControlText
 
     Public Property ShadowWidth As Integer = 0
-    Public Property ShadowDirection As KzSidePosition = KzSidePosition.RightBottom
+    Public Property ShadowDirection As KzFlatSides = KzFlatSides.RightBottom
     Public Property ShadowColor As Color = SystemColors.ButtonShadow
 
     Public Property FontStyle As FontStyle = SystemFonts.DefaultFont.Style

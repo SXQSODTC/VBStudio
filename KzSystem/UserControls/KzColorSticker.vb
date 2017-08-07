@@ -316,7 +316,6 @@ Public Class KzColorListPanel
         Me.BackColor = Color.DarkGray
         Me.WrapContents = False
 
-        'Me.DefaultColorListType = KzColorListType.WebColors
         Me.Stickers = New KzColorStickerCollection
         Me.CheckedStickers = New KzColorStickerCollection 'List(Of KzColorSticker)
 

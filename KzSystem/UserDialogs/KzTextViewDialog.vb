@@ -1,4 +1,6 @@
-﻿Public Class KzTextViewDialog
+﻿Imports System.IO
+
+Public Class KzTextViewDialog
 
     Public Sub New()
 
@@ -30,6 +32,8 @@
             Me.InfoLabel.Text = value
         End Set
     End Property
+
+    Public Property SaveFilePath As String = Nothing
 
     Private Sub UpdateStatusLabels(Optional all As Boolean = True)
         With ContentsTextBox
@@ -68,5 +72,19 @@
 
     Private Sub WrapToolStripButton_Click(sender As Object, e As EventArgs) Handles WrapToolStripButton.Click
         ContentsTextBox.WordWrap = Not ContentsTextBox.WordWrap
+    End Sub
+
+    Private Sub SaveToolStripButton_Click(sender As Object, e As EventArgs) Handles SaveToolStripButton.Click
+        If Not System.IO.File.Exists(SaveFilePath) Then
+            Dim ofd As New OpenFileDialog
+            ofd.Multiselect = False
+            SaveFilePath = ofd.FileName
+        End If
+
+        Try
+            System.IO.File.WriteAllText(SaveFilePath, TextContents, System.Text.Encoding.UTF8)
+        Catch ex As Exception
+            MsgBox("文檔文能保存。原因：" & vbCrLf & ex.Message, MsgBoxStyle.OkOnly, "存檔")
+        End Try
     End Sub
 End Class
