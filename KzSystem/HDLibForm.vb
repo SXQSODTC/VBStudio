@@ -5,6 +5,9 @@ Imports System.Text
 
 Public Class HDLibForm
 
+    Private CurrentInf As KzLibInfItem
+    Private CopiedNode As TreeNode
+
     Private Sub HDLibForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         '
         For i As Integer = 0 To [Enum].GetNames(GetType(KzLibInfType)).Count - 1
@@ -16,8 +19,6 @@ Public Class HDLibForm
         LinkPopLabel.Text = ""
         LinkPopLabel.BackColor = Color.SeaGreen
         LinkPopLabel.ForeColor = Color.WhiteSmoke
-
-        LibNewLevelCombo.SelectedIndex = 0
 
         LibView.StartDirectory = My.Settings.HDLibPath
         LibView.RefreshTree()
@@ -163,15 +164,7 @@ Public Class HDLibForm
 
 #End Region 'BrowserCode
 
-#Region "LibCode"
-
-    Public ReadOnly Property LibInf As KzLibInfItem
-        Get
-            CurrentInf = GetInfFromUI()
-            Return CurrentInf
-        End Get
-    End Property
-
+#Region "ButtonsOnToolStrip"
     Private Sub LibPathButton_Click(sender As Object, e As EventArgs) Handles LibPathButton.Click
         Dim fbd As New FolderBrowserDialog
         fbd.ShowNewFolderButton = True
@@ -187,7 +180,60 @@ Public Class HDLibForm
         End If
     End Sub
 
-    Private Sub LibView_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles LibView.AfterSelect
+    Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click, SaveInfButton.Click
+        If TypeBox.SelectedItem = KzLibInfType.Root Then
+            MsgBox("文檔類型未確定，請返回選擇正確的類型。" & vbCrLf & "未保存任何文檔。", MsgBoxStyle.OkOnly, "提示")
+            Exit Sub
+        End If
+
+        Dim sf As String = TypeBox.SelectedItem.ToString & ".kzinf"  ' [Enum].GetName(GetType(KzLibInfType), TypeBox.SelectedItem) & ".kzinf"
+
+        Dim di As New DirectoryInfo(LibView.SelectedNode.FullPath)
+        Dim fn As FileInfo() = di.GetFiles
+        Dim fs As New List(Of String)
+        For Each f As FileInfo In fn
+            If f.Name.EndsWith(".kzinf") And Not f.Name.ToLower = sf.ToLower Then
+                fs.Add(f.FullName)
+            End If
+        Next
+
+        If fs.Count > 0 Then
+            Dim m As String =
+                "本資料夾存在不同定義的資訊文檔，是否繼續保存？" & vbCrLf &
+                "【確定】將刪除不同定義的文檔，保存 " & sf & "。" & vbCrLf &
+                "【取消】退出保存。將不保存任何文檔。"
+
+            If MsgBox(m, MsgBoxStyle.OkCancel, "保存") = MsgBoxResult.Ok Then
+                For Each f As String In fs
+                    File.Delete(f)
+                Next
+            End If
+        End If
+
+        Try
+            PutInfToFile(GetInfFromUI(), Path.Combine(LibView.SelectedNode.FullPath, sf))
+            MsgBox("資訊檔 \" & Path.GetFileName(LibView.SelectedNode.FullPath) & "\" & sf & " 保存完畢。", MsgBoxStyle.OkOnly, "存檔")
+        Catch ex As Exception
+            MsgBox("資訊檔 " & Path.Combine(LibView.SelectedNode.FullPath, sf) & " 未能保存。原因：" & vbCrLf & ex.Message, MsgBoxStyle.OkOnly, "存檔")
+        End Try
+
+    End Sub
+
+    Private Sub ShowButton_Click(sender As Object, e As EventArgs) Handles ShowCodeButton.Click
+        Dim tvd As New KzTextViewDialog
+        tvd.TextContents = PutInfToText(GetInfFromUI())
+        tvd.InfoText = "Save Path: " & Path.Combine(LibView.SelectedNode.FullPath, [Enum].GetName(GetType(KzLibInfType), TypeBox.SelectedItem) & ".kzinf")
+        tvd.ShowDialog()
+    End Sub
+
+#End Region 'ButtonsOnToolStrip
+
+
+#Region "LibViewActions"
+
+    Private Sub LibView_AfterSelect(sender As Object, e As TreeViewEventArgs) _
+        Handles LibView.AfterSelect
+
         IndicatedBox.Text = e.Node.Text
         LibPathLabel.Text = e.Node.FullPath
 
@@ -252,6 +298,7 @@ Public Class HDLibForm
                 New ListViewItem.ListViewSubItem(item, fis(i).Length),
                 New ListViewItem.ListViewSubItem(item, "")}
             item.SubItems.AddRange(subitems)
+            item.ToolTipText = "File " + fis(i).Name + " Created on " + fis(i).CreationTime
             FilesView.Items.Add(item)
         Next
 
@@ -282,22 +329,135 @@ Public Class HDLibForm
 
         FilesView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
 
-        CoverButton.Enabled = False
+        'CoverButton.Enabled = False
         ReCoverButton.Enabled = False
     End Sub
 
-    Private Sub ImportButton_Click(sender As Object, e As EventArgs) Handles ImportButton.Click
-        Dim tid As New KzTextInputDialog
-        tid.Subject = "Test input:"
-        tid.LongText = True
-        If tid.ShowDialog() = DialogResult.OK Then
-            MsgBox(tid.Contents)
+    'Private Sub LibTreeView_AfterExpand(sender As Object, e As TreeViewEventArgs)
+    '    e.Node.Expand()
+    '    'ShowSubDirectories(CType(e.Node, DirectoryNode))
+    'End Sub
+
+    Private Sub LibView_AfterLabelEdit(sender As Object, e As NodeLabelEditEventArgs) _
+        Handles LibView.AfterLabelEdit
+        'MsgBox(e.Node.FullPath & vbCrLf & e.Label & vbCrLf & e.Node.Parent.FullPath & "\" & e.Label)
+
+        If e.Node.Parent Is Nothing Then
+            e.CancelEdit = True
+            Exit Sub
         End If
 
-        tid.Dispose()
+        Dim t As String = e.Node.Tag
+
+        If e.Label Is Nothing Then
+            e.CancelEdit = True
+
+            If t.EndsWith(".kzinf") Then
+                e.Node.Remove()
+            End If
+
+            Exit Sub
+        End If
+
+        If e.Label = "New" Then
+            Dim s As String = "新資料夾未改名或名稱不能為 New。是否繼續改名？" + vbCrLf +
+                "【是】關閉本提示繼續改名。" + vbCrLf + "【否】將刪除當前已新增的項目。"
+
+            If MsgBox(s, MsgBoxStyle.YesNo, "新增") = MsgBoxResult.Yes Then
+                e.Node.BeginEdit()
+            Else
+                e.CancelEdit = True
+                e.Node.Remove()
+            End If
+
+            Exit Sub
+        End If
+
+        If t = "Rename" Then
+            If Directory.Exists(e.Node.FullPath) And Not (e.Label = e.Node.Text) Then
+                FileIO.FileSystem.RenameDirectory(e.Node.FullPath, e.Label)
+                e.Node.Text = e.Label
+                e.Node.EndEdit(False)
+                LibView.SelectedNode = e.Node
+            Else
+                e.CancelEdit = True
+            End If
+        End If
+
+        If t.EndsWith(".kzinf") Then
+            Dim np As String = Path.Combine(e.Node.Parent.FullPath, e.Label)
+
+            If Directory.Exists(np) Then
+                Dim s As String = "資料夾已存在，是否繼續改名？" + vbCrLf +
+                    "【是】關閉本提示繼續改名。" + vbCrLf + "【否】將刪除當前已新增的項目。"
+
+                If MsgBox(s, MsgBoxStyle.YesNo, "新增") = MsgBoxResult.Yes Then
+                    e.Node.BeginEdit()
+                Else
+                    e.CancelEdit = True
+                    e.Node.Remove()
+                End If
+
+                Exit Sub
+
+            Else
+                Try
+                    Directory.CreateDirectory(np)
+                Catch ex As Exception
+                    MsgBox("未能創建資料夾。原因：" +
+                           vbCrLf + ex.Message, MsgBoxStyle.OkOnly, "新增")
+                    e.CancelEdit = True
+                    e.Node.Remove()
+                    Exit Sub
+                End Try
+            End If
+
+            Dim inf As New KzLibInfItem
+            With inf
+                Select Case t
+                    Case "Book.kzinf" : .Type = KzLibInfType.Book
+                    Case "Author.kzinf" : .Type = KzLibInfType.Author
+                    Case "Category.kzinf" : .Type = KzLibInfType.Category
+                    Case "Special.kzinf" : .Type = KzLibInfType.Special
+                End Select
+                .Title = Path.GetFileName(np)
+                .Updated = Now().ToString
+            End With
+
+            PutInfToUI(inf)
+            PutInfToFile(inf, Path.Combine(np, t))
+
+            e.Node.Text = e.Label
+            e.Node.EndEdit(False)
+
+            LibView.SelectedNode = e.Node
+        End If
+
     End Sub
 
-    Private Sub FilesView_SelectedIndexChanged(sender As Object, e As EventArgs) Handles FilesView.SelectedIndexChanged
+    Private Sub LibView_BeforeLabelEdit(sender As Object, e As NodeLabelEditEventArgs) _
+        Handles LibView.BeforeLabelEdit
+
+        If e.Node.Parent Is Nothing Then e.CancelEdit = True
+    End Sub
+
+    Private Sub LibView_MouseClick(sender As Object, e As MouseEventArgs) _
+        Handles LibView.MouseClick
+
+        If e.Button = MouseButtons.Left Or e.Button = MouseButtons.Right Then
+            Dim nd As TreeNode = LibView.GetNodeAt(e.Location)
+            If Not nd.Equals(LibView.SelectedNode) Then
+                LibView.SelectedNode = nd
+            End If
+        End If
+    End Sub
+#End Region 'LibViewActions
+
+
+#Region "FilesViewActions"
+    Private Sub FilesView_SelectedIndexChanged(sender As Object, e As EventArgs) _
+        Handles FilesView.SelectedIndexChanged
+
         With FilesView
             If .SelectedItems.Count > 0 Then
                 If .SelectedItems(0).SubItems(2).Text = "圖像" Then
@@ -305,13 +465,40 @@ Public Class HDLibForm
                     CoverButton.Enabled = True
                     ReCoverButton.Enabled = True
                 Else
-                    CoverButton.Enabled = False
+                    'CoverButton.Enabled = False
                     ReCoverButton.Enabled = False
                 End If
+
+                SerialBox.Text = .SelectedItems(0).SubItems(1).Text
+                CommentBox.Text = .SelectedItems(0).SubItems(4).Text
+            Else
+                SerialBox.Text = Nothing
+                CommentBox.Text = Nothing
             End If
         End With
+
+        SaveListButton.Enabled = False
     End Sub
 
+    Private Sub SerialBox_TextChanged(sender As Object, e As EventArgs) _
+        Handles SerialBox.TextChanged, CommentBox.TextAlignChanged
+
+        SaveListButton.Enabled = True
+    End Sub
+
+    Private Sub SaveListButton_Click(sender As Object, e As EventArgs) Handles SaveListButton.Click
+        With FilesView
+            If .SelectedItems.Count > 0 Then
+                .SelectedItems(0).SubItems(1).Text = SerialBox.Text
+                .SelectedItems(0).SubItems(4).Text = CommentBox.Text
+            End If
+        End With
+        SaveListButton.Enabled = False
+    End Sub
+#End Region 'FilesViewActions
+
+
+#Region "ControlsOnPanel"
     Private Sub ReCoverButton_Click(sender As Object, e As EventArgs) Handles ReCoverButton.Click
         If FilesView.SelectedItems.Count > 0 Then
             If FilesView.SelectedItems(0).SubItems(2).Text = "圖像" Then
@@ -324,15 +511,20 @@ Public Class HDLibForm
         ShowImg(Path.Combine(LibPathLabel.Text, CoverBox.Tag))
     End Sub
 
-    'Private Sub LibTreeView_AfterExpand(sender As Object, e As TreeViewEventArgs)
-    '    e.Node.Expand()
-    '    'ShowSubDirectories(CType(e.Node, DirectoryNode))
-    'End Sub
+    Private Sub LinkButton_Click(sender As Object, e As EventArgs) Handles LinkButton.Click
+        LinkBox.Text = HDBrowser.Url.ToString
+    End Sub
 
-#End Region 'LibCode
+    Private Sub LinkBox_DoubleClick(sender As Object, e As EventArgs) Handles LinkBox.DoubleClick
+        If Not HDBrowser.Url.ToString = LinkBox.Text Then
+            HDBrowser.Navigate(LinkBox.Text)
+        End If
+    End Sub
+
+#End Region 'ControlsOnPanel
+
 
 #Region "PrivateMethods"
-    Private CurrentInf As KzLibInfItem
 
     Private Function GetFileType(extension As String) As String
         Select Case extension.ToLower
@@ -381,6 +573,7 @@ Public Class HDLibForm
             .Address = "\" & Path.GetFileName(LibView.SelectedNode.FullPath)
             .FileComments = GetFileComments().Split("|")
             .Updated = Now().ToString
+            .Link = LinkBox.Text
             .Intro = IntroBox.Text
         End With
 
@@ -418,6 +611,7 @@ Public Class HDLibForm
                             Case "Address" : lif.Address = value
                             Case "FileComments" : lif.FileComments = value.Split("|")
                             Case "Updated" : lif.Updated = value
+                            Case "Link" : lif.Link = value
                             Case "Intro" : lif.Intro = sr.ReadToEnd
                         End Select
                     End If
@@ -442,6 +636,7 @@ Public Class HDLibForm
             CategoryBox.Text = .Category
             SpecialBox.Text = .Special
             UpdatedBox.Text = .Updated
+            LinkBox.Text = .Link
             IntroBox.Text = .Intro
             CoverBox.Tag = .Cover
             If .Cover Is Nothing Or .Cover = "" Then .Cover = "cover"
@@ -489,6 +684,7 @@ Public Class HDLibForm
 
         dsb.AppendLine("FileComments:" & sb.ToString)
         dsb.AppendLine("Updated:" & Now().ToString)
+        dsb.AppendLine("Link:" & LinkBox.Text)
         dsb.AppendLine("Intro:")
         dsb.Append(IntroBox.Text)
 
@@ -593,139 +789,149 @@ Public Class HDLibForm
 
 #End Region 'PrivateMethods
 
-    Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
-        Dim sf As String = [Enum].GetName(GetType(KzLibInfType), TypeBox.SelectedItem) & ".kzinf"
 
-        Dim di As New DirectoryInfo(LibView.SelectedNode.FullPath)
-        Dim fn As FileInfo() = di.GetFiles
-        Dim fs As New List(Of String)
-        For Each f As FileInfo In fn
-            If f.Name.EndsWith(".kzinf") And Not f.Name.ToLower = sf.ToLower Then
-                fs.Add(f.FullName)
-            End If
-        Next
+#Region "ClickedMenuActions"
+    Private Sub LibMenu_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) _
+        Handles LibMenu.ItemClicked
 
-        If fs.Count > 0 Then
-            Dim m As String =
-                "本資料夾存在不同定義的資訊文檔，是否繼續保存？" & vbCrLf &
-                "【確定】將刪除不同定義的文檔，保存 " & sf & "。" & vbCrLf &
-                "【取消】退出保存。將不保存任何文檔。"
-
-            If MsgBox(m, MsgBoxStyle.OkCancel, "保存") = MsgBoxResult.Ok Then
-                For Each f As String In fs
-                    File.Delete(f)
-                Next
-            End If
+        If e.ClickedItem.Equals(LibLevelItem) Then
+            LibLevelItem.Checked = Not LibLevelItem.Checked
         End If
+        '新增
+        If e.ClickedItem.Equals(LibBookItem) Or
+            e.ClickedItem.Equals(LibAuthorItem) Or
+            e.ClickedItem.Equals(LibCategoryItem) Or
+            e.ClickedItem.Equals(LibSpecialItem) Then
 
-        Try
-            PutInfToFile(GetInfFromUI(), Path.Combine(LibView.SelectedNode.FullPath, sf))
-            MsgBox("資訊檔 \" & Path.GetFileName(LibView.SelectedNode.FullPath) & "\" & sf & " 保存完畢。", MsgBoxStyle.OkOnly, "存檔")
-        Catch ex As Exception
-            MsgBox("資訊檔 " & Path.Combine(LibView.SelectedNode.FullPath, sf) & " 未能保存。原因：" & vbCrLf & ex.Message, MsgBoxStyle.OkOnly, "存檔")
-        End Try
+            If Not LibView.SelectedNode.IsEditing Then
+                Dim NewNode As New TreeNode("New")
 
-    End Sub
+                If e.ClickedItem.Equals(LibBookItem) Then NewNode.Tag = "Book.kzinf"
+                If e.ClickedItem.Equals(LibAuthorItem) Then NewNode.Tag = "Author.kzinf"
+                If e.ClickedItem.Equals(LibCategoryItem) Then NewNode.Tag = "Category.kzinf"
+                If e.ClickedItem.Equals(LibSpecialItem) Then NewNode.Tag = "Special.kzinf"
 
-    Private Sub ShowButton_Click(sender As Object, e As EventArgs) Handles ShowButton.Click
-        Dim tvd As New KzTextViewDialog
-        tvd.TextContents = PutInfToText(GetInfFromUI())
-        tvd.InfoText = "Save Path: " & Path.Combine(LibView.SelectedNode.FullPath, [Enum].GetName(GetType(KzLibInfType), TypeBox.SelectedItem) & ".kzinf")
-        tvd.ShowDialog()
-    End Sub
-
-    'Private Sub LibNewBookItem_Click(sender As Object, e As EventArgs) Handles LibNewBookItem.Click
-    '    Dim NewBook As New TreeNode("NewBook")
-
-    '    If LibNewLevelCombo.SelectedIndex = 0 Then
-    '        LibView.SelectedNode.Parent.Nodes.Add(NewBook)
-    '    Else
-    '        LibView.SelectedNode.Nodes.Add(NewBook)
-    '        LibView.SelectedNode.Expand()
-    '    End If
-
-    '    NewBook.BeginEdit()
-    'End Sub
-
-    Private Sub LibView_AfterLabelEdit(sender As Object, e As NodeLabelEditEventArgs) Handles LibView.AfterLabelEdit
-        MsgBox(e.Node.FullPath & vbCrLf & e.Label & vbCrLf & e.Node.Parent.FullPath & "\" & e.Label)
-        Dim np As String = Path.Combine(e.Node.Parent.FullPath, e.Label)
-
-        Try
-            If Directory.Exists(e.Node.FullPath) Then
-                If e.Label IsNot Nothing Then
-                    FileIO.FileSystem.RenameDirectory(e.Node.FullPath, e.Label)
+                If LibLevelItem.Checked Then
+                    LibView.SelectedNode.Nodes.Add(NewNode)
+                    LibView.SelectedNode.Expand()
+                Else
+                    If Not LibView.SelectedNode.Parent Is Nothing Then
+                        LibView.SelectedNode.Parent.Nodes.Add(NewNode)
+                    End If
                 End If
-            Else
-                Directory.CreateDirectory(np)
+
+                NewNode.BeginEdit()
+            End If
+        End If
+        '更名
+        If e.ClickedItem.Equals(LibRenameItem) Then
+            If Not LibView.SelectedNode.Parent Is Nothing Then
+                LibView.SelectedNode.Tag = "Rename"
+                LibView.SelectedNode.BeginEdit()
+            End If
+        End If
+        '複製，剪切
+        If e.ClickedItem.Equals(LibCopyItem) Or
+            e.ClickedItem.Equals(LibCutItem) Then
+
+            If Not LibView.SelectedNode.Parent Is Nothing Then
+                CopiedNode = LibView.SelectedNode
             End If
 
-            Dim fn As String = ""
-            Select Case e.Node.Text
-                Case "NewBook" : fn = "Book"
-                Case "Author" : fn = "Author"
-                Case "Category" : fn = "Category"
-                Case "Special" : fn = "Special"
-                Case Else : fn = "None"
-            End Select
-
-            Dim inf As New KzLibInfItem With {
-                .Type = KzLibInfType.Book,
-                .Title = Path.GetFileName(np),
-                .Updated = Now()}
+            LibPasteItem.Enabled = True
+        End If
+        '粘貼
+        If e.ClickedItem.Equals(LibPasteItem) Then
 
 
-            'TypeBox.SelectedItem = [Enum].Parse(GetType(KzLibInfType), fn)
-            'TitleBox.Text = Path.GetFileName(np)
-            PutInfToUI(inf)
-            PutInfToFile(inf, Path.Combine(np, fn & ".kzinf"))
+            LibAuthorItem.Enabled = False
+        End If
+        '刪除
+        If e.ClickedItem.Equals(LibDeleteItem) Then
+            If Not LibView.SelectedNode.Parent Is Nothing Then
+                Dim s As String = "此舉將刪除選定的資料夾。是否繼續？" + vbCrLf +
+                    "【是】資料夾 " + LibView.SelectedNode.FullPath + " 及其子項目將被刪除。" + vbCrLf +
+                    "【否】將不執行任何操作。"
 
-            LibView.SelectedNode = e.Node
+                If MsgBox(s, MsgBoxStyle.YesNo, "刪除") = MsgBoxResult.Yes Then
+                    Try
+                        Directory.Delete(LibView.SelectedNode.FullPath, True)
 
+                        Dim tempNode As TreeNode
+                        If LibView.SelectedNode.NextNode IsNot Nothing Then
+                            tempNode = LibView.SelectedNode.NextNode
+                        ElseIf LibView.SelectedNode.PrevNode IsNot Nothing Then
+                            tempNode = LibView.SelectedNode.PrevNode
+                        Else
+                            tempNode = LibView.SelectedNode.Parent
+                        End If
+                        LibView.SelectedNode.Remove()
+                        LibView.SelectedNode = tempNode
+                    Catch ex As Exception
+                        MsgBox("資料夾未能刪除。原因：" + vbCrLf + ex.Message, MsgBoxStyle.OkOnly, "刪除")
+                    End Try
+                End If
+            End If
+        End If
+    End Sub
+
+    Private Sub FilesMenu_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) _
+        Handles FilesMenu.ItemClicked
+
+        If FilesView.SelectedItems.Count > 0 Then
+            If e.ClickedItem.Equals(FileImportItem) Then
+
+            End If
+
+            If e.ClickedItem.Equals(FileRenameItem) Then
+                FilesView.SelectedItems(0).BeginEdit()
+            End If
+
+            If e.ClickedItem.Equals(FileImportItem) Then
+
+            End If
+
+            If e.ClickedItem.Equals(FileDeleteItem) Then
+
+            End If
+        End If
+
+        If e.ClickedItem.Equals(FilePasteItem) Then
+
+        End If
+    End Sub
+
+#End Region 'ClickedMenuActions
+
+#Region "TempBlock"
+    Private Sub FilesView_AfterLabelEdit(sender As Object, e As LabelEditEventArgs) _
+        Handles FilesView.AfterLabelEdit
+
+        If e.Label Is Nothing Then
+
+            e.CancelEdit = True
+        End If
+
+        Dim ofn As String = FilesView.Items.Item(e.Item).Text
+        Dim oext As String = ofn.Substring(ofn.LastIndexOf("."))
+        Dim dext As String = e.Label.Substring(e.Label.LastIndexOf("."))
+
+        If Not oext = dext Then
+
+        End If
+
+        Try
+            FileIO.FileSystem.RenameFile(FilesView.Items.Item(e.Item).Text, e.Label)
+            FilesView.Items.Item(e.Item).Text = e.Label
         Catch ex As Exception
-            'MsgBox("未能創建資料夾。原因：" & vbCrLf & ex.Message, MsgBoxStyle.OkOnly, "創建")
-            'LibView.Nodes.Remove(e.Node)
+
+            e.CancelEdit = True
         End Try
     End Sub
 
-    Private Sub LibView_MouseClick(sender As Object, e As MouseEventArgs) Handles LibView.MouseClick
-        If e.Button = MouseButtons.Left Or e.Button = MouseButtons.Right Then
-            Dim nd As TreeNode = LibView.GetNodeAt(e.Location)
-            If Not nd.Equals(LibView.SelectedNode) Then
-                LibView.SelectedNode = nd
-            End If
-        End If
-    End Sub
-
-    Private Sub LibMenu_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles LibMenu.ItemClicked
-        If e.ClickedItem.Equals(LibNewBookItem) Then
-            Dim NewBook As New TreeNode("NewBook")
-
-            If LibNewLevelCombo.SelectedIndex = 0 Then
-                LibView.SelectedNode.Parent.Nodes.Add(NewBook)
-            Else
-                LibView.SelectedNode.Nodes.Add(NewBook)
-                LibView.SelectedNode.Expand()
-            End If
-
-            NewBook.BeginEdit()
-        End If
-
-        If e.ClickedItem.Equals(ParentItem) Then
-
-        End If
-    End Sub
-
-    Private Sub LibView_BeforeLabelEdit(sender As Object, e As NodeLabelEditEventArgs) Handles LibView.BeforeLabelEdit
-
-    End Sub
+#End Region
 
 
-
-
-#Region "CommandPanels"
-
-#End Region 'CommandPanels
 End Class
 
 Public Class KzLibInfItem
@@ -733,7 +939,7 @@ Public Class KzLibInfItem
 
     End Sub
 
-    Public Property Type As KzLibInfType = KzLibInfType.None
+    Public Property Type As KzLibInfType = KzLibInfType.Root
     Public Property ID As String '= "<id>"
     Public Property Title As String '= "<title>"
     Public Property Subtitle As String '= "<subtitle>"
@@ -752,7 +958,7 @@ Public Class KzLibInfItem
 End Class
 
 Public Enum KzLibInfType
-    None
+    Root
     Book
     Author
     Category

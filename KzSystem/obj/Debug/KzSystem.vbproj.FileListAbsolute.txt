@@ -52,3 +52,4 @@ E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzExplorer.resources
 E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzTextInputDialog.resources
 E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzColorsDialog.resources
 E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.vbprojResolveAssemblyReference.cache
+D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzColorsDialog.resources

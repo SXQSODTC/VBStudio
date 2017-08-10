@@ -5,7 +5,7 @@ Imports System.Text
 Public Class KzTabControl
     Inherits TabControl
 
-    Private iA As KzTabsAppearance = New KzTabsAppearance
+    Private iA As KzTabsAppearance '= New KzTabsAppearance
 
     Public Sub New()
         DrawMode = TabDrawMode.OwnerDrawFixed
@@ -175,6 +175,9 @@ End Class
 ''' 用於描述 TabControl 的描畫呈現
 ''' </summary>
 Public Class KzTabsAppearance
+    Public Sub New()
+
+    End Sub
     'Public Property Name As String = "NewLook"
 
     Public Property Appearance As TabAppearance = TabAppearance.Normal
@@ -228,6 +231,9 @@ End Class
 ''' 依據狀態描述單個 Tab 的呈現 
 ''' </summary>
 Public Class KzTabStatusAppearance
+    Public Sub New()
+
+    End Sub
 
     Public Property ShowBorder As Boolean = False
     Public Property BlodBorder As Boolean = False

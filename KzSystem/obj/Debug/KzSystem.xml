@@ -162,119 +162,14 @@ KzSystem
  event could rightly be named "AfterSelectApproval".
  </summary>
 </member>
-<member name="M:KzSystem.KzStr.CFullWidth(System.String)">
- <summary>
- Convert all half width char to full width in InputString
- 半角轉全角
- </summary>
- <param name="InputString"></param>
- <returns></returns>
-</member>
-<member name="M:KzSystem.KzStr.CHalfWidth(System.String)">
- <summary>
- Convert full width char to half width in InputString if the char's half form exists.
- 全角轉半角
- </summary>
- <param name="InputString"></param>
- <returns></returns>
-</member>
-<member name="M:KzSystem.KzWeb.GetWebCode(System.String)">
- <summary>
- Get source code from the html page indecated by URL string
- </summary>
- <param name="strURL"></param>
- <returns></returns>
-</member>
-<member name="M:KzSystem.TestSlideBar.Dispose(System.Boolean)">
- <summary>
- Clean up any resources being used.
- </summary>
-</member>
-<member name="M:KzSystem.TestSlideBar.InitializeComponent">
- <summary>
- Required method for Designer support - do not modify
- the contents of this method with the code editor.
- </summary>
-</member>
-<member name="M:KzSystem.TestSlideBar.Main">
- <summary>
- The main entry point for the application.
- </summary>
-</member>
-<member name="P:KzSystem.KzTabControl.NewTitlePrefix">
- <summary>
- 用於命名新 TabPage 的前綴，與 NewSerialNumber 同時使用。格式為 NewTitlePrefix + NewSerialNumber 的字符串
- </summary>
- <returns></returns>
-</member>
-<member name="P:KzSystem.KzTabControl.NewAddedAutoSelect">
- <summary>
- 指示新增 TabPage 時是否即使應用選擇
- </summary>
- <returns></returns>
-</member>
-<member name="P:KzSystem.KzTabControl.TabsAppearance">
- <summary>
- 讀取或設置用於繪製 Tabs 的呈現
- </summary>
- <returns></returns>
-</member>
-<member name="P:KzSystem.KzTabControl.NewSerialNumber">
- <summary>
- 在當前狀態下取得用於命名新 TabPage 的索引號，從 0 開始按 1 遞增
- </summary>
- <returns></returns>
-</member>
-<member name="M:KzSystem.KzTabControl.OnDrawItem(System.Windows.Forms.DrawItemEventArgs)">
+<member name="T:KzSystem.KzItemPosition">
  <summary>
  
  </summary>
- <param name="e"></param>
 </member>
-<member name="M:KzSystem.KzTabControl.OnPaint(System.Windows.Forms.PaintEventArgs)">
+<member name="T:KzSystem.KzActionStatus">
  <summary>
- 繪製 Tabs，以最高質量繪製
- </summary>
- <param name="e"></param>
-</member>
-<member name="T:KzSystem.KzTabsAppearance">
- <summary>
- 用於描述 TabControl 的描畫呈現
- </summary>
-</member>
-<member name="T:KzSystem.KzTabStatusAppearance">
- <summary>
- 依據狀態描述單個 Tab 的呈現 
- </summary>
-</member>
-<member name="T:KzSystem.KzTabPageStyle">
- <summary>
- KzSystem 定制 TabPage 形式
- </summary>
-</member>
-<member name="F:KzSystem.KzTabPageStyle.None">
- <summary>
- 未指定，對 Page 不作修飾
- </summary>
-</member>
-<member name="F:KzSystem.KzTabPageStyle.PageFrame">
- <summary>
- Page 呈現範圍周邊描畫 Frame，可應用 Tab 的 BorderColor 或 BackColor
- </summary>
-</member>
-<member name="F:KzSystem.KzTabPageStyle.SideLine">
- <summary>
- 在 Tab 和 Page 之間描畫分割線，可應用 Tab 的 BorderColor 或 BackColor
- </summary>
-</member>
-<member name="F:KzSystem.KzTabPageStyle.OpenPageFrame">
- <summary>
- Page 呈現範圍周邊描畫 Frame，但 Tab 接壤處不描畫
- </summary>
-</member>
-<member name="F:KzSystem.KzTabPageStyle.OpenSideLine">
- <summary>
- 在 Tab 和 Page 之間描畫分割線，但 Tab 接壤處不描畫
+ 
  </summary>
 </member>
 <member name="T:KzSystem.KzFlatSides">
@@ -435,6 +330,109 @@ KzSystem
 <member name="F:KzSystem.KzFlatCorners.Bottom">
  <summary>
  下方兩角，即 LeftBottom + RightBottom
+ </summary>
+</member>
+<member name="M:KzSystem.KzStr.CFullWidth(System.String)">
+ <summary>
+ Convert all half width char to full width in InputString
+ 半角轉全角
+ </summary>
+ <param name="InputString"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzStr.CHalfWidth(System.String)">
+ <summary>
+ Convert full width char to half width in InputString if the char's half form exists.
+ 全角轉半角
+ </summary>
+ <param name="InputString"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzWeb.GetWebCode(System.String)">
+ <summary>
+ Get source code from the html page indecated by URL string
+ </summary>
+ <param name="strURL"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.TestSlideBar.Dispose(System.Boolean)">
+ <summary>
+ Clean up any resources being used.
+ </summary>
+</member>
+<member name="M:KzSystem.TestSlideBar.InitializeComponent">
+ <summary>
+ Required method for Designer support - do not modify
+ the contents of this method with the code editor.
+ </summary>
+</member>
+<member name="M:KzSystem.TestSlideBar.Main">
+ <summary>
+ The main entry point for the application.
+ </summary>
+</member>
+<member name="P:KzSystem.KzTabControl.NewTitlePrefix">
+ <summary>
+ 用於命名新 TabPage 的前綴，與 NewSerialNumber 同時使用。格式為 NewTitlePrefix + NewSerialNumber 的字符串
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzTabControl.NewAddedAutoSelect">
+ <summary>
+ 指示新增 TabPage 時是否即使應用選擇
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzTabControl.TabsAppearance">
+ <summary>
+ 讀取或設置用於繪製 Tabs 的呈現
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzTabControl.NewSerialNumber">
+ <summary>
+ 在當前狀態下取得用於命名新 TabPage 的索引號，從 0 開始按 1 遞增
+ </summary>
+ <returns></returns>
+</member>
+<member name="T:KzSystem.KzTabsAppearance">
+ <summary>
+ 用於描述 TabControl 的描畫呈現
+ </summary>
+</member>
+<member name="T:KzSystem.KzTabStatusAppearance">
+ <summary>
+ 依據狀態描述單個 Tab 的呈現 
+ </summary>
+</member>
+<member name="T:KzSystem.KzTabPageStyle">
+ <summary>
+ KzSystem 定制 TabPage 形式
+ </summary>
+</member>
+<member name="F:KzSystem.KzTabPageStyle.None">
+ <summary>
+ 未指定，對 Page 不作修飾
+ </summary>
+</member>
+<member name="F:KzSystem.KzTabPageStyle.PageFrame">
+ <summary>
+ Page 呈現範圍周邊描畫 Frame，可應用 Tab 的 BorderColor 或 BackColor
+ </summary>
+</member>
+<member name="F:KzSystem.KzTabPageStyle.SideLine">
+ <summary>
+ 在 Tab 和 Page 之間描畫分割線，可應用 Tab 的 BorderColor 或 BackColor
+ </summary>
+</member>
+<member name="F:KzSystem.KzTabPageStyle.OpenPageFrame">
+ <summary>
+ Page 呈現範圍周邊描畫 Frame，但 Tab 接壤處不描畫
+ </summary>
+</member>
+<member name="F:KzSystem.KzTabPageStyle.OpenSideLine">
+ <summary>
+ 在 Tab 和 Page 之間描畫分割線，但 Tab 接壤處不描畫
  </summary>
 </member>
 <member name="T:KzSystem.ValueChangedHandler">
