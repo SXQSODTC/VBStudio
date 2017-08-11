@@ -75,6 +75,8 @@ Partial Class HDLibForm
         Me.TypeLabel = New System.Windows.Forms.Label()
         Me.SaveInfButton = New System.Windows.Forms.Button()
         Me.AbortInfButton = New System.Windows.Forms.Button()
+        Me.SeriesLabel = New System.Windows.Forms.Label()
+        Me.SeriesBox = New System.Windows.Forms.TextBox()
         Me.FileSpliter = New System.Windows.Forms.SplitContainer()
         Me.ImgSpliter = New System.Windows.Forms.SplitContainer()
         Me.CoverBox = New System.Windows.Forms.PictureBox()
@@ -93,6 +95,8 @@ Partial Class HDLibForm
         Me.FileRenameItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FilePasteItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FileDeleteItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator9 = New System.Windows.Forms.ToolStripSeparator()
+        Me.FileSetCoverItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ListEditPanel = New System.Windows.Forms.TableLayoutPanel()
         Me.SerialLabel = New System.Windows.Forms.Label()
         Me.CommentLabel = New System.Windows.Forms.Label()
@@ -112,6 +116,14 @@ Partial Class HDLibForm
         Me.ShowCodeButton = New System.Windows.Forms.ToolStripButton()
         Me.SaveButton = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator8 = New System.Windows.Forms.ToolStripSeparator()
+        Me.UpdateDBButton = New System.Windows.Forms.ToolStripDropDownButton()
+        Me.DataAllItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator10 = New System.Windows.Forms.ToolStripSeparator()
+        Me.DataBooksItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DataAuthorsItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DataCategoriesItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DataSpecialsItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TryGetFromWebItem = New System.Windows.Forms.ToolStripButton()
         Me.LinkPopLabel = New System.Windows.Forms.Label()
         Me.HDBrowser = New System.Windows.Forms.WebBrowser()
         Me.WebStatus = New System.Windows.Forms.StatusStrip()
@@ -190,7 +202,7 @@ Partial Class HDLibForm
         Me.RootSpliter.Panel2.Controls.Add(Me.HDBrowser)
         Me.RootSpliter.Panel2.Controls.Add(Me.WebStatus)
         Me.RootSpliter.Panel2.Controls.Add(Me.WebTools)
-        Me.RootSpliter.Size = New System.Drawing.Size(932, 492)
+        Me.RootSpliter.Size = New System.Drawing.Size(932, 507)
         Me.RootSpliter.SplitterDistance = 650
         Me.RootSpliter.SplitterWidth = 2
         Me.RootSpliter.TabIndex = 1
@@ -210,8 +222,8 @@ Partial Class HDLibForm
         'LibSpliter.Panel2
         '
         Me.LibSpliter.Panel2.Controls.Add(Me.BookSpliter)
-        Me.LibSpliter.Size = New System.Drawing.Size(648, 439)
-        Me.LibSpliter.SplitterDistance = 145
+        Me.LibSpliter.Size = New System.Drawing.Size(648, 454)
+        Me.LibSpliter.SplitterDistance = 170
         Me.LibSpliter.SplitterWidth = 1
         Me.LibSpliter.TabIndex = 2
         '
@@ -230,7 +242,7 @@ Partial Class HDLibForm
         Me.LibView.NeedSort = True
         Me.LibView.SelectedImageIndex = 0
         Me.LibView.ShowAllDirectories = False
-        Me.LibView.Size = New System.Drawing.Size(145, 416)
+        Me.LibView.Size = New System.Drawing.Size(170, 431)
         Me.LibView.StartDirectory = "C:\"
         Me.LibView.TabIndex = 1
         '
@@ -324,10 +336,12 @@ Partial Class HDLibForm
         '
         'IndicatedBox
         '
+        Me.IndicatedBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.IndicatedBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.IndicatedBox.Dock = System.Windows.Forms.DockStyle.Top
         Me.IndicatedBox.Location = New System.Drawing.Point(0, 0)
         Me.IndicatedBox.Name = "IndicatedBox"
-        Me.IndicatedBox.Size = New System.Drawing.Size(145, 23)
+        Me.IndicatedBox.Size = New System.Drawing.Size(170, 23)
         Me.IndicatedBox.TabIndex = 0
         Me.IndicatedBox.TabStop = False
         '
@@ -344,8 +358,8 @@ Partial Class HDLibForm
         'BookSpliter.Panel2
         '
         Me.BookSpliter.Panel2.Controls.Add(Me.FileSpliter)
-        Me.BookSpliter.Size = New System.Drawing.Size(502, 439)
-        Me.BookSpliter.SplitterDistance = 251
+        Me.BookSpliter.Size = New System.Drawing.Size(477, 454)
+        Me.BookSpliter.SplitterDistance = 219
         Me.BookSpliter.SplitterWidth = 2
         Me.BookSpliter.TabIndex = 1
         '
@@ -355,40 +369,43 @@ Partial Class HDLibForm
         Me.DataPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50.0!))
         Me.DataPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65.0!))
         Me.DataPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.0!))
-        Me.DataPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 21.0!))
-        Me.DataPanel.Controls.Add(Me.VersionLable, 0, 6)
-        Me.DataPanel.Controls.Add(Me.InfoUpdatedLabel, 0, 9)
+        Me.DataPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 29.0!))
+        Me.DataPanel.Controls.Add(Me.VersionLable, 0, 7)
+        Me.DataPanel.Controls.Add(Me.InfoUpdatedLabel, 0, 10)
         Me.DataPanel.Controls.Add(Me.SubtitleLabel, 0, 3)
-        Me.DataPanel.Controls.Add(Me.SpecialLabel, 0, 8)
-        Me.DataPanel.Controls.Add(Me.AuthorLabel, 0, 4)
+        Me.DataPanel.Controls.Add(Me.SpecialLabel, 0, 9)
+        Me.DataPanel.Controls.Add(Me.AuthorLabel, 0, 5)
         Me.DataPanel.Controls.Add(Me.TitleLabel, 0, 2)
-        Me.DataPanel.Controls.Add(Me.CategoryLabel, 0, 7)
+        Me.DataPanel.Controls.Add(Me.CategoryLabel, 0, 8)
         Me.DataPanel.Controls.Add(Me.IDLabel, 0, 1)
         Me.DataPanel.Controls.Add(Me.IDBox, 1, 1)
         Me.DataPanel.Controls.Add(Me.TitleBox, 1, 2)
         Me.DataPanel.Controls.Add(Me.SubtitleBox, 1, 3)
-        Me.DataPanel.Controls.Add(Me.AuthorBox, 1, 4)
-        Me.DataPanel.Controls.Add(Me.VersionBox, 1, 6)
-        Me.DataPanel.Controls.Add(Me.UpdatedBox, 1, 9)
-        Me.DataPanel.Controls.Add(Me.CategoryBox, 1, 7)
-        Me.DataPanel.Controls.Add(Me.SpecialBox, 1, 8)
-        Me.DataPanel.Controls.Add(Me.IntroBox, 0, 11)
-        Me.DataPanel.Controls.Add(Me.AuthorInfoButton, 3, 4)
-        Me.DataPanel.Controls.Add(Me.PublishInfoLabel, 0, 5)
-        Me.DataPanel.Controls.Add(Me.PublishInfoBox, 1, 5)
-        Me.DataPanel.Controls.Add(Me.CategoryButton, 3, 7)
-        Me.DataPanel.Controls.Add(Me.SpecialButton, 3, 8)
+        Me.DataPanel.Controls.Add(Me.AuthorBox, 1, 5)
+        Me.DataPanel.Controls.Add(Me.VersionBox, 1, 7)
+        Me.DataPanel.Controls.Add(Me.UpdatedBox, 1, 10)
+        Me.DataPanel.Controls.Add(Me.CategoryBox, 1, 8)
+        Me.DataPanel.Controls.Add(Me.SpecialBox, 1, 9)
+        Me.DataPanel.Controls.Add(Me.IntroBox, 0, 12)
+        Me.DataPanel.Controls.Add(Me.AuthorInfoButton, 3, 5)
+        Me.DataPanel.Controls.Add(Me.PublishInfoLabel, 0, 6)
+        Me.DataPanel.Controls.Add(Me.PublishInfoBox, 1, 6)
+        Me.DataPanel.Controls.Add(Me.CategoryButton, 3, 8)
+        Me.DataPanel.Controls.Add(Me.SpecialButton, 3, 9)
         Me.DataPanel.Controls.Add(Me.TypeBox, 1, 0)
-        Me.DataPanel.Controls.Add(Me.LinkLabel, 0, 10)
-        Me.DataPanel.Controls.Add(Me.LinkBox, 1, 10)
-        Me.DataPanel.Controls.Add(Me.LinkButton, 3, 10)
+        Me.DataPanel.Controls.Add(Me.LinkLabel, 0, 11)
+        Me.DataPanel.Controls.Add(Me.LinkBox, 1, 11)
+        Me.DataPanel.Controls.Add(Me.LinkButton, 3, 11)
         Me.DataPanel.Controls.Add(Me.TypeLabel, 0, 0)
         Me.DataPanel.Controls.Add(Me.SaveInfButton, 2, 0)
         Me.DataPanel.Controls.Add(Me.AbortInfButton, 2, 1)
+        Me.DataPanel.Controls.Add(Me.SeriesLabel, 0, 4)
+        Me.DataPanel.Controls.Add(Me.SeriesBox, 1, 4)
         Me.DataPanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DataPanel.Location = New System.Drawing.Point(0, 0)
         Me.DataPanel.Name = "DataPanel"
-        Me.DataPanel.RowCount = 12
+        Me.DataPanel.RowCount = 13
+        Me.DataPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24.0!))
         Me.DataPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24.0!))
         Me.DataPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24.0!))
         Me.DataPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24.0!))
@@ -401,14 +418,14 @@ Partial Class HDLibForm
         Me.DataPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24.0!))
         Me.DataPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24.0!))
         Me.DataPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.DataPanel.Size = New System.Drawing.Size(251, 439)
+        Me.DataPanel.Size = New System.Drawing.Size(219, 454)
         Me.DataPanel.TabIndex = 0
         '
         'VersionLable
         '
         Me.VersionLable.AutoSize = True
         Me.VersionLable.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.VersionLable.Location = New System.Drawing.Point(3, 144)
+        Me.VersionLable.Location = New System.Drawing.Point(3, 168)
         Me.VersionLable.Name = "VersionLable"
         Me.VersionLable.Size = New System.Drawing.Size(44, 24)
         Me.VersionLable.TabIndex = 10
@@ -419,7 +436,7 @@ Partial Class HDLibForm
         '
         Me.InfoUpdatedLabel.AutoSize = True
         Me.InfoUpdatedLabel.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.InfoUpdatedLabel.Location = New System.Drawing.Point(3, 216)
+        Me.InfoUpdatedLabel.Location = New System.Drawing.Point(3, 240)
         Me.InfoUpdatedLabel.Name = "InfoUpdatedLabel"
         Me.InfoUpdatedLabel.Size = New System.Drawing.Size(44, 24)
         Me.InfoUpdatedLabel.TabIndex = 8
@@ -441,7 +458,7 @@ Partial Class HDLibForm
         '
         Me.SpecialLabel.AutoSize = True
         Me.SpecialLabel.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SpecialLabel.Location = New System.Drawing.Point(3, 192)
+        Me.SpecialLabel.Location = New System.Drawing.Point(3, 216)
         Me.SpecialLabel.Name = "SpecialLabel"
         Me.SpecialLabel.Size = New System.Drawing.Size(44, 24)
         Me.SpecialLabel.TabIndex = 6
@@ -452,7 +469,7 @@ Partial Class HDLibForm
         '
         Me.AuthorLabel.AutoSize = True
         Me.AuthorLabel.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.AuthorLabel.Location = New System.Drawing.Point(3, 96)
+        Me.AuthorLabel.Location = New System.Drawing.Point(3, 120)
         Me.AuthorLabel.Name = "AuthorLabel"
         Me.AuthorLabel.Size = New System.Drawing.Size(44, 24)
         Me.AuthorLabel.TabIndex = 5
@@ -474,7 +491,7 @@ Partial Class HDLibForm
         '
         Me.CategoryLabel.AutoSize = True
         Me.CategoryLabel.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.CategoryLabel.Location = New System.Drawing.Point(3, 168)
+        Me.CategoryLabel.Location = New System.Drawing.Point(3, 192)
         Me.CategoryLabel.Name = "CategoryLabel"
         Me.CategoryLabel.Size = New System.Drawing.Size(44, 24)
         Me.CategoryLabel.TabIndex = 3
@@ -498,7 +515,7 @@ Partial Class HDLibForm
         Me.IDBox.Location = New System.Drawing.Point(51, 25)
         Me.IDBox.Margin = New System.Windows.Forms.Padding(1)
         Me.IDBox.Name = "IDBox"
-        Me.IDBox.Size = New System.Drawing.Size(115, 23)
+        Me.IDBox.Size = New System.Drawing.Size(89, 23)
         Me.IDBox.TabIndex = 1
         Me.IDBox.Text = "ID"
         '
@@ -509,7 +526,7 @@ Partial Class HDLibForm
         Me.TitleBox.Location = New System.Drawing.Point(51, 49)
         Me.TitleBox.Margin = New System.Windows.Forms.Padding(1)
         Me.TitleBox.Name = "TitleBox"
-        Me.TitleBox.Size = New System.Drawing.Size(178, 23)
+        Me.TitleBox.Size = New System.Drawing.Size(138, 23)
         Me.TitleBox.TabIndex = 2
         Me.TitleBox.Text = "Title"
         '
@@ -520,7 +537,7 @@ Partial Class HDLibForm
         Me.SubtitleBox.Location = New System.Drawing.Point(51, 73)
         Me.SubtitleBox.Margin = New System.Windows.Forms.Padding(1)
         Me.SubtitleBox.Name = "SubtitleBox"
-        Me.SubtitleBox.Size = New System.Drawing.Size(178, 23)
+        Me.SubtitleBox.Size = New System.Drawing.Size(138, 23)
         Me.SubtitleBox.TabIndex = 3
         Me.SubtitleBox.Text = "Subtitle"
         '
@@ -528,10 +545,10 @@ Partial Class HDLibForm
         '
         Me.DataPanel.SetColumnSpan(Me.AuthorBox, 2)
         Me.AuthorBox.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.AuthorBox.Location = New System.Drawing.Point(51, 97)
+        Me.AuthorBox.Location = New System.Drawing.Point(51, 121)
         Me.AuthorBox.Margin = New System.Windows.Forms.Padding(1)
         Me.AuthorBox.Name = "AuthorBox"
-        Me.AuthorBox.Size = New System.Drawing.Size(178, 23)
+        Me.AuthorBox.Size = New System.Drawing.Size(138, 23)
         Me.AuthorBox.TabIndex = 4
         Me.AuthorBox.Text = "Author"
         '
@@ -539,10 +556,10 @@ Partial Class HDLibForm
         '
         Me.DataPanel.SetColumnSpan(Me.VersionBox, 2)
         Me.VersionBox.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.VersionBox.Location = New System.Drawing.Point(51, 145)
+        Me.VersionBox.Location = New System.Drawing.Point(51, 169)
         Me.VersionBox.Margin = New System.Windows.Forms.Padding(1)
         Me.VersionBox.Name = "VersionBox"
-        Me.VersionBox.Size = New System.Drawing.Size(178, 23)
+        Me.VersionBox.Size = New System.Drawing.Size(138, 23)
         Me.VersionBox.TabIndex = 6
         Me.VersionBox.Text = "Version"
         '
@@ -550,10 +567,10 @@ Partial Class HDLibForm
         '
         Me.DataPanel.SetColumnSpan(Me.UpdatedBox, 2)
         Me.UpdatedBox.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.UpdatedBox.Location = New System.Drawing.Point(51, 217)
+        Me.UpdatedBox.Location = New System.Drawing.Point(51, 241)
         Me.UpdatedBox.Margin = New System.Windows.Forms.Padding(1)
         Me.UpdatedBox.Name = "UpdatedBox"
-        Me.UpdatedBox.Size = New System.Drawing.Size(178, 23)
+        Me.UpdatedBox.Size = New System.Drawing.Size(138, 23)
         Me.UpdatedBox.TabIndex = 9
         Me.UpdatedBox.Text = "Updated"
         '
@@ -561,10 +578,10 @@ Partial Class HDLibForm
         '
         Me.DataPanel.SetColumnSpan(Me.CategoryBox, 2)
         Me.CategoryBox.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.CategoryBox.Location = New System.Drawing.Point(51, 169)
+        Me.CategoryBox.Location = New System.Drawing.Point(51, 193)
         Me.CategoryBox.Margin = New System.Windows.Forms.Padding(1)
         Me.CategoryBox.Name = "CategoryBox"
-        Me.CategoryBox.Size = New System.Drawing.Size(178, 23)
+        Me.CategoryBox.Size = New System.Drawing.Size(138, 23)
         Me.CategoryBox.TabIndex = 7
         Me.CategoryBox.Text = "Category"
         '
@@ -572,10 +589,10 @@ Partial Class HDLibForm
         '
         Me.DataPanel.SetColumnSpan(Me.SpecialBox, 2)
         Me.SpecialBox.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SpecialBox.Location = New System.Drawing.Point(51, 193)
+        Me.SpecialBox.Location = New System.Drawing.Point(51, 217)
         Me.SpecialBox.Margin = New System.Windows.Forms.Padding(1)
         Me.SpecialBox.Name = "SpecialBox"
-        Me.SpecialBox.Size = New System.Drawing.Size(178, 23)
+        Me.SpecialBox.Size = New System.Drawing.Size(138, 23)
         Me.SpecialBox.TabIndex = 8
         Me.SpecialBox.Text = "Special"
         '
@@ -584,22 +601,22 @@ Partial Class HDLibForm
         Me.IntroBox.AllowDrop = True
         Me.DataPanel.SetColumnSpan(Me.IntroBox, 4)
         Me.IntroBox.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.IntroBox.Location = New System.Drawing.Point(1, 265)
+        Me.IntroBox.Location = New System.Drawing.Point(1, 289)
         Me.IntroBox.Margin = New System.Windows.Forms.Padding(1)
         Me.IntroBox.Multiline = True
         Me.IntroBox.Name = "IntroBox"
         Me.IntroBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.IntroBox.Size = New System.Drawing.Size(249, 173)
+        Me.IntroBox.Size = New System.Drawing.Size(217, 164)
         Me.IntroBox.TabIndex = 10
         Me.IntroBox.Text = "Intro"
         '
         'AuthorInfoButton
         '
         Me.AuthorInfoButton.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.AuthorInfoButton.Location = New System.Drawing.Point(230, 96)
+        Me.AuthorInfoButton.Location = New System.Drawing.Point(190, 120)
         Me.AuthorInfoButton.Margin = New System.Windows.Forms.Padding(0)
         Me.AuthorInfoButton.Name = "AuthorInfoButton"
-        Me.AuthorInfoButton.Size = New System.Drawing.Size(21, 24)
+        Me.AuthorInfoButton.Size = New System.Drawing.Size(29, 24)
         Me.AuthorInfoButton.TabIndex = 21
         Me.AuthorInfoButton.Text = ">"
         Me.AuthorInfoButton.UseVisualStyleBackColor = True
@@ -608,7 +625,7 @@ Partial Class HDLibForm
         '
         Me.PublishInfoLabel.AutoSize = True
         Me.PublishInfoLabel.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PublishInfoLabel.Location = New System.Drawing.Point(3, 120)
+        Me.PublishInfoLabel.Location = New System.Drawing.Point(3, 144)
         Me.PublishInfoLabel.Name = "PublishInfoLabel"
         Me.PublishInfoLabel.Size = New System.Drawing.Size(44, 24)
         Me.PublishInfoLabel.TabIndex = 22
@@ -619,20 +636,20 @@ Partial Class HDLibForm
         '
         Me.DataPanel.SetColumnSpan(Me.PublishInfoBox, 2)
         Me.PublishInfoBox.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PublishInfoBox.Location = New System.Drawing.Point(51, 121)
+        Me.PublishInfoBox.Location = New System.Drawing.Point(51, 145)
         Me.PublishInfoBox.Margin = New System.Windows.Forms.Padding(1)
         Me.PublishInfoBox.Name = "PublishInfoBox"
-        Me.PublishInfoBox.Size = New System.Drawing.Size(178, 23)
+        Me.PublishInfoBox.Size = New System.Drawing.Size(138, 23)
         Me.PublishInfoBox.TabIndex = 5
         Me.PublishInfoBox.Text = "PublishInfo"
         '
         'CategoryButton
         '
         Me.CategoryButton.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.CategoryButton.Location = New System.Drawing.Point(230, 168)
+        Me.CategoryButton.Location = New System.Drawing.Point(190, 192)
         Me.CategoryButton.Margin = New System.Windows.Forms.Padding(0)
         Me.CategoryButton.Name = "CategoryButton"
-        Me.CategoryButton.Size = New System.Drawing.Size(21, 24)
+        Me.CategoryButton.Size = New System.Drawing.Size(29, 24)
         Me.CategoryButton.TabIndex = 24
         Me.CategoryButton.Text = ">"
         Me.CategoryButton.UseVisualStyleBackColor = True
@@ -640,10 +657,10 @@ Partial Class HDLibForm
         'SpecialButton
         '
         Me.SpecialButton.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SpecialButton.Location = New System.Drawing.Point(230, 192)
+        Me.SpecialButton.Location = New System.Drawing.Point(190, 216)
         Me.SpecialButton.Margin = New System.Windows.Forms.Padding(0)
         Me.SpecialButton.Name = "SpecialButton"
-        Me.SpecialButton.Size = New System.Drawing.Size(21, 24)
+        Me.SpecialButton.Size = New System.Drawing.Size(29, 24)
         Me.SpecialButton.TabIndex = 25
         Me.SpecialButton.Text = ">"
         Me.SpecialButton.UseVisualStyleBackColor = True
@@ -655,14 +672,14 @@ Partial Class HDLibForm
         Me.TypeBox.Location = New System.Drawing.Point(50, 0)
         Me.TypeBox.Margin = New System.Windows.Forms.Padding(0)
         Me.TypeBox.Name = "TypeBox"
-        Me.TypeBox.Size = New System.Drawing.Size(117, 25)
+        Me.TypeBox.Size = New System.Drawing.Size(91, 25)
         Me.TypeBox.TabIndex = 26
         '
         'LinkLabel
         '
         Me.LinkLabel.AutoSize = True
         Me.LinkLabel.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.LinkLabel.Location = New System.Drawing.Point(3, 240)
+        Me.LinkLabel.Location = New System.Drawing.Point(3, 264)
         Me.LinkLabel.Name = "LinkLabel"
         Me.LinkLabel.Size = New System.Drawing.Size(44, 24)
         Me.LinkLabel.TabIndex = 27
@@ -673,20 +690,20 @@ Partial Class HDLibForm
         '
         Me.DataPanel.SetColumnSpan(Me.LinkBox, 2)
         Me.LinkBox.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.LinkBox.Location = New System.Drawing.Point(51, 241)
+        Me.LinkBox.Location = New System.Drawing.Point(51, 265)
         Me.LinkBox.Margin = New System.Windows.Forms.Padding(1)
         Me.LinkBox.Name = "LinkBox"
-        Me.LinkBox.Size = New System.Drawing.Size(178, 23)
+        Me.LinkBox.Size = New System.Drawing.Size(138, 23)
         Me.LinkBox.TabIndex = 28
         Me.LinkBox.Text = "Link"
         '
         'LinkButton
         '
         Me.LinkButton.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.LinkButton.Location = New System.Drawing.Point(231, 241)
+        Me.LinkButton.Location = New System.Drawing.Point(191, 265)
         Me.LinkButton.Margin = New System.Windows.Forms.Padding(1)
         Me.LinkButton.Name = "LinkButton"
-        Me.LinkButton.Size = New System.Drawing.Size(19, 22)
+        Me.LinkButton.Size = New System.Drawing.Size(27, 22)
         Me.LinkButton.TabIndex = 29
         Me.LinkButton.Text = ">"
         Me.LinkButton.UseVisualStyleBackColor = True
@@ -706,7 +723,7 @@ Partial Class HDLibForm
         '
         Me.DataPanel.SetColumnSpan(Me.SaveInfButton, 2)
         Me.SaveInfButton.Dock = System.Windows.Forms.DockStyle.Right
-        Me.SaveInfButton.Location = New System.Drawing.Point(189, 1)
+        Me.SaveInfButton.Location = New System.Drawing.Point(157, 1)
         Me.SaveInfButton.Margin = New System.Windows.Forms.Padding(1, 1, 2, 0)
         Me.SaveInfButton.Name = "SaveInfButton"
         Me.SaveInfButton.Size = New System.Drawing.Size(60, 23)
@@ -718,13 +735,34 @@ Partial Class HDLibForm
         '
         Me.DataPanel.SetColumnSpan(Me.AbortInfButton, 2)
         Me.AbortInfButton.Dock = System.Windows.Forms.DockStyle.Right
-        Me.AbortInfButton.Location = New System.Drawing.Point(189, 25)
+        Me.AbortInfButton.Location = New System.Drawing.Point(157, 25)
         Me.AbortInfButton.Margin = New System.Windows.Forms.Padding(1, 1, 2, 0)
         Me.AbortInfButton.Name = "AbortInfButton"
         Me.AbortInfButton.Size = New System.Drawing.Size(60, 23)
         Me.AbortInfButton.TabIndex = 32
         Me.AbortInfButton.Text = "放棄"
         Me.AbortInfButton.UseVisualStyleBackColor = True
+        '
+        'SeriesLabel
+        '
+        Me.SeriesLabel.AutoSize = True
+        Me.SeriesLabel.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SeriesLabel.Location = New System.Drawing.Point(3, 96)
+        Me.SeriesLabel.Name = "SeriesLabel"
+        Me.SeriesLabel.Size = New System.Drawing.Size(44, 24)
+        Me.SeriesLabel.TabIndex = 33
+        Me.SeriesLabel.Text = "系列"
+        Me.SeriesLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'SeriesBox
+        '
+        Me.DataPanel.SetColumnSpan(Me.SeriesBox, 2)
+        Me.SeriesBox.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SeriesBox.Location = New System.Drawing.Point(51, 97)
+        Me.SeriesBox.Margin = New System.Windows.Forms.Padding(1)
+        Me.SeriesBox.Name = "SeriesBox"
+        Me.SeriesBox.Size = New System.Drawing.Size(138, 23)
+        Me.SeriesBox.TabIndex = 34
         '
         'FileSpliter
         '
@@ -741,7 +779,7 @@ Partial Class HDLibForm
         'FileSpliter.Panel2
         '
         Me.FileSpliter.Panel2.Controls.Add(Me.ListSpliter)
-        Me.FileSpliter.Size = New System.Drawing.Size(249, 439)
+        Me.FileSpliter.Size = New System.Drawing.Size(256, 454)
         Me.FileSpliter.SplitterDistance = 175
         Me.FileSpliter.SplitterWidth = 2
         Me.FileSpliter.TabIndex = 0
@@ -761,8 +799,8 @@ Partial Class HDLibForm
         Me.ImgSpliter.Panel2.Controls.Add(Me.ReCoverButton)
         Me.ImgSpliter.Panel2.Controls.Add(Me.CoverButton)
         Me.ImgSpliter.Panel2.Controls.Add(Me.ImgInfoLabel)
-        Me.ImgSpliter.Size = New System.Drawing.Size(249, 175)
-        Me.ImgSpliter.SplitterDistance = 143
+        Me.ImgSpliter.Size = New System.Drawing.Size(256, 175)
+        Me.ImgSpliter.SplitterDistance = 147
         Me.ImgSpliter.SplitterWidth = 2
         Me.ImgSpliter.TabIndex = 0
         '
@@ -772,7 +810,7 @@ Partial Class HDLibForm
         Me.CoverBox.Dock = System.Windows.Forms.DockStyle.Fill
         Me.CoverBox.Location = New System.Drawing.Point(0, 0)
         Me.CoverBox.Name = "CoverBox"
-        Me.CoverBox.Size = New System.Drawing.Size(143, 175)
+        Me.CoverBox.Size = New System.Drawing.Size(147, 175)
         Me.CoverBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.CoverBox.TabIndex = 11
         Me.CoverBox.TabStop = False
@@ -821,8 +859,8 @@ Partial Class HDLibForm
         'ListSpliter.Panel2
         '
         Me.ListSpliter.Panel2.Controls.Add(Me.ListEditPanel)
-        Me.ListSpliter.Size = New System.Drawing.Size(249, 262)
-        Me.ListSpliter.SplitterDistance = 202
+        Me.ListSpliter.Size = New System.Drawing.Size(256, 277)
+        Me.ListSpliter.SplitterDistance = 217
         Me.ListSpliter.TabIndex = 1
         '
         'FilesView
@@ -838,7 +876,7 @@ Partial Class HDLibForm
         Me.FilesView.Location = New System.Drawing.Point(0, 0)
         Me.FilesView.MultiSelect = False
         Me.FilesView.Name = "FilesView"
-        Me.FilesView.Size = New System.Drawing.Size(249, 202)
+        Me.FilesView.Size = New System.Drawing.Size(256, 217)
         Me.FilesView.TabIndex = 0
         Me.FilesView.UseCompatibleStateImageBehavior = False
         Me.FilesView.View = System.Windows.Forms.View.Details
@@ -868,33 +906,44 @@ Partial Class HDLibForm
         '
         'FilesMenu
         '
-        Me.FilesMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileImportItem, Me.FileRenameItem, Me.FilePasteItem, Me.FileDeleteItem})
+        Me.FilesMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileImportItem, Me.FileRenameItem, Me.FilePasteItem, Me.FileDeleteItem, Me.ToolStripSeparator9, Me.FileSetCoverItem})
         Me.FilesMenu.Name = "FilesMenu"
-        Me.FilesMenu.Size = New System.Drawing.Size(153, 114)
+        Me.FilesMenu.Size = New System.Drawing.Size(133, 120)
         '
         'FileImportItem
         '
         Me.FileImportItem.Name = "FileImportItem"
-        Me.FileImportItem.Size = New System.Drawing.Size(152, 22)
+        Me.FileImportItem.Size = New System.Drawing.Size(132, 22)
         Me.FileImportItem.Text = "Import"
         '
         'FileRenameItem
         '
         Me.FileRenameItem.Name = "FileRenameItem"
-        Me.FileRenameItem.Size = New System.Drawing.Size(152, 22)
+        Me.FileRenameItem.Size = New System.Drawing.Size(132, 22)
         Me.FileRenameItem.Text = "Rename"
         '
         'FilePasteItem
         '
         Me.FilePasteItem.Name = "FilePasteItem"
-        Me.FilePasteItem.Size = New System.Drawing.Size(152, 22)
+        Me.FilePasteItem.Size = New System.Drawing.Size(132, 22)
         Me.FilePasteItem.Text = "Paste"
         '
         'FileDeleteItem
         '
         Me.FileDeleteItem.Name = "FileDeleteItem"
-        Me.FileDeleteItem.Size = New System.Drawing.Size(152, 22)
+        Me.FileDeleteItem.Size = New System.Drawing.Size(132, 22)
         Me.FileDeleteItem.Text = "Delete"
+        '
+        'ToolStripSeparator9
+        '
+        Me.ToolStripSeparator9.Name = "ToolStripSeparator9"
+        Me.ToolStripSeparator9.Size = New System.Drawing.Size(129, 6)
+        '
+        'FileSetCoverItem
+        '
+        Me.FileSetCoverItem.Name = "FileSetCoverItem"
+        Me.FileSetCoverItem.Size = New System.Drawing.Size(132, 22)
+        Me.FileSetCoverItem.Text = "Set Cover"
         '
         'ListEditPanel
         '
@@ -914,7 +963,7 @@ Partial Class HDLibForm
         Me.ListEditPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24.0!))
         Me.ListEditPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24.0!))
         Me.ListEditPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.ListEditPanel.Size = New System.Drawing.Size(249, 56)
+        Me.ListEditPanel.Size = New System.Drawing.Size(256, 56)
         Me.ListEditPanel.TabIndex = 0
         '
         'SerialLabel
@@ -945,7 +994,7 @@ Partial Class HDLibForm
         Me.SerialBox.Location = New System.Drawing.Point(46, 1)
         Me.SerialBox.Margin = New System.Windows.Forms.Padding(1)
         Me.SerialBox.Name = "SerialBox"
-        Me.SerialBox.Size = New System.Drawing.Size(100, 23)
+        Me.SerialBox.Size = New System.Drawing.Size(103, 23)
         Me.SerialBox.TabIndex = 3
         '
         'CommentBox
@@ -955,13 +1004,13 @@ Partial Class HDLibForm
         Me.CommentBox.Location = New System.Drawing.Point(46, 25)
         Me.CommentBox.Margin = New System.Windows.Forms.Padding(1)
         Me.CommentBox.Name = "CommentBox"
-        Me.CommentBox.Size = New System.Drawing.Size(202, 23)
+        Me.CommentBox.Size = New System.Drawing.Size(209, 23)
         Me.CommentBox.TabIndex = 4
         '
         'SaveListButton
         '
         Me.SaveListButton.Dock = System.Windows.Forms.DockStyle.Right
-        Me.SaveListButton.Location = New System.Drawing.Point(185, 0)
+        Me.SaveListButton.Location = New System.Drawing.Point(192, 0)
         Me.SaveListButton.Margin = New System.Windows.Forms.Padding(1, 0, 4, 0)
         Me.SaveListButton.Name = "SaveListButton"
         Me.SaveListButton.Size = New System.Drawing.Size(60, 24)
@@ -972,7 +1021,7 @@ Partial Class HDLibForm
         'LibStatus
         '
         Me.LibStatus.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LibPathLabel, Me.NodeInfoLabel, Me.FilesLabel})
-        Me.LibStatus.Location = New System.Drawing.Point(0, 464)
+        Me.LibStatus.Location = New System.Drawing.Point(0, 479)
         Me.LibStatus.Name = "LibStatus"
         Me.LibStatus.Size = New System.Drawing.Size(648, 26)
         Me.LibStatus.TabIndex = 1
@@ -1000,7 +1049,7 @@ Partial Class HDLibForm
         '
         'LibTools
         '
-        Me.LibTools.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenWebButton, Me.SwitchListButton, Me.LibPathButton, Me.ImportButton, Me.ToolStripSeparator3, Me.ShowCodeButton, Me.SaveButton, Me.ToolStripSeparator8})
+        Me.LibTools.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenWebButton, Me.SwitchListButton, Me.LibPathButton, Me.ImportButton, Me.ToolStripSeparator3, Me.ShowCodeButton, Me.SaveButton, Me.ToolStripSeparator8, Me.UpdateDBButton, Me.TryGetFromWebItem})
         Me.LibTools.Location = New System.Drawing.Point(0, 0)
         Me.LibTools.Name = "LibTools"
         Me.LibTools.Size = New System.Drawing.Size(648, 25)
@@ -1077,13 +1126,67 @@ Partial Class HDLibForm
         Me.ToolStripSeparator8.Name = "ToolStripSeparator8"
         Me.ToolStripSeparator8.Size = New System.Drawing.Size(6, 25)
         '
+        'UpdateDBButton
+        '
+        Me.UpdateDBButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.UpdateDBButton.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DataAllItem, Me.ToolStripSeparator10, Me.DataBooksItem, Me.DataAuthorsItem, Me.DataCategoriesItem, Me.DataSpecialsItem})
+        Me.UpdateDBButton.Image = CType(resources.GetObject("UpdateDBButton.Image"), System.Drawing.Image)
+        Me.UpdateDBButton.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.UpdateDBButton.Name = "UpdateDBButton"
+        Me.UpdateDBButton.Size = New System.Drawing.Size(29, 22)
+        Me.UpdateDBButton.Text = "ToolStripDropDownButton1"
+        '
+        'DataAllItem
+        '
+        Me.DataAllItem.Name = "DataAllItem"
+        Me.DataAllItem.Size = New System.Drawing.Size(139, 22)
+        Me.DataAllItem.Text = "All"
+        '
+        'ToolStripSeparator10
+        '
+        Me.ToolStripSeparator10.Name = "ToolStripSeparator10"
+        Me.ToolStripSeparator10.Size = New System.Drawing.Size(136, 6)
+        '
+        'DataBooksItem
+        '
+        Me.DataBooksItem.Name = "DataBooksItem"
+        Me.DataBooksItem.Size = New System.Drawing.Size(139, 22)
+        Me.DataBooksItem.Text = "Books"
+        '
+        'DataAuthorsItem
+        '
+        Me.DataAuthorsItem.Name = "DataAuthorsItem"
+        Me.DataAuthorsItem.Size = New System.Drawing.Size(139, 22)
+        Me.DataAuthorsItem.Text = "Authors"
+        '
+        'DataCategoriesItem
+        '
+        Me.DataCategoriesItem.Name = "DataCategoriesItem"
+        Me.DataCategoriesItem.Size = New System.Drawing.Size(139, 22)
+        Me.DataCategoriesItem.Text = "Categories"
+        '
+        'DataSpecialsItem
+        '
+        Me.DataSpecialsItem.Name = "DataSpecialsItem"
+        Me.DataSpecialsItem.Size = New System.Drawing.Size(139, 22)
+        Me.DataSpecialsItem.Text = "Specials"
+        '
+        'TryGetFromWebItem
+        '
+        Me.TryGetFromWebItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.TryGetFromWebItem.Image = CType(resources.GetObject("TryGetFromWebItem.Image"), System.Drawing.Image)
+        Me.TryGetFromWebItem.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.TryGetFromWebItem.Name = "TryGetFromWebItem"
+        Me.TryGetFromWebItem.Size = New System.Drawing.Size(23, 22)
+        Me.TryGetFromWebItem.Text = "ToolStripButton1"
+        '
         'LinkPopLabel
         '
         Me.LinkPopLabel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.LinkPopLabel.AutoSize = True
         Me.LinkPopLabel.BackColor = System.Drawing.Color.Transparent
         Me.LinkPopLabel.ForeColor = System.Drawing.Color.DarkGray
-        Me.LinkPopLabel.Location = New System.Drawing.Point(2, 449)
+        Me.LinkPopLabel.Location = New System.Drawing.Point(2, 464)
         Me.LinkPopLabel.Margin = New System.Windows.Forms.Padding(0)
         Me.LinkPopLabel.Name = "LinkPopLabel"
         Me.LinkPopLabel.Size = New System.Drawing.Size(13, 17)
@@ -1097,14 +1200,14 @@ Partial Class HDLibForm
         Me.HDBrowser.MinimumSize = New System.Drawing.Size(20, 20)
         Me.HDBrowser.Name = "HDBrowser"
         Me.HDBrowser.ScriptErrorsSuppressed = True
-        Me.HDBrowser.Size = New System.Drawing.Size(278, 439)
+        Me.HDBrowser.Size = New System.Drawing.Size(278, 454)
         Me.HDBrowser.TabIndex = 2
         Me.HDBrowser.Url = New System.Uri("", System.UriKind.Relative)
         '
         'WebStatus
         '
         Me.WebStatus.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NowLabel, Me.UrlLabel})
-        Me.WebStatus.Location = New System.Drawing.Point(0, 464)
+        Me.WebStatus.Location = New System.Drawing.Point(0, 479)
         Me.WebStatus.Name = "WebStatus"
         Me.WebStatus.Size = New System.Drawing.Size(278, 26)
         Me.WebStatus.TabIndex = 1
@@ -1209,7 +1312,7 @@ Partial Class HDLibForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(932, 492)
+        Me.ClientSize = New System.Drawing.Size(932, 507)
         Me.Controls.Add(Me.RootSpliter)
         Me.Controls.Add(Me.RootMenu)
         Me.Font = New System.Drawing.Font("Microsoft YaHei UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -1368,4 +1471,16 @@ Partial Class HDLibForm
     Friend WithEvents FileRenameItem As ToolStripMenuItem
     Friend WithEvents FilePasteItem As ToolStripMenuItem
     Friend WithEvents FileDeleteItem As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator9 As ToolStripSeparator
+    Friend WithEvents FileSetCoverItem As ToolStripMenuItem
+    Friend WithEvents UpdateDBButton As ToolStripDropDownButton
+    Friend WithEvents DataAllItem As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator10 As ToolStripSeparator
+    Friend WithEvents DataBooksItem As ToolStripMenuItem
+    Friend WithEvents DataAuthorsItem As ToolStripMenuItem
+    Friend WithEvents DataCategoriesItem As ToolStripMenuItem
+    Friend WithEvents DataSpecialsItem As ToolStripMenuItem
+    Friend WithEvents SeriesLabel As Label
+    Friend WithEvents SeriesBox As TextBox
+    Friend WithEvents TryGetFromWebItem As ToolStripButton
 End Class

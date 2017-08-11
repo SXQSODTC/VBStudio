@@ -2,6 +2,7 @@
 Imports System.Net
 Imports System.IO
 Imports System.Text
+Imports System.Text.RegularExpressions
 
 Public Class HDLibForm
 
@@ -22,6 +23,7 @@ Public Class HDLibForm
 
         LibView.StartDirectory = My.Settings.HDLibPath
         LibView.RefreshTree()
+        SaveListButton.Enabled = False
     End Sub
 
 #Region "BrowserCode"
@@ -44,38 +46,6 @@ Public Class HDLibForm
 
     Private Sub HDBrowser_DocumentCompleted(sender As Object, e As WebBrowserDocumentCompletedEventArgs) Handles HDBrowser.DocumentCompleted
         HtmlTitleLabel.Text = HDBrowser.Document.Title
-        'AddHandler HDBrowser.Document.MouseOver, AddressOf DisplayHyperlinks
-
-        'Dim hes As HtmlElementCollection = HDBrowser.Document.GetElementsByTagName("input")
-        ''MsgBox(hes.Count)
-        'For Each he As HtmlElement In hes
-        '    'Console.WriteLine(he.GetAttribute("onclick"))
-        '    If he.GetAttribute("value") = "下載 updb 檔" Then
-        '        Console.WriteLine("下載 updb 檔")
-        '        Console.WriteLine(he.GetAttribute("onclick"))
-        '        he.InvokeMember("click")
-        '        'Dim obj = he.DomElement
-        '        'Dim mi = obj.GetType().GetMethod("click")
-
-        '        'Dim objs As Object() = {}
-        '        'mi.Invoke(obj, objs)
-        '    End If
-        'Next
-    End Sub
-
-    Public Sub DisplayHyperlinks(ByVal sender As Object, ByVal e As HtmlElementEventArgs)
-        'Dim s As String = e.ToElement.GetAttribute("href")
-        'Dim s As String = e.ToElement.GetAttribute("src")
-        'LinkPopLabel.Text = s
-        'If Not s.EndsWith(".jpg") Then
-        '   
-        'End If
-        'Dim es As HtmlElementCollection = e.ToElement.GetElementsByTagName("a")
-        'For Each el As HtmlElement In es
-        '    LinkPopLabel.Text = el.GetAttribute("href") ' e.ToElement.GetAttribute("href")
-        'Next
-
-        'LinkPopLabel.Text = e.ToElement.GetAttribute("href")
     End Sub
 
     Private Sub HDBrowser_DocumentTitleChanged(sender As Object, e As EventArgs) Handles HDBrowser.DocumentTitleChanged
@@ -99,11 +69,6 @@ Public Class HDLibForm
     Private Sub HDBrowser_StatusTextChanged(sender As Object, e As EventArgs) Handles HDBrowser.StatusTextChanged
         LinkPopLabel.Text = HDBrowser.StatusText
     End Sub
-
-    'Private Sub HDBrowser_SizeChanged(sender As Object, e As EventArgs) Handles HDBrowser.SizeChanged
-    '    'LinkPopLabel.Location = New Point(3, HDBrowser.ClientRectangle.Height - 5)
-    '    'Console.WriteLine(LinkPopLabel.Location.ToString + " | " + HDBrowser.Size.ToString)
-    'End Sub
 
     Private Sub HDBrowser_Navigated(sender As Object, e As WebBrowserNavigatedEventArgs) Handles HDBrowser.Navigated
         UrlLabel.Text = HDBrowser.Url.ToString
@@ -154,6 +119,9 @@ Public Class HDLibForm
         'LibSpliter.Panel1Collapsed = True
     End Sub
 
+#End Region 'BrowserCode
+
+#Region "ButtonsOnToolStrip"
     Private Sub SwitchListButton_Click(sender As Object, e As EventArgs) Handles SwitchListButton.Click
         If LibSpliter.Panel1Collapsed Then
             LibSpliter.Panel1Collapsed = False
@@ -162,9 +130,6 @@ Public Class HDLibForm
         End If
     End Sub
 
-#End Region 'BrowserCode
-
-#Region "ButtonsOnToolStrip"
     Private Sub LibPathButton_Click(sender As Object, e As EventArgs) Handles LibPathButton.Click
         Dim fbd As New FolderBrowserDialog
         fbd.ShowNewFolderButton = True
@@ -177,13 +142,17 @@ Public Class HDLibForm
             LibView.StartDirectory = fbd.SelectedPath
             My.Settings.HDLibPath = fbd.SelectedPath
             LibView.RefreshTree()
+
+            'IndicatedBox.AutoCompleteCustomSource
         End If
     End Sub
 
     Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click, SaveInfButton.Click
-        If TypeBox.SelectedItem = KzLibInfType.Root Then
-            MsgBox("文檔類型未確定，請返回選擇正確的類型。" & vbCrLf & "未保存任何文檔。", MsgBoxStyle.OkOnly, "提示")
-            Exit Sub
+        If LibView.SelectedNode.Parent IsNot Nothing Then
+            If TypeBox.SelectedItem = KzLibInfType.Root Then
+                MsgBox("文檔類型不能為 Root，請返回選擇正確的類型。" & vbCrLf & "未保存任何文檔。", MsgBoxStyle.OkOnly, "提示")
+                Exit Sub
+            End If
         End If
 
         Dim sf As String = TypeBox.SelectedItem.ToString & ".kzinf"  ' [Enum].GetName(GetType(KzLibInfType), TypeBox.SelectedItem) & ".kzinf"
@@ -352,8 +321,10 @@ Public Class HDLibForm
         If e.Label Is Nothing Then
             e.CancelEdit = True
 
-            If t.EndsWith(".kzinf") Then
-                e.Node.Remove()
+            If t IsNot Nothing Then
+                If t.EndsWith(".kzinf") Then
+                    e.Node.Remove()
+                End If
             End If
 
             Exit Sub
@@ -373,7 +344,68 @@ Public Class HDLibForm
             Exit Sub
         End If
 
-        If t = "Rename" Then
+        If t IsNot Nothing Then
+            'If t = "Rename" Then
+            '    If Directory.Exists(e.Node.FullPath) And Not (e.Label = e.Node.Text) Then
+            '        FileIO.FileSystem.RenameDirectory(e.Node.FullPath, e.Label)
+            '        e.Node.Text = e.Label
+            '        e.Node.EndEdit(False)
+            '        LibView.SelectedNode = e.Node
+            '    Else
+            '        e.CancelEdit = True
+            '    End If
+            'End If
+
+            If t.EndsWith(".kzinf") Then
+                Dim np As String = Path.Combine(e.Node.Parent.FullPath, e.Label)
+
+                If Directory.Exists(np) Then
+                    Dim s As String = "資料夾已存在，是否繼續改名？" + vbCrLf +
+                        "【是】關閉本提示繼續改名。" + vbCrLf + "【否】將刪除當前已新增的項目。"
+
+                    If MsgBox(s, MsgBoxStyle.YesNo, "新增") = MsgBoxResult.Yes Then
+                        e.Node.BeginEdit()
+                    Else
+                        e.CancelEdit = True
+                        e.Node.Remove()
+                    End If
+
+                    Exit Sub
+
+                Else
+                    Try
+                        Directory.CreateDirectory(np)
+                    Catch ex As Exception
+                        MsgBox("未能創建資料夾。原因：" +
+                               vbCrLf + ex.Message, MsgBoxStyle.OkOnly, "新增")
+                        e.CancelEdit = True
+                        e.Node.Remove()
+                        Exit Sub
+                    End Try
+                End If
+
+                Dim inf As New KzLibInfItem
+                With inf
+                    Select Case t
+                        Case "Book.kzinf" : .Type = KzLibInfType.Book
+                        Case "Author.kzinf" : .Type = KzLibInfType.Author
+                        Case "Category.kzinf" : .Type = KzLibInfType.Category
+                        Case "Special.kzinf" : .Type = KzLibInfType.Special
+                    End Select
+                    .Title = Path.GetFileName(np)
+                    .Updated = Now().ToString
+                End With
+
+                PutInfToUI(inf)
+                PutInfToFile(inf, Path.Combine(np, t))
+
+                e.Node.Text = e.Label
+                e.Node.EndEdit(False)
+
+                LibView.SelectedNode = e.Node
+            End If
+
+        Else
             If Directory.Exists(e.Node.FullPath) And Not (e.Label = e.Node.Text) Then
                 FileIO.FileSystem.RenameDirectory(e.Node.FullPath, e.Label)
                 e.Node.Text = e.Label
@@ -382,55 +414,6 @@ Public Class HDLibForm
             Else
                 e.CancelEdit = True
             End If
-        End If
-
-        If t.EndsWith(".kzinf") Then
-            Dim np As String = Path.Combine(e.Node.Parent.FullPath, e.Label)
-
-            If Directory.Exists(np) Then
-                Dim s As String = "資料夾已存在，是否繼續改名？" + vbCrLf +
-                    "【是】關閉本提示繼續改名。" + vbCrLf + "【否】將刪除當前已新增的項目。"
-
-                If MsgBox(s, MsgBoxStyle.YesNo, "新增") = MsgBoxResult.Yes Then
-                    e.Node.BeginEdit()
-                Else
-                    e.CancelEdit = True
-                    e.Node.Remove()
-                End If
-
-                Exit Sub
-
-            Else
-                Try
-                    Directory.CreateDirectory(np)
-                Catch ex As Exception
-                    MsgBox("未能創建資料夾。原因：" +
-                           vbCrLf + ex.Message, MsgBoxStyle.OkOnly, "新增")
-                    e.CancelEdit = True
-                    e.Node.Remove()
-                    Exit Sub
-                End Try
-            End If
-
-            Dim inf As New KzLibInfItem
-            With inf
-                Select Case t
-                    Case "Book.kzinf" : .Type = KzLibInfType.Book
-                    Case "Author.kzinf" : .Type = KzLibInfType.Author
-                    Case "Category.kzinf" : .Type = KzLibInfType.Category
-                    Case "Special.kzinf" : .Type = KzLibInfType.Special
-                End Select
-                .Title = Path.GetFileName(np)
-                .Updated = Now().ToString
-            End With
-
-            PutInfToUI(inf)
-            PutInfToFile(inf, Path.Combine(np, t))
-
-            e.Node.Text = e.Label
-            e.Node.EndEdit(False)
-
-            LibView.SelectedNode = e.Node
         End If
 
     End Sub
@@ -478,6 +461,38 @@ Public Class HDLibForm
         End With
 
         SaveListButton.Enabled = False
+    End Sub
+
+    Private Sub FilesView_AfterLabelEdit(sender As Object, e As LabelEditEventArgs) _
+        Handles FilesView.AfterLabelEdit
+
+        If e.Label Is Nothing Or e.Label = FilesView.Items.Item(e.Item).Text Then
+            e.CancelEdit = True
+            Exit Sub
+        End If
+
+        Dim ofn As String = FilesView.Items.Item(e.Item).Text
+        Dim oext As String = ofn.Substring(ofn.LastIndexOf("."))
+        Dim dext As String = e.Label.Substring(e.Label.LastIndexOf("."))
+
+        If Not oext = dext Then
+            Dim s As String = "擴展名已被更改，可能導致文檔不能開啟。是否繼續？" + vbCrLf +
+                "【是】繼續改名，擴展名將更改為 " + dext + vbCrLf +
+                "【否】返回文檔名編輯。"
+
+            If MsgBox(s, MsgBoxStyle.YesNo, "改名") = MsgBoxResult.No Then
+                FilesView.Items.Item(e.Item).BeginEdit()
+                Exit Sub
+            End If
+        End If
+
+        Try
+            FileIO.FileSystem.RenameFile(Path.Combine(LibView.SelectedNode.FullPath, FilesView.Items.Item(e.Item).Text), e.Label)
+            FilesView.Items.Item(e.Item).Text = e.Label
+        Catch ex As Exception
+            MsgBox("文檔未能改名。原因：" + vbCrLf + ex.Message)
+            e.CancelEdit = True
+        End Try
     End Sub
 
     Private Sub SerialBox_TextChanged(sender As Object, e As EventArgs) _
@@ -559,6 +574,7 @@ Public Class HDLibForm
             .ID = IDBox.Text
             .Title = TitleBox.Text
             .Subtitle = SubtitleBox.Text
+            .Series = SeriesBox.Text
             .Author = AuthorBox.Text
             .AuthorInfo = ""
             .PublishInfo = PublishInfoBox.Text
@@ -601,6 +617,7 @@ Public Class HDLibForm
                             Case "ID" : lif.ID = value
                             Case "Title" : lif.Title = value
                             Case "Subtitle" : lif.Subtitle = value
+                            Case "Series" : lif.Series = value
                             Case "Author" : lif.Author = value
                             Case "AuthorInfo" : lif.AuthorInfo = value
                             Case "PublishInfo" : lif.PublishInfo = value
@@ -629,6 +646,7 @@ Public Class HDLibForm
             IDBox.Text = .ID
             TitleBox.Text = .Title
             SubtitleBox.Text = .Subtitle
+            SeriesBox.Text = .Series
             AuthorBox.Text = .Author
             AuthorInfoButton.Tag = .AuthorInfo
             PublishInfoBox.Text = .PublishInfo
@@ -650,6 +668,7 @@ Public Class HDLibForm
         dsb.AppendLine("ID:" & IDBox.Text)
         dsb.AppendLine("Title:" & TitleBox.Text)
         dsb.AppendLine("Subtitle:" & SubtitleBox.Text)
+        dsb.AppendLine("Series:" & SeriesBox.Text)
         dsb.AppendLine("Author:" & AuthorBox.Text)
         dsb.AppendLine("AuthorInfo:")
         dsb.AppendLine("PublishInfo:" & PublishInfoBox.Text)
@@ -887,11 +906,11 @@ Public Class HDLibForm
                 FilesView.SelectedItems(0).BeginEdit()
             End If
 
-            If e.ClickedItem.Equals(FileImportItem) Then
+            If e.ClickedItem.Equals(FileDeleteItem) Then
 
             End If
 
-            If e.ClickedItem.Equals(FileDeleteItem) Then
+            If e.ClickedItem.Equals(FileSetCoverItem) Then
 
             End If
         End If
@@ -901,32 +920,83 @@ Public Class HDLibForm
         End If
     End Sub
 
+    Private Sub UpdateDBButton_DropDownItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) _
+        Handles UpdateDBButton.DropDownItemClicked
+
+        If e.ClickedItem.Equals(DataAllItem) Then
+
+        End If
+    End Sub
+
 #End Region 'ClickedMenuActions
 
 #Region "TempBlock"
-    Private Sub FilesView_AfterLabelEdit(sender As Object, e As LabelEditEventArgs) _
-        Handles FilesView.AfterLabelEdit
+    Private Sub IndicatedBox_TextChanged(sender As Object, e As EventArgs) Handles IndicatedBox.TextChanged
 
-        If e.Label Is Nothing Then
+    End Sub
 
-            e.CancelEdit = True
+    Private Sub IndicatedBox_GotFocus(sender As Object, e As EventArgs) Handles IndicatedBox.GotFocus
+        With IndicatedBox
+
+        End With
+    End Sub
+
+    Private Sub LibView_ControlAdded(sender As Object, e As ControlEventArgs) Handles LibView.ControlAdded
+        MsgBox(e.Control.GetType.ToString)
+    End Sub
+
+    Private Sub TryGetFromWebItem_Click(sender As Object, e As EventArgs) Handles TryGetFromWebItem.Click
+        If HDBrowser.Document Is Nothing Then
+            Exit Sub
         End If
 
-        Dim ofn As String = FilesView.Items.Item(e.Item).Text
-        Dim oext As String = ofn.Substring(ofn.LastIndexOf("."))
-        Dim dext As String = e.Label.Substring(e.Label.LastIndexOf("."))
-
-        If Not oext = dext Then
-
-        End If
+        Dim src As String = KzWeb.GetWebCode(HDBrowser.Url.AbsoluteUri)
+        Dim key As String
+        Dim t As String
 
         Try
-            FileIO.FileSystem.RenameFile(FilesView.Items.Item(e.Item).Text, e.Label)
-            FilesView.Items.Item(e.Item).Text = e.Label
+            key = Regex.Match(src, "SetTitle\(.+\);").ToString.Replace("SetTitle(""", "").Replace(""");", "")
+            Dim l, r As Char
+            If key.Contains("《") Then
+                l = "《"
+                r = "》"
+            ElseIf key.Contains("【") Then
+                l = "【"
+                r = "】"
+            End If
+            AuthorBox.Text = key.Substring(0, key.IndexOf(l))
+            TitleBox.Text = key.Substring(key.IndexOf(l) + 1, key.IndexOf(r) - key.IndexOf(l) - 1)
+
+            key = Regex.Match(src, "SetLink\(.+\);").ToString
+            CategoryBox.Text = key.Substring(key.IndexOf(">") + 1, key.IndexOf("書") - key.IndexOf(">") - 2)
+
+            key = Regex.Match(src, "DownloadUpdb\(.+\<").ToString
+            IDBox.Text = key.Substring(key.IndexOf("(") + 1, key.IndexOf(")") - key.IndexOf("(") - 1).Replace("'", "")
+            t = key.Substring(key.IndexOf("<font size=2>") + 14, key.IndexOf("</font><br>") - key.IndexOf("<font size=2>") - 14)
+            t = Regex.Replace(t, "\(.+\)", "-")
+            If t.EndsWith("-") Then t.Replace(" -", "")
+            VersionBox.Text = t
+
+            key = Regex.Match(src, "HSPACE\=.+勘誤表", RegexOptions.Singleline).ToString
+            t = key.Replace("HSPACE=8 align=right>" & vbCrLf, "").Replace("勘誤表", "")
+            t = Regex.Replace(t, "\<.+\>", "")
+            t = t.Replace(vbCrLf & vbCrLf, vbCrLf).Replace(vbCrLf & vbCrLf, vbCrLf)
+            IntroBox.Text = t
         Catch ex As Exception
 
-            e.CancelEdit = True
         End Try
+
+        LinkBox.Text = HDBrowser.Url.ToString
+    End Sub
+
+    Private Sub IntroBox_DragEnter(sender As Object, e As DragEventArgs) Handles IntroBox.DragEnter
+        If (e.Data.GetDataPresent("Text")) Then
+            e.Effect = DragDropEffects.Copy
+        End If
+    End Sub
+
+    Private Sub IntroBox_DragDrop(sender As Object, e As DragEventArgs) Handles IntroBox.DragDrop, IDBox.DragDrop
+        CType(sender, TextBox).Paste(e.Data.GetData("Text"))
     End Sub
 
 #End Region
@@ -955,6 +1025,7 @@ Public Class KzLibInfItem
     Public Property Updated As String '= "<updated>"
     Public Property Intro As String '= "<intro>"
     Public Property Link As String
+    Public Property Series As String
 End Class
 
 Public Enum KzLibInfType
