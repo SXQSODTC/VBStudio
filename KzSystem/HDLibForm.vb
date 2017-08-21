@@ -5,14 +5,14 @@ Imports System.Text
 Imports System.Text.RegularExpressions
 
 Public Class HDLibForm
-
-    Private CurrentInf As KzLibInfItem
+    Private OriginInf As KzLibInfo
+    Private CurrentInf As KzLibInfo
     Private CopiedNode As TreeNode
 
     Private Sub HDLibForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         '
-        For i As Integer = 0 To [Enum].GetNames(GetType(KzLibInfType)).Count - 1
-            TypeBox.Items.Add(CType(i, KzLibInfType))
+        For i As Integer = 0 To [Enum].GetNames(GetType(KzLibInfoType)).Count - 1
+            TypeBox.Items.Add(CType(i, KzLibInfoType))
         Next
 
         HDBrowser.Navigate(My.Settings.HDLibHome)
@@ -22,7 +22,9 @@ Public Class HDLibForm
         LinkPopLabel.ForeColor = Color.WhiteSmoke
 
         LibView.StartDirectory = My.Settings.HDLibPath
+        LibView.ExceptNames.Add("LibDB")
         LibView.RefreshTree()
+
         SaveListButton.Enabled = False
     End Sub
 
@@ -123,6 +125,7 @@ Public Class HDLibForm
 
 #Region "ButtonsOnToolStrip"
     Private Sub SwitchListButton_Click(sender As Object, e As EventArgs) Handles SwitchListButton.Click
+        '展開或折疊樹形圖
         If LibSpliter.Panel1Collapsed Then
             LibSpliter.Panel1Collapsed = False
         Else
@@ -131,6 +134,7 @@ Public Class HDLibForm
     End Sub
 
     Private Sub LibPathButton_Click(sender As Object, e As EventArgs) Handles LibPathButton.Click
+        '更改書庫目錄（資料夾）
         Dim fbd As New FolderBrowserDialog
         fbd.ShowNewFolderButton = True
 
@@ -140,22 +144,29 @@ Public Class HDLibForm
 
         If fbd.ShowDialog = DialogResult.OK Then
             LibView.StartDirectory = fbd.SelectedPath
+            LibView.ExceptNames.Add("LibDB")
             My.Settings.HDLibPath = fbd.SelectedPath
             LibView.RefreshTree()
-
-            'IndicatedBox.AutoCompleteCustomSource
         End If
+    End Sub
+
+    Private Sub SaveInf(Optional FromInf As KzLibInfo = Nothing, Optional UIAfterSaving As Boolean = True)
+        If FromInf Is Nothing Then
+            FromInf = CurrentInf
+        End If
+
+
     End Sub
 
     Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click, SaveInfButton.Click
         If LibView.SelectedNode.Parent IsNot Nothing Then
-            If TypeBox.SelectedItem = KzLibInfType.Root Then
+            If TypeBox.SelectedItem = KzLibInfoType.Root Then
                 MsgBox("文檔類型不能為 Root，請返回選擇正確的類型。" & vbCrLf & "未保存任何文檔。", MsgBoxStyle.OkOnly, "提示")
                 Exit Sub
             End If
         End If
 
-        Dim sf As String = TypeBox.SelectedItem.ToString & ".kzinf"  ' [Enum].GetName(GetType(KzLibInfType), TypeBox.SelectedItem) & ".kzinf"
+        Dim sf As String = TypeBox.SelectedItem.ToString & ".kzinf"  ' [Enum].GetName(GetType(KzLibInfoType), TypeBox.SelectedItem) & ".kzinf"
 
         Dim di As New DirectoryInfo(LibView.SelectedNode.FullPath)
         Dim fn As FileInfo() = di.GetFiles
@@ -176,12 +187,19 @@ Public Class HDLibForm
                 For Each f As String In fs
                     File.Delete(f)
                 Next
+            Else
+                Exit Sub
             End If
         End If
 
         Try
             PutInfToFile(GetInfFromUI(), Path.Combine(LibView.SelectedNode.FullPath, sf))
-            MsgBox("資訊檔 \" & Path.GetFileName(LibView.SelectedNode.FullPath) & "\" & sf & " 保存完畢。", MsgBoxStyle.OkOnly, "存檔")
+            MsgBox("資訊檔 ..\" & Path.GetFileName(LibView.SelectedNode.FullPath) & "\" & sf & " 保存完畢。", MsgBoxStyle.OkOnly, "存檔")
+
+            Dim tvea As New TreeViewEventArgs(LibView.SelectedNode)
+            LibView_AfterSelect(LibView, tvea)
+
+            SaveButton.Enabled = False
         Catch ex As Exception
             MsgBox("資訊檔 " & Path.Combine(LibView.SelectedNode.FullPath, sf) & " 未能保存。原因：" & vbCrLf & ex.Message, MsgBoxStyle.OkOnly, "存檔")
         End Try
@@ -191,7 +209,7 @@ Public Class HDLibForm
     Private Sub ShowButton_Click(sender As Object, e As EventArgs) Handles ShowCodeButton.Click
         Dim tvd As New KzTextViewDialog
         tvd.TextContents = PutInfToText(GetInfFromUI())
-        tvd.InfoText = "Save Path: " & Path.Combine(LibView.SelectedNode.FullPath, [Enum].GetName(GetType(KzLibInfType), TypeBox.SelectedItem) & ".kzinf")
+        tvd.InfoText = "Save Path: " & Path.Combine(LibView.SelectedNode.FullPath, [Enum].GetName(GetType(KzLibInfoType), TypeBox.SelectedItem) & ".kzinf")
         tvd.ShowDialog()
     End Sub
 
@@ -200,9 +218,14 @@ Public Class HDLibForm
 
 #Region "LibViewActions"
 
+    Private Sub UpdateUI()
+
+    End Sub
+
     Private Sub LibView_AfterSelect(sender As Object, e As TreeViewEventArgs) _
         Handles LibView.AfterSelect
 
+        Console.WriteLine(LibView.SelectedNode.Name)
         IndicatedBox.Text = e.Node.Text
         LibPathLabel.Text = e.Node.FullPath
 
@@ -211,36 +234,41 @@ Public Class HDLibForm
         '===================================================================
         '判斷資料夾形式，如為 Book，將內容投放至 UI
         fis = di.GetFiles("*.kzinf", SearchOption.TopDirectoryOnly)
-        CurrentInf = New KzLibInfItem
+        CurrentInf = New KzLibInfo
         If fis.Length = 1 Then
             CurrentInf = GetInfFromFile(fis(0))
-            If fis(0).Name = "book.kzinf" Then
-                NodeInfoLabel.Text = "Node:Book"
-                'DataPanel.BackColor = Color.Ivory
-            Else
-                If fis(0).Name = "lib.kzinf" Then
-                    NodeInfoLabel.Text = "Node:Lib"
-                    'DataPanel.BackColor = Color.AliceBlue
-                ElseIf fis(0).Name = "category.kzinf" Then
-                    NodeInfoLabel.Text = "Node:Category"
-                    'DataPanel.BackColor = Color.LightCoral
-                ElseIf fis(0).Name = "special.kzinf" Then
-                    NodeInfoLabel.Text = "Node:Special"
-                    'DataPanel.BackColor = Color.LightCyan
-                ElseIf fis(0).Name = "author.kzinf" Then
-                    NodeInfoLabel.Text = "Node:Author"
-                    'DataPanel.BackColor = Color.LightGreen
-                Else
-                    NodeInfoLabel.Text = "Node:Other"
-                    'DataPanel.BackColor = Color.LightGray
-                End If
-            End If
+
+            With NodeInfoLabel
+                Select Case fis(0).Name.ToLower
+                    Case "book.kzinf" : .Text = "[Book]"
+                    Case "lib.kzinf" : .Text = "[Root]"
+                    Case "category.kzinf" : .Text = "[Category]"
+                    Case "special.kzinf" : .Text = "[Special]"
+                    Case "author.kzinf" : .Text = "[Author]"
+                    Case Else : .Text = "[Others]"
+                End Select
+            End With
+
+            'Dim fn As String = fis(0).Name.ToLower
+            'If fn = "book.kzinf" Then
+            '    NodeInfoLabel.Text = "[Book]"
+            'Else
+            '    If fn = "lib.kzinf" Then
+            '        NodeInfoLabel.Text = "[LibRoot]"
+            '    ElseIf fn = "category.kzinf" Then
+            '        NodeInfoLabel.Text = "[Category]"
+            '    ElseIf fn = "special.kzinf" Then
+            '        NodeInfoLabel.Text = "[Special]"
+            '    ElseIf fn = "author.kzinf" Then
+            '        NodeInfoLabel.Text = "[Author]"
+            '    Else
+            '        NodeInfoLabel.Text = "[Other]"
+            '    End If
+            'End If
         ElseIf fis.Length > 1 Then
-            NodeInfoLabel.Text = "Node:Sample"
-            'DataPanel.BackColor = Color.LightGray
+            NodeInfoLabel.Text = "[System]"
         Else
-            NodeInfoLabel.Text = "Node:Blank"
-            'DataPanel.BackColor = Color.WhiteSmoke
+            NodeInfoLabel.Text = "[Blank]"
         End If
 
         PutInfToUI(CurrentInf)
@@ -251,29 +279,29 @@ Public Class HDLibForm
         Dim item As ListViewItem
         Dim subitems As ListViewItem.ListViewSubItem()
         Dim ext As String
-        Dim canbebook As Boolean = False
+        Dim l As Long
         FilesView.Items.Clear()
         For i = 0 To fis.Length - 1
             ext = GetFileType(fis(i).Extension)
 
-            If ext = "書籍" Then
-                canbebook = True
-            End If
+            If ext = "書籍" And NodeInfoLabel.Text = "[Blank]" Then NodeInfoLabel.Text = "[Potential]"
 
             item = New ListViewItem(fis(i).Name)
+            item.Name = fis(i).Name
+            l = fis(i).Length
             subitems = {
                 New ListViewItem.ListViewSubItem(item, "-"),
                 New ListViewItem.ListViewSubItem(item, ext),
-                New ListViewItem.ListViewSubItem(item, fis(i).Length),
-                New ListViewItem.ListViewSubItem(item, "")}
+                New ListViewItem.ListViewSubItem(item, KzStr.GetFileLength(l, True, False, True)),
+                New ListViewItem.ListViewSubItem(item, "(" & If(l < 1024, "", KzStr.GetFileLength(l, True, True)) & ")"),
+                New ListViewItem.ListViewSubItem(item, ""),
+                New ListViewItem.ListViewSubItem(item, fis(i).CreationTime.ToString),
+                New ListViewItem.ListViewSubItem(item, fis(i).LastWriteTime.ToString),
+                New ListViewItem.ListViewSubItem(item, fis(i).LastAccessTime.ToString)}
             item.SubItems.AddRange(subitems)
-            item.ToolTipText = "File " + fis(i).Name + " Created on " + fis(i).CreationTime
             FilesView.Items.Add(item)
         Next
 
-        If canbebook And NodeInfoLabel.Text = "Node:Blank" Then
-            NodeInfoLabel.Text = "Node:Potential"
-        End If
         '===================================================================
         '向 ListView 添加 FileComments（如存在）
         Dim fcs As String()
@@ -298,8 +326,8 @@ Public Class HDLibForm
 
         FilesView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
 
-        'CoverButton.Enabled = False
-        ReCoverButton.Enabled = False
+        FileSetCoverItem.Enabled = False
+        SaveInfButton.Enabled = False
     End Sub
 
     'Private Sub LibTreeView_AfterExpand(sender As Object, e As TreeViewEventArgs)
@@ -309,7 +337,6 @@ Public Class HDLibForm
 
     Private Sub LibView_AfterLabelEdit(sender As Object, e As NodeLabelEditEventArgs) _
         Handles LibView.AfterLabelEdit
-        'MsgBox(e.Node.FullPath & vbCrLf & e.Label & vbCrLf & e.Node.Parent.FullPath & "\" & e.Label)
 
         If e.Node.Parent Is Nothing Then
             e.CancelEdit = True
@@ -345,16 +372,6 @@ Public Class HDLibForm
         End If
 
         If t IsNot Nothing Then
-            'If t = "Rename" Then
-            '    If Directory.Exists(e.Node.FullPath) And Not (e.Label = e.Node.Text) Then
-            '        FileIO.FileSystem.RenameDirectory(e.Node.FullPath, e.Label)
-            '        e.Node.Text = e.Label
-            '        e.Node.EndEdit(False)
-            '        LibView.SelectedNode = e.Node
-            '    Else
-            '        e.CancelEdit = True
-            '    End If
-            'End If
 
             If t.EndsWith(".kzinf") Then
                 Dim np As String = Path.Combine(e.Node.Parent.FullPath, e.Label)
@@ -384,13 +401,13 @@ Public Class HDLibForm
                     End Try
                 End If
 
-                Dim inf As New KzLibInfItem
+                Dim inf As New KzLibInfo
                 With inf
                     Select Case t
-                        Case "Book.kzinf" : .Type = KzLibInfType.Book
-                        Case "Author.kzinf" : .Type = KzLibInfType.Author
-                        Case "Category.kzinf" : .Type = KzLibInfType.Category
-                        Case "Special.kzinf" : .Type = KzLibInfType.Special
+                        Case "Book.kzinf" : .Type = KzLibInfoType.Book
+                        Case "Author.kzinf" : .Type = KzLibInfoType.Author
+                        Case "Category.kzinf" : .Type = KzLibInfoType.Category
+                        Case "Special.kzinf" : .Type = KzLibInfoType.Special
                     End Select
                     .Title = Path.GetFileName(np)
                     .Updated = Now().ToString
@@ -446,14 +463,13 @@ Public Class HDLibForm
                 If .SelectedItems(0).SubItems(2).Text = "圖像" Then
                     ShowImg(Path.Combine(LibPathLabel.Text, .SelectedItems(0).Text))
                     CoverButton.Enabled = True
-                    ReCoverButton.Enabled = True
+                    FileSetCoverItem.Enabled = True
                 Else
-                    'CoverButton.Enabled = False
-                    ReCoverButton.Enabled = False
+                    FileSetCoverItem.Enabled = False
                 End If
 
                 SerialBox.Text = .SelectedItems(0).SubItems(1).Text
-                CommentBox.Text = .SelectedItems(0).SubItems(4).Text
+                CommentBox.Text = .SelectedItems(0).SubItems(5).Text
             Else
                 SerialBox.Text = Nothing
                 CommentBox.Text = Nothing
@@ -496,7 +512,7 @@ Public Class HDLibForm
     End Sub
 
     Private Sub SerialBox_TextChanged(sender As Object, e As EventArgs) _
-        Handles SerialBox.TextChanged, CommentBox.TextAlignChanged
+        Handles SerialBox.TextChanged, CommentBox.TextChanged
 
         SaveListButton.Enabled = True
     End Sub
@@ -509,45 +525,52 @@ Public Class HDLibForm
             End If
         End With
         SaveListButton.Enabled = False
+        SaveInfButton.Enabled = True
     End Sub
 #End Region 'FilesViewActions
 
 
 #Region "ControlsOnPanel"
-    Private Sub ReCoverButton_Click(sender As Object, e As EventArgs) Handles ReCoverButton.Click
-        If FilesView.SelectedItems.Count > 0 Then
-            If FilesView.SelectedItems(0).SubItems(2).Text = "圖像" Then
-                CoverBox.Tag = FilesView.SelectedItems(0).SubItems(0).Text
-            End If
-        End If
-    End Sub
-
     Private Sub CoverButton_Click(sender As Object, e As EventArgs) Handles CoverButton.Click
-        ShowImg(Path.Combine(LibPathLabel.Text, CoverBox.Tag))
-    End Sub
-
-    Private Sub LinkButton_Click(sender As Object, e As EventArgs) Handles LinkButton.Click
-        LinkBox.Text = HDBrowser.Url.ToString
-    End Sub
-
-    Private Sub LinkBox_DoubleClick(sender As Object, e As EventArgs) Handles LinkBox.DoubleClick
-        If Not HDBrowser.Url.ToString = LinkBox.Text Then
-            HDBrowser.Navigate(LinkBox.Text)
+        If CoverBox.Tag IsNot Nothing Then
+            ShowImg(Path.Combine(LibPathLabel.Text, CoverBox.Tag))
         End If
     End Sub
 
+    Private Sub IndicatedBox_TextChanged(sender As Object, e As EventArgs) Handles IndicatedBox.TextChanged
+
+    End Sub
+
+    Private Sub IndicatedBox_GotFocus(sender As Object, e As EventArgs) Handles IndicatedBox.GotFocus
+        IndicatedBox.AutoCompleteCustomSource = GetAllNodeText(LibView.Nodes(0))
+    End Sub
+
+    Private Function GetAllNodeText(node As TreeNode) As AutoCompleteStringCollection
+        Dim acsc As New AutoCompleteStringCollection
+
+        If node.Nodes.Count > 0 Then
+            For Each subnode As TreeNode In node.Nodes
+                acsc.Add(subnode.Text)
+                Dim subacsc As AutoCompleteStringCollection = GetAllNodeText(subnode)
+                For Each tx As String In subacsc
+                    acsc.Add(tx)
+                Next
+            Next
+        End If
+
+        Return acsc
+    End Function
 #End Region 'ControlsOnPanel
 
 
 #Region "PrivateMethods"
-
     Private Function GetFileType(extension As String) As String
         Select Case extension.ToLower
             Case ".updb", ".prc", ".mobi", ".epub"
                 Return "書籍"' "Package"
             Case ".doc", ".docx", ".txt", ".rtf"
                 Return "文檔" '"Editable"
-            Case ".pdf"
+            Case ".pdf", ".djvu"
                 Return "發佈" '"Published"
             Case ".html", ".htm"
                 Return "網頁" '"Webpage"
@@ -566,8 +589,8 @@ Public Class HDLibForm
         End Select
     End Function
 
-    Private Function GetInfFromUI() As KzLibInfItem
-        Dim lif As New KzLibInfItem
+    Private Function GetInfFromUI() As KzLibInfo
+        Dim lif As New KzLibInfo
 
         With lif
             .Type = TypeBox.SelectedItem
@@ -589,15 +612,17 @@ Public Class HDLibForm
             .Address = "\" & Path.GetFileName(LibView.SelectedNode.FullPath)
             .FileComments = GetFileComments().Split("|")
             .Updated = Now().ToString
-            .Link = LinkBox.Text
+            .ViewLink = If(ViewLinkButton.Tag IsNot Nothing, ViewLinkButton.Tag, "")
+            .DownloadLink = If(DownLinkButton.Tag IsNot Nothing, DownLinkButton.Tag, "")
+            .CoverLink = If(CoverLinkButton.Tag IsNot Nothing, CoverLinkButton.Tag, "")
             .Intro = IntroBox.Text
         End With
 
         Return lif
     End Function
 
-    Private Function GetInfFromFile(InfFile As FileInfo) As KzLibInfItem
-        Dim lif As New KzLibInfItem
+    Private Function GetInfFromFile(InfFile As FileInfo) As KzLibInfo
+        Dim lif As New KzLibInfo
 
         Using fs As FileStream = New FileStream(InfFile.FullName, FileMode.Open, FileAccess.Read)
             Using sr As StreamReader = New StreamReader(fs, Encoding.UTF8)
@@ -613,7 +638,7 @@ Public Class HDLibForm
                         value = line.Substring(pos + 1)
 
                         Select Case head
-                            Case "Type" : lif.Type = [Enum].Parse(GetType(KzLibInfType), value)
+                            Case "Type" : lif.Type = [Enum].Parse(GetType(KzLibInfoType), value)
                             Case "ID" : lif.ID = value
                             Case "Title" : lif.Title = value
                             Case "Subtitle" : lif.Subtitle = value
@@ -628,7 +653,9 @@ Public Class HDLibForm
                             Case "Address" : lif.Address = value
                             Case "FileComments" : lif.FileComments = value.Split("|")
                             Case "Updated" : lif.Updated = value
-                            Case "Link" : lif.Link = value
+                            Case "ViewLink" : lif.ViewLink = value
+                            Case "DownloadLink" : lif.DownloadLink = value
+                            Case "CoverLink" : lif.CoverLink = value
                             Case "Intro" : lif.Intro = sr.ReadToEnd
                         End Select
                     End If
@@ -640,7 +667,7 @@ Public Class HDLibForm
         Return lif
     End Function
 
-    Private Sub PutInfToUI(InfItem As KzLibInfItem)
+    Private Sub PutInfToUI(InfItem As KzLibInfo)
         With InfItem
             TypeBox.SelectedItem = .Type
             IDBox.Text = .ID
@@ -654,7 +681,10 @@ Public Class HDLibForm
             CategoryBox.Text = .Category
             SpecialBox.Text = .Special
             UpdatedBox.Text = .Updated
-            LinkBox.Text = .Link
+            'LinkBox.Text = .ViewLink
+            ViewLinkButton.Tag = .ViewLink
+            DownLinkButton.Tag = .DownloadLink
+            CoverLinkButton.Tag = .CoverLink
             IntroBox.Text = .Intro
             CoverBox.Tag = .Cover
             If .Cover Is Nothing Or .Cover = "" Then .Cover = "cover"
@@ -662,9 +692,9 @@ Public Class HDLibForm
         End With
     End Sub
 
-    Private Function PutInfToText(InfItem As KzLibInfItem) As String
+    Private Function PutInfToText(InfItem As KzLibInfo) As String
         Dim dsb As New StringBuilder
-        dsb.AppendLine("Type:" & [Enum].GetName(GetType(KzLibInfType), TypeBox.SelectedItem))
+        dsb.AppendLine("Type:" & [Enum].GetName(GetType(KzLibInfoType), TypeBox.SelectedItem))
         dsb.AppendLine("ID:" & IDBox.Text)
         dsb.AppendLine("Title:" & TitleBox.Text)
         dsb.AppendLine("Subtitle:" & SubtitleBox.Text)
@@ -703,18 +733,20 @@ Public Class HDLibForm
 
         dsb.AppendLine("FileComments:" & sb.ToString)
         dsb.AppendLine("Updated:" & Now().ToString)
-        dsb.AppendLine("Link:" & LinkBox.Text)
+        dsb.AppendLine("ViewLink:" & If(ViewLinkButton.Tag IsNot Nothing, ViewLinkButton.Tag, ""))
+        dsb.AppendLine("DownloadLink:" & If(DownLinkButton.Tag IsNot Nothing, DownLinkButton.Tag, ""))
+        dsb.AppendLine("CoverLink:" & If(CoverLinkButton.Tag IsNot Nothing, CoverLinkButton.Tag, ""))
         dsb.AppendLine("Intro:")
         dsb.Append(IntroBox.Text)
 
         Return dsb.ToString
     End Function
 
-    Private Sub PutInfToFile(InfItem As KzLibInfItem, FilePath As String)
+    Private Sub PutInfToFile(InfItem As KzLibInfo, FilePath As String)
         File.WriteAllText(FilePath, PutInfToText(InfItem), Encoding.UTF8)
         'Using fs As FileStream = New FileStream(FilePath, FileMode.Create, FileAccess.ReadWrite)
         '    Using sw As StreamWriter = New StreamWriter(fs, Encoding.UTF8)
-        '        sw.WriteLine("Type:" & [Enum].GetName(GetType(KzLibInfType), TypeBox.SelectedItem))
+        '        sw.WriteLine("Type:" & [Enum].GetName(GetType(KzLibInfoType), TypeBox.SelectedItem))
         '        sw.WriteLine("ID:" & IDBox.Text)
         '        sw.WriteLine("Title:" & TitleBox.Text)
         '        sw.WriteLine("Subtitle:" & SubtitleBox.Text)
@@ -805,6 +837,44 @@ Public Class HDLibForm
 
         ImgInfoLabel.Text = sb.ToString
     End Sub
+
+    Private Sub Download(Link As String, Optional SaveTo As String = Nothing)
+        If SaveTo Is Nothing Then
+            Dim sfd As New SaveFileDialog
+            If LibView.SelectedNode IsNot Nothing Then
+                sfd.InitialDirectory = LibView.SelectedNode.FullPath
+            Else
+                Try
+                    sfd.InitialDirectory = My.Settings.HDLibPath
+                Catch ex As Exception
+
+                End Try
+            End If
+
+            If sfd.ShowDialog = DialogResult.OK Then
+                SaveTo = sfd.FileName
+            Else
+                Exit Sub
+            End If
+        End If
+
+        Dim wc As WebClient = New WebClient
+        Dim url As Uri = New Uri(Link)
+
+        AddHandler wc.DownloadProgressChanged, AddressOf wc_DownloadProgressChanged
+        AddHandler wc.DownloadFileCompleted, AddressOf wc_DownloadFileCompleted
+        wc.DownloadFileAsync(url, SaveTo)
+    End Sub
+
+    Private Sub wc_DownloadProgressChanged(sender As Object, e As DownloadProgressChangedEventArgs)
+        AnyProgress.Maximum = 100
+        AnyProgress.Value = CInt(Math.Floor(e.BytesReceived * 100 / e.TotalBytesToReceive))
+    End Sub
+
+    Private Sub wc_DownloadFileCompleted(sender As Object, e As AsyncCompletedEventArgs)
+        MsgBox("下載完成。")
+    End Sub
+
 
 #End Region 'PrivateMethods
 
@@ -898,21 +968,28 @@ Public Class HDLibForm
         Handles FilesMenu.ItemClicked
 
         If FilesView.SelectedItems.Count > 0 Then
-            If e.ClickedItem.Equals(FileImportItem) Then
+            With FilesView.SelectedItems(0)
+                If e.ClickedItem.Equals(FileImportItem) Then
 
-            End If
+                End If
 
-            If e.ClickedItem.Equals(FileRenameItem) Then
-                FilesView.SelectedItems(0).BeginEdit()
-            End If
+                If e.ClickedItem.Equals(FileRenameItem) Then
+                    FilesView.SelectedItems(0).BeginEdit()
+                End If
 
-            If e.ClickedItem.Equals(FileDeleteItem) Then
+                If e.ClickedItem.Equals(FileDeleteItem) Then
 
-            End If
+                End If
 
-            If e.ClickedItem.Equals(FileSetCoverItem) Then
+                If e.ClickedItem.Equals(FileSetCoverItem) Then
+                    If .SubItems(2).Text = "圖像" Then
+                        CoverBox.Tag = .SubItems(0).Text
+                        .SubItems(4).Text = "封面"
 
-            End If
+                        SaveInfButton.Enabled = True
+                    End If
+                End If
+            End With
         End If
 
         If e.ClickedItem.Equals(FilePasteItem) Then
@@ -928,31 +1005,43 @@ Public Class HDLibForm
         End If
     End Sub
 
+    Private Sub TryGetFromWebItem_DropDownItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles TryGetFromWebItem.DropDownItemClicked
+        If e.ClickedItem.Equals(TryCategoryItem) Then
+
+        End If
+
+        If e.ClickedItem.Equals(TryViewLinkItem) Then
+            If ViewLinkButton.Tag Is Nothing Then
+                ViewLinkButton.Tag = HDBrowser.Url.ToString
+            Else
+                Dim s As String = "瀏覽鏈接已被設置為 " & ViewLinkButton.Tag & vbCrLf &
+                    "，是否更改為 " & HDBrowser.Url.ToString
+
+                If MsgBox(s, MsgBoxStyle.YesNo, "更改") = MsgBoxResult.Yes Then
+                    ViewLinkButton.Tag = HDBrowser.Url.ToString
+                End If
+            End If
+        End If
+    End Sub
+
 #End Region 'ClickedMenuActions
 
 #Region "TempBlock"
-    Private Sub IndicatedBox_TextChanged(sender As Object, e As EventArgs) Handles IndicatedBox.TextChanged
-
-    End Sub
-
-    Private Sub IndicatedBox_GotFocus(sender As Object, e As EventArgs) Handles IndicatedBox.GotFocus
-        With IndicatedBox
-
-        End With
-    End Sub
-
-    Private Sub LibView_ControlAdded(sender As Object, e As ControlEventArgs) Handles LibView.ControlAdded
-        MsgBox(e.Control.GetType.ToString)
-    End Sub
-
     Private Sub TryGetFromWebItem_Click(sender As Object, e As EventArgs) Handles TryGetFromWebItem.Click
         If HDBrowser.Document Is Nothing Then
+            Exit Sub
+        End If
+
+        If Not (NodeInfoLabel.Text = "[Book]" Or
+            NodeInfoLabel.Text = "[Potential]" Or
+            NodeInfoLabel.Text = "[Blank]") Then
             Exit Sub
         End If
 
         Dim src As String = KzWeb.GetWebCode(HDBrowser.Url.AbsoluteUri)
         Dim key As String
         Dim t As String
+        Dim err As String = ""
 
         Try
             key = Regex.Match(src, "SetTitle\(.+\);").ToString.Replace("SetTitle(""", "").Replace(""");", "")
@@ -966,50 +1055,207 @@ Public Class HDLibForm
             End If
             AuthorBox.Text = key.Substring(0, key.IndexOf(l))
             TitleBox.Text = key.Substring(key.IndexOf(l) + 1, key.IndexOf(r) - key.IndexOf(l) - 1)
+        Catch ex As Exception
+            err &= "[SetTitle] 未能取得 Title 及 Author。" & vbCrLf
+        End Try
 
+        Try
             key = Regex.Match(src, "SetLink\(.+\);").ToString
-            CategoryBox.Text = key.Substring(key.IndexOf(">") + 1, key.IndexOf("書") - key.IndexOf(">") - 2)
+            t = key.Substring(key.IndexOf(">") + 1, key.IndexOf("</a>") - key.IndexOf(">") - 1)
+            CategoryBox.Text = t.Replace(" 書目", "")
+        Catch ex As Exception
+            err &= "[SetLink] 未能取得 Category。" & vbCrLf
+        End Try
 
-            key = Regex.Match(src, "DownloadUpdb\(.+\<").ToString
+        Try
+            key = Regex.Match(src, "DownloadUpdb\(.+?\<br").ToString
             IDBox.Text = key.Substring(key.IndexOf("(") + 1, key.IndexOf(")") - key.IndexOf("(") - 1).Replace("'", "")
-            t = key.Substring(key.IndexOf("<font size=2>") + 14, key.IndexOf("</font><br>") - key.IndexOf("<font size=2>") - 14)
+            t = key.Substring(key.IndexOf("<font size=2>") + 14, key.IndexOf("</font><br") - key.IndexOf("<font size=2>") - 14)
             t = Regex.Replace(t, "\(.+\)", "-")
-            If t.EndsWith("-") Then t.Replace(" -", "")
+            If t.EndsWith("-") Then t.Replace("-", "").Trim()
             VersionBox.Text = t
+            DownLinkButton.Tag = "http://www.haodoo.net/?M=d&P=" & IDBox.Text
+        Catch ex As Exception
+            err &= "[DownloadUpdb] 未能取得 ID 或 Version。" & vbCrLf
+        End Try
 
+        Try
+            key = Regex.Match(src, "\<img src\=""covers.+HSPACE\=").ToString
+            t = key.Substring(key.IndexOf("covers"), key.IndexOf("""", key.IndexOf("covers")) - key.IndexOf("covers"))
+            CoverLinkButton.Tag = "http://www.haodoo.net/" & t
+        Catch ex As Exception
+            err &= "[img src] 未能取得 Cover。" & vbCrLf
+        End Try
+
+        Try
             key = Regex.Match(src, "HSPACE\=.+勘誤表", RegexOptions.Singleline).ToString
-            t = key.Replace("HSPACE=8 align=right>" & vbCrLf, "").Replace("勘誤表", "")
-            t = Regex.Replace(t, "\<.+\>", "")
-            t = t.Replace(vbCrLf & vbCrLf, vbCrLf).Replace(vbCrLf & vbCrLf, vbCrLf)
+            t = key.Replace("勘誤表", "")
+            t = Regex.Replace(t, "HSPACE\=.+?\>", "")
+            t = Regex.Replace(t, "\<.+?\>", "")
+            t = t.Replace(vbCrLf & vbCrLf & vbCrLf, vbCrLf & vbCrLf)
             IntroBox.Text = t
+        Catch ex As Exception
+            err &= "[Intro] 未能取得 Intro。"            '
+        End Try
+
+        If err.Length > 0 Then
+            MsgBox("源格式不匹配。以下元素未能取得：" & vbCrLf & err)
+        End If
+
+        ViewLinkButton.Tag = HDBrowser.Url.ToString
+        TypeBox.SelectedItem = KzLibInfoType.Book
+    End Sub
+
+    Private Sub IntroBox_TextChanged(sender As Object, e As EventArgs) _
+        Handles IntroBox.TextChanged, IDBox.TextChanged, AuthorBox.TextChanged, TitleBox.TextChanged,
+        SubtitleBox.TextChanged, SerialBox.TextChanged, PublishInfoBox.TextChanged,
+        VersionBox.TextChanged, CategoryBox.TextChanged, SpecialBox.TextChanged,
+        TypeBox.SelectedIndexChanged
+
+        Try
+            If LibView.SelectedNode.Equals(LibView.Nodes.Item(0)) Then
+                SaveInfButton.Enabled = True
+            End If
         Catch ex As Exception
 
         End Try
 
-        LinkBox.Text = HDBrowser.Url.ToString
     End Sub
 
-    Private Sub IntroBox_DragEnter(sender As Object, e As DragEventArgs) Handles IntroBox.DragEnter
+    Private Sub IntroBox_DragEnter(sender As Object, e As DragEventArgs) _
+        Handles IntroBox.DragEnter, IDBox.DragEnter, AuthorBox.DragEnter, TitleBox.DragEnter,
+        SubtitleBox.DragEnter, SerialBox.DragEnter, PublishInfoBox.DragEnter,
+        VersionBox.DragEnter, CategoryBox.DragEnter, SpecialBox.DragEnter
+
         If (e.Data.GetDataPresent("Text")) Then
             e.Effect = DragDropEffects.Copy
         End If
     End Sub
 
-    Private Sub IntroBox_DragDrop(sender As Object, e As DragEventArgs) Handles IntroBox.DragDrop, IDBox.DragDrop
+    Private Sub IntroBox_DragDrop(sender As Object, e As DragEventArgs) _
+        Handles IntroBox.DragDrop, IDBox.DragDrop, AuthorBox.DragDrop, TitleBox.DragDrop,
+        SubtitleBox.DragDrop, SerialBox.DragDrop, PublishInfoBox.DragDrop,
+        VersionBox.DragDrop, CategoryBox.DragDrop, SpecialBox.DragDrop
+
         CType(sender, TextBox).Paste(e.Data.GetData("Text"))
     End Sub
+
+    Private Sub ViewLinkButton_MouseEnter(sender As Object, e As EventArgs) _
+        Handles ViewLinkButton.MouseEnter, CoverLinkButton.MouseEnter, DownLinkButton.MouseEnter
+
+        LinksLabel.Text = CType(sender, Button).Tag
+        If LinksLabel.Text Is Nothing Or LinksLabel.Text = "" Then
+            LinksLabel.Text = "<Empty>"
+        End If
+    End Sub
+
+    Private Sub ViewLinkButton_MouseLeave(sender As Object, e As EventArgs) _
+        Handles ViewLinkButton.MouseLeave, CoverLinkButton.MouseLeave, DownLinkButton.MouseLeave
+
+        LinksLabel.Text = "<Link>"
+    End Sub
+
+    Private Sub LinkButton_Click(sender As Object, e As EventArgs) _
+        Handles DownLinkButton.Click, CoverLinkButton.Click, ViewLinkButton.Click
+
+        Dim bt As Button = CType(sender, Button)
+        With bt
+            If bt.Tag Is Nothing Then
+                MsgBox(bt.Text & " 鏈接未設置，中斷操作。")
+                Exit Sub
+            End If
+
+            Dim wc As New WebClient
+            Dim link As String
+            Try
+                link = CType(.Tag, String)
+                Dim str As String = wc.DownloadString(CType(.Tag, String))
+            Catch ex As Exception
+                MsgBox(bt.Text & " 鏈接訪問異常，中斷操作。")
+                Exit Sub
+            End Try
+
+            If Not .Equals(ViewLinkButton) Then
+                Try
+                    Dim fn As String = link.Substring(link.LastIndexOf("/") + 1)
+                    Dim saveto As String = Path.Combine(LibView.SelectedNode.FullPath, fn)
+
+                    If File.Exists(saveto) Then
+                        Dim s As String = "即將下載的文檔已經存在同名檔，是否更名繼續？" & vbCrLf &
+                            "【是】下載文檔將更名後保存。" & vbCrLf & "【否】覆蓋同名檔保存。" & vbCrLf & "【取消】終止下載。"
+                        Dim r As MsgBoxResult = MsgBox(s, MsgBoxStyle.YesNo, "保存")
+
+                        If r = MsgBoxResult.Yes Then
+                            saveto = Path.GetDirectoryName(saveto) &
+                                Path.GetFileNameWithoutExtension(saveto) & "_" &
+                                KzStr.GetTimeSerial(Now()) & Path.GetExtension(saveto)
+
+                        ElseIf r = MsgBoxResult.Cancel Then
+                            MsgBox("下載操作已被用戶終止。")
+                            Exit Sub
+                        End If
+                    End If
+
+                    Download(link, saveto)
+
+                    If .Equals(CoverLinkButton) Then
+                        CoverBox.Tag = fn
+                        ShowImg(saveto)
+                    End If
+
+                    SaveInfButton.Enabled = True
+                Catch ex As Exception
+                    MsgBox("未能下載文檔。原因：" & vbCrLf & ex.Message)
+                End Try
+
+            Else
+                HDBrowser.Navigate(link)
+            End If
+        End With
+    End Sub
+
+    Private Sub UrlLabel_Click(sender As Object, e As EventArgs) Handles UrlLabel.DoubleClick
+        ViewLinkButton.Tag = UrlLabel.Text
+    End Sub
+
+    Private Sub CleanUpButton_Click(sender As Object, e As EventArgs) Handles CleanUpButton.Click
+        LibView.Sort()
+    End Sub
+
+    Private Sub AbortInfButton_Click(sender As Object, e As EventArgs) Handles AbortInfButton.Click
+        PutInfToUI(CurrentInf)
+    End Sub
+
+    Private Sub LibView_BeforeSelect(sender As Object, e As TreeViewCancelEventArgs) Handles LibView.BeforeSelect
+        If Not LibView.SelectedNode Is Nothing Then
+            If SaveInfButton.Enabled Then
+                Dim s As String = "當前咨詢已經更改，是否保存？" & vbCrLf &
+                    "【是】保存當前資訊檔後執行跳轉選定。" & vbCrLf &
+                    "【否】不保存當前資訊即跳轉。" & vbCrLf & "【取消】終止執行跳轉。"
+                Dim r As MsgBoxResult = MsgBox(s, MsgBoxStyle.YesNo, "跳轉")
+
+                If r = MsgBoxResult.Yes Then
+                    MsgBox("Need save")
+                ElseIf r = MsgBoxResult.Cancel Then
+                    e.Cancel = True
+                End If
+            End If
+        End If
+    End Sub
+
+
 
 #End Region
 
 
 End Class
 
-Public Class KzLibInfItem
+Public Class KzLibInfo
     Public Sub New()
 
     End Sub
 
-    Public Property Type As KzLibInfType = KzLibInfType.Root
+    Public Property Type As KzLibInfoType = KzLibInfoType.Root
     Public Property ID As String '= "<id>"
     Public Property Title As String '= "<title>"
     Public Property Subtitle As String '= "<subtitle>"
@@ -1024,11 +1270,13 @@ Public Class KzLibInfItem
     Public Property FileComments As String() = {}
     Public Property Updated As String '= "<updated>"
     Public Property Intro As String '= "<intro>"
-    Public Property Link As String
+    Public Property ViewLink As String
+    Public Property DownloadLink As String
+    Public Property CoverLink As String
     Public Property Series As String
 End Class
 
-Public Enum KzLibInfType
+Public Enum KzLibInfoType
     Root
     Book
     Author

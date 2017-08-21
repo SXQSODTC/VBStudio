@@ -1,4 +1,40 @@
-﻿Imports System.IO
+﻿' Copyright (c) Microsoft Corporation. All rights reserved.
+Imports System.IO
+Imports System.Windows.Forms
+Imports System.Diagnostics ' For Process.Start
+
+
+' Copyright (c) Microsoft Corporation. All rights reserved.
+' This class simply extends the TreeNode class by adding a Size field to support
+' indicated directory size by color.
+Public Class DirectoryNode
+    Inherits TreeNode
+
+    Public Size As Long
+
+End Class
+
+' Copyright (c) Microsoft Corporation. All rights reserved.
+
+
+' Copyright (c) Microsoft Corporation. All rights reserved.
+' This class is needed because the 
+' System.Windows.Forms.Design.FolderNameEditor.FolderBrowser is Protected and thus 
+' is not accessible in this context. Deriving a Public class from it enables you to
+' use the dialog in your code.
+Public Class FolderBrowser
+    Inherits System.Windows.Forms.Design.FolderNameEditor
+
+    Public Shared Function ShowDialog() As String
+        Dim folders As New FolderBrowser()
+        folders.Description = "Select a Directory to Scan"
+        folders.Style = Design.FolderNameEditor.FolderBrowserStyles.RestrictToFilesystem
+        folders.ShowDialog()
+
+
+        Return folders.DirectoryPath
+    End Function
+End Class
 
 Public Class KzDirectoryTreeView
     Inherits TreeView
@@ -35,6 +71,8 @@ Public Class KzDirectoryTreeView
     Public Property StartDirectory As String = "C:\"
 
     Public Property NeedSort As Boolean = True
+
+    Public Property ExceptNames As System.Collections.Specialized.StringCollection = New System.Collections.Specialized.StringCollection
 
     ' This subroutine clears out the existing TreeNode objects and rebuilds the 
     ' DirectoryTreeView, showing the logical drives.
@@ -132,18 +170,31 @@ Public Class KzDirectoryTreeView
 
         Dim di As DirectoryInfo
         For Each di In adiDirectories
-            ' Create a child node for every sub-directory, passing in the directory
-            ' name and the images its node will use.
-            Dim tnDir As New TreeNode(di.Name, 1, 2)
-            ' Add the new child node to the parent node.
-            tn.Nodes.Add(tnDir)
+            Dim go As Boolean = True
+            If Me.ExceptNames.Count > 0 Then
+                For Each tx As String In Me.ExceptNames
+                    If tx = di.Name Then
+                        go = False
+                        Exit For
+                    End If
+                Next
+            End If
 
-            ' We could now fill up the whole tree by recursively calling 
-            ' AddDirectories():
-            '
-            '   AddDirectories(tnDir)
-            '
-            ' This is way too slow, however. Give it a try!
+            If go Then
+                ' Create a child node for every sub-directory, passing in the directory
+                ' name and the images its node will use.
+                Dim tnDir As New TreeNode(di.Name, 1, 2)
+                ' Add the new child node to the parent node.
+                tn.Nodes.Add(tnDir)
+
+                ' We could now fill up the whole tree by recursively calling 
+                ' AddDirectories():
+                '
+                '   AddDirectories(tnDir)
+                '
+                ' This is way too slow, however. Give it a try!
+            End If
+
         Next
     End Sub
 

@@ -62,6 +62,10 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Windows\assembly\GAC_MSIL\Microsoft.VisualBasic.PowerPacks.Vs\10.0.0.0__b03f5f7f11d50a3a\Microsoft.VisualBasic.PowerPacks.Vs.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -88,9 +92,10 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LibraryIOSystem.vb">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Library\ColorHelper.vb" />
+    <Compile Include="Library\IOSystem.vb" />
+    <Compile Include="Library\ListHelper.vb" />
+    <Compile Include="Library\TextHelper.vb" />
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -114,11 +119,10 @@
     <Compile Include="HDLibForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LibraryEnums.vb" />
-    <Compile Include="LibraryFunctions.vb" />
-    <Compile Include="LibraryIO.vb" />
-    <Compile Include="LibraryPaint.vb" />
-    <Compile Include="LibraryComponents.vb" />
+    <Compile Include="Library\PublicEnums.vb" />
+    <Compile Include="Library\Functions.vb" />
+    <Compile Include="Library\Painting.vb" />
+    <Compile Include="Library\Components.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -146,6 +150,12 @@
     <Compile Include="StartForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Tempcode\TestColorConvert.Designer.vb">
+      <DependentUpon>TestColorConvert.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Tempcode\TestColorConvert.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Tempcode\TestExplorer.Designer.vb">
       <DependentUpon>TestExplorer.vb</DependentUpon>
     </Compile>
@@ -171,6 +181,12 @@
       <DependentUpon>KzExplorer.vb</DependentUpon>
     </Compile>
     <Compile Include="UserControls\KzExplorer.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\KzPadingSetter.Designer.vb">
+      <DependentUpon>KzPadingSetter.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\KzPadingSetter.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserControls\KzSlideBar.Designer.vb">
@@ -205,6 +221,12 @@
       <DependentUpon>KzInputDialog.vb</DependentUpon>
     </Compile>
     <Compile Include="UserDialogs\KzInputDialog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tempcode\TestTabsDesigner.Designer.vb">
+      <DependentUpon>TestTabsDesigner.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Tempcode\TestTabsDesigner.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UserDialogs\KzTabsDesigner.Designer.vb">
@@ -248,6 +270,9 @@
     <EmbeddedResource Include="StartForm.resx">
       <DependentUpon>StartForm.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Tempcode\TestColorConvert.resx">
+      <DependentUpon>TestColorConvert.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Tempcode\TestColorListForm.resx">
       <DependentUpon>TestColorListForm.vb</DependentUpon>
     </EmbeddedResource>
@@ -269,11 +294,17 @@
     <EmbeddedResource Include="UserControls\KzExplorer.resx">
       <DependentUpon>KzExplorer.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\KzPadingSetter.resx">
+      <DependentUpon>KzPadingSetter.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\KzSlideBar.resx">
       <DependentUpon>KzSlideBar.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserDialogs\KzColorsDialog.resx">
       <DependentUpon>KzColorsDialog.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tempcode\TestTabsDesigner.resx">
+      <DependentUpon>TestTabsDesigner.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserDialogs\KzTabsDesigner.resx">
       <DependentUpon>KzTabsDesigner.vb</DependentUpon>
@@ -341,6 +372,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\LinerPngIcon\folder_open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\LinerBasicUI\liner_code.png" />
+    <Content Include="Resources\LinerBasicUI\liner_setting.png" />
+    <Content Include="Resources\Numbers\Number_0.png" />
+    <Content Include="Resources\Numbers\Number_1.png" />
+    <Content Include="Resources\Numbers\Number_2.png" />
+    <Content Include="Resources\Numbers\Number_3.png" />
+    <Content Include="Resources\Numbers\Number_4.png" />
+    <Content Include="Resources\Numbers\Number_5.png" />
+    <Content Include="Resources\Numbers\Number_6.png" />
+    <Content Include="Resources\Numbers\Number_7.png" />
+    <Content Include="Resources\Numbers\Number_8.png" />
+    <Content Include="Resources\Numbers\Number_9.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

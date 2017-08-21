@@ -87,35 +87,33 @@
 
     Private Sub NumberUD_ValueChanged(sender As Object, e As EventArgs) Handles NumberUD.ValueChanged
         Bar.Value = NumberUD.Value
+        'RaiseEvent ValueChanged(Me, e)
     End Sub
 
     Private Sub Bar_Scroll(sender As Object, e As EventArgs) Handles Bar.Scroll
         NumberUD.Value = Bar.Value
     End Sub
 
-    Private Sub Bar_ValueChanged(sender As Object, e As EventArgs) _
-        Handles Bar.ValueChanged, NumberUD.ValueChanged
-
+    Private Sub Bar_ValueChanged(sender As Object, e As EventArgs) Handles Bar.ValueChanged
         RaiseEvent ValueChanged(Me, e)
     End Sub
 
     Private Sub Bar_MouseEnter(sender As Object, e As EventArgs) _
-        Handles RootPanel.MouseEnter, TitleLabel.MouseEnter, Bar.MouseEnter, NumberUD.MouseEnter ', RootPanel.MouseEnter
+        Handles RootPanel.MouseEnter, TitleLabel.MouseEnter, Bar.MouseEnter, NumberUD.MouseEnter
 
         RaiseEvent MouseEnter(Me, e)
     End Sub
 
     Private Sub Bar_MouseLeave(sender As Object, e As EventArgs) _
-        Handles RootPanel.MouseLeave, TitleLabel.MouseLeave, Bar.MouseLeave, NumberUD.MouseLeave  ', RootPanel.MouseLeave
+        Handles RootPanel.MouseLeave, TitleLabel.MouseLeave, Bar.MouseLeave, NumberUD.MouseLeave
 
         RaiseEvent MouseLeave(Me, e)
     End Sub
 
     Private Sub NumberUD_MouseDown(sender As Object, e As MouseEventArgs) Handles NumberUD.MouseDown
-        RaiseEvent MouseEnter(Me, New EventArgs)
-    End Sub
-
-    Private Sub NumberUD_MouseHover(sender As Object, e As EventArgs) Handles NumberUD.MouseHover
+        If e.Button = MouseButtons.Left Then
+            NumberUD.Select(0, 3)
+        End If
         RaiseEvent MouseEnter(Me, New EventArgs)
     End Sub
 
@@ -123,7 +121,21 @@
         RaiseEvent MouseEnter(Me, New EventArgs)
     End Sub
 
+    Private Sub NumberUD_TextChanged(sender As Object, e As EventArgs) Handles NumberUD.TextChanged
+        RaiseEvent MouseEnter(Me, New EventArgs)
+    End Sub
+
+    Private Sub NumberUD_Enter(sender As Object, e As EventArgs) Handles NumberUD.Enter
+        NumberUD.Select(0, 3)
+    End Sub
+
     Public Event ValueChanged(sender As Object, e As EventArgs)
     Public Shadows Event MouseEnter(sender As Object, e As EventArgs)
     Public Shadows Event MouseLeave(sender As Object, e As EventArgs)
+
+    'Protected Overrides Sub OnGotFocus(e As EventArgs)
+    '    MyBase.OnGotFocus(e)
+
+    '    NumberUD.Focus()
+    'End Sub
 End Class

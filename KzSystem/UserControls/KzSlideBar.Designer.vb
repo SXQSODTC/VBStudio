@@ -55,7 +55,8 @@ Partial Class KzSlideBar
         Me.Bar.Margin = New System.Windows.Forms.Padding(0)
         Me.Bar.Name = "Bar"
         Me.Bar.Size = New System.Drawing.Size(182, 30)
-        Me.Bar.TabIndex = 0
+        Me.Bar.TabIndex = 1
+        Me.Bar.TabStop = False
         '
         'NumberUD
         '
@@ -65,7 +66,7 @@ Partial Class KzSlideBar
         Me.NumberUD.Margin = New System.Windows.Forms.Padding(0, 4, 0, 0)
         Me.NumberUD.Name = "NumberUD"
         Me.NumberUD.Size = New System.Drawing.Size(55, 22)
-        Me.NumberUD.TabIndex = 1
+        Me.NumberUD.TabIndex = 0
         Me.NumberUD.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'TitleLabel

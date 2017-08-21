@@ -324,7 +324,7 @@ Partial Class KzColorPicker
         Me.RootSpliter.Panel2.AutoScroll = True
         Me.RootSpliter.Panel2.Controls.Add(Me.ColorPanel)
         Me.RootSpliter.Size = New System.Drawing.Size(460, 364)
-        Me.RootSpliter.SplitterDistance = 188
+        Me.RootSpliter.SplitterDistance = 205
         Me.RootSpliter.TabIndex = 3
         '
         'ColorsPanel
@@ -336,7 +336,7 @@ Partial Class KzColorPicker
         Me.ColorsPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
         Me.ColorsPanel.Location = New System.Drawing.Point(0, 0)
         Me.ColorsPanel.Name = "ColorsPanel"
-        Me.ColorsPanel.Size = New System.Drawing.Size(188, 364)
+        Me.ColorsPanel.Size = New System.Drawing.Size(205, 364)
         Me.ColorsPanel.TabIndex = 0
         Me.ColorsPanel.WrapContents = False
         '
@@ -385,14 +385,14 @@ Partial Class KzColorPicker
         Me.ColorPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28.0!))
         Me.ColorPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28.0!))
         Me.ColorPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.ColorPanel.Size = New System.Drawing.Size(268, 362)
+        Me.ColorPanel.Size = New System.Drawing.Size(251, 362)
         Me.ColorPanel.TabIndex = 0
         '
         'HueLB
         '
         Me.HueLB.AutoSize = True
         Me.HueLB.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.HueLB.Location = New System.Drawing.Point(171, 25)
+        Me.HueLB.Location = New System.Drawing.Point(154, 25)
         Me.HueLB.Name = "HueLB"
         Me.HueLB.Size = New System.Drawing.Size(94, 20)
         Me.HueLB.TabIndex = 2
@@ -403,7 +403,7 @@ Partial Class KzColorPicker
         '
         Me.SaturationLB.AutoSize = True
         Me.SaturationLB.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SaturationLB.Location = New System.Drawing.Point(171, 65)
+        Me.SaturationLB.Location = New System.Drawing.Point(154, 65)
         Me.SaturationLB.Name = "SaturationLB"
         Me.SaturationLB.Size = New System.Drawing.Size(94, 20)
         Me.SaturationLB.TabIndex = 3
@@ -414,7 +414,7 @@ Partial Class KzColorPicker
         '
         Me.BrightnessLB.AutoSize = True
         Me.BrightnessLB.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BrightnessLB.Location = New System.Drawing.Point(171, 105)
+        Me.BrightnessLB.Location = New System.Drawing.Point(154, 105)
         Me.BrightnessLB.Name = "BrightnessLB"
         Me.BrightnessLB.Size = New System.Drawing.Size(94, 20)
         Me.BrightnessLB.TabIndex = 4
@@ -443,35 +443,38 @@ Partial Class KzColorPicker
         Me.ColorShowPanel.Margin = New System.Windows.Forms.Padding(10)
         Me.ColorShowPanel.Name = "ColorShowPanel"
         Me.ColorPanel.SetRowSpan(Me.ColorShowPanel, 7)
-        Me.ColorShowPanel.Size = New System.Drawing.Size(148, 125)
+        Me.ColorShowPanel.Size = New System.Drawing.Size(131, 125)
         Me.ColorShowPanel.TabIndex = 5
         '
         'HueTB
         '
         Me.HueTB.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.HueTB.Location = New System.Drawing.Point(168, 45)
+        Me.HueTB.Location = New System.Drawing.Point(151, 45)
         Me.HueTB.Margin = New System.Windows.Forms.Padding(0)
         Me.HueTB.Name = "HueTB"
         Me.HueTB.Size = New System.Drawing.Size(100, 16)
         Me.HueTB.TabIndex = 6
+        Me.HueTB.TabStop = False
         '
         'SaturationTB
         '
         Me.SaturationTB.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.SaturationTB.Location = New System.Drawing.Point(168, 85)
+        Me.SaturationTB.Location = New System.Drawing.Point(151, 85)
         Me.SaturationTB.Margin = New System.Windows.Forms.Padding(0)
         Me.SaturationTB.Name = "SaturationTB"
         Me.SaturationTB.Size = New System.Drawing.Size(100, 16)
         Me.SaturationTB.TabIndex = 7
+        Me.SaturationTB.TabStop = False
         '
         'BrightnessTB
         '
         Me.BrightnessTB.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.BrightnessTB.Location = New System.Drawing.Point(168, 125)
+        Me.BrightnessTB.Location = New System.Drawing.Point(151, 125)
         Me.BrightnessTB.Margin = New System.Windows.Forms.Padding(0)
         Me.BrightnessTB.Name = "BrightnessTB"
         Me.BrightnessTB.Size = New System.Drawing.Size(100, 16)
         Me.BrightnessTB.TabIndex = 8
+        Me.BrightnessTB.TabStop = False
         '
         'RedBar
         '
@@ -484,8 +487,8 @@ Partial Class KzColorPicker
         Me.RedBar.Minimum = 0
         Me.RedBar.Name = "RedBar"
         Me.RedBar.NumberWidth = 55
-        Me.RedBar.Size = New System.Drawing.Size(268, 28)
-        Me.RedBar.TabIndex = 9
+        Me.RedBar.Size = New System.Drawing.Size(251, 28)
+        Me.RedBar.TabIndex = 1
         Me.RedBar.TickFrequency = 20
         Me.RedBar.TickStyle = System.Windows.Forms.TickStyle.BottomRight
         Me.RedBar.Title = "Red"
@@ -503,8 +506,8 @@ Partial Class KzColorPicker
         Me.GreenBar.Minimum = 0
         Me.GreenBar.Name = "GreenBar"
         Me.GreenBar.NumberWidth = 55
-        Me.GreenBar.Size = New System.Drawing.Size(268, 28)
-        Me.GreenBar.TabIndex = 10
+        Me.GreenBar.Size = New System.Drawing.Size(251, 28)
+        Me.GreenBar.TabIndex = 2
         Me.GreenBar.TickFrequency = 20
         Me.GreenBar.TickStyle = System.Windows.Forms.TickStyle.BottomRight
         Me.GreenBar.Title = "Green"
@@ -522,8 +525,8 @@ Partial Class KzColorPicker
         Me.BlueBar.Minimum = 0
         Me.BlueBar.Name = "BlueBar"
         Me.BlueBar.NumberWidth = 55
-        Me.BlueBar.Size = New System.Drawing.Size(268, 28)
-        Me.BlueBar.TabIndex = 11
+        Me.BlueBar.Size = New System.Drawing.Size(251, 28)
+        Me.BlueBar.TabIndex = 3
         Me.BlueBar.TickFrequency = 20
         Me.BlueBar.TickStyle = System.Windows.Forms.TickStyle.BottomRight
         Me.BlueBar.Title = "Blue"
@@ -541,8 +544,8 @@ Partial Class KzColorPicker
         Me.AlphaBar.Minimum = 0
         Me.AlphaBar.Name = "AlphaBar"
         Me.AlphaBar.NumberWidth = 55
-        Me.AlphaBar.Size = New System.Drawing.Size(268, 28)
-        Me.AlphaBar.TabIndex = 12
+        Me.AlphaBar.Size = New System.Drawing.Size(251, 28)
+        Me.AlphaBar.TabIndex = 4
         Me.AlphaBar.TickFrequency = 20
         Me.AlphaBar.TickStyle = System.Windows.Forms.TickStyle.BottomRight
         Me.AlphaBar.Title = "Alpha"
@@ -553,11 +556,11 @@ Partial Class KzColorPicker
         '
         Me.OkBT.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.OkBT.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.OkBT.Location = New System.Drawing.Point(169, 156)
+        Me.OkBT.Location = New System.Drawing.Point(152, 156)
         Me.OkBT.Margin = New System.Windows.Forms.Padding(1)
         Me.OkBT.Name = "OkBT"
         Me.OkBT.Size = New System.Drawing.Size(98, 23)
-        Me.OkBT.TabIndex = 13
+        Me.OkBT.TabIndex = 7
         Me.OkBT.Text = "OK"
         Me.OkBT.UseVisualStyleBackColor = True
         '
@@ -565,11 +568,11 @@ Partial Class KzColorPicker
         '
         Me.CancelBT.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.CancelBT.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.CancelBT.Location = New System.Drawing.Point(169, 181)
+        Me.CancelBT.Location = New System.Drawing.Point(152, 181)
         Me.CancelBT.Margin = New System.Windows.Forms.Padding(1)
         Me.CancelBT.Name = "CancelBT"
         Me.CancelBT.Size = New System.Drawing.Size(98, 23)
-        Me.CancelBT.TabIndex = 14
+        Me.CancelBT.TabIndex = 8
         Me.CancelBT.Text = "Cancel"
         Me.CancelBT.UseVisualStyleBackColor = True
         '
@@ -580,8 +583,8 @@ Partial Class KzColorPicker
         Me.NameTB.Location = New System.Drawing.Point(52, 157)
         Me.NameTB.Margin = New System.Windows.Forms.Padding(2)
         Me.NameTB.Name = "NameTB"
-        Me.NameTB.Size = New System.Drawing.Size(114, 23)
-        Me.NameTB.TabIndex = 15
+        Me.NameTB.Size = New System.Drawing.Size(97, 23)
+        Me.NameTB.TabIndex = 6
         '
         'NumTB
         '
@@ -589,8 +592,8 @@ Partial Class KzColorPicker
         Me.NumTB.Location = New System.Drawing.Point(52, 182)
         Me.NumTB.Margin = New System.Windows.Forms.Padding(2)
         Me.NumTB.Name = "NumTB"
-        Me.NumTB.Size = New System.Drawing.Size(114, 23)
-        Me.NumTB.TabIndex = 16
+        Me.NumTB.Size = New System.Drawing.Size(97, 23)
+        Me.NumTB.TabIndex = 5
         '
         'NumBT
         '
@@ -611,7 +614,7 @@ Partial Class KzColorPicker
         Me.HasCodeLB.AutoSize = True
         Me.ColorPanel.SetColumnSpan(Me.HasCodeLB, 3)
         Me.HasCodeLB.Font = New System.Drawing.Font("Consolas", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.HasCodeLB.Location = New System.Drawing.Point(109, 337)
+        Me.HasCodeLB.Location = New System.Drawing.Point(101, 337)
         Me.HasCodeLB.Margin = New System.Windows.Forms.Padding(3, 10, 3, 0)
         Me.HasCodeLB.Name = "HasCodeLB"
         Me.HasCodeLB.Size = New System.Drawing.Size(49, 14)
@@ -621,10 +624,11 @@ Partial Class KzColorPicker
         'HandleChecker
         '
         Me.HandleChecker.AutoSize = True
-        Me.HandleChecker.Location = New System.Drawing.Point(171, 3)
+        Me.HandleChecker.Location = New System.Drawing.Point(154, 3)
         Me.HandleChecker.Name = "HandleChecker"
         Me.HandleChecker.Size = New System.Drawing.Size(68, 19)
         Me.HandleChecker.TabIndex = 19
+        Me.HandleChecker.TabStop = False
         Me.HandleChecker.Text = "Handle"
         Me.HandleChecker.UseVisualStyleBackColor = True
         '

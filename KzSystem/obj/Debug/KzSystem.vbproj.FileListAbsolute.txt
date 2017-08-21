@@ -46,10 +46,15 @@ D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.HDLibForm.resources
 D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzTextInputDialog.resources
 D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzExplorer.resources
 D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.TestExplorer.resources
-D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.vbprojResolveAssemblyReference.cache
 E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.TestExplorer.resources
 E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzExplorer.resources
 E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzTextInputDialog.resources
 E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzColorsDialog.resources
-E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.vbprojResolveAssemblyReference.cache
 D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzColorsDialog.resources
+E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzPadingSetter.resources
+D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzPadingSetter.resources
+D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.TestTabsDesigner.resources
+D:\OneDrive\KzSystem\KzSystem\bin\Debug\Microsoft.VisualBasic.PowerPacks.Vs.dll
+E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.TestTabsDesigner.resources
+E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.vbprojResolveAssemblyReference.cache
+D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.vbprojResolveAssemblyReference.cache

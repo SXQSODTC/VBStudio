@@ -1,6 +1,6 @@
 ﻿Public Class EndForm
 
-    Dim zoomStep As Integer = 10
+    Dim zoomStep As Integer = 20
 
     Private Sub EndForm_Load(sender As Object, e As EventArgs) Handles Me.Load
         LogoBox.Image = My.Resources.ODTCLogo

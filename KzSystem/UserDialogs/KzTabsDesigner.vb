@@ -1,9 +1,41 @@
-﻿Public Class KzTabsDesigner
+﻿Imports System.ComponentModel
 
-    Private iA As KzTabsAppearance ' = New KzTabsAppearance
-    Private iButton As ToolStripButton
+Public Class KzTabsDesigner
+    Friend WithEvents NormalLineLP As KzLinePresentation
+    Friend WithEvents BoldLineLP As KzLinePresentation
+    Friend WithEvents RadiusLP As KzLinePresentation
+    'Friend WithEvents TheTabs As KzTabControl
 
-    Private Sub KzTabsDesigner_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private iA As KzTabsAppearance
+    Private iB As ToolStripButton
+
+    Public Sub New()
+
+        ' 此调用是设计器所必需的。
+        InitializeComponent()
+
+        ' 在 InitializeComponent() 调用之后添加任何初始化。
+
+        InitializeKzComponent()
+    End Sub
+
+    Private Sub InitializeKzComponent()
+        Me.SettingPanel.SuspendLayout()
+        Me.TheTabs.SuspendLayout()
+        Me.SuspendLayout()
+
+        RadiusLP = New KzLinePresentation With {.Dock = DockStyle.Fill, .SidePadding = 4, .ShowCorner = True}
+        SettingPanel.Controls.Add(RadiusLP, 2, 12)
+        SettingPanel.SetColumnSpan(RadiusLP, 2)
+
+        NormalLineLP = New KzLinePresentation With {.Dock = DockStyle.Fill, .SidePadding = 4}
+        SettingPanel.Controls.Add(NormalLineLP, 2, 13)
+        SettingPanel.SetColumnSpan(NormalLineLP, 2)
+
+        BoldLineLP = New KzLinePresentation With {.Dock = DockStyle.Fill, .SidePadding = 4}
+        SettingPanel.Controls.Add(BoldLineLP, 2, 14)
+        SettingPanel.SetColumnSpan(BoldLineLP, 2)
+
         Dim i, ub As Integer
 
         With AlignmentCB
@@ -11,6 +43,7 @@
             For i = 0 To ub
                 .Items.Add(CType(i, TabAlignment))
             Next
+            .SelectedItem = TheTabs.Alignment ' TabAlignment.Top
         End With
 
         With AppearanceCB
@@ -18,13 +51,17 @@
             For i = 0 To ub
                 .Items.Add(CType(i, TabAppearance))
             Next
+            .SelectedItem = TheTabs.Appearance ' TabAppearance.Normal
         End With
+
+        ShowAddCK.Checked = TheTabs.ShowAddNewTab
 
         With TabPageStyleCB
             ub = [Enum].GetNames(GetType(KzTabPageStyle)).Count - 1
             For i = 0 To ub
                 .Items.Add(CType(i, KzTabPageStyle))
             Next
+            '.SelectedItem = KzTabPageStyle.None
         End With
 
         With ShadowSideCB
@@ -32,6 +69,7 @@
             For i = 0 To ub
                 .Items.Add(CType(i, KzFlatSides))
             Next
+            '.SelectedItem = KzFlatSides.None
         End With
 
         With RadiusSideCB
@@ -39,18 +77,35 @@
             For i = 0 To ub
                 .Items.Add(CType(i, KzFlatCorners))
             Next
+            '.SelectedItem = KzFlatCorners.None
         End With
 
         For Each b As ToolStripButton In SwitchTools.Controls
             b.Text = b.Name.Replace("SW", " Appearance")
-            b.ToolTipText = b.Text
+        Next
+
+        For i = 0 To 9
+            SwitchTools.Items(i).Image = My.Resources.ResourceManager.GetObject("Number_" & i)
         Next
         TabSW.Checked = True
+
+        ImportItem.Image = My.Resources.liner_import
+        ExportItem.Image = My.Resources.liner_export
+        PreviewButton.Image = My.Resources.liner_view
+        PresetItem.Image = My.Resources.liner_setting
+        ShowCodeItem.Image = My.Resources.liner_code
 
         MyAppearance = New KzTabsAppearance
         ANameBox.Text = "NewLook"
 
-        TheTabControl.TabsAppearance = iA
+        TheTabs.TabsAppearance = iA
+        TheTabs.HoveringSignLabel = HoveringItem
+
+        Me.SettingPanel.ResumeLayout(False)
+        Me.SettingPanel.PerformLayout()
+        Me.TheTabs.ResumeLayout(False)
+        Me.ResumeLayout(False)
+        Me.PerformLayout()
     End Sub
 
     Public Property MyAppearance As KzTabsAppearance
@@ -61,225 +116,334 @@
             iA = value
             SetButtons(iA)
 
-            iButton = CType(SwitchTools.Items(0), ToolStripButton)
-            SetUI(iButton)
-            IDLabel.Text = iButton.Text
-            If iButton.Tag IsNot Nothing Then
-                CKLabel.Text = "Ready"
-            Else
-                CKLabel.Text = "Empty"
-            End If
+            iB = CType(SwitchTools.Items(0), ToolStripButton)
+            SetUI(iB)
+            SwitchLabel.Text = iB.Text
         End Set
     End Property
 
     Private Sub SetButtons(theAppearance As KzTabsAppearance)
         With theAppearance
-            TabSW.Tag = .Tab
-            TabHoverSW.Tag = .TabHover
-            SelectedTabSW.Tag = .SelectedTab
-            SelectedTabHoverSW.Tag = .SelectedTabHover
-            ButtonSW.Tag = .Button
-            ButtonHoverSW.Tag = .ButtonHover
-            SelectedButtonSW.Tag = .SelectedButton
-            SelectedButtonHoverSW.Tag = .SelectedButtonHover
-            AddTabSW.Tag = .AddTab
-            AddTabHoverSW.Tag = .AddTabHover
+            TabSW.Tag = .SetOfNormalTab
+            TabHoverSW.Tag = .SetOfNormalTabHover
+            SelectedTabSW.Tag = .SetOfSelectedTab
+            SelectedTabHoverSW.Tag = .SetOfSelectedTabHover
+            ButtonSW.Tag = .SetOfNormalButton
+            ButtonHoverSW.Tag = .SetOfNormalButtonHover
+            SelectedButtonSW.Tag = .SetOfSelectedButton
+            SelectedButtonHoverSW.Tag = .SetOfSelectedButtonHover
+            AddTabSW.Tag = .SetOfAddNewTab
+            AddTabHoverSW.Tag = .SetOfAddNewTabHover
         End With
+
+        SentToMenu.Items.Clear()
+        Dim stmi As ToolStripMenuItem
+        For i As Integer = 0 To SwitchTools.Items.Count - 1
+            With SwitchTools.Items(i)
+                stmi = New ToolStripMenuItem
+                stmi.Text = "Sent to " & .Text
+                stmi.Image = .Image
+                stmi.Tag = Tag
+                If i = 0 Then
+                    stmi.Enabled = False
+                End If
+            End With
+            SentToMenu.Items.Add(stmi)
+        Next
+        SentToMenu.Items.Add(New ToolStripSeparator)
+
+        stmi = New ToolStripMenuItem
+        stmi.Text = "Sent to All"
+        SentToMenu.Items.Add(stmi)
     End Sub
 
-    Private Sub SetUI(typeButton As ToolStripButton, Optional setStatusOnly As Boolean = False)
+    Private Sub SetUI(TheButton As ToolStripButton, Optional StatusOnly As Boolean = False)
         With iA
-            If Not setStatusOnly Then
-                AppearanceCB.SelectedItem = .Appearance
-                AlignmentCB.SelectedItem = .Alignment
+            If Not StatusOnly Then
                 TabPageStyleCB.SelectedItem = .TabPageStyle
-                ShowAddCK.Checked = .ShowAddNewTab
+                AutoWidthCK.Checked = .TabsAutoWidth
+                ButtonMarginSetter.Value = .ButtonMargin
+                TextMarginSetter.Value = .TextMargin
+                ShowIconCK.Checked = .ShowIcon
                 SelectedCloseCK.Checked = .SelectedTabCanClose
                 NormalCloseCK.Checked = .NormalTabCanClose
+                RadiusCK.Checked = .ShowRadius
+                RadiusSideCB.SelectedItem = .RadiusSide
+                RadiusUD.Value = .Radius
+                NormalLineUD.Value = .NormalLine
+                BlodLineUD.Value = .BlodLine
             End If
 
-            With CType(typeButton.Tag, KzTabStatusAppearance)
+            With CType(TheButton.Tag, KzTabStatusAppearance)
                 BorderCK.Checked = .ShowBorder
                 BlodBorderCK.Checked = .BlodBorder
                 ShadowCK.Checked = .ShowShadow
-                RadiusCK.Checked = .ShowRadius
                 ShadowSideCB.SelectedItem = .ShadowSide
-                RadiusSideCB.SelectedItem = .RadiusSide
-                BlodForeCK.Checked = .BlodFore
+                ShadowColorTB.Text = KzColorHelper.GetColorName(.ShadowColor)
+                ShadowColorButton.BackColor = .ShadowColor
                 BorderColorTB.Text = KzColorHelper.GetColorName(.BorderColor)
                 BorderColorButton.BackColor = .BorderColor
                 BackColorTB.Text = KzColorHelper.GetColorName(.BackColor)
                 BackColorButton.BackColor = .BackColor
                 ForeColorTB.Text = KzColorHelper.GetColorName(.ForeColor)
                 ForeColorButton.BackColor = .ForeColor
+                BlodForeCK.Checked = .BlodFore
             End With
         End With
     End Sub
 
-    Private Sub CB_SelectedIndexChanged(sender As Object, e As EventArgs) _
-        Handles AppearanceCB.SelectedIndexChanged, AlignmentCB.SelectedIndexChanged,
-        TabPageStyleCB.SelectedIndexChanged, ShadowSideCB.SelectedIndexChanged,
-        RadiusSideCB.SelectedIndexChanged
+    Private Sub CB_SelectedIndexChanged(sender As Object, e As EventArgs) Handles _
+            AppearanceCB.SelectedIndexChanged, AlignmentCB.SelectedIndexChanged,
+            TabPageStyleCB.SelectedIndexChanged, ShadowSideCB.SelectedIndexChanged,
+            RadiusSideCB.SelectedIndexChanged
 
         Dim cb As ComboBox = CType(sender, ComboBox)
+
         If cb.Equals(AppearanceCB) Then
-            iA.Appearance = cb.SelectedItem
+            TheTabs.Appearance = cb.SelectedItem
         ElseIf cb.Equals(AlignmentCB) Then
-            iA.Alignment = cb.SelectedItem
+            TheTabs.Alignment = cb.SelectedItem
         ElseIf cb.Equals(TabPageStyleCB) Then
             iA.TabPageStyle = cb.SelectedItem
+        ElseIf cb.Equals(RadiusSideCB) Then
+            iA.RadiusSide = cb.SelectedItem
         Else
-            With CType(iButton.Tag, KzTabStatusAppearance)
+            With CType(iB.Tag, KzTabStatusAppearance)
                 If cb.Equals(ShadowSideCB) Then
                     .ShadowSide = cb.SelectedItem
-                ElseIf cb.Equals(RadiusSideCB) Then
-                    .RadiusSide = cb.SelectedItem
                 End If
             End With
         End If
 
-        TheTabControl.TabsAppearance = iA
+        TheTabs.TabsAppearance = iA
     End Sub
 
-    Private Sub CK_CheckedChanged(sender As Object, e As EventArgs) _
-        Handles ShowAddCK.CheckedChanged, SelectedCloseCK.CheckedChanged,
-        NormalCloseCK.CheckedChanged, BorderCK.CheckedChanged, BlodBorderCK.CheckedChanged,
-        BlodForeCK.CheckedChanged, RadiusCK.CheckedChanged, ShadowCK.CheckedChanged
+    Private Sub CK_CheckedChanged(sender As Object, e As EventArgs) Handles _
+        ShowAddCK.CheckedChanged, SelectedCloseCK.CheckedChanged, ShowIconCK.CheckedChanged,
+        NormalCloseCK.CheckedChanged, RadiusCK.CheckedChanged, BorderCK.CheckedChanged,
+        BlodBorderCK.CheckedChanged, BlodForeCK.CheckedChanged, ShadowCK.CheckedChanged,
+        AutoWidthCK.CheckedChanged
 
         Dim ck As CheckBox = CType(sender, CheckBox)
+
         If ck.Equals(ShowAddCK) Then
-            iA.ShowAddNewTab = ck.Checked
+            TheTabs.ShowAddNewTab = ck.Checked
+        ElseIf ck.Equals(AutoWidthCK) Then
+            iA.TabsAutoWidth = ck.Checked
         ElseIf ck.Equals(SelectedCloseCK) Then
             iA.SelectedTabCanClose = ck.Checked
         ElseIf ck.Equals(NormalCloseCK) Then
             iA.NormalTabCanClose = ck.Checked
+        ElseIf ck.Equals(ShowIconCK) Then
+            iA.ShowIcon = ck.Checked
+        ElseIf ck.Equals(RadiusCK) Then
+            iA.ShowRadius = ck.Checked
         Else
-            With CType(iButton.Tag, KzTabStatusAppearance)
+            With CType(iB.Tag, KzTabStatusAppearance)
                 If ck.Equals(BorderCK) Then
                     .ShowBorder = ck.Checked
                 ElseIf ck.Equals(BlodBorderCK) Then
                     .BlodBorder = ck.Checked
                 ElseIf ck.Equals(BlodForeCK) Then
                     .BlodFore = ck.Checked
-                ElseIf ck.Equals(RadiusCK) Then
-                    .ShowRadius = ck.Checked
                 ElseIf ck.Equals(ShadowCK) Then
                     .ShowShadow = ck.Checked
                 End If
             End With
         End If
 
-        TheTabControl.TabsAppearance = iA
+        TheTabs.TabsAppearance = iA
     End Sub
 
-    'Private Sub TB_TextChanged(sender As Object, e As EventArgs) _
-    '    Handles BorderColorTB.TextChanged, BackColorTB.TextChanged, ForeColorTB.TextChanged
+    Private Sub ColorButton_Click(sender As Object, e As EventArgs) Handles _
+         BorderColorButton.Click, BackColorButton.Click,
+         ForeColorButton.Click, ShadowColorButton.Click
 
-    '    Dim tb As TextBox = CType(sender, TextBox)
-    '    With CType(iButton.Tag, KzTabStatusAppearance)
-    '        If tb.Equals(BorderColorTB) Then
-    '            .BorderColor = KzColorHelper.GetColorByName(tb.Text)
-    '        ElseIf tb.Equals(BackColorTB) Then
-    '            .BackColor = KzColorHelper.GetColorByName(tb.Text)
-    '        ElseIf tb.Equals(ForeColorTB) Then
-    '            .ForeColor = KzColorHelper.GetColorByName(tb.Text)
-    '        End If
-    '    End With
+        If Not ColorPicker.Color = Color.FromArgb(&HFFFFFF) Then
+            Dim cb As Button = CType(sender, Button)
+            Dim t As String
 
-    'End Sub
+            With ColorPicker
+                cb.BackColor = .Color
+                t = KzColorHelper.GetColorName(.Color)
+            End With
 
-    Private Sub ColorButton_Click(sender As Object, e As EventArgs) _
-        Handles BorderColorButton.Click, BackColorButton.Click, ForeColorButton.Click
-
-        Dim cb As Button = CType(sender, Button)
-        Dim c As Color
-        Dim t As String
-
-        With ColorPicker
-            c = .Color
-            t = KzColorHelper.GetColorName(.Color) '& " (" & .Color.A & "," & .Color.R & "," & .Color.G & "," & .Color.B & ")"
-        End With
-
-        If cb.Equals(BorderColorButton) Then
-            BorderColorButton.BackColor = c
-            BorderColorTB.Text = t
+            If cb.Equals(BorderColorButton) Then
+                BorderColorTB.Text = t
+            ElseIf cb.Equals(BackColorButton) Then
+                BackColorTB.Text = t
+            ElseIf cb.Equals(ForeColorButton) Then
+                ForeColorTB.Text = t
+            ElseIf cb.Equals(ShadowColorButton) Then
+                ShadowColorTB.Text = t
+            End If
         End If
-        If cb.Equals(BackColorButton) Then
-            BackColorButton.BackColor = c
-            BackColorTB.Text = t
-        End If
-        If cb.Equals(ForeColorButton) Then
-            ForeColorButton.BackColor = c
-            ForeColorTB.Text = t
-        End If
-
     End Sub
 
-    Private Sub ColorButton_BackColorChanged(sender As Object, e As EventArgs) _
-        Handles BorderColorButton.BackColorChanged, BackColorButton.BackColorChanged, ForeColorButton.BackColorChanged
+    Private Sub ColorButton_BackColorChanged(sender As Object, e As EventArgs) Handles _
+         BorderColorButton.BackColorChanged, BackColorButton.BackColorChanged,
+         ForeColorButton.BackColorChanged, ShadowColorButton.BackColorChanged
 
         Dim bt As Button = CType(sender, Button)
 
         Try
-            With CType(iButton.Tag, KzTabStatusAppearance)
+            With CType(iB.Tag, KzTabStatusAppearance)
                 If bt.Equals(BorderColorButton) Then
-                    .BorderColor = BorderColorButton.BackColor
+                    .BorderColor = bt.BackColor
                 ElseIf bt.Equals(BackColorButton) Then
-                    .BackColor = BackColorButton.BackColor
+                    .BackColor = bt.BackColor
                 ElseIf bt.Equals(ForeColorButton) Then
-                    .ForeColor = ForeColorButton.BackColor
+                    .ForeColor = bt.BackColor
+                ElseIf bt.Equals(ShadowColorButton) Then
+                    .ShadowColor = bt.BackColor
                 End If
             End With
 
-            TheTabControl.TabsAppearance = iA
+            TheTabs.TabsAppearance = iA
         Catch ex As Exception
 
         End Try
     End Sub
 
-    Private Sub SwitchTools_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles SwitchTools.ItemClicked
-        iButton = CType(e.ClickedItem, ToolStripButton)
+    Private Sub UD_ValueChanged(sender As Object, e As EventArgs) Handles _
+        RadiusUD.ValueChanged, BlodLineUD.ValueChanged, NormalLineUD.ValueChanged
+
+        Dim ud As NumericUpDown = CType(sender, NumericUpDown)
+
+        If ud.Equals(RadiusUD) Then
+            iA.Radius = ud.Value
+            RadiusLP.Radius = ud.Value
+        ElseIf ud.Equals(BlodLineUD) Then
+            iA.BlodLine = ud.Value
+            BoldLineLP.LineWidth = ud.Value
+        ElseIf ud.Equals(NormalLineUD) Then
+            iA.NormalLine = ud.Value
+            NormalLineLP.LineWidth = ud.Value
+        End If
+
+        TheTabs.TabsAppearance = iA
+    End Sub
+
+    Private Sub Setter_ValueChanged(sender As Object, e As EventArgs) Handles _
+        TextMarginSetter.ValueChanged, ButtonMarginSetter.ValueChanged
+
+        Dim ms As KzPadingSetter = CType(sender, KzPadingSetter)
+
+        If ms.Equals(TextMarginSetter) Then
+            iA.TextMargin = ms.Value
+        ElseIf ms.Equals(ButtonMarginSetter) Then
+            iA.ButtonMargin = ms.Value
+        End If
+
+        TheTabs.TabsAppearance = iA
+    End Sub
+
+    Private Sub SwitchTools_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles _
+        SwitchTools.ItemClicked
+
+        iB = CType(e.ClickedItem, ToolStripButton)
 
         For Each b As ToolStripButton In SwitchTools.Items
-            If Not b.Equals(iButton) Then
+            If Not b.Equals(iB) Then
                 b.Checked = False
             End If
         Next
 
-        SetUI(iButton, True)
-        IDLabel.Text = iButton.Text
-        If iButton.Tag IsNot Nothing Then
-            CKLabel.Text = "Ready"
-        Else
-            CKLabel.Text = "Empty"
+        SetUI(iB, True)
+        SwitchLabel.Text = iB.Text
+
+        For Each i As ToolStripItem In SentToMenu.Items
+            If i.Text.Replace("Sent to ", "") = iB.Text Then
+                i.Enabled = False
+            Else
+                i.Enabled = True
+            End If
+        Next
+    End Sub
+
+    Private Sub ShowCodeItem_DropDownItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) _
+       Handles ShowCodeItem.DropDownItemClicked
+
+        If ANameBox.TextLength > 0 Then
+            Dim tvd As New KzTextViewDialog
+            If e.ClickedItem.Equals(FullCodeToolStripMenuItem) Then
+                Dim sb As New System.Text.StringBuilder
+
+                For Each b As ToolStripButton In SwitchTools.Items
+                    sb.Append(CType(b.Tag, KzTabStatusAppearance).GetCode(ANameBox.Text & b.Text))
+                    sb.AppendLine()
+                Next
+
+                sb.Append(iA.GetCode(ANameBox.Text))
+                tvd.TextContents = sb.ToString
+
+            ElseIf e.ClickedItem.Equals(TabsCodeToolStripMenuItem) Then
+                tvd.TextContents = iA.GetCode(ANameBox.Text)
+            ElseIf e.ClickedItem.Equals(StatusCodeToolStripMenuItem) Then
+                tvd.TextContents = CType(iB.Tag, KzTabStatusAppearance).GetCode(ANameBox.Text & iB.Text)
+            End If
+
+            tvd.ShowDialog()
         End If
     End Sub
 
-    'Private Sub ShowCodeButton_Click(sender As Object, e As EventArgs) Handles ShowSingleCodeButton.Click
-    '    Dim tvd As New KzTextViewDialog
-    '    tvd.TextContents = CType(iButton.Tag, KzTabStatusAppearance).GetCode(ANameBox.Text & iButton.Text)
-    '    tvd.ShowDialog()
-    'End Sub
+    Private Sub ANameBox_TextChanged(sender As Object, e As EventArgs) Handles ANameBox.TextChanged
+        ParentTB.Text = ANameBox.Text
+    End Sub
 
-    Private Sub ShowCodeItem_DropDownItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles ShowCodeItem.DropDownItemClicked
-        Dim tvd As New KzTextViewDialog
-        If e.ClickedItem.Equals(FullCodeToolStripMenuItem) Then
-            Dim sb As New System.Text.StringBuilder
+    Private Sub SentToMenu_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles SentToMenu.ItemClicked
+        Dim x As KzTabStatusAppearance
+        Dim c As Control = SettingPanel.GetChildAtPoint(SentToMenu.Location)
 
-            For Each b As ToolStripButton In SwitchTools.Items
-                sb.Append(CType(b.Tag, KzTabStatusAppearance).GetCode(ANameBox.Text & b.Text))
-                sb.AppendLine()
+        If e.ClickedItem.Tag Is Nothing Then
+            For Each item As ToolStripItem In SentToMenu.Items
+                If (Not item.GetType = GetType(ToolStripSeparator)) And (item.Tag IsNot Nothing) And (Not item.Equals(e.ClickedItem)) Then
+                    x = CType(item.Tag, KzTabStatusAppearance)
+
+                    If c.Equals(BorderCK) Then
+                        x.ShowBorder = BorderCK.Checked
+                    ElseIf c.Equals(BlodBorderCK) Then
+                        x.BlodBorder = BlodBorderCK.Checked
+                    ElseIf c.Equals(ShadowCK) Then
+                        x.ShowShadow = ShadowCK.Checked
+                    ElseIf c.Equals(ShadowSideCB) Then
+                        x.ShadowSide = ShadowSideCB.SelectedItem
+                    ElseIf x.Equals(ShadowColorTB) Or x.Equals(ShadowColorButton) Then
+                        x.ShadowColor = ShadowColorButton.BackColor
+                    ElseIf x.Equals(BorderColorTB) Or x.Equals(BorderColorButton) Then
+                        x.BorderColor = BorderColorButton.BackColor
+                    ElseIf x.Equals(BackColorTB) Or x.Equals(BackColorButton) Then
+                        x.BackColor = BackColorButton.BackColor
+                    ElseIf x.Equals(ForeColorTB) Or x.Equals(ForeColorButton) Then
+                        x.ForeColor = ForeColorButton.BackColor
+                    ElseIf x.Equals(BlodForeCK) Then
+                        x.BlodFore = BlodForeCK.Checked
+                    End If
+                End If
             Next
-
-            sb.Append(iA.GetCode(ANameBox.Text))
-
-            tvd.TextContents = sb.ToString
-        ElseIf e.ClickedItem.Equals(TabsCodeToolStripMenuItem) Then
-            tvd.TextContents = iA.GetCode(ANameBox.Text)
-        ElseIf e.ClickedItem.Equals(StatusCodeToolStripMenuItem) Then
-            tvd.TextContents = CType(iButton.Tag, KzTabStatusAppearance).GetCode(ANameBox.Text & iButton.Text)
+            MsgBox(c.GetType.ToString & " " & c.Name & "'s value " & vbCrLf & "have been send to all StatusAppearances.")
+        Else
+            x = CType(e.ClickedItem.Tag, KzTabStatusAppearance)
+            If c.Equals(BorderCK) Then
+                x.ShowBorder = BorderCK.Checked
+            ElseIf c.Equals(BlodBorderCK) Then
+                x.BlodBorder = BlodBorderCK.Checked
+            ElseIf c.Equals(ShadowCK) Then
+                x.ShowShadow = ShadowCK.Checked
+            ElseIf c.Equals(ShadowSideCB) Then
+                x.ShadowSide = ShadowSideCB.SelectedItem
+            ElseIf x.Equals(ShadowColorTB) Or x.Equals(ShadowColorButton) Then
+                x.ShadowColor = ShadowColorButton.BackColor
+            ElseIf x.Equals(BorderColorTB) Or x.Equals(BorderColorButton) Then
+                x.BorderColor = BorderColorButton.BackColor
+            ElseIf x.Equals(BackColorTB) Or x.Equals(BackColorButton) Then
+                x.BackColor = BackColorButton.BackColor
+            ElseIf x.Equals(ForeColorTB) Or x.Equals(ForeColorButton) Then
+                x.ForeColor = ForeColorButton.BackColor
+            ElseIf x.Equals(BlodForeCK) Then
+                x.BlodFore = BlodForeCK.Checked
+            End If
+            MsgBox(c.GetType.ToString & " " & c.Name & "'s value " & vbCrLf & "have been send to " & e.ClickedItem.Text & ".")
         End If
-
-        tvd.ShowDialog()
     End Sub
 End Class

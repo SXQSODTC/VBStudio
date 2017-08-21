@@ -37,6 +37,11 @@ KzSystem
   查找 System.Drawing.Bitmap 类型的本地化资源。
 </summary>
 </member>
+<member name="P:KzSystem.My.Resources.Resources.liner_code">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
 <member name="P:KzSystem.My.Resources.Resources.liner_copy">
 <summary>
   查找 System.Drawing.Bitmap 类型的本地化资源。
@@ -62,7 +67,62 @@ KzSystem
   查找 System.Drawing.Bitmap 类型的本地化资源。
 </summary>
 </member>
+<member name="P:KzSystem.My.Resources.Resources.liner_setting">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
 <member name="P:KzSystem.My.Resources.Resources.liner_view">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.Number_0">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.Number_1">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.Number_2">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.Number_3">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.Number_4">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.Number_5">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.Number_6">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.Number_7">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.Number_8">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.Number_9">
 <summary>
   查找 System.Drawing.Bitmap 类型的本地化资源。
 </summary>
@@ -355,6 +415,72 @@ KzSystem
  <param name="strURL"></param>
  <returns></returns>
 </member>
+<member name="M:KzSystem.KzColorHelper.CreateColorFromRGB(System.Int32,System.Int32,System.Int32)">
+ <summary>
+ 
+ </summary>
+ <param name="red"></param>
+ <param name="green"></param>
+ <param name="blue"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzColorHelper.OpacityMix(System.Drawing.Color,System.Drawing.Color,System.Int32)">
+ <summary>
+ 
+ </summary>
+ <param name="blendColor"></param>
+ <param name="baseColor"></param>
+ <param name="opacity"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzColorHelper.SoftLightMix(System.Drawing.Color,System.Drawing.Color,System.Int32)">
+ <summary>
+ 
+ </summary>
+ <param name="baseColor"></param>
+ <param name="blendColor"></param>
+ <param name="opacity"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzColorHelper.OverlayMix(System.Drawing.Color,System.Drawing.Color,System.Int32)">
+ <summary>
+ 
+ </summary>
+ <param name="baseColor"></param>
+ <param name="blendColor"></param>
+ <param name="opacity"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzColorHelper.SoftLightMath(System.Int32,System.Int32)">
+ <summary>
+ 
+ </summary>
+ <param name="ibase"></param>
+ <param name="blend"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzColorHelper.OverlayMath(System.Int32,System.Int32)">
+ <summary>
+ 
+ </summary>
+ <param name="ibase"></param>
+ <param name="blend"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzColorHelper.GetColorName(System.Drawing.Color)">
+ <summary>
+ Return a color name in KnownColorName else in Hex string.
+ </summary>
+ <param name="color"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzColorHelper.GetColorByName(System.String)">
+ <summary>
+ Return a color by name string both a KnownColorName and a Hex string.
+ </summary>
+ <param name="name"></param>
+ <returns></returns>
+</member>
 <member name="M:KzSystem.TestSlideBar.Dispose(System.Boolean)">
  <summary>
  Clean up any resources being used.
@@ -369,6 +495,18 @@ KzSystem
 <member name="M:KzSystem.TestSlideBar.Main">
  <summary>
  The main entry point for the application.
+ </summary>
+</member>
+<member name="M:KzSystem.KzPadingSetterDesigner.PostFilterProperties(System.Collections.IDictionary)">
+ <summary>
+ Remove Button and Control properties that are 
+ not supported by the <see cref="T:KzSystem.KzPadingSetter"/>.
+ </summary>
+</member>
+<member name="M:KzSystem.KzPadingSetterDesigner.PostFilterEvents(System.Collections.IDictionary)">
+ <summary>
+ Remove Button and Control events that are 
+ not supported by the <see cref="T:KzSystem.KzTrackBar"/>.
  </summary>
 </member>
 <member name="P:KzSystem.KzTabControl.NewTitlePrefix">
@@ -386,6 +524,18 @@ KzSystem
 <member name="P:KzSystem.KzTabControl.TabsAppearance">
  <summary>
  讀取或設置用於繪製 Tabs 的呈現
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzTabControl.AddNewTab">
+ <summary>
+ 具備點擊新增功能的特殊 TabPage
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzTabControl.ShowAddNewTab">
+ <summary>
+ 指示是否使用新增 Tab
  </summary>
  <returns></returns>
 </member>
@@ -883,77 +1033,6 @@ KzSystem
  <param name="b"></param>
  <param name="rect"></param>
  <param name="g"></param>
-</member>
-<member name="T:KzSystem.KzColorHelper">
- <summary>
- Summary description for KzColorHelper.
- </summary>
-</member>
-<member name="M:KzSystem.KzColorHelper.CreateColorFromRGB(System.Int32,System.Int32,System.Int32)">
- <summary>
- 
- </summary>
- <param name="red"></param>
- <param name="green"></param>
- <param name="blue"></param>
- <returns></returns>
-</member>
-<member name="M:KzSystem.KzColorHelper.OpacityMix(System.Drawing.Color,System.Drawing.Color,System.Int32)">
- <summary>
- 
- </summary>
- <param name="blendColor"></param>
- <param name="baseColor"></param>
- <param name="opacity"></param>
- <returns></returns>
-</member>
-<member name="M:KzSystem.KzColorHelper.SoftLightMix(System.Drawing.Color,System.Drawing.Color,System.Int32)">
- <summary>
- 
- </summary>
- <param name="baseColor"></param>
- <param name="blendColor"></param>
- <param name="opacity"></param>
- <returns></returns>
-</member>
-<member name="M:KzSystem.KzColorHelper.OverlayMix(System.Drawing.Color,System.Drawing.Color,System.Int32)">
- <summary>
- 
- </summary>
- <param name="baseColor"></param>
- <param name="blendColor"></param>
- <param name="opacity"></param>
- <returns></returns>
-</member>
-<member name="M:KzSystem.KzColorHelper.SoftLightMath(System.Int32,System.Int32)">
- <summary>
- 
- </summary>
- <param name="ibase"></param>
- <param name="blend"></param>
- <returns></returns>
-</member>
-<member name="M:KzSystem.KzColorHelper.OverlayMath(System.Int32,System.Int32)">
- <summary>
- 
- </summary>
- <param name="ibase"></param>
- <param name="blend"></param>
- <returns></returns>
-</member>
-<member name="M:KzSystem.KzColorHelper.GetColorName(System.Drawing.Color)">
- <summary>
- Return a color name in KnownColorName else in Hex string.
- </summary>
- <param name="color"></param>
- <returns></returns>
-</member>
-<member name="M:KzSystem.KzColorHelper.GetColorByName(System.String)">
- <summary>
- Return a color by name string both a KnownColorName and a Hex string.
- </summary>
- <param name="name"></param>
- <returns></returns>
 </member>
 </members>
 </doc>

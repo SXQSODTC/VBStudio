@@ -1,6 +1,6 @@
-﻿
-Public Class KzPainting
+﻿Imports Microsoft.VisualBasic.PowerPacks
 
+Public Class KzPainting
 
     Public Shared Sub SetHighQuality(g As Graphics)
         g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality '合成图像的呈现质量
@@ -126,5 +126,115 @@ Public Class KzAppearance
         End If
     End Function
 End Class
+
+Public Class KzLinePresentation
+    Inherits Panel
+
+    Private _Orient As Orientation = Orientation.Horizontal
+    Private _SPad As Integer = 2
+    Private _LWidth As Integer = 1
+    Private _LColor As Color = Color.Black
+    Private _Corner As Boolean = False
+    Private _Rad As Integer = 5
+
+    Public Sub New()
+
+    End Sub
+
+    Public Property Orientation As Orientation '
+        Get
+            Return _Orient
+        End Get
+        Set(value As Orientation)
+            _Orient = value
+            Invalidate()
+        End Set
+    End Property
+    Public Property SidePadding As Integer '
+        Get
+            Return _SPad
+        End Get
+        Set(value As Integer)
+            _SPad = value
+            Invalidate()
+        End Set
+    End Property
+    Public Property LineWidth As Integer '
+        Get
+            Return _LWidth
+        End Get
+        Set(value As Integer)
+            _LWidth = value
+            Invalidate()
+        End Set
+    End Property
+    Public Property LineColor As Color
+        Get
+            Return _LColor
+        End Get
+        Set(value As Color)
+            _LColor = value
+            Invalidate()
+        End Set
+    End Property
+
+    Public Property ShowCorner As Boolean
+        Get
+            Return _Corner
+        End Get
+        Set(value As Boolean)
+            _Corner = value
+            Invalidate()
+        End Set
+    End Property
+
+    Public Property Radius As Integer
+        Get
+            Return _Rad
+        End Get
+        Set(value As Integer)
+            _Rad = value
+            If _Corner Then
+                Invalidate()
+            End If
+        End Set
+    End Property
+
+    Protected Overrides Sub OnPaint(e As PaintEventArgs)
+        MyBase.OnPaint(e)
+        Dim g As Graphics = e.Graphics
+        Dim pen As New Pen(_LColor, _LWidth)
+
+        KzPainting.SetHighQuality(g)
+
+        If _Corner Then
+            Dim TopPad As Integer = 2
+            Dim EndOf1stLine As Point = New Point(CInt(2 / 3 * Width - _Rad), TopPad)
+            Dim StartOf2ndLine As Point = New Point(CInt(2 / 3 * Width), TopPad + _Rad)
+            Dim RoundRect As Rectangle
+
+            g.DrawLine(pen, New Point(_SPad, TopPad), EndOf1stLine)
+            g.DrawLine(pen, StartOf2ndLine, New Point(StartOf2ndLine.X, Height - TopPad))
+
+            RoundRect = New Rectangle(
+                x:=EndOf1stLine.X - _Rad, y:=TopPad,
+                width:=_Rad * 2, height:=_Rad * 2)
+
+            g.DrawArc(pen, RoundRect, 270.0F, 90.0F)
+        Else
+            Select Case _Orient
+                Case Orientation.Horizontal
+                    g.DrawLine(pen, New Point(_SPad, Height / 2), New Point(Width - 2 * _SPad, Height / 2))
+                Case Orientation.Vertical
+                    g.DrawLine(pen, New Point(Width / 2, _SPad), New Point(Width / 2, Height - 2 * _SPad))
+            End Select
+        End If
+    End Sub
+
+End Class
+
+
+
+
 
 
