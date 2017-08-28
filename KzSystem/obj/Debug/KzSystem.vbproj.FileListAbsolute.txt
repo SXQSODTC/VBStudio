@@ -32,7 +32,6 @@ E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzTextViewDialog.resources
 D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzColorPicker.resources
 D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.TestSlideBar.resources
 D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzSlideBar.resources
-E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.PListReaderForm.resources
 E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.TestSlideBar.resources
 E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzSlideBar.resources
 E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzColorPicker.resources
@@ -55,6 +54,9 @@ E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzPadingSetter.resources
 D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzPadingSetter.resources
 D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.TestTabsDesigner.resources
 D:\OneDrive\KzSystem\KzSystem\bin\Debug\Microsoft.VisualBasic.PowerPacks.Vs.dll
-E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.TestTabsDesigner.resources
+D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.TestColorConvert.resources
+D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzBrowser.resources
+E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzBrowser.resources
+E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.TestWebBrowser.resources
+E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzColorConverter.resources
 E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.vbprojResolveAssemblyReference.cache
-D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.vbprojResolveAssemblyReference.cache

@@ -44,8 +44,9 @@ Partial Class StartForm
         Me.Test02 = New System.Windows.Forms.ToolStripMenuItem()
         Me.Test03 = New System.Windows.Forms.ToolStripMenuItem()
         Me.Test04 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.GenToolTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.HDLibToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.GenToolTip = New System.Windows.Forms.ToolTip(Me.components)
+        Me.WebBrowserToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CommandsPanel.SuspendLayout()
         Me.StartMenu.SuspendLayout()
         Me.SuspendLayout()
@@ -217,7 +218,7 @@ Partial Class StartForm
         '
         'TestMenuItem
         '
-        Me.TestMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Test01, Me.Test02, Me.Test03, Me.Test04, Me.HDLibToolStripMenuItem})
+        Me.TestMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Test01, Me.Test02, Me.Test03, Me.Test04, Me.HDLibToolStripMenuItem, Me.WebBrowserToolStripMenuItem})
         Me.TestMenuItem.Name = "TestMenuItem"
         Me.TestMenuItem.Size = New System.Drawing.Size(44, 21)
         Me.TestMenuItem.Text = "Test"
@@ -251,6 +252,12 @@ Partial Class StartForm
         Me.HDLibToolStripMenuItem.Name = "HDLibToolStripMenuItem"
         Me.HDLibToolStripMenuItem.Size = New System.Drawing.Size(156, 22)
         Me.HDLibToolStripMenuItem.Text = "HDLib"
+        '
+        'WebBrowserToolStripMenuItem
+        '
+        Me.WebBrowserToolStripMenuItem.Name = "WebBrowserToolStripMenuItem"
+        Me.WebBrowserToolStripMenuItem.Size = New System.Drawing.Size(156, 22)
+        Me.WebBrowserToolStripMenuItem.Text = "WebBrowser"
         '
         'StartForm
         '
@@ -296,4 +303,5 @@ Partial Class StartForm
     Friend WithEvents GenToolTip As ToolTip
     Friend WithEvents Test04 As ToolStripMenuItem
     Friend WithEvents HDLibToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents WebBrowserToolStripMenuItem As ToolStripMenuItem
 End Class

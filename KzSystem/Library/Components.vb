@@ -90,3 +90,69 @@
     Public Property WithoutSpace As Boolean = False
 End Class 'KzTimeShift
 
+Public Structure KzIntRange
+    Public Sub New(ToInt As Integer)
+        StartNumber = 0
+        EndNumber = ToInt
+
+        If StartNumber > EndNumber Then
+            Stepping = -1
+        ElseIf StartNumber = EndNumber Then
+            Stepping = 0
+        Else
+            Stepping = 1
+        End If
+    End Sub
+
+    Public Sub New(FromInt As Integer, ToIntOrLength As Integer, Optional ByLength As Boolean = False)
+        StartNumber = FromInt
+        If ByLength Then
+            If ToIntOrLength < 0 Then
+                EndNumber = FromInt + ToIntOrLength + 1
+            Else
+                EndNumber = FromInt + ToIntOrLength - 1
+            End If
+        Else
+            EndNumber = ToIntOrLength
+        End If
+
+        If StartNumber > EndNumber Then
+            Stepping = -1
+        ElseIf StartNumber = EndNumber Then
+            Stepping = 0
+        Else
+            Stepping = 1
+        End If
+    End Sub
+
+    Public Sub New(FromInt As Integer, ToIntOrLength As Integer, ByStep As Integer, Optional ByLength As Boolean = False)
+        StartNumber = FromInt
+        If ByLength Then
+            If ToIntOrLength < 0 Then
+                EndNumber = FromInt + ToIntOrLength + 1
+            Else
+                EndNumber = FromInt + ToIntOrLength - 1
+            End If
+        Else
+            EndNumber = ToIntOrLength
+        End If
+
+        If StartNumber > EndNumber Then
+            Stepping = -(Math.Abs(ByStep))
+        ElseIf StartNumber = EndNumber Then
+            Stepping = 0
+        Else
+            Stepping = Math.Abs(ByStep)
+        End If
+    End Sub
+
+    Public Property StartNumber As Integer
+    Public Property EndNumber As Integer
+    Public Property Stepping As Integer
+
+    Public ReadOnly Property Length As Integer
+        Get
+            Return EndNumber - StartNumber + 1
+        End Get
+    End Property
+End Structure

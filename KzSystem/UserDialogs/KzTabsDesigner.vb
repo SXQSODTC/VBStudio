@@ -1,4 +1,4 @@
-﻿Imports System.ComponentModel
+﻿'Imports System.ComponentModel
 
 Public Class KzTabsDesigner
     Friend WithEvents NormalLineLP As KzLinePresentation
@@ -25,15 +25,15 @@ Public Class KzTabsDesigner
         Me.SuspendLayout()
 
         RadiusLP = New KzLinePresentation With {.Dock = DockStyle.Fill, .SidePadding = 4, .ShowCorner = True}
-        SettingPanel.Controls.Add(RadiusLP, 2, 12)
+        SettingPanel.Controls.Add(RadiusLP, 2, 13)
         SettingPanel.SetColumnSpan(RadiusLP, 2)
 
         NormalLineLP = New KzLinePresentation With {.Dock = DockStyle.Fill, .SidePadding = 4}
-        SettingPanel.Controls.Add(NormalLineLP, 2, 13)
+        SettingPanel.Controls.Add(NormalLineLP, 2, 14)
         SettingPanel.SetColumnSpan(NormalLineLP, 2)
 
         BoldLineLP = New KzLinePresentation With {.Dock = DockStyle.Fill, .SidePadding = 4}
-        SettingPanel.Controls.Add(BoldLineLP, 2, 14)
+        SettingPanel.Controls.Add(BoldLineLP, 2, 15)
         SettingPanel.SetColumnSpan(BoldLineLP, 2)
 
         Dim i, ub As Integer
@@ -99,7 +99,7 @@ Public Class KzTabsDesigner
         ANameBox.Text = "NewLook"
 
         TheTabs.TabsAppearance = iA
-        TheTabs.HoveringSignLabel = HoveringItem
+        TheTabs.SignLabel = HoveringItem
 
         Me.SettingPanel.ResumeLayout(False)
         Me.SettingPanel.PerformLayout()
@@ -171,12 +171,12 @@ Public Class KzTabsDesigner
                 RadiusSideCB.SelectedItem = .RadiusSide
                 RadiusUD.Value = .Radius
                 NormalLineUD.Value = .NormalLine
-                BlodLineUD.Value = .BlodLine
+                BoldLineUD.Value = .BoldLine
             End If
 
             With CType(TheButton.Tag, KzTabStatusAppearance)
                 BorderCK.Checked = .ShowBorder
-                BlodBorderCK.Checked = .BlodBorder
+                BoldBorderCK.Checked = .BoldBorder
                 ShadowCK.Checked = .ShowShadow
                 ShadowSideCB.SelectedItem = .ShadowSide
                 ShadowColorTB.Text = KzColorHelper.GetColorName(.ShadowColor)
@@ -187,7 +187,7 @@ Public Class KzTabsDesigner
                 BackColorButton.BackColor = .BackColor
                 ForeColorTB.Text = KzColorHelper.GetColorName(.ForeColor)
                 ForeColorButton.BackColor = .ForeColor
-                BlodForeCK.Checked = .BlodFore
+                BoldForeCK.Checked = .BoldFore
             End With
         End With
     End Sub
@@ -221,7 +221,7 @@ Public Class KzTabsDesigner
     Private Sub CK_CheckedChanged(sender As Object, e As EventArgs) Handles _
         ShowAddCK.CheckedChanged, SelectedCloseCK.CheckedChanged, ShowIconCK.CheckedChanged,
         NormalCloseCK.CheckedChanged, RadiusCK.CheckedChanged, BorderCK.CheckedChanged,
-        BlodBorderCK.CheckedChanged, BlodForeCK.CheckedChanged, ShadowCK.CheckedChanged,
+        BoldBorderCK.CheckedChanged, BoldForeCK.CheckedChanged, ShadowCK.CheckedChanged,
         AutoWidthCK.CheckedChanged
 
         Dim ck As CheckBox = CType(sender, CheckBox)
@@ -242,10 +242,10 @@ Public Class KzTabsDesigner
             With CType(iB.Tag, KzTabStatusAppearance)
                 If ck.Equals(BorderCK) Then
                     .ShowBorder = ck.Checked
-                ElseIf ck.Equals(BlodBorderCK) Then
-                    .BlodBorder = ck.Checked
-                ElseIf ck.Equals(BlodForeCK) Then
-                    .BlodFore = ck.Checked
+                ElseIf ck.Equals(BoldBorderCK) Then
+                    .BoldBorder = ck.Checked
+                ElseIf ck.Equals(BoldForeCK) Then
+                    .BoldFore = ck.Checked
                 ElseIf ck.Equals(ShadowCK) Then
                     .ShowShadow = ck.Checked
                 End If
@@ -306,15 +306,15 @@ Public Class KzTabsDesigner
     End Sub
 
     Private Sub UD_ValueChanged(sender As Object, e As EventArgs) Handles _
-        RadiusUD.ValueChanged, BlodLineUD.ValueChanged, NormalLineUD.ValueChanged
+        RadiusUD.ValueChanged, BoldLineUD.ValueChanged, NormalLineUD.ValueChanged
 
         Dim ud As NumericUpDown = CType(sender, NumericUpDown)
 
         If ud.Equals(RadiusUD) Then
             iA.Radius = ud.Value
             RadiusLP.Radius = ud.Value
-        ElseIf ud.Equals(BlodLineUD) Then
-            iA.BlodLine = ud.Value
+        ElseIf ud.Equals(BoldLineUD) Then
+            iA.BoldLine = ud.Value
             BoldLineLP.LineWidth = ud.Value
         ElseIf ud.Equals(NormalLineUD) Then
             iA.NormalLine = ud.Value
@@ -391,19 +391,23 @@ Public Class KzTabsDesigner
         ParentTB.Text = ANameBox.Text
     End Sub
 
-    Private Sub SentToMenu_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles SentToMenu.ItemClicked
+    Private Sub SentToMenu_ItemClicked(sender As Object,
+                    e As ToolStripItemClickedEventArgs) Handles SentToMenu.ItemClicked
+
         Dim x As KzTabStatusAppearance
         Dim c As Control = SettingPanel.GetChildAtPoint(SentToMenu.Location)
 
         If e.ClickedItem.Tag Is Nothing Then
             For Each item As ToolStripItem In SentToMenu.Items
-                If (Not item.GetType = GetType(ToolStripSeparator)) And (item.Tag IsNot Nothing) And (Not item.Equals(e.ClickedItem)) Then
+                If (Not item.GetType = GetType(ToolStripSeparator)) And
+                    (item.Tag IsNot Nothing) And (Not item.Equals(e.ClickedItem)) Then
+
                     x = CType(item.Tag, KzTabStatusAppearance)
 
                     If c.Equals(BorderCK) Then
                         x.ShowBorder = BorderCK.Checked
-                    ElseIf c.Equals(BlodBorderCK) Then
-                        x.BlodBorder = BlodBorderCK.Checked
+                    ElseIf c.Equals(BoldBorderCK) Then
+                        x.BoldBorder = BoldBorderCK.Checked
                     ElseIf c.Equals(ShadowCK) Then
                         x.ShowShadow = ShadowCK.Checked
                     ElseIf c.Equals(ShadowSideCB) Then
@@ -416,8 +420,8 @@ Public Class KzTabsDesigner
                         x.BackColor = BackColorButton.BackColor
                     ElseIf x.Equals(ForeColorTB) Or x.Equals(ForeColorButton) Then
                         x.ForeColor = ForeColorButton.BackColor
-                    ElseIf x.Equals(BlodForeCK) Then
-                        x.BlodFore = BlodForeCK.Checked
+                    ElseIf x.Equals(BoldForeCK) Then
+                        x.BoldFore = BoldForeCK.Checked
                     End If
                 End If
             Next
@@ -426,8 +430,8 @@ Public Class KzTabsDesigner
             x = CType(e.ClickedItem.Tag, KzTabStatusAppearance)
             If c.Equals(BorderCK) Then
                 x.ShowBorder = BorderCK.Checked
-            ElseIf c.Equals(BlodBorderCK) Then
-                x.BlodBorder = BlodBorderCK.Checked
+            ElseIf c.Equals(BoldBorderCK) Then
+                x.BoldBorder = BoldBorderCK.Checked
             ElseIf c.Equals(ShadowCK) Then
                 x.ShowShadow = ShadowCK.Checked
             ElseIf c.Equals(ShadowSideCB) Then
@@ -440,8 +444,8 @@ Public Class KzTabsDesigner
                 x.BackColor = BackColorButton.BackColor
             ElseIf x.Equals(ForeColorTB) Or x.Equals(ForeColorButton) Then
                 x.ForeColor = ForeColorButton.BackColor
-            ElseIf x.Equals(BlodForeCK) Then
-                x.BlodFore = BlodForeCK.Checked
+            ElseIf x.Equals(BoldForeCK) Then
+                x.BoldFore = BoldForeCK.Checked
             End If
             MsgBox(c.GetType.ToString & " " & c.Name & "'s value " & vbCrLf & "have been send to " & e.ClickedItem.Text & ".")
         End If

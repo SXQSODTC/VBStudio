@@ -1,4 +1,4 @@
-﻿Public Class TestColorConvert
+﻿Public Class KzColorConverter
 
     Private updating As Boolean = False
 #Region "Handlers"

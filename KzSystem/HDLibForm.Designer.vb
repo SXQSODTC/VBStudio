@@ -27,6 +27,7 @@ Partial Class HDLibForm
         Me.RootMenu = New System.Windows.Forms.MenuStrip()
         Me.RootSpliter = New System.Windows.Forms.SplitContainer()
         Me.LibSpliter = New System.Windows.Forms.SplitContainer()
+        Me.LibView = New KzSystem.KzDirectoryTreeView()
         Me.LibMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.LibLevelItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
@@ -88,7 +89,11 @@ Partial Class HDLibForm
         Me.IndexColumn = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.TypeColumn = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.LengthColumn = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.SizeColumn = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.InfoColumn = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.CreatedColumn = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.WritedColumn = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.AccessedColumn = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.FilesMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.FileImportItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FileRenameItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -143,11 +148,6 @@ Partial Class HDLibForm
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.SourceButton = New System.Windows.Forms.ToolStripButton()
         Me.CloseWebButton = New System.Windows.Forms.ToolStripButton()
-        Me.CreatedColumn = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.SizeColumn = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.AccessedColumn = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.WritedColumn = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.LibView = New KzSystem.KzDirectoryTreeView()
         CType(Me.RootSpliter, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.RootSpliter.Panel1.SuspendLayout()
         Me.RootSpliter.Panel2.SuspendLayout()
@@ -235,6 +235,26 @@ Partial Class HDLibForm
         Me.LibSpliter.SplitterDistance = 170
         Me.LibSpliter.SplitterWidth = 1
         Me.LibSpliter.TabIndex = 2
+        '
+        'LibView
+        '
+        Me.LibView.AllowDrop = True
+        Me.LibView.ConnectedListView = Nothing
+        Me.LibView.ContextMenuStrip = Me.LibMenu
+        Me.LibView.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LibView.ExceptNames = CType(resources.GetObject("LibView.ExceptNames"), System.Collections.Specialized.StringCollection)
+        Me.LibView.HideSelection = False
+        Me.LibView.ImageIndex = 0
+        Me.LibView.LabelEdit = True
+        Me.LibView.LineColor = System.Drawing.Color.DarkCyan
+        Me.LibView.Location = New System.Drawing.Point(0, 23)
+        Me.LibView.Name = "LibView"
+        Me.LibView.NeedSort = True
+        Me.LibView.SelectedImageIndex = 0
+        Me.LibView.ShowAllDirectories = False
+        Me.LibView.Size = New System.Drawing.Size(170, 431)
+        Me.LibView.StartDirectory = "C:\"
+        Me.LibView.TabIndex = 1
         '
         'LibMenu
         '
@@ -907,9 +927,25 @@ Partial Class HDLibForm
         Me.LengthColumn.Text = "長度"
         Me.LengthColumn.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
+        'SizeColumn
+        '
+        Me.SizeColumn.Text = "容量"
+        '
         'InfoColumn
         '
         Me.InfoColumn.Text = "描述"
+        '
+        'CreatedColumn
+        '
+        Me.CreatedColumn.Text = "最初創建"
+        '
+        'WritedColumn
+        '
+        Me.WritedColumn.Text = "最後寫入"
+        '
+        'AccessedColumn
+        '
+        Me.AccessedColumn.Text = "最後讀取"
         '
         'FilesMenu
         '
@@ -1349,42 +1385,6 @@ Partial Class HDLibForm
         Me.CloseWebButton.Size = New System.Drawing.Size(23, 22)
         Me.CloseWebButton.Text = "Close"
         Me.CloseWebButton.ToolTipText = "Close web panel"
-        '
-        'CreatedColumn
-        '
-        Me.CreatedColumn.Text = "最初創建"
-        '
-        'SizeColumn
-        '
-        Me.SizeColumn.Text = "容量"
-        '
-        'AccessedColumn
-        '
-        Me.AccessedColumn.Text = "最後讀取"
-        '
-        'WritedColumn
-        '
-        Me.WritedColumn.Text = "最後寫入"
-        '
-        'LibView
-        '
-        Me.LibView.AllowDrop = True
-        Me.LibView.ConnectedListView = Nothing
-        Me.LibView.ContextMenuStrip = Me.LibMenu
-        Me.LibView.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.LibView.ExceptNames = CType(resources.GetObject("LibView.ExceptNames"), System.Collections.Specialized.StringCollection)
-        Me.LibView.HideSelection = False
-        Me.LibView.ImageIndex = 0
-        Me.LibView.LabelEdit = True
-        Me.LibView.LineColor = System.Drawing.Color.DarkCyan
-        Me.LibView.Location = New System.Drawing.Point(0, 23)
-        Me.LibView.Name = "LibView"
-        Me.LibView.NeedSort = True
-        Me.LibView.SelectedImageIndex = 0
-        Me.LibView.ShowAllDirectories = False
-        Me.LibView.Size = New System.Drawing.Size(170, 431)
-        Me.LibView.StartDirectory = "C:\"
-        Me.LibView.TabIndex = 1
         '
         'HDLibForm
         '

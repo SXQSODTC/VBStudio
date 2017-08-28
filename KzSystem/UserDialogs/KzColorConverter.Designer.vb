@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class TestColorConvert
+Partial Class KzColorConverter
     Inherits System.Windows.Forms.Form
 
     'Form 重写 Dispose，以清理组件列表。
@@ -506,7 +506,7 @@ Partial Class TestColorConvert
         Me.Label16.Text = "Cyan"
         Me.Label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'TestColorConvert
+        'KzColorConverter
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 14.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -521,7 +521,7 @@ Partial Class TestColorConvert
         Me.Controls.Add(Me.rgbGroup)
         Me.Font = New System.Drawing.Font("Consolas", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
-        Me.Name = "TestColorConvert"
+        Me.Name = "KzColorConverter"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Color space sample (Conversion GraGra_33)"
         Me.rgbGroup.ResumeLayout(False)

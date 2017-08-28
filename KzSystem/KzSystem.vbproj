@@ -92,7 +92,21 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HDLib\HDAuthorInfPanel.Designer.vb">
+      <DependentUpon>HDAuthorInfPanel.vb</DependentUpon>
+    </Compile>
+    <Compile Include="HDLib\HDAuthorInfPanel.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HDLib\HDBookInfPanel.Designer.vb">
+      <DependentUpon>HDBookInfPanel.vb</DependentUpon>
+    </Compile>
+    <Compile Include="HDLib\HDBookInfPanel.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HDLib\HDLibComponents.vb" />
     <Compile Include="Library\ColorHelper.vb" />
+    <Compile Include="Library\Drawing.vb" />
     <Compile Include="Library\IOSystem.vb" />
     <Compile Include="Library\ListHelper.vb" />
     <Compile Include="Library\TextHelper.vb" />
@@ -133,14 +147,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Samples\PListReaderForm.Designer.vb">
-      <DependentUpon>PListReaderForm.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\PListReaderForm.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Samples\SamplePList.vb" />
-    <Compile Include="Samples\SampleImg.vb" />
+    <Compile Include="Library\ImageHelper.vb" />
     <Compile Include="Samples\MsSample.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -150,10 +157,16 @@
     <Compile Include="StartForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Tempcode\TestColorConvert.Designer.vb">
-      <DependentUpon>TestColorConvert.vb</DependentUpon>
+    <Compile Include="Tempcode\TestWebBrowser.Designer.vb">
+      <DependentUpon>TestWebBrowser.vb</DependentUpon>
     </Compile>
-    <Compile Include="Tempcode\TestColorConvert.vb">
+    <Compile Include="Tempcode\TestWebBrowser.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserDialogs\KzColorConverter.Designer.vb">
+      <DependentUpon>KzColorConverter.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserDialogs\KzColorConverter.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Tempcode\TestExplorer.Designer.vb">
@@ -170,6 +183,12 @@
     </Compile>
     <Compile Include="Tempcode\TestColorListForm.vb">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserControls\KzBrowser.Designer.vb">
+      <DependentUpon>KzBrowser.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\KzBrowser.vb">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserControls\KzColorPicker.Designer.vb">
       <DependentUpon>KzColorPicker.vb</DependentUpon>
@@ -223,12 +242,6 @@
     <Compile Include="UserDialogs\KzInputDialog.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Tempcode\TestTabsDesigner.Designer.vb">
-      <DependentUpon>TestTabsDesigner.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Tempcode\TestTabsDesigner.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="UserDialogs\KzTabsDesigner.Designer.vb">
       <DependentUpon>KzTabsDesigner.vb</DependentUpon>
     </Compile>
@@ -249,6 +262,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="HDLib\HDAuthorInfPanel.resx">
+      <DependentUpon>HDAuthorInfPanel.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HDLib\HDBookInfPanel.resx">
+      <DependentUpon>HDBookInfPanel.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Samples\DirectoryScanner.resx">
       <DependentUpon>DirectoryScanner.vb</DependentUpon>
     </EmbeddedResource>
@@ -264,14 +283,14 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Samples\PListReaderForm.resx">
-      <DependentUpon>PListReaderForm.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="StartForm.resx">
       <DependentUpon>StartForm.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Tempcode\TestColorConvert.resx">
-      <DependentUpon>TestColorConvert.vb</DependentUpon>
+    <EmbeddedResource Include="Tempcode\TestWebBrowser.resx">
+      <DependentUpon>TestWebBrowser.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserDialogs\KzColorConverter.resx">
+      <DependentUpon>KzColorConverter.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tempcode\TestColorListForm.resx">
       <DependentUpon>TestColorListForm.vb</DependentUpon>
@@ -284,6 +303,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\KzAppearancePanel.resx">
       <DependentUpon>KzAppearancePanel.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\KzBrowser.resx">
+      <DependentUpon>KzBrowser.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\KzColorPicker.resx">
       <DependentUpon>KzColorPicker.vb</DependentUpon>
@@ -302,9 +324,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserDialogs\KzColorsDialog.resx">
       <DependentUpon>KzColorsDialog.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tempcode\TestTabsDesigner.resx">
-      <DependentUpon>TestTabsDesigner.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserDialogs\KzTabsDesigner.resx">
       <DependentUpon>KzTabsDesigner.vb</DependentUpon>

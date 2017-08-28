@@ -1,4 +1,6 @@
-﻿Public Class KzColorHelper
+﻿Imports System.Drawing.Drawing2D
+
+Public Class KzColorHelper
     ''' <summary>
     ''' 
     ''' </summary>
@@ -260,19 +262,36 @@
 End Class
 
 
-Public Structure KzColor
-    Public Shared ReadOnly Property StonewareRed As Color '紫砂紅
-        Get
-            Return Color.FromArgb(&HFFA50017) '255,165,0,23
-        End Get
-    End Property
+'Public Structure KzColor
+'    Public Shared ReadOnly Property StonewareRed As Color '紫砂红
+'        Get
+'            Return Color.FromArgb(&HFFA50017) '255,165,0,23
+'        End Get
+'    End Property
+'    Public Shared ReadOnly Property Carmine As Color '胭脂红
+'        Get
+'            Return Color.FromArgb(255, 215, 0, 64)
+'        End Get
+'    End Property
+'    Public Shared ReadOnly Property Ruby As Color
+'        Get
+'            Return Color.FromArgb(255, 200, 8, 82)
+'        End Get
+'    End Property
+'    Public Shared ReadOnly Property ChromeYellow As Color
+'        Get
+'            Return Color.FromArgb(255, 253, 208, 0)
+'        End Get
+'    End Property
 
-    Public Shared ReadOnly Property ChromeYellow As Color
-        Get
-            Return Color.FromArgb(255, 253, 208, 0)
-        End Get
-    End Property
-End Structure 'KzColor
+
+
+'    Public Shared ReadOnly Property NewColor As Color
+'        Get
+'            Return Color.Black
+'        End Get
+'    End Property
+'End Structure 'KzColor
 
 ''' <summary>
 ''' Provides methods to convert from a color space to an other.
@@ -1940,3 +1959,150 @@ Public Structure YUV
 #End Region
 
 End Structure
+
+Public Class RGBSticker
+    Inherits Control
+
+    Private _color As Color
+    Private _orientation As Orientation
+    Private _showDetail As Boolean
+    Private _checked As Boolean
+    Private _sFormat As StringFormat = New StringFormat() With {
+        .Alignment = StringAlignment.Near,
+        .Trimming = StringTrimming.EllipsisCharacter,
+        .LineAlignment = StringAlignment.Center,
+        .HotkeyPrefix = Drawing.Text.HotkeyPrefix.None,
+        .FormatFlags = StringFormatFlags.NoWrap
+        }
+
+    Dim hovering As Boolean = False
+
+    Public Sub New()
+        Font = New Font("Consolas", 9.5, FontStyle.Regular)
+        Color = Color.Gray
+        ShowDetail = False
+        'Size = New Size(256, 48)
+
+    End Sub
+
+    Public Property Color As Color
+        Get
+            Return _color
+        End Get
+        Set(value As Color)
+            _color = value
+            Text = Color.Name
+            Invalidate()
+        End Set
+    End Property
+
+    Public Property Orientation As Orientation
+        Get
+            Return _orientation
+        End Get
+        Set(value As Orientation)
+            _orientation = value
+            Invalidate()
+        End Set
+    End Property
+
+    Public Property ShowDetail As Boolean
+        Get
+            Return _showDetail
+        End Get
+        Set(value As Boolean)
+            _showDetail = value
+            Invalidate()
+        End Set
+    End Property
+
+    Public Property Checked As Boolean
+        Get
+            Return _checked
+        End Get
+        Set(value As Boolean)
+            _checked = value
+            Invalidate()
+        End Set
+    End Property
+
+    Protected Overrides Sub OnPaint(e As PaintEventArgs)
+        MyBase.OnPaint(e)
+
+        Dim g As Graphics = e.Graphics
+        KzPainting.SetHighQuality(g)
+
+        Dim aRect, cRect, t0Rect, t1Rect As Rectangle
+
+        If hovering Then
+            aRect = New Rectangle(5, 5, Width - 10, Height - 10)
+        Else
+            aRect = New Rectangle(0, 0, Width, Height)
+        End If
+
+        If _orientation = Orientation.Horizontal Then
+            cRect = New Rectangle(aRect.X, aRect.Y,
+                        Math.Max(Math.Min(aRect.Height, aRect.Width / 2), aRect.Width / 3), aRect.Height)
+
+            If _showDetail Then
+                t0Rect = New Rectangle(cRect.Right + 1, 0,
+                                    aRect.Width - cRect.Width - 1, aRect.Height / 2)
+                t1Rect = New Rectangle(cRect.Right + 1, t0Rect.Bottom + 1,
+                                      aRect.Width - cRect.Width - 1, t0Rect.Height)
+            Else
+                t0Rect = New Rectangle(cRect.Right + 1, 0,
+                                      aRect.Width - cRect.Width - 1, aRect.Height)
+                t1Rect = New Rectangle()
+            End If
+
+        Else
+            cRect = New Rectangle(aRect.X, aRect.Y, aRect.Width,
+                     Math.Max(Math.Min(aRect.Width, aRect.Height / 2), aRect.Height / 3))
+
+            If _showDetail Then
+                t0Rect = New Rectangle(0, cRect.Height + 1,
+                                       aRect.Width, (aRect.Height - cRect.Height - 1) / 2)
+                t1Rect = New Rectangle(0, t0Rect.Bottom + 1, aRect.Width, t0Rect.Height)
+            Else
+                t0Rect = New Rectangle(0, cRect.Height + 1,
+                                       aRect.Width, aRect.Height - cRect.Height - 1)
+                t1Rect = New Rectangle()
+            End If
+
+        End If
+
+        g.FillRectangle(New SolidBrush(_color), cRect)
+        g.DrawString(Text, Font, New SolidBrush(Color.Black), t0Rect, _sFormat)
+        If Not t1Rect.IsEmpty Then
+            Dim s As String = "A:" & _color.A & " R:" & _color.R & " G:" & _color.G & " B:" & _color.B
+
+            g.DrawString(s, Font, New SolidBrush(Color.DarkGray), t1Rect, _sFormat)
+        End If
+
+
+
+        If _checked Then
+            g.FillPolygon(New SolidBrush(Color.RoyalBlue), {
+                      New Point(ClientRectangle.Width - 10, 0),
+                      New Point(ClientRectangle.Width, 0),
+                      New Point(ClientRectangle.Width, 10)})
+            ControlPaint.DrawBorder3D(g, ClientRectangle, Border3DStyle.Bump)
+        Else
+            ControlPaint.DrawBorder3D(g, ClientRectangle, Border3DStyle.Flat)
+        End If
+    End Sub
+
+    Protected Overrides Sub OnMouseEnter(e As EventArgs)
+        MyBase.OnMouseEnter(e)
+
+        BackColor = SystemColors.ControlDark
+        hovering = True
+    End Sub
+
+    Protected Overrides Sub OnMouseLeave(e As EventArgs)
+        MyBase.OnMouseLeave(e)
+
+        BackColor = SystemColors.Control
+        hovering = False
+    End Sub
+End Class

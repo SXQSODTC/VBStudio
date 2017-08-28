@@ -25,6 +25,16 @@ Partial Class KzTabsDesigner
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(KzTabsDesigner))
         Dim KzTabsAppearance1 As KzSystem.KzTabsAppearance = New KzSystem.KzTabsAppearance()
+        Dim KzTabStatusAppearance1 As KzSystem.KzTabStatusAppearance = New KzSystem.KzTabStatusAppearance()
+        Dim KzTabStatusAppearance2 As KzSystem.KzTabStatusAppearance = New KzSystem.KzTabStatusAppearance()
+        Dim KzTabStatusAppearance3 As KzSystem.KzTabStatusAppearance = New KzSystem.KzTabStatusAppearance()
+        Dim KzTabStatusAppearance4 As KzSystem.KzTabStatusAppearance = New KzSystem.KzTabStatusAppearance()
+        Dim KzTabStatusAppearance5 As KzSystem.KzTabStatusAppearance = New KzSystem.KzTabStatusAppearance()
+        Dim KzTabStatusAppearance6 As KzSystem.KzTabStatusAppearance = New KzSystem.KzTabStatusAppearance()
+        Dim KzTabStatusAppearance7 As KzSystem.KzTabStatusAppearance = New KzSystem.KzTabStatusAppearance()
+        Dim KzTabStatusAppearance8 As KzSystem.KzTabStatusAppearance = New KzSystem.KzTabStatusAppearance()
+        Dim KzTabStatusAppearance9 As KzSystem.KzTabStatusAppearance = New KzSystem.KzTabStatusAppearance()
+        Dim KzTabStatusAppearance10 As KzSystem.KzTabStatusAppearance = New KzSystem.KzTabStatusAppearance()
         Me.RootTools = New System.Windows.Forms.ToolStrip()
         Me.ImportItem = New System.Windows.Forms.ToolStripButton()
         Me.ExportItem = New System.Windows.Forms.ToolStripButton()
@@ -41,7 +51,12 @@ Partial Class KzTabsDesigner
         Me.PresetsCB = New System.Windows.Forms.ToolStripComboBox()
         Me.PresetItem = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
-        Me.PreviewButton = New System.Windows.Forms.ToolStripButton()
+        Me.PreviewButton = New System.Windows.Forms.ToolStripDropDownButton()
+        Me.AddTabToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MoveTabToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RemoveTabToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ClearTabsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TabWidthToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HoveringItem = New System.Windows.Forms.ToolStripLabel()
         Me.RootSpliter = New System.Windows.Forms.SplitContainer()
         Me.SettingPanel = New System.Windows.Forms.TableLayoutPanel()
@@ -50,7 +65,7 @@ Partial Class KzTabsDesigner
         Me.Label19 = New System.Windows.Forms.Label()
         Me.AppearanceCB = New System.Windows.Forms.ComboBox()
         Me.Label17 = New System.Windows.Forms.Label()
-        Me.BlodLineUD = New System.Windows.Forms.NumericUpDown()
+        Me.BoldLineUD = New System.Windows.Forms.NumericUpDown()
         Me.NormalLineUD = New System.Windows.Forms.NumericUpDown()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
@@ -59,7 +74,7 @@ Partial Class KzTabsDesigner
         Me.ShadowColorTB = New System.Windows.Forms.TextBox()
         Me.SentToMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.Label13 = New System.Windows.Forms.Label()
-        Me.BlodForeCK = New System.Windows.Forms.CheckBox()
+        Me.BoldForeCK = New System.Windows.Forms.CheckBox()
         Me.ForeColorButton = New System.Windows.Forms.Button()
         Me.ForeColorTB = New System.Windows.Forms.TextBox()
         Me.Label12 = New System.Windows.Forms.Label()
@@ -75,7 +90,7 @@ Partial Class KzTabsDesigner
         Me.ShadowSideCB = New System.Windows.Forms.ComboBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.ShadowCK = New System.Windows.Forms.CheckBox()
-        Me.BlodBorderCK = New System.Windows.Forms.CheckBox()
+        Me.BoldBorderCK = New System.Windows.Forms.CheckBox()
         Me.BorderCK = New System.Windows.Forms.CheckBox()
         Me.SwitchTools = New System.Windows.Forms.ToolStrip()
         Me.TabSW = New System.Windows.Forms.ToolStripButton()
@@ -117,7 +132,7 @@ Partial Class KzTabsDesigner
         Me.RootSpliter.Panel2.SuspendLayout()
         Me.RootSpliter.SuspendLayout()
         Me.SettingPanel.SuspendLayout()
-        CType(Me.BlodLineUD, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.BoldLineUD, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NormalLineUD, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SwitchTools.SuspendLayout()
         CType(Me.RadiusUD, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -244,12 +259,43 @@ Partial Class KzTabsDesigner
         'PreviewButton
         '
         Me.PreviewButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.PreviewButton.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AddTabToolStripMenuItem, Me.MoveTabToolStripMenuItem, Me.RemoveTabToolStripMenuItem, Me.ClearTabsToolStripMenuItem, Me.TabWidthToolStripMenuItem})
         Me.PreviewButton.Image = CType(resources.GetObject("PreviewButton.Image"), System.Drawing.Image)
         Me.PreviewButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.PreviewButton.Name = "PreviewButton"
-        Me.PreviewButton.Size = New System.Drawing.Size(23, 22)
+        Me.PreviewButton.Size = New System.Drawing.Size(29, 22)
         Me.PreviewButton.Text = "Preview"
         Me.PreviewButton.ToolTipText = "Preview to the TabControl"
+        '
+        'AddTabToolStripMenuItem
+        '
+        Me.AddTabToolStripMenuItem.Name = "AddTabToolStripMenuItem"
+        Me.AddTabToolStripMenuItem.Size = New System.Drawing.Size(149, 22)
+        Me.AddTabToolStripMenuItem.Text = "Add Tab"
+        '
+        'MoveTabToolStripMenuItem
+        '
+        Me.MoveTabToolStripMenuItem.Name = "MoveTabToolStripMenuItem"
+        Me.MoveTabToolStripMenuItem.Size = New System.Drawing.Size(149, 22)
+        Me.MoveTabToolStripMenuItem.Text = "Move Tab"
+        '
+        'RemoveTabToolStripMenuItem
+        '
+        Me.RemoveTabToolStripMenuItem.Name = "RemoveTabToolStripMenuItem"
+        Me.RemoveTabToolStripMenuItem.Size = New System.Drawing.Size(149, 22)
+        Me.RemoveTabToolStripMenuItem.Text = "Remove Tab"
+        '
+        'ClearTabsToolStripMenuItem
+        '
+        Me.ClearTabsToolStripMenuItem.Name = "ClearTabsToolStripMenuItem"
+        Me.ClearTabsToolStripMenuItem.Size = New System.Drawing.Size(149, 22)
+        Me.ClearTabsToolStripMenuItem.Text = "Clear Tabs"
+        '
+        'TabWidthToolStripMenuItem
+        '
+        Me.TabWidthToolStripMenuItem.Name = "TabWidthToolStripMenuItem"
+        Me.TabWidthToolStripMenuItem.Size = New System.Drawing.Size(149, 22)
+        Me.TabWidthToolStripMenuItem.Text = "Tab Width"
         '
         'HoveringItem
         '
@@ -290,7 +336,7 @@ Partial Class KzTabsDesigner
         Me.SettingPanel.Controls.Add(Me.Label19, 0, 18)
         Me.SettingPanel.Controls.Add(Me.AppearanceCB, 1, 1)
         Me.SettingPanel.Controls.Add(Me.Label17, 0, 1)
-        Me.SettingPanel.Controls.Add(Me.BlodLineUD, 1, 15)
+        Me.SettingPanel.Controls.Add(Me.BoldLineUD, 1, 15)
         Me.SettingPanel.Controls.Add(Me.NormalLineUD, 1, 14)
         Me.SettingPanel.Controls.Add(Me.Label16, 0, 15)
         Me.SettingPanel.Controls.Add(Me.Label15, 0, 14)
@@ -298,7 +344,7 @@ Partial Class KzTabsDesigner
         Me.SettingPanel.Controls.Add(Me.ShadowColorButton, 3, 22)
         Me.SettingPanel.Controls.Add(Me.ShadowColorTB, 1, 22)
         Me.SettingPanel.Controls.Add(Me.Label13, 0, 22)
-        Me.SettingPanel.Controls.Add(Me.BlodForeCK, 0, 26)
+        Me.SettingPanel.Controls.Add(Me.BoldForeCK, 0, 26)
         Me.SettingPanel.Controls.Add(Me.ForeColorButton, 3, 25)
         Me.SettingPanel.Controls.Add(Me.ForeColorTB, 1, 25)
         Me.SettingPanel.Controls.Add(Me.Label12, 0, 25)
@@ -314,7 +360,7 @@ Partial Class KzTabsDesigner
         Me.SettingPanel.Controls.Add(Me.ShadowSideCB, 1, 21)
         Me.SettingPanel.Controls.Add(Me.Label8, 0, 21)
         Me.SettingPanel.Controls.Add(Me.ShadowCK, 0, 20)
-        Me.SettingPanel.Controls.Add(Me.BlodBorderCK, 2, 19)
+        Me.SettingPanel.Controls.Add(Me.BoldBorderCK, 2, 19)
         Me.SettingPanel.Controls.Add(Me.BorderCK, 0, 19)
         Me.SettingPanel.Controls.Add(Me.SwitchTools, 0, 17)
         Me.SettingPanel.Controls.Add(Me.Label7, 0, 16)
@@ -432,17 +478,17 @@ Partial Class KzTabsDesigner
         Me.Label17.Text = "Appearance"
         Me.Label17.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'BlodLineUD
+        'BoldLineUD
         '
-        Me.BlodLineUD.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BlodLineUD.Font = New System.Drawing.Font("Consolas", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BlodLineUD.Location = New System.Drawing.Point(103, 344)
-        Me.BlodLineUD.Margin = New System.Windows.Forms.Padding(1)
-        Me.BlodLineUD.Maximum = New Decimal(New Integer() {10, 0, 0, 0})
-        Me.BlodLineUD.Name = "BlodLineUD"
-        Me.BlodLineUD.Size = New System.Drawing.Size(67, 22)
-        Me.BlodLineUD.TabIndex = 49
-        Me.BlodLineUD.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.BoldLineUD.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.BoldLineUD.Font = New System.Drawing.Font("Consolas", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BoldLineUD.Location = New System.Drawing.Point(103, 344)
+        Me.BoldLineUD.Margin = New System.Windows.Forms.Padding(1)
+        Me.BoldLineUD.Maximum = New Decimal(New Integer() {10, 0, 0, 0})
+        Me.BoldLineUD.Name = "BoldLineUD"
+        Me.BoldLineUD.Size = New System.Drawing.Size(67, 22)
+        Me.BoldLineUD.TabIndex = 49
+        Me.BoldLineUD.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'NormalLineUD
         '
@@ -464,7 +510,7 @@ Partial Class KzTabsDesigner
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(94, 23)
         Me.Label16.TabIndex = 46
-        Me.Label16.Text = "BlodLine"
+        Me.Label16.Text = "BoldLine"
         Me.Label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label15
@@ -533,19 +579,19 @@ Partial Class KzTabsDesigner
         Me.Label13.Text = "ShadowColor"
         Me.Label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'BlodForeCK
+        'BoldForeCK
         '
-        Me.BlodForeCK.AutoSize = True
-        Me.BlodForeCK.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.SettingPanel.SetColumnSpan(Me.BlodForeCK, 2)
-        Me.BlodForeCK.ContextMenuStrip = Me.SentToMenu
-        Me.BlodForeCK.Dock = System.Windows.Forms.DockStyle.Right
-        Me.BlodForeCK.Location = New System.Drawing.Point(88, 602)
-        Me.BlodForeCK.Name = "BlodForeCK"
-        Me.BlodForeCK.Size = New System.Drawing.Size(80, 17)
-        Me.BlodForeCK.TabIndex = 40
-        Me.BlodForeCK.Text = "BlodFore"
-        Me.BlodForeCK.UseVisualStyleBackColor = True
+        Me.BoldForeCK.AutoSize = True
+        Me.BoldForeCK.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.SettingPanel.SetColumnSpan(Me.BoldForeCK, 2)
+        Me.BoldForeCK.ContextMenuStrip = Me.SentToMenu
+        Me.BoldForeCK.Dock = System.Windows.Forms.DockStyle.Right
+        Me.BoldForeCK.Location = New System.Drawing.Point(88, 602)
+        Me.BoldForeCK.Name = "BoldForeCK"
+        Me.BoldForeCK.Size = New System.Drawing.Size(80, 17)
+        Me.BoldForeCK.TabIndex = 40
+        Me.BoldForeCK.Text = "BoldFore"
+        Me.BoldForeCK.UseVisualStyleBackColor = True
         '
         'ForeColorButton
         '
@@ -737,18 +783,18 @@ Partial Class KzTabsDesigner
         Me.ShadowCK.Text = "ShowShadow"
         Me.ShadowCK.UseVisualStyleBackColor = True
         '
-        'BlodBorderCK
+        'BoldBorderCK
         '
-        Me.BlodBorderCK.AutoSize = True
-        Me.SettingPanel.SetColumnSpan(Me.BlodBorderCK, 3)
-        Me.BlodBorderCK.ContextMenuStrip = Me.SentToMenu
-        Me.BlodBorderCK.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BlodBorderCK.Location = New System.Drawing.Point(174, 441)
-        Me.BlodBorderCK.Name = "BlodBorderCK"
-        Me.BlodBorderCK.Size = New System.Drawing.Size(128, 17)
-        Me.BlodBorderCK.TabIndex = 24
-        Me.BlodBorderCK.Text = "BlodBorder"
-        Me.BlodBorderCK.UseVisualStyleBackColor = True
+        Me.BoldBorderCK.AutoSize = True
+        Me.SettingPanel.SetColumnSpan(Me.BoldBorderCK, 3)
+        Me.BoldBorderCK.ContextMenuStrip = Me.SentToMenu
+        Me.BoldBorderCK.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.BoldBorderCK.Location = New System.Drawing.Point(174, 441)
+        Me.BoldBorderCK.Name = "BoldBorderCK"
+        Me.BoldBorderCK.Size = New System.Drawing.Size(128, 17)
+        Me.BoldBorderCK.TabIndex = 24
+        Me.BoldBorderCK.Text = "BoldBorder"
+        Me.BoldBorderCK.UseVisualStyleBackColor = True
         '
         'BorderCK
         '
@@ -1126,26 +1172,129 @@ Partial Class KzTabsDesigner
         Me.TheTabs.Controls.Add(Me.TabPage2)
         Me.TheTabs.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TheTabs.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed
-        Me.TheTabs.HoveringSignLabel = Nothing
         Me.TheTabs.Location = New System.Drawing.Point(0, 0)
         Me.TheTabs.Name = "TheTabs"
         Me.TheTabs.NewAddedAutoSelect = True
+        Me.TheTabs.NewTabType = KzSystem.KzTabControlNewTabType.DefaultTab
         Me.TheTabs.NewTitlePrefix = "NewTab"
+        Me.TheTabs.SelectAfterAdd = True
         Me.TheTabs.SelectedIndex = 0
         Me.TheTabs.ShowAddNewTab = False
+        Me.TheTabs.SignLabel = Nothing
         Me.TheTabs.Size = New System.Drawing.Size(507, 89)
         Me.TheTabs.SizeMode = System.Windows.Forms.TabSizeMode.Fixed
         Me.TheTabs.TabIndex = 0
-        KzTabsAppearance1.BlodLine = 2
+        KzTabsAppearance1.BoldLine = 2
         KzTabsAppearance1.ButtonMargin = New System.Windows.Forms.Padding(2)
         KzTabsAppearance1.NormalLine = 1
         KzTabsAppearance1.NormalTabCanClose = False
         KzTabsAppearance1.Radius = 5
         KzTabsAppearance1.RadiusSide = KzSystem.KzFlatCorners.None
         KzTabsAppearance1.SelectedTabCanClose = False
+        KzTabStatusAppearance1.BackColor = System.Drawing.SystemColors.Control
+        KzTabStatusAppearance1.BoldBorder = False
+        KzTabStatusAppearance1.BoldFore = False
+        KzTabStatusAppearance1.BorderColor = System.Drawing.SystemColors.ActiveBorder
+        KzTabStatusAppearance1.ForeColor = System.Drawing.SystemColors.ControlText
+        KzTabStatusAppearance1.ShadowColor = System.Drawing.SystemColors.ButtonShadow
+        KzTabStatusAppearance1.ShadowSide = KzSystem.KzFlatSides.None
+        KzTabStatusAppearance1.ShowBorder = False
+        KzTabStatusAppearance1.ShowShadow = False
+        KzTabsAppearance1.SetOfAddNewTab = KzTabStatusAppearance1
+        KzTabStatusAppearance2.BackColor = System.Drawing.SystemColors.Control
+        KzTabStatusAppearance2.BoldBorder = False
+        KzTabStatusAppearance2.BoldFore = False
+        KzTabStatusAppearance2.BorderColor = System.Drawing.SystemColors.ActiveBorder
+        KzTabStatusAppearance2.ForeColor = System.Drawing.SystemColors.ControlText
+        KzTabStatusAppearance2.ShadowColor = System.Drawing.SystemColors.ButtonShadow
+        KzTabStatusAppearance2.ShadowSide = KzSystem.KzFlatSides.None
+        KzTabStatusAppearance2.ShowBorder = False
+        KzTabStatusAppearance2.ShowShadow = False
+        KzTabsAppearance1.SetOfAddNewTabHover = KzTabStatusAppearance2
+        KzTabStatusAppearance3.BackColor = System.Drawing.SystemColors.Control
+        KzTabStatusAppearance3.BoldBorder = False
+        KzTabStatusAppearance3.BoldFore = False
+        KzTabStatusAppearance3.BorderColor = System.Drawing.SystemColors.ActiveBorder
+        KzTabStatusAppearance3.ForeColor = System.Drawing.SystemColors.ControlText
+        KzTabStatusAppearance3.ShadowColor = System.Drawing.SystemColors.ButtonShadow
+        KzTabStatusAppearance3.ShadowSide = KzSystem.KzFlatSides.None
+        KzTabStatusAppearance3.ShowBorder = False
+        KzTabStatusAppearance3.ShowShadow = False
+        KzTabsAppearance1.SetOfNormalButton = KzTabStatusAppearance3
+        KzTabStatusAppearance4.BackColor = System.Drawing.SystemColors.Control
+        KzTabStatusAppearance4.BoldBorder = False
+        KzTabStatusAppearance4.BoldFore = False
+        KzTabStatusAppearance4.BorderColor = System.Drawing.SystemColors.ActiveBorder
+        KzTabStatusAppearance4.ForeColor = System.Drawing.SystemColors.ControlText
+        KzTabStatusAppearance4.ShadowColor = System.Drawing.SystemColors.ButtonShadow
+        KzTabStatusAppearance4.ShadowSide = KzSystem.KzFlatSides.None
+        KzTabStatusAppearance4.ShowBorder = False
+        KzTabStatusAppearance4.ShowShadow = False
+        KzTabsAppearance1.SetOfNormalButtonHover = KzTabStatusAppearance4
+        KzTabStatusAppearance5.BackColor = System.Drawing.SystemColors.Control
+        KzTabStatusAppearance5.BoldBorder = False
+        KzTabStatusAppearance5.BoldFore = False
+        KzTabStatusAppearance5.BorderColor = System.Drawing.SystemColors.ActiveBorder
+        KzTabStatusAppearance5.ForeColor = System.Drawing.SystemColors.ControlText
+        KzTabStatusAppearance5.ShadowColor = System.Drawing.SystemColors.ButtonShadow
+        KzTabStatusAppearance5.ShadowSide = KzSystem.KzFlatSides.None
+        KzTabStatusAppearance5.ShowBorder = False
+        KzTabStatusAppearance5.ShowShadow = False
+        KzTabsAppearance1.SetOfNormalTab = KzTabStatusAppearance5
+        KzTabStatusAppearance6.BackColor = System.Drawing.SystemColors.Control
+        KzTabStatusAppearance6.BoldBorder = False
+        KzTabStatusAppearance6.BoldFore = False
+        KzTabStatusAppearance6.BorderColor = System.Drawing.SystemColors.ActiveBorder
+        KzTabStatusAppearance6.ForeColor = System.Drawing.SystemColors.ControlText
+        KzTabStatusAppearance6.ShadowColor = System.Drawing.SystemColors.ButtonShadow
+        KzTabStatusAppearance6.ShadowSide = KzSystem.KzFlatSides.None
+        KzTabStatusAppearance6.ShowBorder = False
+        KzTabStatusAppearance6.ShowShadow = False
+        KzTabsAppearance1.SetOfNormalTabHover = KzTabStatusAppearance6
+        KzTabStatusAppearance7.BackColor = System.Drawing.SystemColors.Control
+        KzTabStatusAppearance7.BoldBorder = False
+        KzTabStatusAppearance7.BoldFore = False
+        KzTabStatusAppearance7.BorderColor = System.Drawing.SystemColors.ActiveBorder
+        KzTabStatusAppearance7.ForeColor = System.Drawing.SystemColors.ControlText
+        KzTabStatusAppearance7.ShadowColor = System.Drawing.SystemColors.ButtonShadow
+        KzTabStatusAppearance7.ShadowSide = KzSystem.KzFlatSides.None
+        KzTabStatusAppearance7.ShowBorder = False
+        KzTabStatusAppearance7.ShowShadow = False
+        KzTabsAppearance1.SetOfSelectedButton = KzTabStatusAppearance7
+        KzTabStatusAppearance8.BackColor = System.Drawing.SystemColors.Control
+        KzTabStatusAppearance8.BoldBorder = False
+        KzTabStatusAppearance8.BoldFore = False
+        KzTabStatusAppearance8.BorderColor = System.Drawing.SystemColors.ActiveBorder
+        KzTabStatusAppearance8.ForeColor = System.Drawing.SystemColors.ControlText
+        KzTabStatusAppearance8.ShadowColor = System.Drawing.SystemColors.ButtonShadow
+        KzTabStatusAppearance8.ShadowSide = KzSystem.KzFlatSides.None
+        KzTabStatusAppearance8.ShowBorder = False
+        KzTabStatusAppearance8.ShowShadow = False
+        KzTabsAppearance1.SetOfSelectedButtonHover = KzTabStatusAppearance8
+        KzTabStatusAppearance9.BackColor = System.Drawing.SystemColors.Control
+        KzTabStatusAppearance9.BoldBorder = False
+        KzTabStatusAppearance9.BoldFore = False
+        KzTabStatusAppearance9.BorderColor = System.Drawing.SystemColors.ActiveBorder
+        KzTabStatusAppearance9.ForeColor = System.Drawing.SystemColors.ControlText
+        KzTabStatusAppearance9.ShadowColor = System.Drawing.SystemColors.ButtonShadow
+        KzTabStatusAppearance9.ShadowSide = KzSystem.KzFlatSides.None
+        KzTabStatusAppearance9.ShowBorder = False
+        KzTabStatusAppearance9.ShowShadow = False
+        KzTabsAppearance1.SetOfSelectedTab = KzTabStatusAppearance9
+        KzTabStatusAppearance10.BackColor = System.Drawing.SystemColors.Control
+        KzTabStatusAppearance10.BoldBorder = False
+        KzTabStatusAppearance10.BoldFore = False
+        KzTabStatusAppearance10.BorderColor = System.Drawing.SystemColors.ActiveBorder
+        KzTabStatusAppearance10.ForeColor = System.Drawing.SystemColors.ControlText
+        KzTabStatusAppearance10.ShadowColor = System.Drawing.SystemColors.ButtonShadow
+        KzTabStatusAppearance10.ShadowSide = KzSystem.KzFlatSides.None
+        KzTabStatusAppearance10.ShowBorder = False
+        KzTabStatusAppearance10.ShowShadow = False
+        KzTabsAppearance1.SetOfSelectedTabHover = KzTabStatusAppearance10
         KzTabsAppearance1.ShowIcon = False
         KzTabsAppearance1.ShowRadius = False
         KzTabsAppearance1.TabPageStyle = KzSystem.KzTabPageStyle.None
+        KzTabsAppearance1.TabsAutoWidth = False
         KzTabsAppearance1.TextMargin = New System.Windows.Forms.Padding(1)
         Me.TheTabs.TabsAppearance = KzTabsAppearance1
         '
@@ -1198,7 +1347,7 @@ Partial Class KzTabsDesigner
         Me.RootSpliter.ResumeLayout(False)
         Me.SettingPanel.ResumeLayout(False)
         Me.SettingPanel.PerformLayout()
-        CType(Me.BlodLineUD, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.BoldLineUD, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NormalLineUD, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SwitchTools.ResumeLayout(False)
         Me.SwitchTools.PerformLayout()
@@ -1228,7 +1377,6 @@ Partial Class KzTabsDesigner
     Friend WithEvents ToolStripLabel2 As ToolStripLabel
     Friend WithEvents PresetsCB As ToolStripComboBox
     Friend WithEvents ToolStripSeparator5 As ToolStripSeparator
-    Friend WithEvents PreviewButton As ToolStripButton
     Friend WithEvents RootSpliter As SplitContainer
     Friend WithEvents SettingPanel As TableLayoutPanel
     Friend WithEvents SampleSpliter As SplitContainer
@@ -1260,7 +1408,7 @@ Partial Class KzTabsDesigner
     Friend WithEvents AddTabSW As ToolStripButton
     Friend WithEvents AddTabHoverSW As ToolStripButton
     Friend WithEvents BorderCK As CheckBox
-    Friend WithEvents BlodBorderCK As CheckBox
+    Friend WithEvents BoldBorderCK As CheckBox
     Friend WithEvents ShadowCK As CheckBox
     Friend WithEvents Label8 As Label
     Friend WithEvents ShadowSideCB As ComboBox
@@ -1276,11 +1424,11 @@ Partial Class KzTabsDesigner
     Friend WithEvents Label12 As Label
     Friend WithEvents ForeColorTB As TextBox
     Friend WithEvents ForeColorButton As Button
-    Friend WithEvents BlodForeCK As CheckBox
+    Friend WithEvents BoldForeCK As CheckBox
     Friend WithEvents ShadowColorButton As Button
     Friend WithEvents ShadowColorTB As TextBox
     Friend WithEvents Label13 As Label
-    Friend WithEvents BlodLineUD As NumericUpDown
+    Friend WithEvents BoldLineUD As NumericUpDown
     Friend WithEvents NormalLineUD As NumericUpDown
     Friend WithEvents Label16 As Label
     Friend WithEvents Label15 As Label
@@ -1299,4 +1447,10 @@ Partial Class KzTabsDesigner
     Friend WithEvents HoveringItem As ToolStripLabel
     Friend WithEvents SentToMenu As ContextMenuStrip
     Friend WithEvents AutoWidthCK As CheckBox
+    Friend WithEvents PreviewButton As ToolStripDropDownButton
+    Friend WithEvents AddTabToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents MoveTabToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents RemoveTabToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ClearTabsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents TabWidthToolStripMenuItem As ToolStripMenuItem
 End Class

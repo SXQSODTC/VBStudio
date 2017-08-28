@@ -137,6 +137,504 @@ KzSystem
   查找 System.Drawing.Bitmap 类型的本地化资源。
 </summary>
 </member>
+<member name="M:KzSystem.KzColorHelper.CreateColorFromRGB(System.Int32,System.Int32,System.Int32)">
+ <summary>
+ 
+ </summary>
+ <param name="red"></param>
+ <param name="green"></param>
+ <param name="blue"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzColorHelper.OpacityMix(System.Drawing.Color,System.Drawing.Color,System.Int32)">
+ <summary>
+ 
+ </summary>
+ <param name="blendColor"></param>
+ <param name="baseColor"></param>
+ <param name="opacity"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzColorHelper.SoftLightMix(System.Drawing.Color,System.Drawing.Color,System.Int32)">
+ <summary>
+ 
+ </summary>
+ <param name="baseColor"></param>
+ <param name="blendColor"></param>
+ <param name="opacity"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzColorHelper.OverlayMix(System.Drawing.Color,System.Drawing.Color,System.Int32)">
+ <summary>
+ 
+ </summary>
+ <param name="baseColor"></param>
+ <param name="blendColor"></param>
+ <param name="opacity"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzColorHelper.SoftLightMath(System.Int32,System.Int32)">
+ <summary>
+ 
+ </summary>
+ <param name="ibase"></param>
+ <param name="blend"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzColorHelper.OverlayMath(System.Int32,System.Int32)">
+ <summary>
+ 
+ </summary>
+ <param name="ibase"></param>
+ <param name="blend"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzColorHelper.GetColorName(System.Drawing.Color)">
+ <summary>
+ Return a color name in KnownColorName else in Hex string.
+ </summary>
+ <param name="color"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzColorHelper.GetColorByName(System.String)">
+ <summary>
+ Return a color by name string both a KnownColorName and a Hex string.
+ </summary>
+ <param name="name"></param>
+ <returns></returns>
+</member>
+<member name="T:KzSystem.ColorConvert">
+ <summary>
+ Provides methods to convert from a color space to an other.
+ </summary>
+</member>
+<member name="M:KzSystem.ColorConvert.GetAlphaColor(System.Drawing.Color,System.Int32)">
+ <summary>
+ Gets the given color based on a color and an alpha.
+ </summary>
+ <param name="c">Color applying the alpha channel.</param>
+ <param name="alpha">Alpha channel value.</param>
+</member>
+<member name="M:KzSystem.ColorConvert.GetBlendColor(System.Drawing.Color,System.Drawing.Color,System.Double)">
+ <summary>
+ Blends two colors.
+ </summary>
+ <param name="c1">First color to blend</param>
+ <param name="c2">Second color to blend</param>
+ <param name="ratio">Blend ratio. 0.5 will give even blend, 1.0 will return color1, 0.0 will return color2 and so on.</param>
+</member>
+<member name="M:KzSystem.ColorConvert.GetBlendColor(System.Drawing.Color,System.Drawing.Color)">
+ <summary>
+ Makes an even blend between two colors.
+ </summary>
+ <param name="c1">First color to blend</param>
+ <param name="c2">Second color to blend</param>
+</member>
+<member name="M:KzSystem.ColorConvert.GetColorDistance(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+ <summary>
+ Gets the "distance" between two colors.
+ RGB colors must be normalized (eg. values in [0.0, 1.0]).
+ </summary>
+ <param name="r1">First color red component.</param>
+ <param name="g1">First color green component.</param>
+ <param name="b1">First color blue component.</param>
+ <param name="r2">Second color red component.</param>
+ <param name="g2">Second color green component.</param>
+ <param name="b2">Second color blue component.</param>
+</member>
+<member name="M:KzSystem.ColorConvert.GetColorDistance(System.Double[],System.Double[])">
+ <summary>
+ Gets the "distance" between two colors.
+ RGB colors must be normalized (eg. values in [0.0, 1.0]).
+ </summary>
+ <param name="color1">First color [r,g,b]</param>
+ <param name="color2">Second color [r,g,b]</param>
+</member>
+<member name="M:KzSystem.ColorConvert.GetColorDistance(System.Drawing.Color,System.Drawing.Color)">
+ <summary>
+ Gets the "distance" between two colors.
+ </summary>
+ <param name="color1">First color.</param>
+ <param name="color2">Second color.</param>
+</member>
+<member name="M:KzSystem.ColorConvert.GetWheelColors(System.Int32)">
+ <summary>
+ Gets visible colors (color wheel).
+ </summary>
+ <param name="alpha">
+ The alpha value used for each colors.
+ </param>
+</member>
+<member name="M:KzSystem.ColorConvert.GetSpectrumColors(System.Int32)">
+ <summary>
+ Gets visible spectrum colors.
+ </summary>
+ <param name="alpha">The alpha value used for each colors.</param>
+</member>
+<member name="M:KzSystem.ColorConvert.GetSpectrumColors">
+ <summary>
+ Gets visible spectrum colors.
+ </summary>
+</member>
+<member name="M:KzSystem.ColorConvert.HEXtoColor(System.String)">
+ <summary>
+ Converts a Hex color to a .net Color.
+ </summary>
+ <param name="hexColor">The desired hexadecimal color to convert.</param>
+</member>
+<member name="M:KzSystem.ColorConvert.RGBtoHEX(System.Int32,System.Int32,System.Int32)">
+ <summary>
+ Converts a RGB color format to an hexadecimal color.
+ </summary>
+ <param name="r">The Red value.</param>
+ <param name="g">The Green value.</param>
+ <param name="b">The Blue value.</param>
+</member>
+<member name="M:KzSystem.ColorConvert.ColorToHEX(System.Drawing.Color)">
+ <summary>
+ Converts a .Net Color format to an hexadecimal color.
+ </summary>
+ <param name="c">The .net color to convert.</param>
+</member>
+<member name="M:KzSystem.ColorConvert.HSBtoRGB(KzSystem.HSB)">
+ <summary>
+ Converts HSB to RGB.
+ </summary>
+ <param name="hsb">The HSB structure to convert.</param>
+</member>
+<member name="M:KzSystem.ColorConvert.HSBtoRGB(System.Int32,System.Int32,System.Int32)">
+ <summary>
+ Converts HSB to RGB.
+ </summary>
+ <param name="H">Hue value. (must be between 0 and 360)</param>
+ <param name="S">Saturation value (must be between 0 and 100).</param>
+ <param name="b">Brigthness value (must be between 0 and 100).</param>
+</member>
+<member name="M:KzSystem.ColorConvert.HSBtoRGB(System.Double,System.Double,System.Double)">
+ <summary> 
+ Converts HSB to a RGB.
+ </summary>
+ <param name="h">Hue value (must be between 0 and 360).</param>
+ <param name="s">Saturation value (must be between 0 and 1).</param>
+ <param name="b">Brightness value (must be between 0 and 1).</param>
+</member>
+<member name="M:KzSystem.ColorConvert.HSBtoColor(KzSystem.HSB)">
+ <summary>
+ Converts HSB to .Net Color.
+ </summary>
+ <param name="hsb">the HSB structure to convert.</param>
+</member>
+<member name="M:KzSystem.ColorConvert.HSBtoColor(System.Double,System.Double,System.Double)">
+ <summary> 
+ Converts HSB to a .Net Color.
+ </summary>
+ <param name="h">Hue value (must be between 0 and 360).</param>
+ <param name="s">Saturation value (must be between 0 and 1).</param>
+ <param name="b">Brightness value (must be between 0 and 1).</param>
+</member>
+<member name="M:KzSystem.ColorConvert.HSLtoRGB(KzSystem.HSL)">
+ <summary>
+ Converts HSL to RGB.
+ </summary>
+ <param name="hsl">The HSL structure to convert.</param>
+</member>
+<member name="M:KzSystem.ColorConvert.HSLtoRGB(System.Int32,System.Int32,System.Int32)">
+ <summary>
+ Converts HSL to RGB.
+ </summary>
+ <param name="H">Hue value. (must be between 0 and 360)</param>
+ <param name="S">Saturation value (must be between 0 and 100).</param>
+ <param name="L">Luminance value (must be between 0 and 100).</param>
+</member>
+<member name="M:KzSystem.ColorConvert.HSLtoRGB(System.Double,System.Double,System.Double)">
+ <summary> 
+ Converts HSL to a .net Color.
+ </summary>
+ <param name="h">Hue value (must be between 0 and 360).</param>
+ <param name="s">Saturation value (must be between 0 and 1).</param>
+ <param name="l">Luminance value (must be between 0 and 1).</param>
+</member>
+<member name="M:KzSystem.ColorConvert.HSLtoColor(KzSystem.HSL)">
+ <summary>
+ Converts HSL to .net Color.
+ </summary>
+ <param name="hsl">The HSL structure to convert.</param>
+</member>
+<member name="M:KzSystem.ColorConvert.HSLtoColor(System.Double,System.Double,System.Double)">
+ <summary>
+ Converts HSL to .net Color.
+ </summary>
+ <param name="h">Hue value (must be between 0 and 360).</param>
+ <param name="s">Saturation value (must be between 0 and 1).</param>
+ <param name="l">Luminance value (must be between 0 and 1).</param>
+</member>
+<member name="M:KzSystem.ColorConvert.RGBtoHSB(System.Drawing.Color)">
+ <summary> 
+ Converts .Net Color to HSB.
+ </summary> 
+</member>
+<member name="M:KzSystem.ColorConvert.RGBtoHSB(KzSystem.RGB)">
+ <summary> 
+ Converts RGB to HSB.
+ </summary> 
+</member>
+<member name="M:KzSystem.ColorConvert.RGBtoHSB(System.Int32,System.Int32,System.Int32)">
+ <summary> 
+ Converts RGB to HSB.
+ </summary> 
+</member>
+<member name="M:KzSystem.ColorConvert.RGBtoHSL(System.Drawing.Color)">
+ <summary> 
+ Converts .Net Color to HSL.
+ </summary>
+</member>
+<member name="M:KzSystem.ColorConvert.RGBtoHSL(KzSystem.RGB)">
+ <summary> 
+ Converts RGB to HSL.
+ </summary>
+</member>
+<member name="M:KzSystem.ColorConvert.RGBtoHSL(System.Int32,System.Int32,System.Int32)">
+ <summary> 
+ Converts RGB to HSL.
+ </summary>
+ <param name="red">Red value (must be between 0 and 255).</param>
+ <param name="green">Green value (must be between 0 and 255).</param>
+ <param name="blue">Blue value (must be between 0 and 255).</param>
+</member>
+<member name="M:KzSystem.ColorConvert.RGBtoCMYK(KzSystem.RGB)">
+ <summary>
+ Converts RGB to CMYK
+ </summary >
+</member>
+<member name="M:KzSystem.ColorConvert.RGBtoCMYK(System.Drawing.Color)">
+ <summary>
+ Converts .Net Color to CMYK
+ </summary >
+</member>
+<member name="M:KzSystem.ColorConvert.RGBtoCMYK(System.Int32,System.Int32,System.Int32)">
+ <summary>
+ Converts RGB to CMYK
+ </summary >
+ <param name="red">Red vaue must be in [0, 255].</param>
+ <param name="green">Green vaue must be in [0, 255].</param>
+ <param name="blue">Blue vaue must be in [0, 255].</param>
+</member>
+<member name="M:KzSystem.ColorConvert.RGBtoYUV(KzSystem.RGB)">
+ <summary>
+ Converts RGB to YUV.
+ </summary >
+</member>
+<member name="M:KzSystem.ColorConvert.RGBtoYUV(System.Drawing.Color)">
+ <summary>
+ Converts .Net Color to YUV.
+ </summary >
+</member>
+<member name="M:KzSystem.ColorConvert.RGBtoYUV(System.Int32,System.Int32,System.Int32)">
+ <summary>
+ Converts RGB to YUV.
+ </summary >
+ <param name="red">red must be in [0, 255].</param>
+ <param name="green">green must be in [0, 255].</param>
+ <param name="blue">blue must be in [0, 255].</param>
+</member>
+<member name="M:KzSystem.ColorConvert.CMYKtoColor(System.Single,System.Single,System.Single,System.Single)">
+ <summary>
+ Converts CMYK to RGB.
+ </summary >
+ <param name="c">Cyan value (must be between 0 and 1).</param>
+ <param name="m">Magenta value (must be between 0 and 1).</param>
+ <param name="y">Yellow value (must be between 0 and 1).</param>
+ <param name="k">Black value (must be between 0 and 1).</param>
+</member>
+<member name="M:KzSystem.ColorConvert.CMYKtoColor(System.Double,System.Double,System.Double,System.Double)">
+ <summary>
+ Converts CMYK to RGB.
+ </summary >
+ <param name="c">Cyan value (must be between 0 and 1).</param>
+ <param name="m">Magenta value (must be between 0 and 1).</param>
+ <param name="y">Yellow value (must be between 0 and 1).</param>
+ <param name="k">Black value (must be between 0 and 1).</param>
+</member>
+<member name="M:KzSystem.ColorConvert.CMYKtoColor(KzSystem.CMYK)">
+ <summary>
+ Converts CMYK to RGB.
+ </summary >
+ <param name="cmyk"></param>
+</member>
+<member name="M:KzSystem.ColorConvert.CMYKtoRGB(System.Double,System.Double,System.Double,System.Double)">
+ <summary>
+ Converts CMYK to RGB.
+ </summary >
+ <param name="c">Cyan value (must be between 0 and 1).</param>
+ <param name="m">Magenta value (must be between 0 and 1).</param>
+ <param name="y">Yellow value (must be between 0 and 1).</param>
+ <param name="k">Black value (must be between 0 and 1).</param>
+</member>
+<member name="M:KzSystem.ColorConvert.CMYKtoRGB(KzSystem.CMYK)">
+ <summary>
+ Converts CMYK to RGB.
+ </summary >
+ <param name="cmyk"></param>
+</member>
+<member name="M:KzSystem.ColorConvert.YUVtoRGB(System.Double,System.Double,System.Double)">
+ <summary>
+ Converts YUV to RGB.
+ </summary >
+ <param name="y">Y (must be between 0 and 1).</param>
+ <param name="u">U (must be between -0.436 and 0.436).</param>
+ <param name="v">V (must be between -0.436 and 0.436).</param>
+</member>
+<member name="M:KzSystem.ColorConvert.YUVtoRGB(KzSystem.YUV)">
+ <summary>
+ Converts YUV to RGB.
+ </summary >
+</member>
+<member name="M:KzSystem.ColorConvert.YUVtoColor(System.Double,System.Double,System.Double)">
+ <summary>
+ Converts YUV to a .net Color.
+ </summary >
+ <param name="y">Y must be in [0, 1].</param>
+ <param name="u">U must be in [-0.436, +0.436].</param>
+ <param name="v">V must be in [-0.615, +0.615].</param>
+</member>
+<member name="M:KzSystem.ColorConvert.YUVtoColor(KzSystem.YUV)">
+ <summary>
+ Converts YUV to a .net Color.
+ </summary >
+</member>
+<member name="M:KzSystem.ColorConvert.XYZtoRGB(System.Double,System.Double,System.Double)">
+ <summary>
+ Converts CIEXYZ to RGB structure.
+ </summary>
+</member>
+<member name="M:KzSystem.ColorConvert.XYZtoRGB(System.Object)">
+ <summary>
+ Converts CIEXYZ to RGB structure.
+ </summary>
+</member>
+<member name="M:KzSystem.ColorConvert.Fxyz(System.Double)">
+ <summary>
+ XYZ to L*a*b* transformation function.
+ </summary>
+ <param name="t"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.ColorConvert.XYZtoLab(System.Double,System.Double,System.Double)">
+ <summary>
+ Converts CIEXYZ to CIELab structure.
+ </summary>
+</member>
+<member name="M:KzSystem.ColorConvert.XYZtoLab(KzSystem.CIEXYZ)">
+ <summary>
+ Converts CIEXYZ to CIELab structure.
+ </summary>
+</member>
+<member name="M:KzSystem.ColorConvert.LabtoXYZ(System.Double,System.Double,System.Double)">
+ <summary>
+ Converts CIELab to CIEXYZ.
+ </summary>
+</member>
+<member name="M:KzSystem.ColorConvert.LabtoXYZ(KzSystem.CIELab)">
+ <summary>
+ Converts CIELab to CIEXYZ.
+ </summary>
+</member>
+<member name="M:KzSystem.ColorConvert.LabtoRGB(System.Double,System.Double,System.Double)">
+ <summary>
+ Converts CIELab to RGB.
+ </summary>
+</member>
+<member name="M:KzSystem.ColorConvert.LabtoRGB(KzSystem.CIELab)">
+ <summary>
+ Converts CIELab to RGB.
+ </summary>
+</member>
+<member name="T:KzSystem.CIELab">
+ <summary>
+ Structure to define CIELab.
+ </summary>
+</member>
+<member name="M:KzSystem.CIELab.#ctor(System.Double,System.Double,System.Double)">
+ <summary>
+ Creates an instance of a CIELAB structure.
+ </summary>
+</member>
+<member name="T:KzSystem.CIEXYZ">
+ <summary>
+ Structure to define CIEXYZ.
+ </summary>
+</member>
+<member name="M:KzSystem.CIEXYZ.#ctor(System.Double,System.Double,System.Double)">
+ <summary>
+ Creates an instance of a CIEXYZ structure.
+ </summary>
+</member>
+<member name="T:KzSystem.CMYK">
+ <summary>
+ Structure to define CMYK.
+ </summary>
+</member>
+<member name="M:KzSystem.CMYK.#ctor(System.Double,System.Double,System.Double,System.Double)">
+ <summary>
+ Creates an instance of a CMYK structure.
+ </summary>
+ <param name="c">Cyan value (must be between 0 and 1).</param>
+ <param name="m">Magenta value (must be between 0 and 1).</param>
+ <param name="y">Yellow value (must be between 0 and 1).</param>
+ <param name="k">Black value (must be between 0 and 1).</param>
+</member>
+<member name="T:KzSystem.HSB">
+ <summary>
+ Structure to define HSB.
+ </summary>
+</member>
+<member name="M:KzSystem.HSB.#ctor(System.Double,System.Double,System.Double)">
+ <summary>
+ Creates an instance of a HSB structure.
+ </summary>
+ <param name="h">Hue value (must be between 0 and 360).</param>
+ <param name="s">Saturation value (must be between 0 and 1).</param>
+ <param name="b">Brightness value (must be between 0 and 1).</param>
+</member>
+<member name="T:KzSystem.HSL">
+ <summary>
+ Structure to define HSL.
+ </summary>
+</member>
+<member name="M:KzSystem.HSL.#ctor(System.Double,System.Double,System.Double)">
+ <summary>
+ Creates an instance of a HSL structure.
+ </summary>
+ <param name="h">Hue value (must be between 0 and 360).</param>
+ <param name="s">Saturation value (must be between 0 and 1).</param>
+ <param name="l">Luminance value (must be between 0 and 1).</param>
+</member>
+<member name="T:KzSystem.RGB">
+ <summary>
+ Structure to define RGB.
+ </summary>
+</member>
+<member name="M:KzSystem.RGB.#ctor(System.Int32,System.Int32,System.Int32)">
+ <summary>
+ Creates an instance of a RGB structure.
+ </summary>
+ <param name="r">Red value (must be between 0 and 255).</param>
+ <param name="g">Green value (must be between 0 and 255).</param>
+ <param name="b">Blue value (must be between 0 and 255).</param>
+</member>
+<member name="T:KzSystem.YUV">
+ <summary>
+ Structure to define YUV.
+ </summary>
+</member>
+<member name="M:KzSystem.YUV.#ctor(System.Double,System.Double,System.Double)">
+ <summary>
+ Creates an instance of a YUV structure.
+ </summary>
+ <param name="y">Y (must be between 0 and 1).</param>
+ <param name="u">U (must be between -0.436 and 0.436).</param>
+ <param name="v">V (must be between -0.436 and 0.436).</param>
+</member>
 <member name="P:KzSystem.KzDirectoryTreeView.ShowAllDirectories">
  <summary>
  指示是否顯示全系統的資料夾樹形結構，True：全部顯示；False：從指定的分支開始顯示。
@@ -415,71 +913,13 @@ KzSystem
  <param name="strURL"></param>
  <returns></returns>
 </member>
-<member name="M:KzSystem.KzColorHelper.CreateColorFromRGB(System.Int32,System.Int32,System.Int32)">
+<member name="M:KzSystem.KzColorConverter.Form1_Load(System.Object,System.EventArgs)">
  <summary>
- 
+ Testing Application
  </summary>
- <param name="red"></param>
- <param name="green"></param>
- <param name="blue"></param>
- <returns></returns>
-</member>
-<member name="M:KzSystem.KzColorHelper.OpacityMix(System.Drawing.Color,System.Drawing.Color,System.Int32)">
- <summary>
- 
- </summary>
- <param name="blendColor"></param>
- <param name="baseColor"></param>
- <param name="opacity"></param>
- <returns></returns>
-</member>
-<member name="M:KzSystem.KzColorHelper.SoftLightMix(System.Drawing.Color,System.Drawing.Color,System.Int32)">
- <summary>
- 
- </summary>
- <param name="baseColor"></param>
- <param name="blendColor"></param>
- <param name="opacity"></param>
- <returns></returns>
-</member>
-<member name="M:KzSystem.KzColorHelper.OverlayMix(System.Drawing.Color,System.Drawing.Color,System.Int32)">
- <summary>
- 
- </summary>
- <param name="baseColor"></param>
- <param name="blendColor"></param>
- <param name="opacity"></param>
- <returns></returns>
-</member>
-<member name="M:KzSystem.KzColorHelper.SoftLightMath(System.Int32,System.Int32)">
- <summary>
- 
- </summary>
- <param name="ibase"></param>
- <param name="blend"></param>
- <returns></returns>
-</member>
-<member name="M:KzSystem.KzColorHelper.OverlayMath(System.Int32,System.Int32)">
- <summary>
- 
- </summary>
- <param name="ibase"></param>
- <param name="blend"></param>
- <returns></returns>
-</member>
-<member name="M:KzSystem.KzColorHelper.GetColorName(System.Drawing.Color)">
- <summary>
- Return a color name in KnownColorName else in Hex string.
- </summary>
- <param name="color"></param>
- <returns></returns>
-</member>
-<member name="M:KzSystem.KzColorHelper.GetColorByName(System.String)">
- <summary>
- Return a color by name string both a KnownColorName and a Hex string.
- </summary>
- <param name="name"></param>
- <returns></returns>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
 </member>
 <member name="M:KzSystem.TestSlideBar.Dispose(System.Boolean)">
  <summary>
@@ -539,11 +979,50 @@ KzSystem
  </summary>
  <returns></returns>
 </member>
+<member name="P:KzSystem.KzTabControl.SelectAfterAdd">
+ <summary>
+ 指示新增後是否選中新 Tab
+ </summary>
+ <returns></returns>
+</member>
 <member name="P:KzSystem.KzTabControl.NewSerialNumber">
  <summary>
  在當前狀態下取得用於命名新 TabPage 的索引號，從 0 開始按 1 遞增
  </summary>
  <returns></returns>
+</member>
+<member name="M:KzSystem.KzTabControl.SetTabWidth">
+ <summary>
+ 自動設定 Tab 的寬度
+ </summary>
+</member>
+<member name="M:KzSystem.KzTabControl.RemoveTab(KzSystem.KzItemPosition,System.Windows.Forms.TabPage)">
+ <summary>
+ 移除 Tab
+ </summary>
+ <param name="SelectionAfterRemove">移除指定 Tab 之後的選定位置</param>
+ <param name="TheTabPage">指定需要移除的 TabPage，如為 Nothing 則默認為 SelectedTab</param>
+</member>
+<member name="M:KzSystem.KzTabControl.AddTab(KzSystem.KzItemPosition,System.Windows.Forms.TabPage,System.Int32)">
+ <summary>
+ 添加 Tab，含插入功能
+ </summary>
+ <param name="AddToPosition">添加指定 TabPage 的位置（根據現有 Tabs 的位置）</param>
+ <param name="TheTabPage">指定需要添加的 TabPage，如為 Nothing 則默認為 NewTab</param>
+ <param name="InsertToIndex">指定位置添加，如其值大於 -1，則 AddToPosition 將失效</param>
+</member>
+<member name="M:KzSystem.KzTabControl.RemoveAll">
+ <summary>
+ 清除所有 Tab
+ </summary>
+</member>
+<member name="M:KzSystem.KzTabControl.MoveTab(KzSystem.KzItemPosition,System.Windows.Forms.TabPage,System.Int32)">
+ <summary>
+ 移動 Tab
+ </summary>
+ <param name="MoveToPosition"></param>
+ <param name="TheTabPage"></param>
+ <param name="MoveToIndex"></param>
 </member>
 <member name="T:KzSystem.KzTabsAppearance">
  <summary>

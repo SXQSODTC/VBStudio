@@ -31,7 +31,7 @@
         End Set
     End Property
 
-    Private Sub SetColorToUI(Optional ByVal theColor As Color = Nothing)
+    Private Sub SetColorToUI(Optional ByVal theColor As Color = Nothing, Optional ByVal DoNotUpdateBars As Boolean = False)
         'HandleChecker.Checked = False
 
         If theColor.Equals(Nothing) Then
@@ -48,10 +48,12 @@
                 NumTB.Text = .ToArgb
             End If
 
-            RedBar.Value = .R
-            GreenBar.Value = .G
-            BlueBar.Value = .B
-            AlphaBar.Value = .A
+            If Not DoNotUpdateBars Then
+                RedBar.Value = .R
+                GreenBar.Value = .G
+                BlueBar.Value = .B
+                AlphaBar.Value = .A
+            End If
 
             HueTB.Text = .GetHue
             BrightnessTB.Text = .GetBrightness
@@ -68,7 +70,7 @@
             If .IsKnownColor Then CodeCombo.Items.Add("= Color.FromKnownColor(Color." & .Name & ")")
 
             CodeCombo.SelectedIndex = 0
-
+            HandleChecker.Checked = False
         End With
     End Sub
 
@@ -122,13 +124,15 @@
 
     Private Sub ColorsPanel_SelectedStickerChanged _
         (sender As Object, e As EventArgs) Handles ColorsPanel.SelectedStickerChanged
-
+        HandleChecker.Checked = False
         Me.Color = ColorsPanel.SelectedSticker.ColorLabel.BackColor
     End Sub
 
     Private Sub ColorsPanel_StickersChanged _
         (sender As Object, e As EventArgs) Handles _
         ColorsPanel.StickersChanged, ColorsPanel.CheckedStickersChanged
+
+        HandleChecker.Checked = False
 
         ColorsLabel.Text = ColorsPanel.Stickers.Count & " listed"
         CheckedLabel.Text = ColorsPanel.CheckedStickers.Count & " checked"
@@ -140,7 +144,7 @@
 
         If HandleChecker.Checked Then
             iColor = Color.FromArgb(AlphaBar.Value, RedBar.Value, GreenBar.Value, BlueBar.Value)
-            SetColorToUI(iColor)
+            SetColorToUI(iColor, True)
         End If
     End Sub
 
@@ -156,4 +160,6 @@
         HandleChecker.Checked = False
 
     End Sub
+
+
 End Class
