@@ -239,7 +239,6 @@ Partial Class HDLibForm
         'LibView
         '
         Me.LibView.AllowDrop = True
-        Me.LibView.ConnectedListView = Nothing
         Me.LibView.ContextMenuStrip = Me.LibMenu
         Me.LibView.Dock = System.Windows.Forms.DockStyle.Fill
         Me.LibView.ExceptNames = CType(resources.GetObject("LibView.ExceptNames"), System.Collections.Specialized.StringCollection)
@@ -1198,7 +1197,7 @@ Partial Class HDLibForm
         Me.UpdateDBButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.UpdateDBButton.Name = "UpdateDBButton"
         Me.UpdateDBButton.Size = New System.Drawing.Size(29, 22)
-        Me.UpdateDBButton.Text = "ToolStripDropDownButton1"
+        Me.UpdateDBButton.Text = "Database"
         '
         'DataAllItem
         '

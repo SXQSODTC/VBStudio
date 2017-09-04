@@ -62,7 +62,6 @@ Public Class KzDirectoryTreeView
     ''' </summary>
     ''' <returns></returns>
     Public Property ShowAllDirectories As Boolean = False
-
     ''' <summary>
     ''' 指定樹形結構的開始資料夾，用以創建路徑起點。 
     ''' 如 ShowAllDirectories 設為 True，本屬性將失效。
@@ -198,18 +197,18 @@ Public Class KzDirectoryTreeView
         Next
     End Sub
 
-    Public Property ConnectedListView As KzFileListView = Nothing
+    'Public Property ConnectedListView As KzFileListView = Nothing
 
-    Protected Overrides Sub OnAfterSelect(e As TreeViewEventArgs)
-        MyBase.OnAfterSelect(e)
+    'Protected Overrides Sub OnAfterSelect(e As TreeViewEventArgs)
+    '    MyBase.OnAfterSelect(e)
 
-        If ConnectedListView IsNot Nothing Then
-            Try
-                ConnectedListView.Directory = New DirectoryInfo(Me.SelectedNode.FullPath)
-            Catch ex As Exception
-            End Try
-        End If
-    End Sub
+    '    If ConnectedListView IsNot Nothing Then
+    '        Try
+    '            ConnectedListView.Directory = New DirectoryInfo(Me.SelectedNode.FullPath)
+    '        Catch ex As Exception
+    '        End Try
+    '    End If
+    'End Sub
 End Class
 
 

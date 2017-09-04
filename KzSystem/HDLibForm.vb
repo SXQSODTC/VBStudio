@@ -211,6 +211,127 @@ Public Class HDLibForm
         tvd.ShowDialog()
     End Sub
 
+    Private Sub IntroBox_TextChanged(sender As Object, e As EventArgs) _
+        Handles IntroBox.TextChanged, IDBox.TextChanged, AuthorBox.TextChanged, TitleBox.TextChanged,
+        SubtitleBox.TextChanged, SerialBox.TextChanged, PublishInfoBox.TextChanged,
+        VersionBox.TextChanged, CategoryBox.TextChanged, SpecialBox.TextChanged,
+        TypeBox.SelectedIndexChanged
+
+        Try
+            If Not LibView.SelectedNode.Equals(LibView.Nodes.Item(0)) Then
+                SaveInfButton.Enabled = True
+            End If
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
+
+    Private Sub IntroBox_DragEnter(sender As Object, e As DragEventArgs) _
+        Handles IntroBox.DragEnter, IDBox.DragEnter, AuthorBox.DragEnter, TitleBox.DragEnter,
+        SubtitleBox.DragEnter, SerialBox.DragEnter, PublishInfoBox.DragEnter,
+        VersionBox.DragEnter, CategoryBox.DragEnter, SpecialBox.DragEnter
+
+        If (e.Data.GetDataPresent("Text")) Then
+            e.Effect = DragDropEffects.Copy
+        End If
+    End Sub
+
+    Private Sub IntroBox_DragDrop(sender As Object, e As DragEventArgs) _
+        Handles IntroBox.DragDrop, IDBox.DragDrop, AuthorBox.DragDrop, TitleBox.DragDrop,
+        SubtitleBox.DragDrop, SerialBox.DragDrop, PublishInfoBox.DragDrop,
+        VersionBox.DragDrop, CategoryBox.DragDrop, SpecialBox.DragDrop
+
+        CType(sender, TextBox).Paste(e.Data.GetData("Text"))
+    End Sub
+
+    Private Sub ViewLinkButton_MouseEnter(sender As Object, e As EventArgs) _
+        Handles ViewLinkButton.MouseEnter, CoverLinkButton.MouseEnter, DownLinkButton.MouseEnter
+
+        LinksLabel.Text = CType(sender, Button).Tag
+        If LinksLabel.Text Is Nothing Or LinksLabel.Text = "" Then
+            LinksLabel.Text = "<Empty>"
+        End If
+    End Sub
+
+    Private Sub ViewLinkButton_MouseLeave(sender As Object, e As EventArgs) _
+        Handles ViewLinkButton.MouseLeave, CoverLinkButton.MouseLeave, DownLinkButton.MouseLeave
+
+        LinksLabel.Text = "<Link>"
+    End Sub
+
+    Private Sub LinkButton_Click(sender As Object, e As EventArgs) _
+        Handles DownLinkButton.Click, CoverLinkButton.Click, ViewLinkButton.Click
+
+        Dim bt As Button = CType(sender, Button)
+        With bt
+            If bt.Tag Is Nothing Then
+                MsgBox(bt.Text & " 鏈接未設置，中斷操作。")
+                Exit Sub
+            End If
+
+            Dim wc As New WebClient
+            Dim link As String
+            Try
+                link = CType(.Tag, String)
+                Dim str As String = wc.DownloadString(CType(.Tag, String))
+            Catch ex As Exception
+                MsgBox(bt.Text & " 鏈接訪問異常，中斷操作。")
+                Exit Sub
+            End Try
+
+            If Not .Equals(ViewLinkButton) Then
+                Try
+                    Dim fn As String = link.Substring(link.LastIndexOf("/") + 1)
+                    Dim saveto As String = Path.Combine(LibView.SelectedNode.FullPath, fn)
+
+                    If File.Exists(saveto) Then
+                        Dim s As String = "即將下載的文檔已經存在同名檔，是否更名繼續？" & vbCrLf &
+                            "【是】下載文檔將更名後保存。" & vbCrLf & "【否】覆蓋同名檔保存。" & vbCrLf & "【取消】終止下載。"
+                        Dim r As MsgBoxResult = MsgBox(s, MsgBoxStyle.YesNo, "保存")
+
+                        If r = MsgBoxResult.Yes Then
+                            saveto = Path.GetDirectoryName(saveto) &
+                                Path.GetFileNameWithoutExtension(saveto) & "_" &
+                                KzStr.GetTimeSerial(Now()) & Path.GetExtension(saveto)
+
+                        ElseIf r = MsgBoxResult.Cancel Then
+                            MsgBox("下載操作已被用戶終止。")
+                            Exit Sub
+                        End If
+                    End If
+
+                    Download(link, saveto)
+
+                    If .Equals(CoverLinkButton) Then
+                        CoverBox.Tag = fn
+                        ShowImg(saveto)
+                    End If
+
+                    UpdateList(New DirectoryInfo(LibView.SelectedNode.FullPath))
+
+                    SaveInfButton.Enabled = True
+                Catch ex As Exception
+                    MsgBox("未能下載文檔。原因：" & vbCrLf & ex.Message)
+                End Try
+
+            Else
+                HDBrowser.Navigate(link)
+            End If
+        End With
+    End Sub
+
+    Private Sub UrlLabel_Click(sender As Object, e As EventArgs) Handles UrlLabel.DoubleClick
+        ViewLinkButton.Tag = UrlLabel.Text
+    End Sub
+
+    Private Sub CleanUpButton_Click(sender As Object, e As EventArgs) Handles CleanUpButton.Click
+        LibView.Sort()
+    End Sub
+
+    Private Sub AbortInfButton_Click(sender As Object, e As EventArgs) Handles AbortInfButton.Click
+        PutInfToUI(CurrentInf)
+    End Sub
 #End Region 'ButtonsOnToolStrip
 
 
@@ -434,6 +555,24 @@ Public Class HDLibForm
             End If
         End If
     End Sub
+
+    Private Sub LibView_BeforeSelect(sender As Object, e As TreeViewCancelEventArgs) Handles LibView.BeforeSelect
+        If Not LibView.SelectedNode Is Nothing Then
+            If SaveInfButton.Enabled Then
+                Dim s As String = "當前咨詢已經更改，是否保存？" & vbCrLf &
+                    "【是】保存當前資訊檔後執行跳轉選定。" & vbCrLf &
+                    "【否】不保存當前資訊即跳轉。" & vbCrLf & "【取消】終止執行跳轉。"
+                Dim r As MsgBoxResult = MsgBox(s, MsgBoxStyle.YesNo, "跳轉")
+
+                If r = MsgBoxResult.Yes Then
+                    SaveButton_Click(SaveButton, Nothing)
+
+                ElseIf r = MsgBoxResult.Cancel Then
+                    e.Cancel = True
+                End If
+            End If
+        End If
+    End Sub
 #End Region 'LibViewActions
 
 
@@ -507,9 +646,26 @@ Public Class HDLibForm
                 .SelectedItems(0).SubItems(5).Text = CommentBox.Text
             End If
         End With
+        UpdateList(New DirectoryInfo(LibView.SelectedNode.FullPath))
         SaveListButton.Enabled = False
         SaveInfButton.Enabled = True
     End Sub
+
+    Private Sub FilesView_DragEnter(sender As Object, e As DragEventArgs) Handles FilesView.DragEnter
+        If (e.Data.GetDataPresent("FileDrop")) Then
+            e.Effect = DragDropEffects.Link
+            'ElseIf (e.Data.get) Then
+        End If
+    End Sub
+
+    Private Sub FilesView_DragDrop(sender As Object, e As DragEventArgs) Handles FilesView.DragDrop
+        For Each s As String In e.Data.GetData(DataFormats.FileDrop)
+            File.Copy(s, Path.Combine(LibView.SelectedNode.FullPath, Path.GetFileName(s)))
+        Next
+
+        UpdateList(New DirectoryInfo(LibView.SelectedNode.FullPath))
+    End Sub
+
 #End Region 'FilesViewActions
 
 
@@ -586,7 +742,7 @@ Public Class HDLibForm
             If CoverBox.Tag Is Nothing Then
                 .Cover = ""
             Else
-                .Cover = CoverBox.Tag.ToString
+                .Cover = CoverBox.Tag
             End If
             .Address = "\" & Path.GetFileName(LibView.SelectedNode.FullPath)
             .FileComments = GetFileComments().Split("|")
@@ -813,11 +969,86 @@ Public Class HDLibForm
         Else
             MsgBox("下載錯誤：" & vbCrLf & e.Error.Message)
         End If
-
-
     End Sub
 
+    Private Sub TryGetFromWebItem_Click(sender As Object, e As EventArgs) Handles TryGetFromWebItem.Click
+        If HDBrowser.Document Is Nothing Then
+            Exit Sub
+        End If
 
+        If Not (NodeInfoLabel.Text = "[Book]" Or
+            NodeInfoLabel.Text = "[Potential]" Or
+            NodeInfoLabel.Text = "[Blank]") Then
+            Exit Sub
+        End If
+
+        Dim src As String = KzWeb.GetWebCode(HDBrowser.Url.AbsoluteUri)
+        Dim key As String
+        Dim t As String
+        Dim err As String = ""
+
+        Try
+            key = Regex.Match(src, "SetTitle\(.+\);").ToString.Replace("SetTitle(""", "").Replace(""");", "")
+            Dim l, r As Char
+            If key.Contains("《") Then
+                l = "《"
+                r = "》"
+            ElseIf key.Contains("【") Then
+                l = "【"
+                r = "】"
+            End If
+            AuthorBox.Text = key.Substring(0, key.IndexOf(l))
+            TitleBox.Text = key.Substring(key.IndexOf(l) + 1, key.IndexOf(r) - key.IndexOf(l) - 1)
+        Catch ex As Exception
+            err &= "[SetTitle] 未能取得 Title 及 Author。" & vbCrLf
+        End Try
+
+        Try
+            key = Regex.Match(src, "SetLink\(.+\);").ToString
+            t = key.Substring(key.IndexOf(">") + 1, key.IndexOf("</a>") - key.IndexOf(">") - 1)
+            CategoryBox.Text = t.Replace(" 書目", "")
+        Catch ex As Exception
+            err &= "[SetLink] 未能取得 Category。" & vbCrLf
+        End Try
+
+        Try
+            key = Regex.Match(src, "DownloadUpdb\(.+?\<br").ToString
+            IDBox.Text = key.Substring(key.IndexOf("(") + 1, key.IndexOf(")") - key.IndexOf("(") - 1).Replace("'", "")
+            t = key.Substring(key.IndexOf("<font size=2>") + 14, key.IndexOf("</font><br") - key.IndexOf("<font size=2>") - 14)
+            t = Regex.Replace(t, "\(.+\)", "-")
+            If t.EndsWith("-") Then t.Replace("-", "").Trim()
+            VersionBox.Text = t
+            DownLinkButton.Tag = "http://www.haodoo.net/?M=d&P=" & IDBox.Text & ".updb"
+        Catch ex As Exception
+            err &= "[DownloadUpdb] 未能取得 ID 或 Version。" & vbCrLf
+        End Try
+
+        Try
+            key = Regex.Match(src, "\<img src\=""covers.+"" ").ToString
+            t = key.Substring(key.IndexOf("covers"), key.IndexOf("""", key.IndexOf("covers")) - key.IndexOf("covers"))
+            CoverLinkButton.Tag = "http://www.haodoo.net/" & t
+        Catch ex As Exception
+            err &= "[img src] 未能取得 Cover。" & vbCrLf
+        End Try
+
+        Try
+            key = Regex.Match(src, "HSPACE\=.+勘誤表", RegexOptions.Singleline).ToString
+            t = key.Replace("勘誤表", "")
+            t = Regex.Replace(t, "HSPACE\=.+?\>", "")
+            t = Regex.Replace(t, "\<.+?\>", "")
+            t = t.Replace(vbCrLf & vbCrLf & vbCrLf, vbCrLf & vbCrLf)
+            IntroBox.Text = t
+        Catch ex As Exception
+            err &= "[Intro] 未能取得 Intro。"            '
+        End Try
+
+        If err.Length > 0 Then
+            MsgBox("源格式不匹配。以下元素未能取得：" & vbCrLf & err)
+        End If
+
+        ViewLinkButton.Tag = HDBrowser.Url.ToString
+        TypeBox.SelectedItem = KzLibInfoType.Book
+    End Sub
 #End Region 'PrivateMethods
 
 
@@ -966,243 +1197,15 @@ Public Class HDLibForm
         End If
     End Sub
 
+
+
 #End Region 'ClickedMenuActions
 
 #Region "TempBlock"
-    Private Sub TryGetFromWebItem_Click(sender As Object, e As EventArgs) Handles TryGetFromWebItem.Click
-        If HDBrowser.Document Is Nothing Then
-            Exit Sub
-        End If
-
-        If Not (NodeInfoLabel.Text = "[Book]" Or
-            NodeInfoLabel.Text = "[Potential]" Or
-            NodeInfoLabel.Text = "[Blank]") Then
-            Exit Sub
-        End If
-
-        Dim src As String = KzWeb.GetWebCode(HDBrowser.Url.AbsoluteUri)
-        Dim key As String
-        Dim t As String
-        Dim err As String = ""
-
-        Try
-            key = Regex.Match(src, "SetTitle\(.+\);").ToString.Replace("SetTitle(""", "").Replace(""");", "")
-            Dim l, r As Char
-            If key.Contains("《") Then
-                l = "《"
-                r = "》"
-            ElseIf key.Contains("【") Then
-                l = "【"
-                r = "】"
-            End If
-            AuthorBox.Text = key.Substring(0, key.IndexOf(l))
-            TitleBox.Text = key.Substring(key.IndexOf(l) + 1, key.IndexOf(r) - key.IndexOf(l) - 1)
-        Catch ex As Exception
-            err &= "[SetTitle] 未能取得 Title 及 Author。" & vbCrLf
-        End Try
-
-        Try
-            key = Regex.Match(src, "SetLink\(.+\);").ToString
-            t = key.Substring(key.IndexOf(">") + 1, key.IndexOf("</a>") - key.IndexOf(">") - 1)
-            CategoryBox.Text = t.Replace(" 書目", "")
-        Catch ex As Exception
-            err &= "[SetLink] 未能取得 Category。" & vbCrLf
-        End Try
-
-        Try
-            key = Regex.Match(src, "DownloadUpdb\(.+?\<br").ToString
-            IDBox.Text = key.Substring(key.IndexOf("(") + 1, key.IndexOf(")") - key.IndexOf("(") - 1).Replace("'", "")
-            t = key.Substring(key.IndexOf("<font size=2>") + 14, key.IndexOf("</font><br") - key.IndexOf("<font size=2>") - 14)
-            t = Regex.Replace(t, "\(.+\)", "-")
-            If t.EndsWith("-") Then t.Replace("-", "").Trim()
-            VersionBox.Text = t
-            DownLinkButton.Tag = "http://www.haodoo.net/?M=d&P=" & IDBox.Text & ".updb"
-        Catch ex As Exception
-            err &= "[DownloadUpdb] 未能取得 ID 或 Version。" & vbCrLf
-        End Try
-
-        Try
-            key = Regex.Match(src, "\<img src\=""covers.+HSPACE\=").ToString
-            t = key.Substring(key.IndexOf("covers"), key.IndexOf("""", key.IndexOf("covers")) - key.IndexOf("covers"))
-            CoverLinkButton.Tag = "http://www.haodoo.net/" & t
-        Catch ex As Exception
-            err &= "[img src] 未能取得 Cover。" & vbCrLf
-        End Try
-
-        Try
-            key = Regex.Match(src, "HSPACE\=.+勘誤表", RegexOptions.Singleline).ToString
-            t = key.Replace("勘誤表", "")
-            t = Regex.Replace(t, "HSPACE\=.+?\>", "")
-            t = Regex.Replace(t, "\<.+?\>", "")
-            t = t.Replace(vbCrLf & vbCrLf & vbCrLf, vbCrLf & vbCrLf)
-            IntroBox.Text = t
-        Catch ex As Exception
-            err &= "[Intro] 未能取得 Intro。"            '
-        End Try
-
-        If err.Length > 0 Then
-            MsgBox("源格式不匹配。以下元素未能取得：" & vbCrLf & err)
-        End If
-
-        ViewLinkButton.Tag = HDBrowser.Url.ToString
-        TypeBox.SelectedItem = KzLibInfoType.Book
-    End Sub
-
-    Private Sub FilesView_DragEnter(sender As Object, e As DragEventArgs) Handles FilesView.DragEnter
-        If (e.Data.GetDataPresent("FileDrop")) Then
-            e.Effect = DragDropEffects.Link
-        End If
-    End Sub
-
-    Private Sub FilesView_DragDrop(sender As Object, e As DragEventArgs) Handles FilesView.DragDrop
-        For Each s As String In e.Data.GetData(DataFormats.FileDrop)
-            File.Copy(s, Path.Combine(LibView.SelectedNode.FullPath, Path.GetFileName(s)))
-        Next
-
-        UpdateList(New DirectoryInfo(LibView.SelectedNode.FullPath))
-    End Sub
-
-    Private Sub IntroBox_TextChanged(sender As Object, e As EventArgs) _
-        Handles IntroBox.TextChanged, IDBox.TextChanged, AuthorBox.TextChanged, TitleBox.TextChanged,
-        SubtitleBox.TextChanged, SerialBox.TextChanged, PublishInfoBox.TextChanged,
-        VersionBox.TextChanged, CategoryBox.TextChanged, SpecialBox.TextChanged,
-        TypeBox.SelectedIndexChanged
-
-        Try
-            If LibView.SelectedNode.Equals(LibView.Nodes.Item(0)) Then
-                SaveInfButton.Enabled = True
-            End If
-        Catch ex As Exception
-
-        End Try
-
-    End Sub
-
-    Private Sub IntroBox_DragEnter(sender As Object, e As DragEventArgs) _
-        Handles IntroBox.DragEnter, IDBox.DragEnter, AuthorBox.DragEnter, TitleBox.DragEnter,
-        SubtitleBox.DragEnter, SerialBox.DragEnter, PublishInfoBox.DragEnter,
-        VersionBox.DragEnter, CategoryBox.DragEnter, SpecialBox.DragEnter
-
-        If (e.Data.GetDataPresent("Text")) Then
-            e.Effect = DragDropEffects.Copy
-        End If
-    End Sub
-
-    Private Sub IntroBox_DragDrop(sender As Object, e As DragEventArgs) _
-        Handles IntroBox.DragDrop, IDBox.DragDrop, AuthorBox.DragDrop, TitleBox.DragDrop,
-        SubtitleBox.DragDrop, SerialBox.DragDrop, PublishInfoBox.DragDrop,
-        VersionBox.DragDrop, CategoryBox.DragDrop, SpecialBox.DragDrop
-
-        CType(sender, TextBox).Paste(e.Data.GetData("Text"))
-    End Sub
-
-    Private Sub ViewLinkButton_MouseEnter(sender As Object, e As EventArgs) _
-        Handles ViewLinkButton.MouseEnter, CoverLinkButton.MouseEnter, DownLinkButton.MouseEnter
-
-        LinksLabel.Text = CType(sender, Button).Tag
-        If LinksLabel.Text Is Nothing Or LinksLabel.Text = "" Then
-            LinksLabel.Text = "<Empty>"
-        End If
-    End Sub
-
-    Private Sub ViewLinkButton_MouseLeave(sender As Object, e As EventArgs) _
-        Handles ViewLinkButton.MouseLeave, CoverLinkButton.MouseLeave, DownLinkButton.MouseLeave
-
-        LinksLabel.Text = "<Link>"
-    End Sub
-
-    Private Sub LinkButton_Click(sender As Object, e As EventArgs) _
-        Handles DownLinkButton.Click, CoverLinkButton.Click, ViewLinkButton.Click
-
-        Dim bt As Button = CType(sender, Button)
-        With bt
-            If bt.Tag Is Nothing Then
-                MsgBox(bt.Text & " 鏈接未設置，中斷操作。")
-                Exit Sub
-            End If
-
-            Dim wc As New WebClient
-            Dim link As String
-            Try
-                link = CType(.Tag, String)
-                Dim str As String = wc.DownloadString(CType(.Tag, String))
-            Catch ex As Exception
-                MsgBox(bt.Text & " 鏈接訪問異常，中斷操作。")
-                Exit Sub
-            End Try
-
-            If Not .Equals(ViewLinkButton) Then
-                Try
-                    Dim fn As String = link.Substring(link.LastIndexOf("/") + 1)
-                    Dim saveto As String = Path.Combine(LibView.SelectedNode.FullPath, fn)
-
-                    If File.Exists(saveto) Then
-                        Dim s As String = "即將下載的文檔已經存在同名檔，是否更名繼續？" & vbCrLf &
-                            "【是】下載文檔將更名後保存。" & vbCrLf & "【否】覆蓋同名檔保存。" & vbCrLf & "【取消】終止下載。"
-                        Dim r As MsgBoxResult = MsgBox(s, MsgBoxStyle.YesNo, "保存")
-
-                        If r = MsgBoxResult.Yes Then
-                            saveto = Path.GetDirectoryName(saveto) &
-                                Path.GetFileNameWithoutExtension(saveto) & "_" &
-                                KzStr.GetTimeSerial(Now()) & Path.GetExtension(saveto)
-
-                        ElseIf r = MsgBoxResult.Cancel Then
-                            MsgBox("下載操作已被用戶終止。")
-                            Exit Sub
-                        End If
-                    End If
-
-                    Download(link, saveto)
-
-                    If .Equals(CoverLinkButton) Then
-                        CoverBox.Tag = fn
-                        ShowImg(saveto)
-                    End If
-
-                    UpdateList(New DirectoryInfo(LibView.SelectedNode.FullPath))
-
-                    SaveInfButton.Enabled = True
-                Catch ex As Exception
-                    MsgBox("未能下載文檔。原因：" & vbCrLf & ex.Message)
-                End Try
-
-            Else
-                HDBrowser.Navigate(link)
-            End If
-        End With
-    End Sub
-
-    Private Sub UrlLabel_Click(sender As Object, e As EventArgs) Handles UrlLabel.DoubleClick
-        ViewLinkButton.Tag = UrlLabel.Text
-    End Sub
-
-    Private Sub CleanUpButton_Click(sender As Object, e As EventArgs) Handles CleanUpButton.Click
-        LibView.Sort()
-    End Sub
-
-    Private Sub AbortInfButton_Click(sender As Object, e As EventArgs) Handles AbortInfButton.Click
-        PutInfToUI(CurrentInf)
-    End Sub
-
-    Private Sub LibView_BeforeSelect(sender As Object, e As TreeViewCancelEventArgs) Handles LibView.BeforeSelect
-        If Not LibView.SelectedNode Is Nothing Then
-            If SaveInfButton.Enabled Then
-                Dim s As String = "當前咨詢已經更改，是否保存？" & vbCrLf &
-                    "【是】保存當前資訊檔後執行跳轉選定。" & vbCrLf &
-                    "【否】不保存當前資訊即跳轉。" & vbCrLf & "【取消】終止執行跳轉。"
-                Dim r As MsgBoxResult = MsgBox(s, MsgBoxStyle.YesNo, "跳轉")
-
-                If r = MsgBoxResult.Yes Then
-                    MsgBox("Need save")
 
 
 
-                ElseIf r = MsgBoxResult.Cancel Then
-                    e.Cancel = True
-                End If
-            End If
-        End If
-    End Sub
+
 
 
 

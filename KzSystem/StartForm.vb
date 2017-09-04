@@ -161,7 +161,7 @@ Public Class StartForm
     End Sub
 
     Private Sub HDLibToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HDLibToolStripMenuItem.Click
-        FormSwitch(HDLibForm)
+        FormSwitch(HDLibView)
         'FormSwitch(TestExplorer)
     End Sub
 

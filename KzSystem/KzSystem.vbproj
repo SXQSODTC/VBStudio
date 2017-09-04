@@ -92,19 +92,28 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HDLib\HDAuthorInfPanel.Designer.vb">
-      <DependentUpon>HDAuthorInfPanel.vb</DependentUpon>
-    </Compile>
-    <Compile Include="HDLib\HDAuthorInfPanel.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="HDLib\HDBookInfPanel.Designer.vb">
-      <DependentUpon>HDBookInfPanel.vb</DependentUpon>
-    </Compile>
-    <Compile Include="HDLib\HDBookInfPanel.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="HDLib\HDLibComponents.vb" />
+    <Compile Include="HDLib\HDLibControls.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="HDLib\HDLibSearch.Designer.vb">
+      <DependentUpon>HDLibSearch.vb</DependentUpon>
+    </Compile>
+    <Compile Include="HDLib\HDLibSearch.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HDLib\HDLibView.Designer.vb">
+      <DependentUpon>HDLibView.vb</DependentUpon>
+    </Compile>
+    <Compile Include="HDLib\HDLibView.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HDLib\HDViewHeader.Designer.vb">
+      <DependentUpon>HDViewHeader.vb</DependentUpon>
+    </Compile>
+    <Compile Include="HDLib\HDViewHeader.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Library\ColorHelper.vb" />
     <Compile Include="Library\Drawing.vb" />
     <Compile Include="Library\IOSystem.vb" />
@@ -262,11 +271,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="HDLib\HDAuthorInfPanel.resx">
-      <DependentUpon>HDAuthorInfPanel.vb</DependentUpon>
+    <EmbeddedResource Include="HDLib\HDLibSearch.resx">
+      <DependentUpon>HDLibSearch.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="HDLib\HDBookInfPanel.resx">
-      <DependentUpon>HDBookInfPanel.vb</DependentUpon>
+    <EmbeddedResource Include="HDLib\HDLibView.resx">
+      <DependentUpon>HDLibView.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HDLib\HDViewHeader.resx">
+      <DependentUpon>HDViewHeader.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Samples\DirectoryScanner.resx">
       <DependentUpon>DirectoryScanner.vb</DependentUpon>
@@ -393,6 +405,18 @@
     <None Include="Resources\LinerPngIcon\folder_open.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\LibViewUI\lib_archive.png" />
+    <Content Include="Resources\LibViewUI\lib_book.png" />
+    <Content Include="Resources\LibViewUI\lib_bookinfo.png" />
+    <Content Include="Resources\LibViewUI\lib_books.png" />
+    <Content Include="Resources\LibViewUI\lib_cover.png" />
+    <Content Include="Resources\LibViewUI\lib_database.png" />
+    <Content Include="Resources\LibViewUI\lib_download.png" />
+    <Content Include="Resources\LibViewUI\lib_export.png" />
+    <Content Include="Resources\LibViewUI\lib_import.png" />
+    <Content Include="Resources\LibViewUI\lib_library.png" />
+    <Content Include="Resources\LibViewUI\lib_nocover.png" />
+    <Content Include="Resources\LibViewUI\lib_save.png" />
     <Content Include="Resources\LinerBasicUI\liner_code.png" />
     <Content Include="Resources\LinerBasicUI\liner_setting.png" />
     <Content Include="Resources\Numbers\Number_0.png" />
