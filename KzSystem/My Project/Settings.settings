@@ -26,5 +26,11 @@
     <Setting Name="HDLibHome" Type="System.String" Scope="User">
       <Value Profile="(Default)">http://www.haodoo.net/</Value>
     </Setting>
+    <Setting Name="HDLibFormats" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.txt|.epub|.updb|.pdb|.doc|.docx|.pdf|..djvu</Value>
+    </Setting>
+    <Setting Name="HDLibOrigins" Type="System.String" Scope="User">
+      <Value Profile="(Default)">-無指定-|中文|古漢語|英文|日語|法語|德語|俄語|西班牙語|葡萄牙語</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

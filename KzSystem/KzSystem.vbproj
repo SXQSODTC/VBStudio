@@ -108,12 +108,6 @@
     <Compile Include="HDLib\HDLibView.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="HDLib\HDViewHeader.Designer.vb">
-      <DependentUpon>HDViewHeader.vb</DependentUpon>
-    </Compile>
-    <Compile Include="HDLib\HDViewHeader.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="Library\ColorHelper.vb" />
     <Compile Include="Library\Drawing.vb" />
     <Compile Include="Library\IOSystem.vb" />
@@ -171,6 +165,12 @@
     </Compile>
     <Compile Include="Tempcode\TestWebBrowser.vb">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserControls\KzOnePageWeb.Designer.vb">
+      <DependentUpon>KzOnePageWeb.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\KzOnePageWeb.vb">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserDialogs\KzColorConverter.Designer.vb">
       <DependentUpon>KzColorConverter.vb</DependentUpon>
@@ -277,9 +277,6 @@
     <EmbeddedResource Include="HDLib\HDLibView.resx">
       <DependentUpon>HDLibView.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="HDLib\HDViewHeader.resx">
-      <DependentUpon>HDViewHeader.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Samples\DirectoryScanner.resx">
       <DependentUpon>DirectoryScanner.vb</DependentUpon>
     </EmbeddedResource>
@@ -300,6 +297,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Tempcode\TestWebBrowser.resx">
       <DependentUpon>TestWebBrowser.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\KzOnePageWeb.resx">
+      <DependentUpon>KzOnePageWeb.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserDialogs\KzColorConverter.resx">
       <DependentUpon>KzColorConverter.vb</DependentUpon>
@@ -405,6 +405,14 @@
     <None Include="Resources\LinerPngIcon\folder_open.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\LibViewUI\ico_author.png" />
+    <Content Include="Resources\LibViewUI\ico_book.png" />
+    <Content Include="Resources\LibViewUI\ico_category.png" />
+    <Content Include="Resources\LibViewUI\ico_Lib.png" />
+    <Content Include="Resources\LibViewUI\ico_list.png" />
+    <Content Include="Resources\LibViewUI\ico_series.png" />
+    <Content Include="Resources\LibViewUI\ico_special.png" />
+    <Content Include="Resources\LibViewUI\ico_unknown.png" />
     <Content Include="Resources\LibViewUI\lib_archive.png" />
     <Content Include="Resources\LibViewUI\lib_book.png" />
     <Content Include="Resources\LibViewUI\lib_bookinfo.png" />

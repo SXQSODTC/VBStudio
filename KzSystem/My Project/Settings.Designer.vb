@@ -150,6 +150,30 @@ Namespace My
                 Me("HDLibHome") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute(".txt|.epub|.updb|.pdb|.doc|.docx|.pdf|..djvu")>  _
+        Public Property HDLibFormats() As String
+            Get
+                Return CType(Me("HDLibFormats"),String)
+            End Get
+            Set
+                Me("HDLibFormats") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("-無指定-|中文|古漢語|英文|日語|法語|德語|俄語|西班牙語|葡萄牙語")>  _
+        Public Property HDLibOrigins() As String
+            Get
+                Return CType(Me("HDLibOrigins"),String)
+            End Get
+            Set
+                Me("HDLibOrigins") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

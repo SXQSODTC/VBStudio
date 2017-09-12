@@ -1,10 +1,36 @@
 ﻿Imports System.IO
 Imports System.Text
+Imports KzSystem
 
 Public Module HDLibPublic
     Public Const LineSeparator As Char = "|"
     Public Const ItemSeparator As Char = ";"
     Public Const KeySeparator As Char = ":"
+
+    Public Function GetFileType(extension As String) As String
+        Select Case extension.ToLower
+            Case ".updb", ".pdb", ".prc", ".mobi", ".epub"
+                Return "書籍"' "Package"
+            Case ".doc", ".docx", ".txt", ".rtf"
+                Return "文檔" '"Editable"
+            Case ".pdf", ".djvu"
+                Return "發佈" '"Published"
+            Case ".html", ".htm", ".lnk"
+                Return "網頁" '"Webpage"
+            Case ".jpg", ".jepg", ".png", ".bmp", ".tif", ".tiff", ".gif"
+                Return "圖像" '"Image"
+            Case ".kzinf", ".inf", ".info", ".ini", ".kzlst"
+                Return "資訊" '"Libinfo"
+            Case ".rar", ".zip", ".7z"
+                Return "壓縮" '"Compressed"
+            Case ".avi", ".mkv", ".mov", ".ts", ".rmvb", ".mp4"
+                Return "視訊"
+            Case ".mp3", ".flac", ".wav"
+                Return "音訊"
+            Case Else
+                Return "-"
+        End Select
+    End Function
 
     Public Function MIT(MITType As HDManifestLineType, Optional InChs As Boolean = False) As String
         Select Case MITType
@@ -49,23 +75,6 @@ Public Module HDLibPublic
         End Select
     End Function
 
-    Public Function CFile(type As Type) As String
-        'If type = GetType(HDBookInf) Then Return "Book.kzinf"
-        If type = GetType(HDManifest) Then Return "Manifest.kzlst"
-        If type = GetType(HDLinkList) Then Return "Links.kzlst"
-        If type = GetType(HDBookList) Then Return "Books.kzlst"
-        'If type = GetType(HDLibInf) Then Return "Lib.kzinf"
-        Return Nothing
-    End Function
-
-    Public Function CMeta(type As Type) As String
-        'If type = GetType(HDBookInf) Then Return "#HDLib_BookInfo"
-        If type = GetType(HDManifest) Then Return "#HDLib_Manifest"
-        If type = GetType(HDLinkList) Then Return "#HDLib_LinkList"
-        If type = GetType(HDBookList) Then Return "#HDLib_BookList"
-        'If type = GetType(HDLibInf) Then Return "#HDLib_Info"
-        Return Nothing
-    End Function
 End Module
 
 Public Enum HDLibInfType
@@ -79,10 +88,11 @@ Public Enum HDLibInfType
 End Enum
 
 Public Class HDLibInf
-    Implements IComparable
+    Implements IComparable, IEquatable(Of HDLibInf)
 
     Public Sub New()
-
+        Created = Now()
+        Updated = Now()
     End Sub
 
     Public Function CompareTo(obj As Object) As Integer Implements IComparable.CompareTo
@@ -91,6 +101,27 @@ Public Class HDLibInf
         Try
             Dim otherInf As HDLibInf = CType(obj, HDLibInf)
             Return Name.CompareTo(otherInf.Name)
+        Catch ex As Exception
+            Throw New NotImplementedException("Not implemented!")
+        End Try
+    End Function
+
+    Public Overloads Function Equals(other As HDLibInf) As Boolean Implements IEquatable(Of HDLibInf).Equals
+        Try
+            If Address = other.Address And Author = other.Author And
+                Category = other.Category And Contributor = other.Contributor And
+                Description = other.Description And ID = other.ID And
+                Language = other.Language And Logo = other.Logo And
+                Name = other.Name And Origin = other.Origin And
+                RefAddress = other.RefAddress And Remarks = other.Remarks And
+                Series = other.Series And Special = other.Special And
+                Type = other.Type And Version = other.Version Then
+
+                Return True
+            Else
+                Return False
+            End If
+
         Catch ex As Exception
             Throw New NotImplementedException("Not implemented!")
         End Try
@@ -105,15 +136,25 @@ Public Class HDLibInf
     Public Property Updated As DateTime
     Public Property Description As String
 
-    Public Property Subject As String
-    Public Property Creator As String
+    Public Property Remarks As String
+    Public Property Origin As String
     Public Property Series As String
     Public Property Author As String
+    Public Property RefAddress As String
     Public Property Contributor As String
     Public Property Language As String
     Public Property Version As String
     Public Property Category As String
     Public Property Special As String
+
+    Public Property Manifest As HDList
+    Public Property Links As HDList
+
+    Public ReadOnly Property IsEmpty As Boolean
+        Get
+            Return Me.Equals(New HDLibInf)
+        End Get
+    End Property
 
     Public ReadOnly Property FileName As String
         Get
@@ -169,186 +210,224 @@ Public Class HDLibInf
         sb.AppendLine("Type: " & Type.ToString)
         sb.AppendLine("ID: " & ID)
         sb.AppendLine(If(Me.Type = HDLibInfType.BookInfo, "Title: ", "Name: ") & Name)
-        sb.AppendLine("Subject: " & Subject)
-        sb.AppendLine("Creator: " & Creator)
+        sb.AppendLine("Origin: " & Origin)
         sb.AppendLine("Series: " & Series)
         sb.AppendLine("Author: " & Author)
+        sb.AppendLine("Refaddress: " & RefAddress)
         sb.AppendLine("Contributor: " & Contributor)
         sb.AppendLine("Language: " & Language)
         sb.AppendLine("Version: " & Version)
         sb.AppendLine("Category: " & Category)
         sb.AppendLine("Special: " & Special)
-        sb.AppendLine(If(Me.Type = HDLibInfType.BookInfo, "Cover: ", "Logo") & Logo)
+        sb.AppendLine(If(Me.Type = HDLibInfType.BookInfo, "Cover: ", "Logo: ") & Logo)
         sb.AppendLine("Address: " & Address)
         sb.AppendLine("Created: " & Created.ToString)
         sb.AppendLine("Updated: " & Updated.ToString)
+        Try
+            If Manifest.Count > 0 Then
+                sb.AppendLine("Manifest: ")
+                sb.Append(Manifest.ToString)
+                sb.AppendLine("#Manifest")
+            End If
+        Catch ex As Exception
+
+        End Try
+        Try
+            If Links.Count > 0 Then
+                sb.AppendLine("Links: ")
+                sb.Append(Links.ToString)
+                sb.Append("#Links")
+            End If
+        Catch ex As Exception
+
+        End Try
+        sb.AppendLine(If(Me.Type = HDLibInfType.BookInfo, "Remarks: ", "Subject: ") & Remarks)
         sb.AppendLine(If(Me.Type = HDLibInfType.BookInfo, "Intro: ", "Description: "))
         sb.AppendLine(Description)
         Return sb.ToString
     End Function
 
     Public Sub Export(Folder As String)
+        Dim di As DirectoryInfo
+        Dim fs As FileInfo()
         Try
+            di = New DirectoryInfo(Folder)
+            fs = di.GetFiles("*.kzinf", SearchOption.TopDirectoryOnly)
+
+            If fs.Count > 1 Then
+                For Each f As FileInfo In fs
+                    If f.Name <> FileName Then
+                        f.Delete()
+                    End If
+                Next
+            ElseIf fs.Count = 1 Then
+                If fs(0).Name <> FileName Then
+                    fs(0).Delete()
+                End If
+            End If
+
+            Updated = Now()
             File.WriteAllText(Path.Combine(Folder, FileName), ToString(), Encoding.UTF8)
         Catch ex As Exception
-
+            MsgBox(ex.Message)
         End Try
     End Sub
 
     Public Sub Import(Folder As String)
-        Dim fn As String = Path.Combine(Folder, FileName)
+        Dim di As DirectoryInfo
+        Dim fn As String
+
+        Try
+            di = New DirectoryInfo(Folder)
+            fn = di.GetFiles("*.kzinf", SearchOption.TopDirectoryOnly)(0).FullName
+            'MsgBox(fn)
+        Catch ex As Exception
+            'MsgBox(ex.Message)
+            Exit Sub
+        End Try
+
         Try
             Using fs As FileStream = New FileStream(fn, FileMode.Open, FileAccess.Read)
                 Using sr As StreamReader = New StreamReader(fs, Encoding.UTF8)
                     Dim line, key, value As String
                     Dim pos As Integer
 
-                    line = sr.ReadLine()
-                    If line = FileMeta Then
-                        Do
-                            line = sr.ReadLine()
+                    Do
+                        line = sr.ReadLine()
 
-                            If line.Contains(":") Then
-                                pos = line.IndexOf(":")
-                                key = line.Substring(0, pos)
-                                value = line.Substring(pos + 1).Trim
+                        If line.Contains(":") Then
+                            pos = line.IndexOf(":")
+                            key = line.Substring(0, pos)
+                            value = line.Substring(pos + 1).Trim
 
-                                Select Case key
-                                    Case "Type" : Type = [Enum].Parse(GetType(HDLibInfType), value)
-                                    Case "ID" : ID = value
-                                    Case "Title" Or "Name" : Name = value
-                                    Case "Subject" : Subject = value
-                                    Case "Creator" : Creator = value
-                                    Case "Series" : Series = value
-                                    Case "Author" : Author = value
-                                    Case "Contributor" : Contributor = value
-                                    Case "Language" : Language = value
-                                    Case "Version" : Version = value
-                                    Case "Category" : Category = value
-                                    Case "Special" : Special = value
-                                    Case "Cover" Or "Logo" : Logo = value
-                                    Case "Address" : Address = value
-                                    Case "Created" : Created = CDate(value)
-                                    Case "Updated" : Updated = CDate(value)
-                                    Case "Intro" Or "Description" : Description = sr.ReadToEnd
-                                End Select
-                            End If
-                        Loop Until sr.EndOfStream
-                    End If
+                            Select Case key
+                                Case "Type" : Type = [Enum].Parse(GetType(HDLibInfType), value)
+                                Case "ID" : ID = value
+                                Case "Title", "Name" : Name = value
+                                Case "Origin" : Origin = value
+                                Case "Series" : Series = value
+                                Case "Author" : Author = value
+                                Case "Refaddress" : RefAddress = value
+                                Case "Contributor" : Contributor = value
+                                Case "Language" : Language = value
+                                Case "Version" : Version = value
+                                Case "Category" : Category = value
+                                Case "Special" : Special = value
+                                Case "Cover", "Logo" : Logo = value
+                                Case "Address" : Address = value
+                                Case "Created" : Created = CDate(value)
+                                Case "Updated" : Updated = CDate(value)
+                                Case "Manifest"
+                                    Manifest = New HDList
+                                    Do
+                                        line = sr.ReadLine()
+                                        Manifest.ImportLine(line)
+                                    Loop Until line = "#Manifest"
+                                Case "Links"
+                                    Links = New HDList
+                                    Do
+                                        line = sr.ReadLine()
+                                        Links.ImportLine(line)
+                                    Loop Until line = "#Links"
+                                Case "Subject", "Remarks" : Remarks = value
+                                Case "Intro", "Description" : Description = sr.ReadToEnd
+                            End Select
+                        End If
+                    Loop Until sr.EndOfStream
                 End Using
             End Using
+            'MsgBox("Import successed.")
         Catch ex As Exception
-
+            'MsgBox(ex.Message)
         End Try
     End Sub
 
-
 End Class
 
-
-Public Class HDManifest
-    Inherits List(Of HDManifestLine)
+Public Class HDList
+    Inherits Dictionary(Of String, String)
 
     Public Sub New()
 
     End Sub
 
-    Public Property Address As String
+    Public Property KeyHolder As KzBracketsPair = KzBrackets.AngleBrackets
+
+    Public Sub ImportLine(line As String)
+        If line.Contains(KeyHolder.OpenChar) AndAlso line.Contains(KeyHolder.CloseChar) Then
+            Dim key, value As String
+            key = line.Substring(1, line.IndexOf(KeyHolder.CloseChar) - 1)
+            value = line.Substring(line.IndexOf(KeyHolder.CloseChar) + 1)
+            Add(key, value)
+        End If
+    End Sub
+
+    Public Sub ImportLines(lines As String())
+        For Each l As String In lines
+            ImportLine(l)
+        Next
+    End Sub
+
+    Public Function ToLine(pair As KeyValuePair(Of String, String)) As String
+        Return KeyHolder.OpenChar & pair.Key & KeyHolder.CloseChar & pair.Value
+    End Function
 
     Public Overrides Function ToString() As String
         Dim sb As New StringBuilder
 
-        sb.AppendLine(CMeta(Me.GetType))
-        sb.AppendLine("Address: " & Address)
-        sb.AppendLine("List: ")
-        For Each line As HDManifestLine In Me
-            sb.AppendLine(line.ToString)
+        For Each kvp As KeyValuePair(Of String, String) In Me
+            sb.AppendLine(ToLine(kvp))
         Next
 
         Return sb.ToString
     End Function
-
-    Public Sub Export(FolderPath As String)
-        Try
-            File.WriteAllText(Path.Combine(FolderPath, CFile(Me.GetType)), ToString, Encoding.UTF8)
-        Catch ex As Exception
-
-        End Try
-    End Sub
-
-    Public Sub Import(FolderPath As String)
-        Dim fn As String = Path.Combine(FolderPath, CFile(Me.GetType))
-        Dim ml As HDManifestLine
-        Try
-            Using fs As FileStream = New FileStream(fn, FileMode.Open, FileAccess.Read)
-                Using sr As StreamReader = New StreamReader(fs, Encoding.UTF8)
-                    Dim line, key, value As String
-                    Dim keys As String()
-
-                    line = sr.ReadLine()
-                    If line = CMeta(Me.GetType) Then
-                        Do
-                            line = sr.ReadLine()
-                            keys = line.Split(":")
-                            key = keys(0)
-                            value = keys(1).Trim
-
-                            If key = "Address" Then
-                                Address = value
-                            ElseIf key = "List" Then
-                                Do
-                                    line = sr.ReadLine()
-                                    keys = line.Split(ItemSeparator)
-
-                                    ml = New HDManifestLine With {
-                                        .FileName = keys(0).Trim,
-                                        .Type = [Enum].Parse(GetType(HDManifestLineType), keys(1).Trim),
-                                        .ReadingClass = keys(2).Trim,
-                                        .ReadingIndex = keys(3).Trim,
-                                        .Remarks = keys(4).Trim}
-                                    Add(ml)
-                                Loop Until sr.EndOfStream
-                            End If
-                        Loop Until sr.EndOfStream
-                    End If
-                End Using
-            End Using
-        Catch ex As Exception
-
-        End Try
-    End Sub
 End Class
 
-Public Class HDManifestLine
-    Implements IComparable
+Public Structure KzBrackets
+    Public Shared ReadOnly Property Parentheses As KzBracketsPair
+        Get
+            Return New KzBracketsPair("(", ")")
+        End Get
+    End Property
+    Public Shared ReadOnly Property Brackets As KzBracketsPair
+        Get
+            Return New KzBracketsPair("[", "]")
+        End Get
+    End Property
+    Public Shared ReadOnly Property Braces As KzBracketsPair
+        Get
+            Return New KzBracketsPair("{", "}")
+        End Get
+    End Property
+    Public Shared ReadOnly Property AngleBrackets As KzBracketsPair
+        Get
+            Return New KzBracketsPair("<", ">")
+        End Get
+    End Property
+    Public Shared ReadOnly Property SingleQuote As KzBracketsPair
+        Get
+            Return New KzBracketsPair("'", "'")
+        End Get
+    End Property
+    Public Shared ReadOnly Property DoubleQuote As KzBracketsPair
+        Get
+            Return New KzBracketsPair("""", """")
+        End Get
+    End Property
+End Structure
 
-    Public Sub New()
-
+Public Structure KzBracketsPair
+    Public Sub New(OpenChar As Char, CloseChar As Char)
+        Me.OpenChar = OpenChar
+        Me.CloseChar = CloseChar
     End Sub
 
-    Public Function CompareTo(obj As Object) As Integer Implements IComparable.CompareTo
-        Throw New NotImplementedException()
-    End Function
+    Public Property OpenChar As Char
+    Public Property CloseChar As Char
+End Structure
 
-    Public Property FileName As String
-    Public Property ReadingIndex As Integer = -1
-    Public Property ReadingClass As String
-    Public Property Type As HDManifestLineType = HDManifestLineType.Unknown
-    Public Property Remarks As String
 
-    Public Overrides Function ToString() As String
-        Return FileName & ItemSeparator & " " &
-            Type.ToString & ItemSeparator & " " &
-            ReadingClass & ItemSeparator & " " &
-            ReadingIndex.ToString & ItemSeparator & " " &
-            Remarks
-    End Function
 
-    Public Sub Import(line As String)
-
-    End Sub
-
-End Class
 
 Public Enum HDManifestLineType
     Unknown
@@ -364,77 +443,6 @@ Public Enum HDManifestLineType
     Others
 End Enum
 
-Public Class HDLinkList
-    Inherits Dictionary(Of String, String)
-
-    Public Sub New()
-        Add("Source", "")
-        Add("Download", "")
-        Add("Cover", "")
-    End Sub
-
-    Public Property Address As String
-
-    Public Overrides Function ToString() As String
-        Dim sb As New StringBuilder
-
-        sb.AppendLine(CMeta(Me.GetType))
-        sb.AppendLine("Address: " & Address)
-        sb.Appendline("List: ")
-        For Each kvp As KeyValuePair(Of String, String) In Me
-            sb.AppendLine(kvp.Key.ToString & "<" & kvp.Value.ToString & ">")
-        Next
-
-        Return sb.ToString
-    End Function
-
-    Public Sub Export(Folder As String)
-        Try
-            File.WriteAllText(Path.Combine(Folder, CFile(Me.GetType)), ToString, Encoding.UTF8)
-        Catch ex As Exception
-
-        End Try
-    End Sub
-
-    Public Sub Import(Folder As String)
-        Dim fns As String = Path.Combine(Folder, CFile(Me.GetType))
-
-        Try
-            Using fs As FileStream = New FileStream(fns, FileMode.Open, FileAccess.Read)
-                Using sr As StreamReader = New StreamReader(fs, Encoding.UTF8)
-                    Dim line, key, value As String
-                    Dim keys As String()
-
-                    line = sr.ReadLine()
-                    If line = CMeta(Me.GetType) Then
-                        Do
-                            line = sr.ReadLine()
-                            keys = line.Split(":")
-                            key = keys(0)
-                            value = keys(1).Trim
-
-                            If key = "Address" Then
-                                Address = value
-                            ElseIf key = "List" Then
-                                Do
-                                    line = sr.ReadLine()
-
-                                    keys = line.Split("<")
-                                    key = keys(0)
-                                    value = keys(1).Replace(">", "")
-
-                                    Add(key, value)
-                                Loop Until sr.EndOfStream
-                            End If
-                        Loop Until sr.EndOfStream
-                    End If
-                End Using
-            End Using
-        Catch ex As Exception
-
-        End Try
-    End Sub
-End Class
 
 Public Class HDBookList
     Inherits List(Of HDBookListLine)
@@ -451,7 +459,7 @@ Public Class HDBookList
     Public Overrides Function ToString() As String
         Dim sb As New StringBuilder
 
-        sb.AppendLine(CMeta(Me.GetType))
+        sb.AppendLine("#HDLib_BookList")
         sb.AppendLine("Address: " & Address)
         sb.AppendLine("List: ")
         For Each line As HDBookListLine In Me
@@ -463,14 +471,14 @@ Public Class HDBookList
 
     Public Sub Export(Folder As String)
         Try
-            File.WriteAllText(Path.Combine(Folder, CFile(Me.GetType)), ToString, Encoding.UTF8)
+            File.WriteAllText(Path.Combine(Folder, "Books.kzlst"), ToString, Encoding.UTF8)
         Catch ex As Exception
 
         End Try
     End Sub
 
     Public Sub Import(folder As String)
-        Dim fns As String = Path.Combine(folder, CFile(Me.GetType))
+        Dim fns As String = Path.Combine(folder, "Books.kzlst")
         Dim bl As HDBookListLine
         Try
             Using fs As FileStream = New FileStream(fns, FileMode.Open, FileAccess.Read)
@@ -479,7 +487,7 @@ Public Class HDBookList
                     Dim keys As String()
 
                     line = sr.ReadLine()
-                    If line = CMeta(Me.GetType) Then
+                    If line = "#HDLib_BookList" Then
                         Do
                             line = sr.ReadLine()
                             keys = line.Split(":")
@@ -647,4 +655,126 @@ Public Enum HDBookListKeyType
     Category
     Special
 End Enum
+
+
+Public Class HDBooksTable
+    Inherits DataTable
+
+    Public Sub New()
+
+        Dim column As DataColumn
+
+        column = New DataColumn With {.ColumnName = "Title", .DataType = Type.GetType("System.String")}
+        Columns.Add(column)
+        column = New DataColumn With {.ColumnName = "Series", .DataType = Type.GetType("System.String")}
+        Columns.Add(column)
+        column = New DataColumn With {.ColumnName = "Author", .DataType = Type.GetType("System.String")}
+        Columns.Add(column)
+        column = New DataColumn With {.ColumnName = "Category", .DataType = Type.GetType("System.String")}
+        Columns.Add(column)
+        column = New DataColumn With {.ColumnName = "Special", .DataType = Type.GetType("System.String")}
+        Columns.Add(column)
+        column = New DataColumn With {.ColumnName = "Address", .DataType = Type.GetType("System.String")}
+        Columns.Add(column)
+    End Sub
+
+    'Public Property KeyType As HDBookListKeyType
+
+    Public Overrides Function ToString() As String
+        Dim sb As New StringBuilder
+
+        For Each row As DataRow In Rows
+            sb.AppendLine(row("Title") & "; " &
+                          row("Series") & "; " &
+                          row("Author") & "; " &
+                          row("Category") & "; " &
+                          row("Special") & "; " &
+                          row("Address"))
+        Next
+
+        Return sb.ToString
+    End Function
+
+    Public Sub Export(Folder As String)
+        Try
+            File.WriteAllText(Path.Combine(Folder, "Books.kzlst"), ToString, Encoding.UTF8)
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Public Sub Import(Folder As String, Optional IsAppend As Boolean = False)
+        Dim fns As String = Path.Combine(Folder, "Books.kzlst")
+
+        If Not IsAppend Then Rows.Clear()
+
+        Try
+            Using fs As FileStream = New FileStream(fns, FileMode.Open, FileAccess.Read)
+                Using sr As StreamReader = New StreamReader(fs, Encoding.UTF8)
+                    Dim line As String
+                    Dim keys As String()
+                    Dim row As DataRow
+
+                    Do
+                        line = sr.ReadLine()
+                        keys = line.Split(";")
+
+                        row = NewRow()
+                        row("Title") = keys(0).Trim
+                        row("Series") = keys(1).Trim
+                        row("Author") = keys(2).Trim
+                        row("Category") = keys(3).Trim
+                        row("Special") = keys(4).Trim
+                        row("Address") = keys(5).Trim
+
+                        Rows.Add(row)
+                    Loop Until sr.EndOfStream
+                End Using
+            End Using
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Public Sub Sort(KeyType As HDBookListKeyType, Optional IsAsc As Boolean = True)
+        Dim key, sorting As String
+
+        Select Case KeyType
+            Case HDBookListKeyType.Name : key = "Title"
+            Case HDBookListKeyType.Series : key = "Series"
+            Case HDBookListKeyType.Author : key = "Author"
+            Case HDBookListKeyType.Category : key = "Category"
+            Case HDBookListKeyType.Special : key = "Special"
+            Case Else : key = ""
+        End Select
+
+        Dim dv As DataView = DefaultView
+        If IsAsc Then
+            sorting = key & " Asc"
+        Else
+            sorting = key & " Desc"
+        End If
+
+        If Not KeyType = HDBookListKeyType.Name Then
+            If IsAsc Then
+                sorting &= ",Title Asc"
+            Else
+                sorting &= ",Title Desc"
+            End If
+        End If
+
+        dv.Sort = sorting
+
+        Dim tb As DataTable = dv.ToTable()
+        Rows.Clear()
+        For Each row As DataRow In tb.Rows
+            ImportRow(row)
+        Next
+
+        tb.Dispose()
+    End Sub
+End Class
+
+
 

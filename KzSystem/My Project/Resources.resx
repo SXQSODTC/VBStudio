@@ -223,4 +223,28 @@
   <data name="lib_archive" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\libviewui\lib_archive.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ico_author" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\libviewui\ico_author.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ico_book" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\libviewui\ico_book.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ico_category" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\libviewui\ico_category.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ico_Lib" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\libviewui\ico_lib.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ico_list" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\libviewui\ico_list.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ico_series" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\libviewui\ico_series.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ico_special" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\libviewui\ico_special.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ico_unknown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\libviewui\ico_unknown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

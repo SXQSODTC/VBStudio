@@ -56,13 +56,12 @@ D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzBrowser.resources
 E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzBrowser.resources
 E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.TestWebBrowser.resources
 E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzColorConverter.resources
-E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.vbprojResolveAssemblyReference.cache
-D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.vbprojResolveAssemblyReference.cache
-D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.HDAuthorInfPanel.resources
-D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.HDBookInfPanel.resources
 D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.HDLibView.resources
 D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.TestWebBrowser.resources
 D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzColorConverter.resources
 E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.HDLibView.resources
 E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.HDLibSearch.resources
 E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.HDViewHeader.resources
+D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.HDLibSearch.resources
+D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.vbprojResolveAssemblyReference.cache
+E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.vbprojResolveAssemblyReference.cache

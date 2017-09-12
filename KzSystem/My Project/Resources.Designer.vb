@@ -93,6 +93,86 @@ Namespace My.Resources
         '''<summary>
         '''  查找 System.Drawing.Bitmap 类型的本地化资源。
         '''</summary>
+        Friend ReadOnly Property ico_author() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ico_author", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找 System.Drawing.Bitmap 类型的本地化资源。
+        '''</summary>
+        Friend ReadOnly Property ico_book() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ico_book", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找 System.Drawing.Bitmap 类型的本地化资源。
+        '''</summary>
+        Friend ReadOnly Property ico_category() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ico_category", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找 System.Drawing.Bitmap 类型的本地化资源。
+        '''</summary>
+        Friend ReadOnly Property ico_Lib() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ico_Lib", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找 System.Drawing.Bitmap 类型的本地化资源。
+        '''</summary>
+        Friend ReadOnly Property ico_list() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ico_list", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找 System.Drawing.Bitmap 类型的本地化资源。
+        '''</summary>
+        Friend ReadOnly Property ico_series() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ico_series", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找 System.Drawing.Bitmap 类型的本地化资源。
+        '''</summary>
+        Friend ReadOnly Property ico_special() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ico_special", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找 System.Drawing.Bitmap 类型的本地化资源。
+        '''</summary>
+        Friend ReadOnly Property ico_unknown() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ico_unknown", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找 System.Drawing.Bitmap 类型的本地化资源。
+        '''</summary>
         Friend ReadOnly Property lib_archive() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("lib_archive", resourceCulture)
