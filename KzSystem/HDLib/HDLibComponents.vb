@@ -32,48 +32,48 @@ Public Module HDLibPublic
         End Select
     End Function
 
-    Public Function MIT(MITType As HDManifestLineType, Optional InChs As Boolean = False) As String
-        Select Case MITType
-            Case HDManifestLineType.Unknown : Return If(InChs, "未知”, "未知")
-            Case HDManifestLineType.LibInfo : Return If(InChs, "庫資訊”, "库信息")
-            Case HDManifestLineType.Package : Return If(InChs, "封裝檔”, "封装文件")
-            Case HDManifestLineType.Editable : Return If(InChs, "編輯檔”, "编辑文件")
-            Case HDManifestLineType.Printable : Return If(InChs, "印刷檔”, "印刷文件")
-            Case HDManifestLineType.WebView : Return If(InChs, "瀏覽檔”, "浏览文件")
-            Case HDManifestLineType.Image : Return If(InChs, "圖像”, "图像")
-            Case HDManifestLineType.Video : Return If(InChs, "視訊”, "视频")
-            Case HDManifestLineType.Audio : Return If(InChs, "音訊”, "音频")
-            Case HDManifestLineType.Compressed : Return If(InChs, "壓縮檔”, "压缩文件")
-            Case Else : Return If(InChs, "其他”, "其他")
-        End Select
-    End Function
+    'Public Function MIT(MITType As HDManifestLineType, Optional InChs As Boolean = False) As String
+    '    Select Case MITType
+    '        Case HDManifestLineType.Unknown : Return If(InChs, "未知”, "未知")
+    '        Case HDManifestLineType.LibInfo : Return If(InChs, "庫資訊”, "库信息")
+    '        Case HDManifestLineType.Package : Return If(InChs, "封裝檔”, "封装文件")
+    '        Case HDManifestLineType.Editable : Return If(InChs, "編輯檔”, "编辑文件")
+    '        Case HDManifestLineType.Printable : Return If(InChs, "印刷檔”, "印刷文件")
+    '        Case HDManifestLineType.WebView : Return If(InChs, "瀏覽檔”, "浏览文件")
+    '        Case HDManifestLineType.Image : Return If(InChs, "圖像”, "图像")
+    '        Case HDManifestLineType.Video : Return If(InChs, "視訊”, "视频")
+    '        Case HDManifestLineType.Audio : Return If(InChs, "音訊”, "音频")
+    '        Case HDManifestLineType.Compressed : Return If(InChs, "壓縮檔”, "压缩文件")
+    '        Case Else : Return If(InChs, "其他”, "其他")
+    '    End Select
+    'End Function
 
-    Public Function CMIT(extension As String) As HDManifestLineType
-        Select Case extension.ToLower
-            Case ".updb", ".prc", ".mobi", ".epub"
-                Return HDManifestLineType.Package ' "書籍"' "Package"
-            Case ".doc", ".docx", ".txt", ".rtf"
-                Return HDManifestLineType.Editable ' "文檔" '"Editable"
-            Case ".pdf", ".djvu"
-                Return HDManifestLineType.Printable ' "發佈" '"Published"
-            Case ".html", ".htm", ".lnk"
-                Return HDManifestLineType.WebView ' "網頁" '"Webpage"
-            Case ".jpg", ".jepg", ".png", ".bmp", ".tif", ".tiff", ".gif"
-                Return HDManifestLineType.Image ' "圖像" '"Image"
-            Case ".kzinf", ".kzlst", ".inf", ".info", ".ini"
-                Return HDManifestLineType.LibInfo ' "資訊" '"Libinfo"
-            Case ".rar", ".zip", ".7z"
-                Return HDManifestLineType.Compressed ' "壓縮" '"Compressed"
-            Case ".avi", ".mkv", ".mov", ".ts", ".rmvb", ".mp4"
-                Return HDManifestLineType.Video ' "視訊"
-            Case ".mp3", ".flac", ".wav"
-                Return HDManifestLineType.Audio ' "音訊"
-            Case ""
-                Return HDManifestLineType.Unknown
-            Case Else
-                Return HDManifestLineType.Others
-        End Select
-    End Function
+    'Public Function CMIT(extension As String) As HDManifestLineType
+    '    Select Case extension.ToLower
+    '        Case ".updb", ".prc", ".mobi", ".epub"
+    '            Return HDManifestLineType.Package ' "書籍"' "Package"
+    '        Case ".doc", ".docx", ".txt", ".rtf"
+    '            Return HDManifestLineType.Editable ' "文檔" '"Editable"
+    '        Case ".pdf", ".djvu"
+    '            Return HDManifestLineType.Printable ' "發佈" '"Published"
+    '        Case ".html", ".htm", ".lnk"
+    '            Return HDManifestLineType.WebView ' "網頁" '"Webpage"
+    '        Case ".jpg", ".jepg", ".png", ".bmp", ".tif", ".tiff", ".gif"
+    '            Return HDManifestLineType.Image ' "圖像" '"Image"
+    '        Case ".kzinf", ".kzlst", ".inf", ".info", ".ini"
+    '            Return HDManifestLineType.LibInfo ' "資訊" '"Libinfo"
+    '        Case ".rar", ".zip", ".7z"
+    '            Return HDManifestLineType.Compressed ' "壓縮" '"Compressed"
+    '        Case ".avi", ".mkv", ".mov", ".ts", ".rmvb", ".mp4"
+    '            Return HDManifestLineType.Video ' "視訊"
+    '        Case ".mp3", ".flac", ".wav"
+    '            Return HDManifestLineType.Audio ' "音訊"
+    '        Case ""
+    '            Return HDManifestLineType.Unknown
+    '        Case Else
+    '            Return HDManifestLineType.Others
+    '    End Select
+    'End Function
 
 End Module
 
@@ -429,19 +429,19 @@ End Structure
 
 
 
-Public Enum HDManifestLineType
-    Unknown
-    LibInfo
-    Package
-    Editable
-    Printable
-    WebView
-    Image
-    Video
-    Audio
-    Compressed
-    Others
-End Enum
+'Public Enum HDManifestLineType
+'    Unknown
+'    LibInfo
+'    Package
+'    Editable
+'    Printable
+'    WebView
+'    Image
+'    Video
+'    Audio
+'    Compressed
+'    Others
+'End Enum
 
 
 Public Class HDBookList

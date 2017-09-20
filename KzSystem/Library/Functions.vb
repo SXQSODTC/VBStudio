@@ -197,6 +197,12 @@ Public Class KzStr
     End Function
 
 #Region "GetStrings"
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="datetime"></param>
+    ''' <param name="index"></param>
+    ''' <returns></returns>
     Public Shared Function GetTimeSerial _
         (Optional ByVal datetime As DateTime = Nothing,
          Optional ByVal index As Integer = 0) As String
@@ -215,7 +221,14 @@ Public Class KzStr
         End Select
 
     End Function
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="LengthInByte"></param>
+    ''' <param name="StandardView"></param>
+    ''' <param name="UnitShowB"></param>
+    ''' <param name="OriginReturn"></param>
+    ''' <returns></returns>
     Public Shared Function GetFileLength _
         (ByVal LengthInByte As Long,
          Optional ByVal StandardView As Boolean = True,
@@ -258,6 +271,26 @@ Public Class KzStr
 
         Return ans.Replace(".00", "").Replace("0B", "B").Replace("0K", "K").Replace("0M", "M").Replace("0G", "G")
     End Function
+    ''' <summary>
+    ''' Get the file name from a url link or a file path.
+    ''' </summary>
+    ''' <param name="FullPath">String of a url string or a full file path.</param>
+    ''' <param name="IsUrl">Is a url string or not. If false that's a file path.</param>
+    ''' <returns>String of a file name.</returns>
+    Public Shared Function GetLinkFileName _
+        (ByVal FullPath As String, Optional ByVal IsUrl As Boolean = True) As String
+
+        Try
+            If IsUrl Then
+                Return FullPath.Substring(FullPath.LastIndexOf("/") + 1)
+            Else
+                Return FullPath.Substring(FullPath.LastIndexOf("\") + 1)
+            End If
+        Catch ex As Exception
+            Return Nothing
+        End Try
+    End Function
+
 #End Region 'GetStrings
 End Class 'KzStr
 

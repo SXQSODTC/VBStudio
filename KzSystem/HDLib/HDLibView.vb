@@ -1,35 +1,46 @@
 ﻿Imports System.IO
 Imports System.Text
+Imports System.Net
+Imports System.ComponentModel
+Imports System.Text.RegularExpressions
 
 Public Class HDLibView
 
-    Private OriginInf As HDLibInf
     Private CurrentInf As HDLibInf
-
     Private NeedUpdateInf As Boolean = True
+    Private WithEvents iBro As WebBrowser
 
     Private Sub HDLibView_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         LibView.LibRoot = My.Settings.HDLibPath
         LibView.ExceptFolders.Add("LibDB")
         LibView.RefreshTree()
+        LibView.Nodes(0).Expand()
 
         For i As Integer = 0 To [Enum].GetNames(GetType(HDLibInfType)).Count - 1
             TypeComboBox.Items.Add(CType(i, HDLibInfType))
         Next
 
         PresetLists()
+
+        WebViewer.WebRoot = My.Settings.HDLibHome
+        WebViewer.ShowSourceInternal = False
+        iBro = WebViewer.HDBrowser
+
     End Sub
 
 
-#Region "LibTreeAndList"
+#Region "LibTree"
     Private Sub LibSearchTools_SizeChanged(sender As Object, e As EventArgs) Handles LibSearchTools.SizeChanged
-        LibSearchTextBox.Width = LibSearchTools.Width - LibSearchGoButton.Width - LibSearchAdvanceButton.Width - 10
-    End Sub
+        Dim w As Integer = 15
 
-    Private Sub LibSearchTextBox_GotFocus(sender As Object, e As EventArgs) Handles LibSearchTextBox.GotFocus
-        LibSearchTextBox.AutoCompleteCustomSource.Clear()
-        LibSearchTextBox.AutoCompleteCustomSource = GetAllNodeText(LibView.Nodes(0))
+        For Each item As ToolStripItem In LibSearchTools.Items
+            If Not item.Equals(LibSearchTextBox) Then
+                w += item.Width
+            End If
+        Next
+
+        LibSearchTextBox.Width = LibSearchTools.Width - w
     End Sub
 
     Private Sub LibSearchAdvanceButton_Click(sender As Object, e As EventArgs) Handles LibSearchAdvanceButton.Click
@@ -41,23 +52,13 @@ Public Class HDLibView
 
     Private Sub LibView_BeforeSelect(sender As Object, e As TreeViewCancelEventArgs) Handles LibView.BeforeSelect
         Try
-            If (Not CurrentInf.Equals(OriginInf)) AndAlso (Not CurrentInf.IsEmpty) Then
-                Dim s As String = "當前咨詢已經更改，是否保存？" & vbCrLf &
-                        "【是】保存當前資訊檔後執行跳轉選定。" & vbCrLf &
-                        "【否】不保存當前資訊即跳轉。" & vbCrLf & "【取消】終止執行跳轉。"
-                Dim r As MsgBoxResult = MsgBox(s, MsgBoxStyle.YesNoCancel, "跳轉")
-
-                If r = MsgBoxResult.Yes Then
-                    Try
-                        CurrentInf.Export(LibView.SelectedNode.FullPath)
-                    Catch ex As Exception
-                        MsgBox("未能保存 Inf。原因：" & vbCrLf & ex.Message)
-                        e.Cancel = True
-                    End Try
-
-                ElseIf r = MsgBoxResult.Cancel Then
-                    e.Cancel = True
-                End If
+            If UpdateInfButton.Enabled AndAlso (Not CurrentInf.IsEmpty) Then
+                Try
+                    CurrentInf.Export(LibView.SelectedNode.FullPath)
+                Catch ex As Exception
+                    MsgBox("未能保存 Inf。原因：" & vbCrLf & ex.Message)
+                    'e.Cancel = True
+                End Try
             End If
         Catch ex As Exception
 
@@ -65,22 +66,22 @@ Public Class HDLibView
     End Sub
 
     Private Sub LibView_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles LibView.AfterSelect
-        LibSearchTextBox.Text = e.Node.FullPath
+        CurrentNodeLabel.Text = e.Node.FullPath
+        LibSearchTextBox.Text = e.Node.Text
 
-        OriginInf = New HDLibInf
-        OriginInf.Import(e.Node.FullPath)
         CurrentInf = New HDLibInf
         CurrentInf.Import(e.Node.FullPath)
 
         SetUIFromInf(CurrentInf)
         SetHeader(e.Node.FullPath, CurrentInf)
-
         EntryChecking(e.Node.FullPath, CurrentInf)
-
         SetManifest(e.Node.FullPath, CurrentInf)
+        SetLinks(CurrentInf)
+
+        UpdateInfButton.Enabled = False
     End Sub
 
-#End Region 'LibTreeAndList
+#End Region 'LibTree
 
 #Region "MenuActions"
     Private Sub LibRootToolStripMenuItem_Click(sender As Object, e As EventArgs) _
@@ -99,45 +100,126 @@ Public Class HDLibView
             LibView.ExceptFolders.Add("LibDB")
             My.Settings.HDLibPath = fbd.SelectedPath
             LibView.RefreshTree()
-
+            LibView.Nodes(0).Expand()
         End If
     End Sub
 
-    Private Sub SaveInfButton_Click(sender As Object, e As EventArgs) Handles SaveInfButton.Click
+    Private Sub SaveInfButton_Click(sender As Object, e As EventArgs) Handles UpdateInfButton.Click
         'MsgBox(LibView.SelectedNode.FullPath & "\" & CurrentInf.FileName)
+        Dim fp As String = LibView.SelectedNode.FullPath
+
         Try
-            CurrentInf.Address = LibView.SelectedNode.FullPath.Replace(LibView.LibRoot & "\", "")
-            CurrentInf.Export(LibView.SelectedNode.FullPath)
+            CurrentInf.Address = fp.Replace(LibView.LibRoot & "\", "")
+            CurrentInf.Export(fp)
+
+            'LibView.SelectedNode.ImageIndex = LibView.GetImgId(New DirectoryInfo(fp))
+
+            'OriginInf.Import(fp)
         Catch ex As Exception
 
         End Try
     End Sub
 
-    Private Sub ShowInfButton_DropDownItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles ShowInfButton.DropDownItemClicked
-        If e.ClickedItem.Equals(CurrentInfToolStripMenuItem) Then SourceTextBox.Text = CurrentInf.ToString
-        If e.ClickedItem.Equals(OriginInfToolStripMenuItem) Then SourceTextBox.Text = OriginInf.ToString
+    Private Sub ShowInfButton_Click(sender As Object, e As EventArgs) Handles ShowInfButton.Click
+        'SourceTextBox.Text = CurrentInf.ToString
+        QuickViewer.Contents = CurrentInf.ToString
+        BrowserTabs.SelectedTab = PageView
+    End Sub
 
-        BrowserTabs.SelectedTab = PageSource
+    Private Sub HDBookInfoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HDBookInfoToolStripMenuItem.Click
+        If iBro.Document Is Nothing Then
+            Exit Sub
+        End If
+
+        If Not TypeComboBox.SelectedItem = HDLibInfType.BookInfo Then
+            MsgBox("請選定此項目為 BookInfo。")
+            Exit Sub
+        End If
+
+        Dim src As String = KzWeb.GetWebCode(iBro.Url.AbsoluteUri)
+        Dim key As String
+        Dim t As String
+        Dim err As String = ""
+
+        Try
+            key = Regex.Match(src, "SetTitle\(.+\);").ToString.Replace("SetTitle(""", "").Replace(""");", "")
+            Dim l, r As Char
+            If key.Contains("《") Then
+                l = "《"
+                r = "》"
+            ElseIf key.Contains("【") Then
+                l = "【"
+                r = "】"
+            End If
+            AuthorTextBox.Text = key.Substring(0, key.IndexOf(l))
+            NameTextBox.Text = key.Substring(key.IndexOf(l) + 1, key.IndexOf(r) - key.IndexOf(l) - 1)
+        Catch ex As Exception
+            err &= "[SetTitle] 未能取得 Title 及 Author。" & vbCrLf
+        End Try
+
+        Try
+            key = Regex.Match(src, "SetLink\(.+\);").ToString
+            t = key.Substring(key.IndexOf(">") + 1, key.IndexOf("</a>") - key.IndexOf(">") - 1)
+            CategoryTextBox.Text = t.Replace(" 書目", "")
+        Catch ex As Exception
+            err &= "[SetLink] 未能取得 Category。" & vbCrLf
+        End Try
+
+        Try
+            key = Regex.Match(src, "DownloadUpdb\(.+?\<br").ToString
+            IDTextBox.Text = key.Substring(key.IndexOf("(") + 1, key.IndexOf(")") - key.IndexOf("(") - 1).Replace("'", "")
+            t = key.Substring(key.IndexOf("<font size=2>") + 14, key.IndexOf("</font><br") - key.IndexOf("<font size=2>") - 14)
+            t = Regex.Replace(t, "\(.+\)", "-")
+            If t.EndsWith("-") Then t.Replace("-", "").Trim()
+            VersionTextBox.Text = t
+            LinksViewAdd("BookFile", "http://www.haodoo.net/?M=d&P=" & IDTextBox.Text & ".updb")
+        Catch ex As Exception
+            err &= "[DownloadUpdb] 未能取得 ID 或 Version。" & vbCrLf
+        End Try
+
+        Try
+            key = Regex.Match(src, "\<img src\=""covers.+"" ").ToString
+            t = key.Substring(key.IndexOf("covers"), key.IndexOf("""", key.IndexOf("covers")) - key.IndexOf("covers"))
+            LinksViewAdd("Cover", "http://www.haodoo.net/" & t, True)
+        Catch ex As Exception
+            err &= "[img src] 未能取得 Cover。" & vbCrLf
+        End Try
+
+        Try
+            key = Regex.Match(src, "HSPACE\=.+勘誤表", RegexOptions.Singleline).ToString
+            t = key.Replace("勘誤表", "")
+            t = Regex.Replace(t, "HSPACE\=.+?\>", "")
+            t = Regex.Replace(t, "\<.+?\>", "")
+            t = t.Replace(vbCrLf & vbCrLf & vbCrLf, vbCrLf & vbCrLf)
+            DescriptionTextBox.Text = t
+        Catch ex As Exception
+            err &= "[Intro] 未能取得 Intro。"            '
+        End Try
+
+        If err.Length > 0 Then
+            MsgBox("源格式不匹配。以下元素未能取得：" & vbCrLf & err)
+        End If
+        LinksViewAdd("BookView", iBro.Url.ToString, True)
     End Sub
 
 #End Region 'MenuActions
 
 #Region "PrivateMethods"
-    Private Function GetAllNodeText(node As TreeNode) As AutoCompleteStringCollection
-        Dim acsc As New AutoCompleteStringCollection
+    'Private Function GetAllNodeText(node As TreeNode) As AutoCompleteStringCollection
+    '    Dim acsc As New AutoCompleteStringCollection
 
-        If node.Nodes.Count > 0 Then
-            For Each subnode As TreeNode In node.Nodes
-                acsc.Add(subnode.Text)
-                Dim subacsc As AutoCompleteStringCollection = GetAllNodeText(subnode)
-                For Each tx As String In subacsc
-                    acsc.Add(tx)
-                Next
-            Next
-        End If
+    '    If node.Nodes.Count > 0 Then
+    '        For Each subnode As TreeNode In node.Nodes
+    '            acsc.Add(subnode.Text)
+    '            Dim subacsc As AutoCompleteStringCollection = GetAllNodeText(subnode)
+    '            For Each tx As String In subacsc
+    '                acsc.Add(tx)
+    '            Next
+    '        Next
+    '    End If
 
-        Return acsc
-    End Function
+    '    Return acsc
+    'End Function
 
     Private Sub SetUIFromInf(Optional TheInf As HDLibInf = Nothing)
         If TheInf Is Nothing Then
@@ -188,8 +270,15 @@ Public Class HDLibView
     End Sub
 
     Private Sub SetManifest(Folder As String, Inf As HDLibInf)
-        Dim di As New DirectoryInfo(Folder)
-        Dim fis As FileInfo() = di.GetFiles
+        Dim di As DirectoryInfo
+        Dim fis As FileInfo()
+
+        Try
+            di = New DirectoryInfo(Folder)
+            fis = di.GetFiles
+        Catch ex As Exception
+            Exit Sub
+        End Try
 
         FilesView.Items.Clear()
 
@@ -211,7 +300,7 @@ Public Class HDLibView
             ext = fis(i).Extension ' GetFileType(fis(i).Extension)
             extStr = GetFileType(ext)
 
-            If extstr = "書籍" And Not extList.Contains(ext) Then extList.Add(ext)
+            If extStr = "書籍" And Not extList.Contains(ext) Then extList.Add(ext)
 
             item = New ListViewItem(fis(i).Name)
             item.Name = fis(i).Name
@@ -260,24 +349,48 @@ Public Class HDLibView
     Private Function GetManifest() As HDList
         Dim mf As New HDList
 
-        For Each it As ListViewItem In FilesView.Items
-            If (it.SubItems.Item(4).Text IsNot Nothing) Or
-                (it.SubItems.Item(4).Text.Length) > 0 Then
+        If FilesView.Items.Count > 0 Then
+            For Each it As ListViewItem In FilesView.Items
+                If (it.SubItems(4).Text IsNot Nothing) Or
+                    (it.SubItems(4).Text.Length) > 0 Then
 
-                mf.Add(it.SubItems.Item(0).Text, it.SubItems.Item(4).Text)
-            End If
-        Next
+                    mf.Add(it.SubItems(0).Text, it.SubItems(4).Text)
+                End If
+            Next
+        End If
 
         Return mf
     End Function
 
-    Private Sub SetLinks()
+    Private Sub SetLinks(Inf As HDLibInf)
+        LinksView.Items.Clear()
 
+        Try
+            If Inf.Links.Count > 0 Then
+                Dim item As ListViewItem
+
+                For Each kvp As KeyValuePair(Of String, String) In Inf.Links
+                    item = New ListViewItem(kvp.Key)
+                    item.SubItems.Add(kvp.Value)
+                Next
+            End If
+            LinksView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
+        Catch ex As Exception
+
+        End Try
     End Sub
 
-    Private Sub GetLinks()
+    Private Function GetLinks() As HDList
+        Dim mf As New HDList
 
-    End Sub
+        If LinksView.Items.Count > 0 Then
+            For Each it As ListViewItem In LinksView.Items
+                mf.Add(it.SubItems(0).Text, it.SubItems(1).Text)
+            Next
+        End If
+
+        Return mf
+    End Function
 
 
     Private Sub GetInfFromUI(Optional TheInf As HDLibInf = Nothing)
@@ -315,6 +428,11 @@ Public Class HDLibView
         For Each s In ss
             OriginComboBox.Items.Add(s)
         Next
+
+        For Each s In My.Settings.HDLibUrlList
+            DUrlListBox.Items.Add(s)
+        Next
+
     End Sub
 
     Private Sub EntryChecking(Folder As String, Inf As HDLibInf)
@@ -323,17 +441,8 @@ Public Class HDLibView
         CFolderChecker.Text = "Folder: " & Folder
         If Directory.Exists(Folder) Then
             CFolderChecker.Checked = True
-
-            'Dim di As New DirectoryInfo(Folder)
-            'If di.GetFiles().Count > 0 Then
-            '    CEmptyChecker.Checked = False
-            'Else
-            '    CEmptyChecker.Checked = True
-            'End If
-
         Else
             CFolderChecker.Checked = False
-            'CEmptyChecker.Checked = True
         End If
 
         Try
@@ -381,122 +490,181 @@ Public Class HDLibView
         End Try
     End Sub
 
+    Private Sub Download(Link As String, Optional SaveTo As String = Nothing)
+        If SaveTo Is Nothing Then
+            Dim sfd As New SaveFileDialog
+            If LibView.SelectedNode IsNot Nothing Then
+                sfd.InitialDirectory = LibView.SelectedNode.FullPath
+            Else
+                Try
+                    sfd.InitialDirectory = My.Settings.HDLibPath
+                Catch ex As Exception
+
+                End Try
+            End If
+
+            If sfd.ShowDialog = DialogResult.OK Then
+                SaveTo = sfd.FileName
+            Else
+                Exit Sub
+            End If
+        End If
+
+        Dim wc As WebClient = New WebClient
+        Dim url As Uri = New Uri(Link)
+
+        AddHandler wc.DownloadProgressChanged, AddressOf wc_DownloadProgressChanged
+        AddHandler wc.DownloadFileCompleted, AddressOf wc_DownloadFileCompleted
+        wc.DownloadFileAsync(url, SaveTo)
+
+        DMsgLabel.Text = "【即時資訊】" & vbCrLf & "下載中..."
+    End Sub
+
+    Private Sub wc_DownloadProgressChanged(sender As Object, e As DownloadProgressChangedEventArgs)
+        DProgressBar.Maximum = 100
+        DProgressBar.Value = CInt(Math.Floor(e.BytesReceived * 100 / e.TotalBytesToReceive))
+    End Sub
+
+    Private Sub wc_DownloadFileCompleted(sender As Object, e As AsyncCompletedEventArgs)
+        DMsgLabel.Text = "【即時資訊】" & vbCrLf
+
+        If e.Error Is Nothing Then
+            DMsgLabel.Text &= "下載完成。"
+        Else
+            DMsgLabel.Text &= "未能完成下載，原因：" & vbCrLf & e.Error.Message
+        End If
+    End Sub
+
+
+
 #End Region 'PrivateMethods
 
 #Region "DataChangedAction"
 
-    Private Sub TypeComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles TypeComboBox.SelectedIndexChanged
-        If NeedUpdateInf Then
+    Private Sub ComboDataChanged(sender As Object, e As EventArgs) Handles _
+        TypeComboBox.SelectedIndexChanged, OriginComboBox.SelectedIndexChanged
+
+        If Not NeedUpdateInf Then Exit Sub
+
+        If sender.Equals(TypeComboBox) Then
             CurrentInf.Type = TypeComboBox.SelectedItem
 
             Try
                 Dim fn As String = Path.Combine(LibView.SelectedNode.FullPath, CurrentInf.FileName)
                 CInfFileChecker.Text = "Inf: " & fn
                 CInfFileChecker.Checked = File.Exists(fn)
+
+                LibView.SelectedNode.ImageIndex = LibView.GetImgId(CurrentInf.Type)
+                LibView.SelectedNode.SelectedImageIndex = LibView.SelectedNode.ImageIndex
             Catch ex As Exception
                 CInfFileChecker.Text = "Inf: "
                 CInfFileChecker.Checked = False
             End Try
         End If
+
+        If sender.Equals(OriginComboBox) Then
+            CurrentInf.Origin = OriginComboBox.SelectedItem
+        End If
+
+        UpdateInfButton.Enabled = True
     End Sub
 
-    Private Sub OriginComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles OriginComboBox.SelectedIndexChanged
-        If NeedUpdateInf Then CurrentInf.Origin = OriginComboBox.SelectedItem
-    End Sub
+    Private Sub TextDataChanged(sender As Object, e As EventArgs) Handles _
+        IDTextBox.TextChanged, NameTextBox.TextChanged, SeriesTextBox.TextChanged,
+        AuthorTextBox.TextChanged, ContributorTextBox.TextChanged, CategoryTextBox.TextChanged,
+        SpecialTextBox.TextChanged, VersionTextBox.TextChanged, LogoTextBox.TextChanged,
+        AddressTextBox.TextChanged, RefaddressTextBox.TextChanged, RemarksTextBox.TextChanged,
+        DescriptionTextBox.TextChanged
 
-    Private Sub IDTextBox_TextChanged(sender As Object, e As EventArgs) Handles IDTextBox.TextChanged
-        If NeedUpdateInf Then
+        If Not NeedUpdateInf Then Exit Sub
+
+        If sender.Equals(IDTextBox) Then
             CurrentInf.ID = IDTextBox.Text
             HIDLabel.Text = IDTextBox.Text
         End If
-    End Sub
 
-    Private Sub NameTextBox_TextChanged(sender As Object, e As EventArgs) Handles NameTextBox.TextChanged
-        If NeedUpdateInf Then
+        If sender.Equals(NameTextBox) Then
             CurrentInf.Name = NameTextBox.Text
             HTitleLabel.Text = NameTextBox.Text
         End If
-    End Sub
 
-    Private Sub SeriesTextBox_TextChanged(sender As Object, e As EventArgs) Handles SeriesTextBox.TextChanged
-        If NeedUpdateInf Then CurrentInf.Series = SeriesTextBox.Text
-    End Sub
+        If sender.Equals(SeriesTextBox) Then
+            CurrentInf.Series = SeriesTextBox.Text
+        End If
 
-    Private Sub AuthorTextBox_TextChanged(sender As Object, e As EventArgs) Handles AuthorTextBox.TextChanged
-        If NeedUpdateInf Then
+        If sender.Equals(AuthorTextBox) Then
             CurrentInf.Author = AuthorTextBox.Text
             HAuthorLabel.Text = AuthorTextBox.Text
         End If
-    End Sub
 
-    Private Sub ContributorTextBox_TextChanged(sender As Object, e As EventArgs) Handles ContributorTextBox.TextChanged
-        If NeedUpdateInf Then CurrentInf.Contributor = ContributorTextBox.Text
-    End Sub
-
-    Private Sub CategoryTextBox_TextChanged(sender As Object, e As EventArgs) Handles CategoryTextBox.TextChanged
-        If NeedUpdateInf Then CurrentInf.Category = CategoryTextBox.Text
-    End Sub
-
-    Private Sub SpecialTextBox_TextChanged(sender As Object, e As EventArgs) Handles SpecialTextBox.TextChanged
-        If NeedUpdateInf Then CurrentInf.Special = SpecialTextBox.Text
-    End Sub
-
-    Private Sub VersionTextBox_TextChanged(sender As Object, e As EventArgs) Handles VersionTextBox.TextChanged
-        If NeedUpdateInf Then CurrentInf.Version = VersionTextBox.Text
-    End Sub
-
-    Private Sub LogoTextBox_TextChanged(sender As Object, e As EventArgs) Handles LogoTextBox.TextChanged
-        If NeedUpdateInf Then
-            CurrentInf.Logo = LogoTextBox.Text
-            HCoverImageBox.Image = Image.FromFile(Path.Combine(LibView.SelectedNode.FullPath, LogoTextBox.Text))
+        If sender.Equals(ContributorTextBox) Then
+            CurrentInf.Contributor = ContributorTextBox.Text
         End If
-    End Sub
 
-    Private Sub AddressTextBox_TextChanged(sender As Object, e As EventArgs) Handles AddressTextBox.TextChanged
-        If NeedUpdateInf Then CurrentInf.Address = AddressTextBox.Text
-    End Sub
+        If sender.Equals(CategoryTextBox) Then
+            CurrentInf.Category = CategoryTextBox.Text
+        End If
 
-    Private Sub RefaddressTextBox_TextChanged(sender As Object, e As EventArgs) Handles RefaddressTextBox.TextChanged
-        If NeedUpdateInf Then CurrentInf.RefAddress = RefaddressTextBox.Text
-    End Sub
+        If sender.Equals(SpecialTextBox) Then
+            CurrentInf.Special = SpecialTextBox.Text
+        End If
 
-    Private Sub CreatedTextBox_TextChanged(sender As Object, e As EventArgs) Handles CreatedTextBox.TextChanged
-        If NeedUpdateInf Then CurrentInf.Created = CDate(CreatedTextBox.Text)
-    End Sub
+        If sender.Equals(AddressTextBox) Then
+            CurrentInf.Address = AddressTextBox.Text
+        End If
 
-    Private Sub UpdatedTextBox_TextChanged(sender As Object, e As EventArgs) Handles UpdatedTextBox.TextChanged
-        If NeedUpdateInf Then CurrentInf.Updated = CDate(UpdatedTextBox.Text)
-    End Sub
+        If sender.Equals(RefaddressTextBox) Then
+            CurrentInf.RefAddress = RefaddressTextBox.Text
+        End If
 
-    Private Sub RemarksTextBox_TextChanged(sender As Object, e As EventArgs) Handles RemarksTextBox.TextChanged
-        If NeedUpdateInf Then CurrentInf.Remarks = RemarksTextBox.Text
-    End Sub
+        If sender.Equals(RemarksTextBox) Then
+            CurrentInf.Remarks = RemarksTextBox.Text
+        End If
 
-    Private Sub DescriptionTextBox_TextChanged(sender As Object, e As EventArgs) Handles DescriptionTextBox.TextChanged
-        If NeedUpdateInf Then
+        If sender.Equals(DescriptionTextBox) Then
             CurrentInf.Description = DescriptionTextBox.Text
             HPilotLabel.Text = DescriptionTextBox.Text
         End If
+
+        If sender.Equals(VersionTextBox) Then
+            CurrentInf.Version = VersionTextBox.Text
+        End If
+
+        If sender.Equals(LogoTextBox) Then
+            CurrentInf.Logo = LogoTextBox.Text
+            HCoverImageBox.Image = Image.FromFile(Path.Combine(LibView.SelectedNode.FullPath, LogoTextBox.Text))
+        End If
+
+        UpdateInfButton.Enabled = True
     End Sub
+
+    'Private Sub CreatedTextBox_TextChanged(sender As Object, e As EventArgs) Handles CreatedTextBox.TextChanged
+    '    If NeedUpdateInf Then CurrentInf.Created = CDate(CreatedTextBox.Text)
+    'End Sub
+
+    'Private Sub UpdatedTextBox_TextChanged(sender As Object, e As EventArgs) Handles UpdatedTextBox.TextChanged
+    '    If NeedUpdateInf Then CurrentInf.Updated = CDate(UpdatedTextBox.Text)
+    'End Sub
+
+
 
 #End Region 'DataChangedAction
 
-    'TempArea
-
+#Region "FileListActions"
     Private Sub LUpdateButton_Click(sender As Object, e As EventArgs) Handles LUpdateButton.Click
         If FilesView.SelectedItems.Count > 0 Then
             If LCommentsTextBox.Text IsNot Nothing AndAlso LCommentsTextBox.Text.Length > 0 Then
                 FilesView.SelectedItems(0).SubItems(4).Text = LCommentsTextBox.Text
+                LUpdateButton.Enabled = False
+
+                Try
+                    CurrentInf.Manifest = GetManifest()
+                    UpdateInfButton.Enabled = True
+                Catch ex As Exception
+
+                End Try
             End If
         End If
-
-        Try
-            CurrentInf.Manifest = GetManifest()
-        Catch ex As Exception
-
-        End Try
-
-        LUpdateButton.Enabled = False
     End Sub
 
     Private Sub LCommentsTextBox_TextChanged(sender As Object, e As EventArgs) Handles LCommentsTextBox.TextChanged
@@ -515,20 +683,165 @@ Public Class HDLibView
 
             LViewButton.Enabled = (fi.Extension = ".txt")
         Else
+            LFileNameLabel.Text = "[None]"
+            LCommentsTextBox.Text = ""
+            LCreatedLabel.Text = "Created: "
+            LWritedLabel.Text = "Writed: "
+            LAccessedLabel.Text = "Read: "
             LViewButton.Enabled = False
         End If
+
         LUpdateButton.Enabled = False
     End Sub
 
     Private Sub LViewButton_Click(sender As Object, e As EventArgs) Handles LViewButton.Click
         Try
             Dim fn As String = Path.Combine(LibView.SelectedNode.FullPath, FilesView.SelectedItems(0).SubItems(0).Text)
-            SourceTextBox.Text = File.ReadAllText(fn, Encoding.UTF8)
-            TEncodingLabel.Text = "UTF8"
-            TPathLabel.Text = fn
-            BrowserTabs.SelectedTab = PageSource
+            'SourceTextBox.Text = File.ReadAllText(fn, Encoding.UTF8)
+            QuickViewer.Contents = File.ReadAllText(fn, Encoding.UTF8)
+            'TEncodingLabel.Text = "UTF8"
+            QuickViewer.DefaultEncoding = Encoding.UTF8
+            'TPathLabel.Text = fn
+            QuickViewer.FilePath = fn
+            BrowserTabs.SelectedTab = PageView
         Catch ex As Exception
 
         End Try
     End Sub
+#End Region 'FileListActions
+
+#Region "LinkListAction"
+    Private Sub UUpdateButton_Click(sender As Object, e As EventArgs) Handles UUpdateButton.Click
+        If LinksView.SelectedItems.Count > 0 And
+            UKeyTextBox.Text.Length > 0 And ULinkTextBox.Text.Length > 0 Then
+
+            LinksView.SelectedItems(0).Text = UKeyTextBox.Text
+            LinksView.SelectedItems(0).SubItems(1).Text = ULinkTextBox.Text
+
+            UUpdateButton.Enabled = False
+
+            Try
+                CurrentInf.Links = GetLinks()
+                UpdateInfButton.Enabled = True
+            Catch ex As Exception
+
+            End Try
+        End If
+    End Sub
+
+    Private Sub LinksView_SelectedIndexChanged(sender As Object, e As EventArgs) Handles LinksView.SelectedIndexChanged
+        If LinksView.SelectedItems.Count > 0 Then
+            UKeyTextBox.Text = LinksView.SelectedItems(0).Text
+            ULinkTextBox.Text = LinksView.SelectedItems(0).SubItems(1).Text
+        End If
+
+        UUpdateButton.Enabled = False
+    End Sub
+
+    Private Sub UTextBox_TextChanged(sender As Object, e As EventArgs) Handles UKeyTextBox.TextChanged, ULinkTextBox.TextChanged
+        UUpdateButton.Enabled = True
+    End Sub
+
+    Private Sub UDownButton_Click(sender As Object, e As EventArgs) Handles UDownButton.Click
+        If LinksView.SelectedItems.Count > 0 And LibView.SelectedNode IsNot Nothing Then
+            DLinkTextBox.Text = LinksView.SelectedItems(0).SubItems(1).Text
+            DFolderTextBox.Text = LibView.SelectedNode.FullPath
+            DFileNameTextBox.Text = KzStr.GetLinkFileName(DLinkTextBox.Text)
+            DetailTabs.SelectedTab = PageDownload
+        End If
+    End Sub
+
+    Private Sub UAddButton_Click(sender As Object, e As EventArgs) Handles UAddButton.Click
+        If ListViewHelper.ContainsItemText(LinksView, UKeyTextBox.Text) Then
+            If MsgBox("鏈接名稱已存在，是否覆蓋？", MsgBoxStyle.YesNo, "新增") = MsgBoxResult.Yes Then
+                LinksViewAdd(UKeyTextBox.Text, ULinkTextBox.Text, True)
+            Else
+                LinksViewAdd(UKeyTextBox.Text, ULinkTextBox.Text, False)
+            End If
+        End If
+    End Sub
+
+    Private Sub LinksViewAdd(key As String, value As String, Optional replace As Boolean = False)
+        If LinksView.Items.Count > 0 And ListViewHelper.ContainsItemText(LinksView, key) Then
+            If replace Then
+                Dim TheItem As ListViewItem = ListViewHelper.GetItemByText(LinksView, key) ' GetListViewItemByText(LinksView, key)
+                TheItem.SubItems(1).Text = value
+            Else
+                Dim newkey As String = ListViewHelper.GetNewItemText(LinksView, key) ' GetNewListViewItemText(LinksView, key)
+                Dim item As New ListViewItem(newkey)
+                item.SubItems.Add(value)
+                LinksView.Items.Add(item)
+            End If
+
+        Else
+            Dim item As New ListViewItem(key)
+            item.SubItems.Add(value)
+            LinksView.Items.Add(item)
+        End If
+
+        CurrentInf.Links = GetLinks()
+        UpdateInfButton.Enabled = True
+    End Sub
+
+    Private Sub UBroButton_Click(sender As Object, e As EventArgs) Handles UBroButton.Click
+        If LinksView.SelectedItems.Count > 0 Then
+            iBro.Navigate(LinksView.SelectedItems(0).SubItems(1).Text)
+        End If
+    End Sub
+#End Region 'LinkListAction
+
+#Region "DownloadActions"
+    Private Sub DEditUrlListButton_Click(sender As Object, e As EventArgs) Handles DEditUrlListButton.Click
+        Dim le As New KzListEditor
+        le.ListSource = My.Settings.HDLibUrlList
+
+        If le.ShowDialog = DialogResult.OK Then
+            Dim ss(le.ListSource.Count - 1) As String
+            le.ListSource.CopyTo(ss, 0)
+
+            DUrlListBox.Items.Clear()
+            DUrlListBox.Items.AddRange(ss)
+            My.Settings.HDLibUrlList = le.ListSource
+        End If
+    End Sub
+
+    Private Sub DRunButton_Click(sender As Object, e As EventArgs) Handles DRunButton.Click
+        Dim sf As String = Path.Combine(DFolderTextBox.Text, DFileNameTextBox.Text)
+
+        Download(DLinkTextBox.Text, sf)
+    End Sub
+
+    Private Sub DFolderTextBox_TextChanged(sender As Object, e As EventArgs) Handles DFolderTextBox.TextChanged
+        DFolderExistsChecker.Checked = Directory.Exists(DFolderTextBox.Text)
+        DFileExistsChecker.Checked = File.Exists(Path.Combine(DFolderTextBox.Text, DFileNameTextBox.Text))
+    End Sub
+
+    Private Sub DFileNameTextBox_TextChanged(sender As Object, e As EventArgs) Handles DFileNameTextBox.TextChanged
+        DFileExistsChecker.Checked = File.Exists(Path.Combine(DFolderTextBox.Text, DFileNameTextBox.Text))
+        DToCoverChecker.Enabled = KzFiles.IsImageFile(DFileNameTextBox.Text)
+    End Sub
+
+    Private Sub DClearLinkButton_Click(sender As Object, e As EventArgs) Handles DClearLinkButton.Click
+        DLinkTextBox.Clear()
+    End Sub
+
+    Private Sub DClearPathButton_Click(sender As Object, e As EventArgs) Handles DClearPathButton.Click
+        DFolderTextBox.Clear()
+    End Sub
+#End Region 'DownloadActions
+
+    'TempArea
+
+    Private Sub WebViewer_SourceCodeExported(sender As Object, e As SourceCodeExportEventArgs) Handles WebViewer.SourceCodeExported
+        If Not WebViewer.ShowSourceInternal Then
+            QuickViewer.Contents = e.Code
+            QuickViewer.DefaultEncoding = Encoding.UTF8
+            QuickViewer.FilePath = e.Source
+            BrowserTabs.SelectedTab = PageView
+        End If
+    End Sub
+
+
+
+
 End Class

@@ -27,6 +27,106 @@ KzSystem
   查找 System.Drawing.Bitmap 类型的本地化资源。
 </summary>
 </member>
+<member name="P:KzSystem.My.Resources.Resources.edit_beginselect">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_clearall">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_command">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_copy">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_cut">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_delete">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_findreplace">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_font">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_insert">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_new">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_open">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_paste">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_redo">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_refresh">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_save">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_saveas">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_selectall">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_tools">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_undo">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_wrap">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
 <member name="P:KzSystem.My.Resources.Resources.folder_close">
 <summary>
   查找 System.Drawing.Bitmap 类型的本地化资源。
@@ -77,62 +177,7 @@ KzSystem
   查找 System.Drawing.Bitmap 类型的本地化资源。
 </summary>
 </member>
-<member name="P:KzSystem.My.Resources.Resources.lib_archive">
-<summary>
-  查找 System.Drawing.Bitmap 类型的本地化资源。
-</summary>
-</member>
-<member name="P:KzSystem.My.Resources.Resources.lib_book">
-<summary>
-  查找 System.Drawing.Bitmap 类型的本地化资源。
-</summary>
-</member>
-<member name="P:KzSystem.My.Resources.Resources.lib_bookinfo">
-<summary>
-  查找 System.Drawing.Bitmap 类型的本地化资源。
-</summary>
-</member>
-<member name="P:KzSystem.My.Resources.Resources.lib_books">
-<summary>
-  查找 System.Drawing.Bitmap 类型的本地化资源。
-</summary>
-</member>
-<member name="P:KzSystem.My.Resources.Resources.lib_cover">
-<summary>
-  查找 System.Drawing.Bitmap 类型的本地化资源。
-</summary>
-</member>
-<member name="P:KzSystem.My.Resources.Resources.lib_database">
-<summary>
-  查找 System.Drawing.Bitmap 类型的本地化资源。
-</summary>
-</member>
-<member name="P:KzSystem.My.Resources.Resources.lib_download">
-<summary>
-  查找 System.Drawing.Bitmap 类型的本地化资源。
-</summary>
-</member>
-<member name="P:KzSystem.My.Resources.Resources.lib_export">
-<summary>
-  查找 System.Drawing.Bitmap 类型的本地化资源。
-</summary>
-</member>
-<member name="P:KzSystem.My.Resources.Resources.lib_import">
-<summary>
-  查找 System.Drawing.Bitmap 类型的本地化资源。
-</summary>
-</member>
-<member name="P:KzSystem.My.Resources.Resources.lib_library">
-<summary>
-  查找 System.Drawing.Bitmap 类型的本地化资源。
-</summary>
-</member>
 <member name="P:KzSystem.My.Resources.Resources.lib_nocover">
-<summary>
-  查找 System.Drawing.Bitmap 类型的本地化资源。
-</summary>
-</member>
-<member name="P:KzSystem.My.Resources.Resources.lib_save">
 <summary>
   查找 System.Drawing.Bitmap 类型的本地化资源。
 </summary>
@@ -233,6 +278,111 @@ KzSystem
 </summary>
 </member>
 <member name="P:KzSystem.My.Resources.Resources.ODTCLogo">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_engines">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_favorites">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_finished">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_go">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_goback">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_goforward">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_history">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_home">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_pagesetup">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_preview">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_print">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_properties">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_refresh">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_running">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_save">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_search">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_settings">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_sourcecode">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_stop">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_switch">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_toolbox">
 <summary>
   查找 System.Drawing.Bitmap 类型的本地化资源。
 </summary>
@@ -1005,6 +1155,32 @@ KzSystem
  </summary>
  <param name="InputString"></param>
  <returns></returns>
+</member>
+<member name="M:KzSystem.KzStr.GetTimeSerial(System.DateTime,System.Int32)">
+ <summary>
+ 
+ </summary>
+ <param name="datetime"></param>
+ <param name="index"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzStr.GetFileLength(System.Int64,System.Boolean,System.Boolean,System.Boolean)">
+ <summary>
+ 
+ </summary>
+ <param name="LengthInByte"></param>
+ <param name="StandardView"></param>
+ <param name="UnitShowB"></param>
+ <param name="OriginReturn"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzStr.GetLinkFileName(System.String,System.Boolean)">
+ <summary>
+ Get the file name from a url link or a file path.
+ </summary>
+ <param name="FullPath">String of a url string or a full file path.</param>
+ <param name="IsUrl">Is a url string or not. If false that's a file path.</param>
+ <returns>String of a file name.</returns>
 </member>
 <member name="M:KzSystem.KzWeb.GetWebCode(System.String)">
  <summary>

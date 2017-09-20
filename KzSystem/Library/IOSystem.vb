@@ -319,3 +319,21 @@ Public Class KzFileListView
     End Sub
 
 End Class
+
+Public Class KzFiles
+    Public Shared Function IsImageFile(NameOrExtension As String) As Boolean
+        If Not NameOrExtension.Contains(".") Then Return False
+        If Not NameOrExtension.StartsWith(".") Then NameOrExtension = Path.GetExtension(NameOrExtension)
+
+        Dim iforms As String() = My.Settings.ImageFormats.Split("|")
+        For Each s As String In iforms
+            If NameOrExtension = s Then Return True
+        Next
+
+        Return False
+    End Function
+
+    Public Shared Function IsImageFile(TheFile As FileInfo) As Boolean
+        Return IsImageFile(TheFile.Extension)
+    End Function
+End Class

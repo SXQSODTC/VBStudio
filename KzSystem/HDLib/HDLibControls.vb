@@ -10,14 +10,14 @@ Public Class HDLibTree
         '' Get images for tree.
         ImageList = New ImageList()
         With ImageList.Images
-            .Add(My.Resources.ico_Lib)
-            .Add(My.Resources.ico_book)
-            .Add(My.Resources.ico_author)
-            .Add(My.Resources.ico_category)
-            .Add(My.Resources.ico_special)
-            .Add(My.Resources.ico_series)
-            .Add(My.Resources.ico_list)
-            .Add(My.Resources.ico_unknown)
+            .Add(My.Resources.ico_Lib) '0
+            .Add(My.Resources.ico_book) '1
+            .Add(My.Resources.ico_author) '2
+            .Add(My.Resources.ico_category) '3
+            .Add(My.Resources.ico_special) '4
+            .Add(My.Resources.ico_series) '5
+            .Add(My.Resources.ico_list) '6
+            .Add(My.Resources.ico_unknown) '7
         End With
 
         LineColor = Color.DarkCyan
@@ -307,6 +307,50 @@ Public Class HDLibTree
         End Select
     End Function
 
+    Public Function GetImgId(InfType As HDLibInfType) As Integer
+        Select Case InfType
+            Case HDLibInfType.LibInfo : Return 0
+            Case HDLibInfType.BookInfo : Return 1
+            Case HDLibInfType.AuthorInfo : Return 2
+            Case HDLibInfType.CategoryInfo : Return 3
+            Case HDLibInfType.SpecialInfo : Return 4
+            Case HDLibInfType.SeriesInfo : Return 5
+            Case Else : Return 7
+        End Select
+    End Function
+
+    Public Sub ExpandToNode(NodePath As String)
+        If NodePath.EndsWith(PathSeparator) Then NodePath = NodePath.Remove(NodePath.Length - 1, 1)
+        If NodePath = LibRoot Then Exit Sub
+
+        Dim base As TreeNode = Nodes(0)
+        Dim nt As String = NodePath.Replace(LibRoot & "\", "")
+        Dim nts As String() = nt.Split(PathSeparator)
+
+        base.Expand()
+        Dim nextnode As TreeNode
+        For i As Integer = 0 To nts.Length - 1
+            nextnode = FindNode(base.Nodes, nts(i))
+
+            If Not i = nts.Length - 1 Then
+                nextnode.Expand()
+                base = nextnode
+            Else
+                SelectedNode = nextnode
+            End If
+        Next
+    End Sub
+
+    Private Function FindNode(Nodes As TreeNodeCollection, NodeText As String) As TreeNode
+        For Each node As TreeNode In Nodes
+            If node.Text = NodeText Then
+                Return node
+            End If
+        Next
+
+        Return Nothing
+    End Function
+
     'Private Sub GetInf(node As TreeNode)
     '    _OriginInf = New HDLibInf
     '    _OriginManifest = New HDManifest
@@ -366,6 +410,7 @@ Public Class HDLibTree
     Friend WithEvents CutItem As ToolStripMenuItem
     Friend WithEvents PasteItem As ToolStripMenuItem
     Friend WithEvents DeleteItem As ToolStripMenuItem
+    Friend WithEvents RefreshItem As ToolStripMenuItem
 
     Private Sub CreateMenu()
         LibTreeMenu = New ContextMenuStrip
@@ -377,13 +422,14 @@ Public Class HDLibTree
         CutItem = New ToolStripMenuItem("Cut")
         PasteItem = New ToolStripMenuItem("Paste")
         DeleteItem = New ToolStripMenuItem("Delete")
+        RefreshItem = New ToolStripMenuItem("Refresh")
 
         LibTreeMenu.Items.AddRange(
             New ToolStripItem() {
             AddSubItem, AddHereItem, New ToolStripSeparator,
             RenameItem, New ToolStripSeparator,
             CopyItem, CutItem, PasteItem, New ToolStripSeparator,
-            DeleteItem})
+            DeleteItem, New ToolStripSeparator, RefreshItem})
         LibTreeMenu.ResumeLayout(False)
         Me.ContextMenuStrip = LibTreeMenu
     End Sub
@@ -461,6 +507,23 @@ Public Class HDLibTree
 
 
             PasteItem.Enabled = False
+        End If
+
+        If e.ClickedItem.Equals(RefreshItem) Then
+            Dim TempPath As String
+
+            If SelectedNode Is Nothing Then
+                TempPath = Nothing
+            Else
+                TempPath = SelectedNode.FullPath
+            End If
+
+            Try
+                RefreshTree()
+                ExpandToNode(TempPath)
+            Catch ex As Exception
+
+            End Try
         End If
     End Sub
 #End Region 'ContextMenu

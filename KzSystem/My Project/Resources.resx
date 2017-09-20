@@ -187,41 +187,8 @@
   <data name="liner_setting" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\linerbasicui\liner_setting.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="lib_book" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\libviewui\lib_book.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="lib_bookinfo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\libviewui\lib_bookinfo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="lib_books" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\libviewui\lib_books.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="lib_cover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\libviewui\lib_cover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="lib_database" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\libviewui\lib_database.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="lib_download" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\libviewui\lib_download.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="lib_export" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\libviewui\lib_export.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="lib_import" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\libviewui\lib_import.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="lib_library" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\libviewui\lib_library.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="lib_nocover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\libviewui\lib_nocover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="lib_save" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\libviewui\lib_save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="lib_archive" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\libviewui\lib_archive.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ico_author" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\libviewui\ico_author.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -246,5 +213,128 @@
   </data>
   <data name="ico_unknown" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\libviewui\ico_unknown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="web_favorites" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\webui\web_favorites.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="web_go" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\webui\web_go.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="web_goback" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\webui\web_goback.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="web_goforward" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\webui\web_goforward.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="web_history" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\webui\web_history.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="web_home" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\webui\web_home.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="web_pagesetup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\webui\web_pagesetup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="web_preview" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\webui\web_preview.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="web_print" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\webui\web_print.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="web_properties" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\webui\web_properties.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="web_refresh" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\webui\web_refresh.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="web_save" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\webui\web_save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="web_search" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\webui\web_search.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="web_settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\webui\web_settings.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="web_sourcecode" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\webui\web_sourcecode.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="web_stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\webui\web_stop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="web_switch" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\webui\web_switch.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="web_toolbox" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\webui\web_toolbox.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="web_engines" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\webui\web_engines.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="web_finished" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\webui\web_finished.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="web_running" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\webui\web_running.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="edit_beginselect" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\editorui\edit_beginselect.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="edit_clearall" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\editorui\edit_clearall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="edit_copy" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\editorui\edit_copy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="edit_cut" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\editorui\edit_cut.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="edit_findreplace" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\editorui\edit_findreplace.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="edit_font" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\editorui\edit_font.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="edit_insert" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\editorui\edit_insert.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="edit_new" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\editorui\edit_new.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="edit_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\editorui\edit_open.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="edit_paste" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\editorui\edit_paste.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="edit_redo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\editorui\edit_redo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="edit_refresh" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\editorui\edit_refresh.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="edit_save" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\editorui\edit_save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="edit_saveas" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\editorui\edit_saveas.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="edit_selectall" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\editorui\edit_selectall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="edit_tools" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\editorui\edit_tools.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="edit_undo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\editorui\edit_undo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="edit_wrap" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\editorui\edit_wrap.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="edit_delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\editorui\edit_delete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="edit_command" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\editorui\edit_command.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

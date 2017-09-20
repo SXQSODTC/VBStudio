@@ -92,6 +92,15 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataControls\DataInputItem.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DataControls\DataInputItemSample.Designer.vb">
+      <DependentUpon>DataInputItemSample.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DataControls\DataInputItemSample.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="HDLib\HDLibComponents.vb" />
     <Compile Include="HDLib\HDLibControls.vb">
       <SubType>Component</SubType>
@@ -100,6 +109,12 @@
       <DependentUpon>HDLibSearch.vb</DependentUpon>
     </Compile>
     <Compile Include="HDLib\HDLibSearch.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserDialogs\KzListEditor.Designer.vb">
+      <DependentUpon>KzListEditor.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserDialogs\KzListEditor.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="HDLib\HDLibView.Designer.vb">
@@ -166,10 +181,22 @@
     <Compile Include="Tempcode\TestWebBrowser.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="UserControls\KzImageView.Designer.vb">
+      <DependentUpon>KzImageView.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\KzImageView.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="UserControls\KzOnePageWeb.Designer.vb">
       <DependentUpon>KzOnePageWeb.vb</DependentUpon>
     </Compile>
     <Compile Include="UserControls\KzOnePageWeb.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\KzSingleEditor.Designer.vb">
+      <DependentUpon>KzSingleEditor.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\KzSingleEditor.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserDialogs\KzColorConverter.Designer.vb">
@@ -271,8 +298,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="DataControls\DataInputItemSample.resx">
+      <DependentUpon>DataInputItemSample.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="HDLib\HDLibSearch.resx">
       <DependentUpon>HDLibSearch.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserDialogs\KzListEditor.resx">
+      <DependentUpon>KzListEditor.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HDLib\HDLibView.resx">
       <DependentUpon>HDLibView.vb</DependentUpon>
@@ -298,8 +331,14 @@
     <EmbeddedResource Include="Tempcode\TestWebBrowser.resx">
       <DependentUpon>TestWebBrowser.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\KzImageView.resx">
+      <DependentUpon>KzImageView.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\KzOnePageWeb.resx">
       <DependentUpon>KzOnePageWeb.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\KzSingleEditor.resx">
+      <DependentUpon>KzSingleEditor.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserDialogs\KzColorConverter.resx">
       <DependentUpon>KzColorConverter.vb</DependentUpon>
@@ -405,6 +444,26 @@
     <None Include="Resources\LinerPngIcon\folder_open.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\EditorUI\edit_beginselect.png" />
+    <Content Include="Resources\EditorUI\edit_clearall.png" />
+    <Content Include="Resources\EditorUI\edit_command.png" />
+    <Content Include="Resources\EditorUI\edit_copy.png" />
+    <Content Include="Resources\EditorUI\edit_cut.png" />
+    <Content Include="Resources\EditorUI\edit_delete.png" />
+    <Content Include="Resources\EditorUI\edit_findreplace.png" />
+    <Content Include="Resources\EditorUI\edit_font.png" />
+    <Content Include="Resources\EditorUI\edit_insert.png" />
+    <Content Include="Resources\EditorUI\edit_new.png" />
+    <Content Include="Resources\EditorUI\edit_open.png" />
+    <Content Include="Resources\EditorUI\edit_paste.png" />
+    <Content Include="Resources\EditorUI\edit_redo.png" />
+    <Content Include="Resources\EditorUI\edit_refresh.png" />
+    <Content Include="Resources\EditorUI\edit_save.png" />
+    <Content Include="Resources\EditorUI\edit_saveas.png" />
+    <Content Include="Resources\EditorUI\edit_selectall.png" />
+    <Content Include="Resources\EditorUI\edit_tools.png" />
+    <Content Include="Resources\EditorUI\edit_undo.png" />
+    <Content Include="Resources\EditorUI\edit_wrap.png" />
     <Content Include="Resources\LibViewUI\ico_author.png" />
     <Content Include="Resources\LibViewUI\ico_book.png" />
     <Content Include="Resources\LibViewUI\ico_category.png" />
@@ -437,7 +496,29 @@
     <Content Include="Resources\Numbers\Number_7.png" />
     <Content Include="Resources\Numbers\Number_8.png" />
     <Content Include="Resources\Numbers\Number_9.png" />
+    <Content Include="Resources\WebUI\web_engines.png" />
+    <Content Include="Resources\WebUI\web_favorites.png" />
+    <Content Include="Resources\WebUI\web_finished.png" />
+    <Content Include="Resources\WebUI\web_go.png" />
+    <Content Include="Resources\WebUI\web_goback.png" />
+    <Content Include="Resources\WebUI\web_goforward.png" />
+    <Content Include="Resources\WebUI\web_history.png" />
+    <Content Include="Resources\WebUI\web_home.png" />
+    <Content Include="Resources\WebUI\web_pagesetup.png" />
+    <Content Include="Resources\WebUI\web_preview.png" />
+    <Content Include="Resources\WebUI\web_print.png" />
+    <Content Include="Resources\WebUI\web_properties.png" />
+    <Content Include="Resources\WebUI\web_refresh.png" />
+    <Content Include="Resources\WebUI\web_running.png" />
+    <Content Include="Resources\WebUI\web_save.png" />
+    <Content Include="Resources\WebUI\web_search.png" />
+    <Content Include="Resources\WebUI\web_settings.png" />
+    <Content Include="Resources\WebUI\web_sourcecode.png" />
+    <Content Include="Resources\WebUI\web_stop.png" />
+    <Content Include="Resources\WebUI\web_switch.png" />
+    <Content Include="Resources\WebUI\web_toolbox.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

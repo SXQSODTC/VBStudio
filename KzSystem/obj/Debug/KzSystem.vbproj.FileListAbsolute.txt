@@ -61,7 +61,11 @@ D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.TestWebBrowser.resources
 D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzColorConverter.resources
 E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.HDLibView.resources
 E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.HDLibSearch.resources
-E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.HDViewHeader.resources
 D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.HDLibSearch.resources
-D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.vbprojResolveAssemblyReference.cache
 E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.vbprojResolveAssemblyReference.cache
+D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzOnePageWeb.resources
+D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzSingleEditor.resources
+E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzOnePageWeb.resources
+E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzSingleEditor.resources
+D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzImageView.resources
+D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzListEditor.resources

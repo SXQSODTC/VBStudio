@@ -44,7 +44,46 @@ Public Class ListViewHelper
         End If
     End Sub
 
+    Public Shared Function GetNewItemText(TheView As ListView, ItemText As String) As String
+        If TheView.Items.Count > 0 Then
+            Dim i As Integer = 1
+            Dim s As String = ItemText
+            Do While ContainsItemText(TheView, s)
+                s = ItemText & i.ToString
+                i += 1
+            Loop
 
+            Return s
+        Else
+            Return ItemText
+        End If
+    End Function
+
+    Public Shared Function ContainsItemText(TheView As ListView, ItemText As String) As Boolean
+        If TheView.Items.Count > 0 Then
+            For Each it As ListViewItem In TheView.Items
+                If it.Text = ItemText Then
+                    Return True
+                    Exit For
+                End If
+            Next
+        End If
+
+        Return False
+    End Function
+
+    Public Shared Function GetItemByText(TheView As ListView, ItemText As String) As ListViewItem
+        If TheView.Items.Count > 0 Then
+            For Each it As ListViewItem In TheView.Items
+                If it.Text = ItemText Then
+                    Return it
+                    Exit For
+                End If
+            Next
+        End If
+
+        Return Nothing
+    End Function
 End Class
 
 '/// <summary>
@@ -154,15 +193,31 @@ End Class
 
 
 Public Class ListBoxHelper
-    Public Shared Sub MoveListItem(ByVal ThisListBox As ListBox, ByVal FromIndex As Integer, ByVal ToIndex As Integer)
+    Public Shared Sub MoveItem(ByVal TheListBox As ListBox, ByVal FromIndex As Integer, ByVal ToIndex As Integer)
         Dim TempListItem As String
 
-        With ThisListBox
+        With TheListBox
             If .SelectedItems.Count > 0 Then
                 TempListItem = .Items(FromIndex).ToString
                 .Items.RemoveAt(FromIndex)
                 .Items.Insert(ToIndex, TempListItem)
             End If
         End With
+    End Sub
+
+    Public Shared Sub ItemMove(ByVal TheListBox As ListBox, ByVal ShiftRange As Integer)
+
+    End Sub
+
+    Public Shared Sub EditItem(ByVal TheListBox As ListBox, ByVal ItemText As String, Optional ByVal ItemIndex As Integer = -1)
+        If TheListBox.Items.Count = 0 Then Exit Sub
+
+        If ItemIndex = -1 AndAlso TheListBox.SelectedItems.Count > 0 Then
+            ItemIndex = TheListBox.SelectedIndex
+        End If
+
+        If ItemIndex > -1 And ItemIndex <= TheListBox.Items.Count - 1 Then
+            TheListBox.Items.Insert(ItemIndex, ItemText)
+        End If
     End Sub
 End Class

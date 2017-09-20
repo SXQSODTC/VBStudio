@@ -1197,10 +1197,6 @@ Public Class HDLibForm
         End If
     End Sub
 
-    Private Sub LibMenu_Opening(sender As Object, e As CancelEventArgs) Handles LibMenu.Opening
-
-    End Sub
-
 
 
 #End Region 'ClickedMenuActions
