@@ -1,4 +1,4 @@
-﻿Imports Microsoft.VisualBasic.PowerPacks
+﻿'Imports Microsoft.VisualBasic.PowerPacks
 
 Public Class KzPainting
 

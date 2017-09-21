@@ -83,11 +83,13 @@ Partial Class DataInputItemSample
         '
         'InputBox
         '
+        Me.RootPanel.SetColumnSpan(Me.InputBox, 2)
         Me.InputBox.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.InputBox.HideSelection = False
         Me.InputBox.Location = New System.Drawing.Point(86, 1)
         Me.InputBox.Margin = New System.Windows.Forms.Padding(1)
         Me.InputBox.Name = "InputBox"
-        Me.InputBox.Size = New System.Drawing.Size(80, 23)
+        Me.InputBox.Size = New System.Drawing.Size(162, 23)
         Me.InputBox.TabIndex = 2
         '
         'ClearButton

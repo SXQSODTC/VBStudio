@@ -199,6 +199,7 @@ Public Class HDLibView
         If err.Length > 0 Then
             MsgBox("源格式不匹配。以下元素未能取得：" & vbCrLf & err)
         End If
+
         LinksViewAdd("BookView", iBro.Url.ToString, True)
     End Sub
 
@@ -372,6 +373,7 @@ Public Class HDLibView
                 For Each kvp As KeyValuePair(Of String, String) In Inf.Links
                     item = New ListViewItem(kvp.Key)
                     item.SubItems.Add(kvp.Value)
+                    LinksView.Items.Add(item)
                 Next
             End If
             LinksView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
@@ -778,7 +780,7 @@ Public Class HDLibView
             item.SubItems.Add(value)
             LinksView.Items.Add(item)
         End If
-
+        LinksView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
         CurrentInf.Links = GetLinks()
         UpdateInfButton.Enabled = True
     End Sub
@@ -844,4 +846,46 @@ Public Class HDLibView
 
 
 
+    Private Sub LibDataContextMenu_Opening(sender As Object, e As CancelEventArgs) Handles LibDataContextMenu.Opening
+        Dim c As Control = LibDataContextMenu.SourceControl
+
+        With LibDataContextMenu.Items
+            .Clear()
+
+            If c.Equals(FilesView) Then
+                .Add("Import...")
+                .Add("Rename")
+                .Add(New ToolStripSeparator)
+                .Add("Copy")
+                .Add("Cut")
+                .Add("Paste")
+                .Add("Delete")
+                .Add(New ToolStripSeparator)
+                .Add("Set Cover", Nothing, AddressOf MenuSetToCover)
+            End If
+
+            If c.Equals(LinksView) Then
+                .Add("Navigate...")
+                .Add("Download...")
+                .Add(New ToolStripSeparator)
+                .Add("Copy link")
+                .Add("Rename key")
+                .Add("Delete")
+            End If
+        End With
+    End Sub
+
+    Private Sub MenuSetToCover()
+        If FilesView.Items.Count > 0 AndAlso FilesView.SelectedItems.Count > 0 Then
+            If FilesView.SelectedItems(0).SubItems(2).Text = "圖像" Then
+                If LogoTextBox.Text IsNot Nothing AndAlso LogoTextBox.Text.Trim.Length > 0 Then
+                    LogoTextBox.Text = FilesView.SelectedItems(0).Text
+                Else
+                    If MsgBox("已存在指定封面，是否替換？", MsgBoxStyle.YesNo, "封面") = MsgBoxResult.Yes Then
+                        LogoTextBox.Text = FilesView.SelectedItems(0).Text
+                    End If
+                End If
+            End If
+        End If
+    End Sub
 End Class

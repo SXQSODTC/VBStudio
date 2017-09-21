@@ -1,11 +1,11 @@
 ﻿Imports System.ComponentModel
 Imports System.Windows.Forms.Design
+Imports KzSystem.KzData
 
 '<Description("KzTrackBar represents an advanced track bar that is very better than the standard trackbar."),
 '    ToolboxBitmap(GetType(KzTrackBar), "Editors.KzTrackBar.KzTrackBar.bmp"), Designer(GetType(KzTrackBarDesigner)),
 '    DefaultProperty("Maximum"), DefaultEvent("ValueChanged")>
-<Description("Provider a base control for data input."), Designer(GetType(DataInputItemDesigner)),
-    DefaultProperty("Key"), DefaultEvent("ValueChanged")>
+<Description("Provider a base control for data input."), Designer(GetType(DataInputItemDesigner)), DefaultProperty("Key")>
 Public MustInherit Class DataInputItem
     Inherits TableLayoutPanel
 
@@ -20,21 +20,23 @@ Public MustInherit Class DataInputItem
     Private _UseClearButton As Boolean
     Private _CanExtend As Boolean
     Private _IsReadOnly As Boolean
+    'Private _ToolTip As ToolTip
 
     Public Sub New()
         InitializeComponent()
 
     End Sub
 
-    Public Property HeightFixed As Boolean = True
+    Public MustOverride Property Value As Object
 
-    Public ReadOnly Property ValueType As ValueType
+    Public Property HeightFixed As Boolean = True
+    Public Property ValueType As Type = StringType
+
+    Public ReadOnly Property TypeMatch As Boolean
         Get
-            Return Me.Value
+            Return Value.GetType Is ValueType
         End Get
     End Property
-
-    Public MustOverride Property Value As Object
 
     Public Overridable Property IsReadOnly As Boolean
         Get
@@ -42,7 +44,15 @@ Public MustInherit Class DataInputItem
         End Get
         Set(value As Boolean)
             _IsReadOnly = value
-
+            If _IsReadOnly Then
+                Checker.Enabled = False
+                ClearButton.Enabled = False
+                ExtendButton.Enabled = False
+            Else
+                Checker.Enabled = True
+                ClearButton.Enabled = True
+                ExtendButton.Enabled = True
+            End If
         End Set
     End Property
 
@@ -79,7 +89,13 @@ Public MustInherit Class DataInputItem
         End Get
         Set(value As Boolean)
             _UseChecker = value
-
+            If _UseChecker Then
+                Checker.Hide()
+                ColumnStyles.Item(0).Width = 0
+            Else
+                ColumnStyles.Item(0).Width = 25
+                Checker.Show()
+            End If
         End Set
     End Property
 
@@ -89,7 +105,13 @@ Public MustInherit Class DataInputItem
         End Get
         Set(value As Boolean)
             _UseClearButton = value
-
+            If _UseClearButton Then
+                ClearButton.Hide()
+                ColumnStyles.Item(4).Width = 0
+            Else
+                ColumnStyles.Item(4).Width = 25
+                ClearButton.Show()
+            End If
         End Set
     End Property
 
@@ -99,106 +121,127 @@ Public MustInherit Class DataInputItem
         End Get
         Set(value As Boolean)
             _CanExtend = value
-
+            If _CanExtend Then
+                ExtendButton.Hide()
+                ColumnStyles.Item(5).Width = 0
+            Else
+                ColumnStyles.Item(5).Width = 25
+                ExtendButton.Show()
+            End If
         End Set
     End Property
 
-    Public Property ToolTip As ToolTip
+    Public Overridable Property ToolTip As ToolTip
+        Get
+            Return Nothing
+        End Get
+        Set(value As ToolTip)
+            '_ToolTip = value
+
+            value.SetToolTip(Me.Checker, "")
+            value.SetToolTip(Me.SubjectLabel, "")
+            value.SetToolTip(Me.ClearButton, "")
+            value.SetToolTip(Me.ExtendButton, "")
+        End Set
+    End Property
 
     Private Sub InitializeComponent()
-        Me.Checker = New System.Windows.Forms.CheckBox()
-        Me.SubjectLabel = New System.Windows.Forms.Label()
-        'Me.InputBox = New System.Windows.Forms.TextBox()
-        Me.ClearButton = New System.Windows.Forms.Button()
-        Me.ExtendButton = New System.Windows.Forms.Button()
-        'Me.Tips = New System.Windows.Forms.ToolTip(Me)
+        Me.Checker = New CheckBox()
+        Me.SubjectLabel = New Label()
+        'Me.InputBox = New TextBox()
+        Me.ClearButton = New Button()
+        Me.ExtendButton = New Button()
+        'Me.Tips = New ToolTip(Me)
         'Me.SuspendLayout()
         Me.SuspendLayout()
         '
         'RootPanel
         '
         Me.ColumnCount = 6
-        Me.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
-        Me.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
-        Me.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
-        Me.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
+        Me.ColumnStyles.Add(New ColumnStyle(SizeType.Absolute, 25.0!))
+        Me.ColumnStyles.Add(New ColumnStyle(SizeType.Absolute, 60.0!))
+        Me.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50.0!))
+        Me.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50.0!))
+        Me.ColumnStyles.Add(New ColumnStyle(SizeType.Absolute, 25.0!))
+        Me.ColumnStyles.Add(New ColumnStyle(SizeType.Absolute, 25.0!))
         Me.Controls.Add(Me.Checker, 0, 0)
         Me.Controls.Add(Me.SubjectLabel, 1, 0)
         'Me.Controls.Add(Me.InputBox, 2, 0)
         Me.Controls.Add(Me.ClearButton, 4, 0)
         Me.Controls.Add(Me.ExtendButton, 5, 0)
-        Me.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Location = New System.Drawing.Point(0, 0)
-        Me.Margin = New System.Windows.Forms.Padding(0)
+        Me.Dock = DockStyle.Fill
+        Me.Location = New Point(0, 0)
+        Me.Margin = New Padding(0)
         Me.Name = "RootPanel"
         Me.RowCount = 3
-        Me.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 0!))
-        Me.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 0!))
-        Me.Size = New System.Drawing.Size(300, 25)
+        Me.RowStyles.Add(New RowStyle(SizeType.Percent, 100.0!))
+        Me.RowStyles.Add(New RowStyle(SizeType.Percent, 0!))
+        Me.RowStyles.Add(New RowStyle(SizeType.Percent, 0!))
+        Me.Size = New Size(300, 25)
         Me.TabIndex = 0
+        Me.CanCheck = True
+        Me.CanExtend = True
+        Me.UseClearButton = True
         '
         'Checker
         '
-        Me.Checker.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.Checker.Anchor = AnchorStyles.None
         Me.Checker.AutoSize = True
         Me.Checker.FlatAppearance.BorderSize = 0
-        Me.Checker.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Checker.Location = New System.Drawing.Point(6, 7)
+        Me.Checker.FlatStyle = FlatStyle.Flat
+        Me.Checker.Location = New Point(6, 7)
         Me.Checker.Name = "Checker"
-        Me.Checker.Size = New System.Drawing.Size(12, 11)
+        Me.Checker.Size = New Size(12, 11)
         Me.Checker.TabIndex = 0
         Me.Checker.UseVisualStyleBackColor = True
         '
         'SubjectLabel
         '
         Me.SubjectLabel.AutoSize = True
-        Me.SubjectLabel.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SubjectLabel.Location = New System.Drawing.Point(28, 0)
+        Me.SubjectLabel.Dock = DockStyle.Fill
+        Me.SubjectLabel.Location = New Point(28, 0)
         Me.SubjectLabel.Name = "SubjectLabel"
-        Me.SubjectLabel.Size = New System.Drawing.Size(54, 25)
+        Me.SubjectLabel.Size = New Size(54, 25)
         Me.SubjectLabel.TabIndex = 1
         Me.SubjectLabel.Text = "Subject"
-        Me.SubjectLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.SubjectLabel.TextAlign = ContentAlignment.MiddleLeft
         '
         'InputBox
         '
-        'Me.InputBox.Dock = System.Windows.Forms.DockStyle.Fill
-        'Me.InputBox.Location = New System.Drawing.Point(86, 1)
-        'Me.InputBox.Margin = New System.Windows.Forms.Padding(1)
+        'Me.InputBox.Dock = DockStyle.Fill
+        'Me.InputBox.Location = New Point(86, 1)
+        'Me.InputBox.Margin = New Padding(1)
         'Me.InputBox.Name = "InputBox"
-        'Me.InputBox.Size = New System.Drawing.Size(80, 23)
+        'Me.InputBox.Size = New Size(80, 23)
         'Me.InputBox.TabIndex = 2
         '
         'ClearButton
         '
-        Me.ClearButton.Location = New System.Drawing.Point(250, 1)
-        Me.ClearButton.Margin = New System.Windows.Forms.Padding(1)
+        Me.ClearButton.Location = New Point(250, 1)
+        Me.ClearButton.Margin = New Padding(1)
         Me.ClearButton.Name = "ClearButton"
-        Me.ClearButton.Size = New System.Drawing.Size(23, 23)
+        Me.ClearButton.Size = New Size(23, 23)
         Me.ClearButton.TabIndex = 3
         Me.ClearButton.UseVisualStyleBackColor = True
         '
         'ExtendButton
         '
-        Me.ExtendButton.Location = New System.Drawing.Point(275, 1)
-        Me.ExtendButton.Margin = New System.Windows.Forms.Padding(1)
+        Me.ExtendButton.Location = New Point(275, 1)
+        Me.ExtendButton.Margin = New Padding(1)
         Me.ExtendButton.Name = "ExtendButton"
-        Me.ExtendButton.Size = New System.Drawing.Size(23, 23)
+        Me.ExtendButton.Size = New Size(23, 23)
         Me.ExtendButton.TabIndex = 4
         Me.ExtendButton.UseVisualStyleBackColor = True
         '
         'DataInputItemSample
         '
-        'Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 17.0!)
-        'Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        'Me.AutoScaleDimensions = New SizeF(7.0!, 17.0!)
+        'Me.AutoScaleMode = AutoScaleMode.Font
         'Me.Controls.Add(Me)
-        Me.Font = New System.Drawing.Font("Microsoft YaHei UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.Font = New Font("Microsoft YaHei UI", 9.0!, FontStyle.Regular, GraphicsUnit.Point, CType(134, Byte))
+        Me.Margin = New Padding(3, 4, 3, 4)
         Me.Name = "DataInputItemSample"
-        'Me.Size = New System.Drawing.Size(300, 25)
+        'Me.Size = New Size(300, 25)
         Me.ResumeLayout(False)
         Me.PerformLayout()
         'Me.ResumeLayout(False)
@@ -224,7 +267,6 @@ Public MustInherit Class DataInputItem
     Public Event CheckStateChanged(sender As Object, e As EventArgs)
     Public Event ClearButtonClick(sender As Object, e As EventArgs)
     Public Event ExtendButtonClick(sender As Object, e As EventArgs)
-    Public Event ValueChanged(sender As Object, e As EventArgs)
 End Class
 
 Public Class DataInputItemDesigner
@@ -257,23 +299,64 @@ End Class
 Public Class DataInputTextItem
     Inherits DataInputItem
 
+    Friend WithEvents InputBox As TextBox
+
     Public Sub New()
         InitializeComponent()
 
     End Sub
 
     Private Sub InitializeComponent()
+        Me.InputBox = New TextBox
+        Me.SuspendLayout()
+        Me.Controls.Add(Me.InputBox, 2, 0)
+        '
+        'InputBox
+        '
+        Me.SetColumnSpan(Me.InputBox, 2)
+        Me.InputBox.Dock = DockStyle.Fill
+        Me.InputBox.HideSelection = False
+        Me.InputBox.Location = New Point(86, 1)
+        Me.InputBox.Margin = New Padding(1)
+        Me.InputBox.Name = "InputBox"
+        Me.InputBox.Size = New Size(162, 23)
+        Me.InputBox.TabIndex = 2
 
+        Me.ResumeLayout(False)
+        Me.PerformLayout()
     End Sub
 
     Public Overrides Property Value As Object
         Get
-            Throw New NotImplementedException()
+            Return InputBox.Text
         End Get
         Set(value As Object)
-            Throw New NotImplementedException()
+            InputBox.Text = value
         End Set
     End Property
 
+    Public Overrides Property IsReadOnly As Boolean
+        Get
+            Return MyBase.IsReadOnly
+        End Get
+        Set(value As Boolean)
+            MyBase.IsReadOnly = value
 
+            If MyBase.IsReadOnly Then
+                InputBox.ReadOnly = True
+            Else
+                InputBox.ReadOnly = False
+            End If
+        End Set
+    End Property
+
+    Private Sub InputBox_TextChanged(sender As Object, e As EventArgs) Handles InputBox.TextChanged
+        RaiseEvent ValueChanged(Me, e)
+    End Sub
+
+    Private Sub DataInputTextItem_ClearButtonClick(sender As Object, e As EventArgs) Handles Me.ClearButtonClick
+        InputBox.Clear()
+    End Sub
+
+    Public Event ValueChanged(sender As Object, e As EventArgs)
 End Class

@@ -236,7 +236,7 @@ Public Class HDLibInf
             If Links.Count > 0 Then
                 sb.AppendLine("Links: ")
                 sb.Append(Links.ToString)
-                sb.Append("#Links")
+                sb.AppendLine("#Links")
             End If
         Catch ex As Exception
 

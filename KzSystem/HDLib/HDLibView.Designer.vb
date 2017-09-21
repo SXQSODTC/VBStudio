@@ -98,6 +98,7 @@ Partial Class HDLibView
         Me.SizeColumn = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.InfoColumn = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.CreatedColumn = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.LibDataContextMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.ListEditPanel = New System.Windows.Forms.TableLayoutPanel()
         Me.LViewButton = New System.Windows.Forms.Button()
         Me.LWritedLabel = New System.Windows.Forms.Label()
@@ -148,6 +149,7 @@ Partial Class HDLibView
         Me.TryGetButton = New System.Windows.Forms.ToolStripDropDownButton()
         Me.HDBookInfoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CategoryInfoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DBButton = New System.Windows.Forms.ToolStripDropDownButton()
         Me.LibStatusStrip = New System.Windows.Forms.StatusStrip()
         Me.CurrentNodeLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.BrowserTabs = New System.Windows.Forms.TabControl()
@@ -156,12 +158,10 @@ Partial Class HDLibView
         Me.LibMenu = New System.Windows.Forms.MenuStrip()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.LibRootToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.LibDataContextMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.LibTips = New System.Windows.Forms.ToolTip(Me.components)
         Me.LibView = New KzSystem.HDLibTree()
         Me.WebViewer = New KzSystem.KzOnePageWeb()
         Me.QuickViewer = New KzSystem.KzSingleEditor()
-        Me.DBButton = New System.Windows.Forms.ToolStripDropDownButton()
         CType(Me.LibSpliter, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.LibSpliter.Panel1.SuspendLayout()
         Me.LibSpliter.Panel2.SuspendLayout()
@@ -1079,6 +1079,7 @@ Partial Class HDLibView
         '
         Me.FilesView.AllowDrop = True
         Me.FilesView.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.NameColumn, Me.TypeColumn, Me.LengthColumn, Me.SizeColumn, Me.InfoColumn, Me.CreatedColumn})
+        Me.FilesView.ContextMenuStrip = Me.LibDataContextMenu
         Me.FilesView.Dock = System.Windows.Forms.DockStyle.Fill
         Me.FilesView.FullRowSelect = True
         Me.FilesView.GridLines = True
@@ -1116,6 +1117,11 @@ Partial Class HDLibView
         'CreatedColumn
         '
         Me.CreatedColumn.Text = "創建"
+        '
+        'LibDataContextMenu
+        '
+        Me.LibDataContextMenu.Name = "LibDataContextMenu"
+        Me.LibDataContextMenu.Size = New System.Drawing.Size(61, 4)
         '
         'ListEditPanel
         '
@@ -1250,6 +1256,7 @@ Partial Class HDLibView
         '
         Me.LinksView.AllowDrop = True
         Me.LinksView.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.UKeyColumn, Me.ULinkColumn})
+        Me.LinksView.ContextMenuStrip = Me.LibDataContextMenu
         Me.LinksView.Dock = System.Windows.Forms.DockStyle.Fill
         Me.LinksView.Location = New System.Drawing.Point(0, 0)
         Me.LinksView.Name = "LinksView"
@@ -1438,7 +1445,7 @@ Partial Class HDLibView
         Me.DownloadPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24.0!))
         Me.DownloadPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24.0!))
         Me.DownloadPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.DownloadPanel.Size = New System.Drawing.Size(330, 243)
+        Me.DownloadPanel.Size = New System.Drawing.Size(330, 247)
         Me.DownloadPanel.TabIndex = 0
         '
         'DFileNameTextBox
@@ -1583,7 +1590,7 @@ Partial Class HDLibView
         Me.DUrlListBox.ItemHeight = 17
         Me.DUrlListBox.Location = New System.Drawing.Point(3, 147)
         Me.DUrlListBox.Name = "DUrlListBox"
-        Me.DUrlListBox.Size = New System.Drawing.Size(181, 93)
+        Me.DUrlListBox.Size = New System.Drawing.Size(181, 97)
         Me.DUrlListBox.TabIndex = 12
         '
         'DProgressBar
@@ -1602,7 +1609,7 @@ Partial Class HDLibView
         Me.DMsgLabel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DMsgLabel.Location = New System.Drawing.Point(190, 144)
         Me.DMsgLabel.Name = "DMsgLabel"
-        Me.DMsgLabel.Size = New System.Drawing.Size(137, 99)
+        Me.DMsgLabel.Size = New System.Drawing.Size(137, 103)
         Me.DMsgLabel.TabIndex = 19
         Me.DMsgLabel.Text = "Message:"
         '
@@ -1706,6 +1713,16 @@ Partial Class HDLibView
         Me.CategoryInfoToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.CategoryInfoToolStripMenuItem.Text = "CategoryInfo"
         '
+        'DBButton
+        '
+        Me.DBButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.DBButton.Image = CType(resources.GetObject("DBButton.Image"), System.Drawing.Image)
+        Me.DBButton.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.DBButton.Name = "DBButton"
+        Me.DBButton.ShowDropDownArrow = False
+        Me.DBButton.Size = New System.Drawing.Size(20, 22)
+        Me.DBButton.Text = "ToolStripButton1"
+        '
         'LibStatusStrip
         '
         Me.LibStatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CurrentNodeLabel})
@@ -1779,11 +1796,6 @@ Partial Class HDLibView
         Me.LibRootToolStripMenuItem.Size = New System.Drawing.Size(121, 22)
         Me.LibRootToolStripMenuItem.Text = "LibRoot"
         '
-        'LibDataContextMenu
-        '
-        Me.LibDataContextMenu.Name = "LibDataContextMenu"
-        Me.LibDataContextMenu.Size = New System.Drawing.Size(61, 4)
-        '
         'LibView
         '
         Me.LibView.Dock = System.Windows.Forms.DockStyle.Fill
@@ -1821,16 +1833,6 @@ Partial Class HDLibView
         Me.QuickViewer.Name = "QuickViewer"
         Me.QuickViewer.Size = New System.Drawing.Size(300, 453)
         Me.QuickViewer.TabIndex = 0
-        '
-        'DBButton
-        '
-        Me.DBButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.DBButton.Image = CType(resources.GetObject("DBButton.Image"), System.Drawing.Image)
-        Me.DBButton.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.DBButton.Name = "DBButton"
-        Me.DBButton.ShowDropDownArrow = False
-        Me.DBButton.Size = New System.Drawing.Size(20, 22)
-        Me.DBButton.Text = "ToolStripButton1"
         '
         'HDLibView
         '

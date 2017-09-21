@@ -51,7 +51,6 @@ E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzColorsDialog.resources
 D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzColorsDialog.resources
 E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzPadingSetter.resources
 D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzPadingSetter.resources
-D:\OneDrive\KzSystem\KzSystem\bin\Debug\Microsoft.VisualBasic.PowerPacks.Vs.dll
 D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzBrowser.resources
 E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzBrowser.resources
 E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.TestWebBrowser.resources
@@ -69,3 +68,5 @@ E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzOnePageWeb.resources
 E:\SkyDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzSingleEditor.resources
 D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzImageView.resources
 D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzListEditor.resources
+D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.vbprojResolveAssemblyReference.cache
+D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.DataInputItemSample.resources

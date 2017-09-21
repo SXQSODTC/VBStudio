@@ -160,13 +160,17 @@ Public Class StartForm
         FormSwitch(TestExplorer)
     End Sub
 
-    Private Sub HDLibToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HDLibToolStripMenuItem.Click
-        FormSwitch(HDLibView)
+    Private Sub Test05_Click(sender As Object, e As EventArgs) Handles Test05.Click
+
         'FormSwitch(TestExplorer)
     End Sub
 
     Private Sub WebBrowserToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles WebBrowserToolStripMenuItem.Click
         FormSwitch(TestWebBrowser)
+    End Sub
+
+    Private Sub HDLibraryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HDLibraryToolStripMenuItem.Click
+        FormSwitch(HDLibView)
     End Sub
 
 

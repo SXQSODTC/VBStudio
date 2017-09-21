@@ -387,6 +387,113 @@ KzSystem
   查找 System.Drawing.Bitmap 类型的本地化资源。
 </summary>
 </member>
+<member name="P:KzSystem.KzData.BooleanType">
+ <summary>
+ Boolean : True 或 False
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzData.ByteType">
+ <summary>
+ Byte : 1 个字节，0 到 255（无符号）
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzData.CharType">
+ <summary>
+ Char : 2 个字节，0 到 65,535（无符号）
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzData.DateTimeType">
+ <summary>
+ DateTime : 8 个字节，0001 年 1 月 1 日午夜 0:00:00 到 9999 年 12 月 31 日晚上 11:59:59 。
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzData.DecimalType">
+ <summary>
+ Decimal : 16 个字节，0 到 +/-79,228,162,514,264,337,593,543,950,335 (+/-7.9...E+28) ，
+ 不包含小数点；0 到 +/-7.9228162514264337593543950335，包含小数点右边 28 位。
+ 最小非零数为 +/-0.0000000000000000000000000001 (+/-1E-28) 。
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzData.DoubleType">
+ <summary>
+ Double : 8 个字节，对于负值，为 -1.79769313486231570E+308 到 -4.94065645841246544E-324 。
+ 对于正值，为 4.94065645841246544E-324 到 1.79769313486231570E+308 。
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzData.IntegerType">
+ <summary>
+ Int32 : 4 个字节，-2,147,483,648 到 2,147,483,647（有符号）
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzData.LongType">
+ <summary>
+ Int64 : 8 个字节，（有符号）-9,223,372,036,854,775,808 到 9,223,372,036,854,775,807 (9.2...E+18)
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzData.ObjectType">
+ <summary>
+ Object（类） : 4 个字节（32 位平台上） or 8 个字节（64 位平台上），
+ 任何类型都可以存储在 Object 类型的变量中
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzData.SByteType">
+ <summary>
+ SByte : 1 个字节，-128 到 127（有符号）
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzData.ShortType">
+ <summary>
+ Int16 : 2 个字节，-32,768 到 32,767（有符号）
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzData.SingleType">
+ <summary>
+ Single : 4 个字节，对于负值，为 -3.4028235E+38 到 -1.401298E-45 。
+ 对于正值，为 1.401298E-45 到 3.4028235E+38 。
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzData.StringType">
+ <summary>
+ String（类） : 取决于实现平台，0 到大约 20 亿个 Unicode 字符
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzData.UIntegerType">
+ <summary>
+ UInt32 : 4 个字节，0 到 4,294,967,295（无符号）
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzData.ULongType">
+ <summary>
+ UInt64 : 8 个字节，0 到 18,446,744,073,709,551,615 (1.8...E+19)（无符号）
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzData.UShortType">
+ <summary>
+ UInt16 : 2 个字节，0 到 65,535（无符号）
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzData.BigIntegerType">
+ <summary>
+ 表示任意大的带符号整数。这是支持任意大整数的非基元整型类型。
+ </summary>
+ <returns></returns>
+</member>
 <member name="M:KzSystem.KzColorHelper.CreateColorFromRGB(System.Int32,System.Int32,System.Int32)">
  <summary>
  
