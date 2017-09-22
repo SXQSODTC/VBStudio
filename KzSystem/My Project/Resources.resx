@@ -337,4 +337,40 @@
   <data name="edit_command" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\editorui\edit_command.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ico_settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\libviewui\ico_settings.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ico_textpack" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\libviewui\ico_textpack.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ico_tools" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\libviewui\ico_tools.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="lib_advsearch" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\libviewui\lib_advsearch.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="lib_db" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\libviewui\lib_db.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="lib_reset" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\libviewui\lib_reset.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="lib_search" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\libviewui\lib_search.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="lib_show" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\libviewui\lib_show.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="lib_tryget" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\libviewui\lib_tryget.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="lib_update" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\libviewui\lib_update.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="lib_backup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\libviewui\lib_backup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="lib_settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\libviewui\lib_settings.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

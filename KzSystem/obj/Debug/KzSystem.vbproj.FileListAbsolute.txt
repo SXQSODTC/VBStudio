@@ -70,3 +70,4 @@ D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzImageView.resources
 D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzListEditor.resources
 D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.vbprojResolveAssemblyReference.cache
 D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.DataInputItemSample.resources
+D:\OneDrive\KzSystem\KzSystem\obj\Debug\KzSystem.KzLogPanel.resources

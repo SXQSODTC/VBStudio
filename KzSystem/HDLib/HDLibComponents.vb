@@ -139,6 +139,7 @@ Public Class HDLibInf
     Public Property Remarks As String
     Public Property Origin As String
     Public Property Series As String
+    Public Property SID As Integer
     Public Property Author As String
     Public Property RefAddress As String
     Public Property Contributor As String
@@ -212,6 +213,7 @@ Public Class HDLibInf
         sb.AppendLine(If(Me.Type = HDLibInfType.BookInfo, "Title: ", "Name: ") & Name)
         sb.AppendLine("Origin: " & Origin)
         sb.AppendLine("Series: " & Series)
+        sb.AppendLine("SID: " & If(Series Is Nothing Or Series.Trim.Length <= 0 Or SID <= 0, "-1", SID.ToString))
         sb.AppendLine("Author: " & Author)
         sb.AppendLine("Refaddress: " & RefAddress)
         sb.AppendLine("Contributor: " & Contributor)
@@ -306,6 +308,12 @@ Public Class HDLibInf
                                 Case "Title", "Name" : Name = value
                                 Case "Origin" : Origin = value
                                 Case "Series" : Series = value
+                                Case "SID"
+                                    Try
+                                        SID = value
+                                    Catch ex As Exception
+                                        SID = -1
+                                    End Try
                                 Case "Author" : Author = value
                                 Case "Refaddress" : RefAddress = value
                                 Case "Contributor" : Contributor = value

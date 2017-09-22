@@ -109,6 +109,12 @@
     <Compile Include="HDLib\HDLibSearch.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="UserControls\KzLogPanel.Designer.vb">
+      <DependentUpon>KzLogPanel.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\KzLogPanel.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="UserDialogs\KzListEditor.Designer.vb">
       <DependentUpon>KzListEditor.vb</DependentUpon>
     </Compile>
@@ -302,6 +308,9 @@
     <EmbeddedResource Include="HDLib\HDLibSearch.resx">
       <DependentUpon>HDLibSearch.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\KzLogPanel.resx">
+      <DependentUpon>KzLogPanel.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserDialogs\KzListEditor.resx">
       <DependentUpon>KzListEditor.vb</DependentUpon>
     </EmbeddedResource>
@@ -468,20 +477,21 @@
     <Content Include="Resources\LibViewUI\ico_Lib.png" />
     <Content Include="Resources\LibViewUI\ico_list.png" />
     <Content Include="Resources\LibViewUI\ico_series.png" />
+    <Content Include="Resources\LibViewUI\ico_settings.png" />
     <Content Include="Resources\LibViewUI\ico_special.png" />
+    <Content Include="Resources\LibViewUI\ico_textpack.png" />
+    <Content Include="Resources\LibViewUI\ico_tools.png" />
     <Content Include="Resources\LibViewUI\ico_unknown.png" />
-    <Content Include="Resources\LibViewUI\lib_archive.png" />
-    <Content Include="Resources\LibViewUI\lib_book.png" />
-    <Content Include="Resources\LibViewUI\lib_bookinfo.png" />
-    <Content Include="Resources\LibViewUI\lib_books.png" />
-    <Content Include="Resources\LibViewUI\lib_cover.png" />
-    <Content Include="Resources\LibViewUI\lib_database.png" />
-    <Content Include="Resources\LibViewUI\lib_download.png" />
-    <Content Include="Resources\LibViewUI\lib_export.png" />
-    <Content Include="Resources\LibViewUI\lib_import.png" />
-    <Content Include="Resources\LibViewUI\lib_library.png" />
+    <Content Include="Resources\LibViewUI\lib_advsearch.png" />
+    <Content Include="Resources\LibViewUI\lib_backup.png" />
+    <Content Include="Resources\LibViewUI\lib_db.png" />
     <Content Include="Resources\LibViewUI\lib_nocover.png" />
-    <Content Include="Resources\LibViewUI\lib_save.png" />
+    <Content Include="Resources\LibViewUI\lib_reset.png" />
+    <Content Include="Resources\LibViewUI\lib_search.png" />
+    <Content Include="Resources\LibViewUI\lib_settings.png" />
+    <Content Include="Resources\LibViewUI\lib_show.png" />
+    <Content Include="Resources\LibViewUI\lib_tryget.png" />
+    <Content Include="Resources\LibViewUI\lib_update.png" />
     <Content Include="Resources\LinerBasicUI\liner_code.png" />
     <Content Include="Resources\LinerBasicUI\liner_setting.png" />
     <Content Include="Resources\Numbers\Number_0.png" />

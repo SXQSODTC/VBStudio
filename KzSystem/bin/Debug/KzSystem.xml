@@ -167,7 +167,22 @@ KzSystem
   查找 System.Drawing.Bitmap 类型的本地化资源。
 </summary>
 </member>
+<member name="P:KzSystem.My.Resources.Resources.ico_settings">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
 <member name="P:KzSystem.My.Resources.Resources.ico_special">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.ico_textpack">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.ico_tools">
 <summary>
   查找 System.Drawing.Bitmap 类型的本地化资源。
 </summary>
@@ -177,7 +192,52 @@ KzSystem
   查找 System.Drawing.Bitmap 类型的本地化资源。
 </summary>
 </member>
+<member name="P:KzSystem.My.Resources.Resources.lib_advsearch">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.lib_backup">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.lib_db">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
 <member name="P:KzSystem.My.Resources.Resources.lib_nocover">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.lib_reset">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.lib_search">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.lib_settings">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.lib_show">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.lib_tryget">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.lib_update">
 <summary>
   查找 System.Drawing.Bitmap 类型的本地化资源。
 </summary>

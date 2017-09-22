@@ -2,6 +2,7 @@
 
 Public Class KzImageView
     Private _Folder As String
+    Private _ISideLength As Integer
 
     'Public Event ImageListChanged(sender As Object, e As EventArgs)
 
@@ -24,6 +25,25 @@ Public Class KzImageView
         End Set
     End Property
 
+    Public Property ISideLength As Integer
+        Get
+            Return _ISideLength
+        End Get
+        Set(value As Integer)
+            _ISideLength = value
+
+            If IListFlow.Controls.Count > 0 Then
+                For Each c As Control In IListFlow.Controls
+                    Try
+                        CType(c, PictureBox).Size = New Size(_ISideLength, _ISideLength)
+                    Catch ex As Exception
+
+                    End Try
+                Next
+            End If
+
+        End Set
+    End Property
 
     Private Sub GetImageList(ByVal Folder As String)
         If Directory.Exists(Folder) Then Exit Sub
@@ -44,18 +64,26 @@ Public Class KzImageView
         Next
     End Sub
 
-    Private Sub AddToFlow()
+    Private Sub RefreshFlow()
         IListFlow.Controls.Clear()
         Dim pb As PictureBox
 
         If IViewList.Images.Count > 0 Then
             For Each img As Image In IViewList.Images
                 pb = New PictureBox()
+                pb.Size = New Size(_ISideLength, _ISideLength)
                 pb.Image = img
                 pb.SizeMode = PictureBoxSizeMode.Zoom
 
+                AddHandler pb.Click, AddressOf IListFlowSelectedChanged
+
+                IListFlow.Controls.Add(pb)
             Next
         End If
+    End Sub
+
+    Private Sub IListFlowSelectedChanged()
+
     End Sub
 End Class
 

@@ -221,3 +221,22 @@ Public Class ListBoxHelper
         End If
     End Sub
 End Class
+
+Public Class MenuHelper
+    Public Shared Function GetItemByText(ByVal TheMenuStrip As ToolStrip, ByVal ItemText As String) As ToolStripItem
+        If TheMenuStrip.Items.Count > 0 Then
+            For Each it As ToolStripItem In TheMenuStrip.Items
+                Try
+                    If it.Text = ItemText Then
+                        Return it
+                        Exit For
+                    End If
+                Catch ex As Exception
+
+                End Try
+            Next
+        End If
+
+        Return Nothing
+    End Function
+End Class
