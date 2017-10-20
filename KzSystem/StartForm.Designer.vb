@@ -36,6 +36,8 @@ Partial Class StartForm
         Me.StartMenu = New System.Windows.Forms.MenuStrip()
         Me.MainMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EditorMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.HDLibraryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TextLibraryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.HomeMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExitMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -45,10 +47,8 @@ Partial Class StartForm
         Me.Test03 = New System.Windows.Forms.ToolStripMenuItem()
         Me.Test04 = New System.Windows.Forms.ToolStripMenuItem()
         Me.Test05 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.WebBrowserToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Test06 = New System.Windows.Forms.ToolStripMenuItem()
         Me.GenToolTip = New System.Windows.Forms.ToolTip(Me.components)
-        Me.HDLibraryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.TextLibraryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CommandsPanel.SuspendLayout()
         Me.StartMenu.SuspendLayout()
         Me.SuspendLayout()
@@ -198,29 +198,41 @@ Partial Class StartForm
         'EditorMenuItem
         '
         Me.EditorMenuItem.Name = "EditorMenuItem"
-        Me.EditorMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.EditorMenuItem.Size = New System.Drawing.Size(140, 22)
         Me.EditorMenuItem.Text = "Editor"
+        '
+        'HDLibraryToolStripMenuItem
+        '
+        Me.HDLibraryToolStripMenuItem.Name = "HDLibraryToolStripMenuItem"
+        Me.HDLibraryToolStripMenuItem.Size = New System.Drawing.Size(140, 22)
+        Me.HDLibraryToolStripMenuItem.Text = "HDLibrary"
+        '
+        'TextLibraryToolStripMenuItem
+        '
+        Me.TextLibraryToolStripMenuItem.Name = "TextLibraryToolStripMenuItem"
+        Me.TextLibraryToolStripMenuItem.Size = New System.Drawing.Size(140, 22)
+        Me.TextLibraryToolStripMenuItem.Text = "TextLibrary"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(149, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(137, 6)
         '
         'HomeMenuItem
         '
         Me.HomeMenuItem.Name = "HomeMenuItem"
-        Me.HomeMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.HomeMenuItem.Size = New System.Drawing.Size(140, 22)
         Me.HomeMenuItem.Text = "Home"
         '
         'ExitMenuItem
         '
         Me.ExitMenuItem.Name = "ExitMenuItem"
-        Me.ExitMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ExitMenuItem.Size = New System.Drawing.Size(140, 22)
         Me.ExitMenuItem.Text = "Exit"
         '
         'TestMenuItem
         '
-        Me.TestMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Test01, Me.Test02, Me.Test03, Me.Test04, Me.Test05, Me.WebBrowserToolStripMenuItem})
+        Me.TestMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Test01, Me.Test02, Me.Test03, Me.Test04, Me.Test05, Me.Test06})
         Me.TestMenuItem.Name = "TestMenuItem"
         Me.TestMenuItem.Size = New System.Drawing.Size(44, 21)
         Me.TestMenuItem.Text = "Test"
@@ -253,25 +265,13 @@ Partial Class StartForm
         '
         Me.Test05.Name = "Test05"
         Me.Test05.Size = New System.Drawing.Size(156, 22)
-        Me.Test05.Text = "HDLib"
+        Me.Test05.Text = "RegexTester"
         '
-        'WebBrowserToolStripMenuItem
+        'Test06
         '
-        Me.WebBrowserToolStripMenuItem.Name = "WebBrowserToolStripMenuItem"
-        Me.WebBrowserToolStripMenuItem.Size = New System.Drawing.Size(156, 22)
-        Me.WebBrowserToolStripMenuItem.Text = "WebBrowser"
-        '
-        'HDLibraryToolStripMenuItem
-        '
-        Me.HDLibraryToolStripMenuItem.Name = "HDLibraryToolStripMenuItem"
-        Me.HDLibraryToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.HDLibraryToolStripMenuItem.Text = "HDLibrary"
-        '
-        'TextLibraryToolStripMenuItem
-        '
-        Me.TextLibraryToolStripMenuItem.Name = "TextLibraryToolStripMenuItem"
-        Me.TextLibraryToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.TextLibraryToolStripMenuItem.Text = "TextLibrary"
+        Me.Test06.Name = "Test06"
+        Me.Test06.Size = New System.Drawing.Size(156, 22)
+        Me.Test06.Text = "HDLibDB"
         '
         'StartForm
         '
@@ -317,7 +317,7 @@ Partial Class StartForm
     Friend WithEvents GenToolTip As ToolTip
     Friend WithEvents Test04 As ToolStripMenuItem
     Friend WithEvents Test05 As ToolStripMenuItem
-    Friend WithEvents WebBrowserToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents Test06 As ToolStripMenuItem
     Friend WithEvents HDLibraryToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents TextLibraryToolStripMenuItem As ToolStripMenuItem
 End Class

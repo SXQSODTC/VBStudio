@@ -156,3 +156,46 @@ Public Structure KzIntRange
         End Get
     End Property
 End Structure
+
+Public Structure KzBrackets
+    Public Shared ReadOnly Property Parentheses As KzBracketsPair
+        Get
+            Return New KzBracketsPair("(", ")")
+        End Get
+    End Property
+    Public Shared ReadOnly Property Brackets As KzBracketsPair
+        Get
+            Return New KzBracketsPair("[", "]")
+        End Get
+    End Property
+    Public Shared ReadOnly Property Braces As KzBracketsPair
+        Get
+            Return New KzBracketsPair("{", "}")
+        End Get
+    End Property
+    Public Shared ReadOnly Property AngleBrackets As KzBracketsPair
+        Get
+            Return New KzBracketsPair("<", ">")
+        End Get
+    End Property
+    Public Shared ReadOnly Property SingleQuote As KzBracketsPair
+        Get
+            Return New KzBracketsPair("'", "'")
+        End Get
+    End Property
+    Public Shared ReadOnly Property DoubleQuote As KzBracketsPair
+        Get
+            Return New KzBracketsPair("""", """")
+        End Get
+    End Property
+End Structure
+
+Public Structure KzBracketsPair
+    Public Sub New(OpenChar As Char, CloseChar As Char)
+        Me.OpenChar = OpenChar
+        Me.CloseChar = CloseChar
+    End Sub
+
+    Public Property OpenChar As Char
+    Public Property CloseChar As Char
+End Structure

@@ -30,7 +30,7 @@
       <Value Profile="(Default)">.txt|.epub|.updb|.pdb|.doc|.docx|.pdf|..djvu</Value>
     </Setting>
     <Setting Name="HDLibOrigins" Type="System.String" Scope="User">
-      <Value Profile="(Default)">-無指定-|中文|古漢語|英文|日語|法語|德語|俄語|西班牙語|葡萄牙語</Value>
+      <Value Profile="(Default)">-無指定-|中文|古漢語|英文|日語|法語|德語|俄語|西班牙語|葡萄牙語|挪威語|瑞典語</Value>
     </Setting>
     <Setting Name="ImageFormats" Type="System.String" Scope="User">
       <Value Profile="(Default)">.bmp|.jpg|.jpeg|.png|.gif|.tif|.tiff|.wmf</Value>

@@ -61,6 +61,9 @@
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -103,17 +106,54 @@
     <Compile Include="HDLib\HDLibControls.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="HDLib\HDLibDB.Designer.vb">
+      <DependentUpon>HDLibDB.vb</DependentUpon>
+    </Compile>
+    <Compile Include="HDLib\HDLibDB.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="HDLib\HDLibSearch.Designer.vb">
       <DependentUpon>HDLibSearch.vb</DependentUpon>
     </Compile>
     <Compile Include="HDLib\HDLibSearch.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="HDLib\SiteCloneForm.Designer.vb">
+      <DependentUpon>SiteCloneForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="HDLib\SiteCloneForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Library\Dictionaries.vb" />
+    <Compile Include="Tempcode\TestBackground.Designer.vb">
+      <DependentUpon>TestBackground.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Tempcode\TestBackground.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserControls\KzColorListView.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UserControls\KzFlagsList.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UserControls\KzLogPanel.Designer.vb">
       <DependentUpon>KzLogPanel.vb</DependentUpon>
     </Compile>
     <Compile Include="UserControls\KzLogPanel.vb">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\KzTextSourceView.Designer.vb">
+      <DependentUpon>KzTextSourceView.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\KzTextSourceView.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserDialogs\KzBorderTester.Designer.vb">
+      <DependentUpon>KzBorderTester.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserDialogs\KzBorderTester.vb">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="UserDialogs\KzListEditor.Designer.vb">
       <DependentUpon>KzListEditor.vb</DependentUpon>
@@ -147,12 +187,6 @@
       <DependentUpon>EndForm.vb</DependentUpon>
     </Compile>
     <Compile Include="EndForm.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="HDLibForm.Designer.vb">
-      <DependentUpon>HDLibForm.vb</DependentUpon>
-    </Compile>
-    <Compile Include="HDLibForm.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Library\PublicEnums.vb" />
@@ -282,6 +316,12 @@
     <Compile Include="UserDialogs\KzInputDialog.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="UserDialogs\KzRegexTester.Designer.vb">
+      <DependentUpon>KzRegexTester.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserDialogs\KzRegexTester.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="UserDialogs\KzTabsDesigner.Designer.vb">
       <DependentUpon>KzTabsDesigner.vb</DependentUpon>
     </Compile>
@@ -305,11 +345,26 @@
     <EmbeddedResource Include="DataControls\DataInputItemSample.resx">
       <DependentUpon>DataInputItemSample.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="HDLib\HDLibDB.resx">
+      <DependentUpon>HDLibDB.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="HDLib\HDLibSearch.resx">
       <DependentUpon>HDLibSearch.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="HDLib\SiteCloneForm.resx">
+      <DependentUpon>SiteCloneForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tempcode\TestBackground.resx">
+      <DependentUpon>TestBackground.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\KzLogPanel.resx">
       <DependentUpon>KzLogPanel.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\KzTextSourceView.resx">
+      <DependentUpon>KzTextSourceView.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserDialogs\KzBorderTester.resx">
+      <DependentUpon>KzBorderTester.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserDialogs\KzListEditor.resx">
       <DependentUpon>KzListEditor.vb</DependentUpon>
@@ -322,9 +377,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EndForm.resx">
       <DependentUpon>EndForm.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="HDLibForm.resx">
-      <DependentUpon>HDLibForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -383,6 +435,9 @@
     <EmbeddedResource Include="UserDialogs\KzColorsDialog.resx">
       <DependentUpon>KzColorsDialog.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserDialogs\KzRegexTester.resx">
+      <DependentUpon>KzRegexTester.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserDialogs\KzTabsDesigner.resx">
       <DependentUpon>KzTabsDesigner.vb</DependentUpon>
     </EmbeddedResource>
@@ -394,6 +449,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -404,6 +460,10 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
+    <None Include="TextList\ColorList.kzdic">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TextList\FileTypes.kzdic" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
@@ -526,7 +586,12 @@
     <Content Include="Resources\WebUI\web_switch.png" />
     <Content Include="Resources\WebUI\web_toolbox.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\KzHelper\KzHelper.vbproj">
+      <Project>{9778dd83-b168-4976-8d84-b80b44a57287}</Project>
+      <Name>KzHelper</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

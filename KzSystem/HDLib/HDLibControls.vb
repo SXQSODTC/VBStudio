@@ -23,7 +23,7 @@ Public Class HDLibTree
         LineColor = Color.DarkCyan
         HideSelection = False
         LabelEdit = True
-
+        AllowDrop = True
         CreateMenu()
 
         Me.ResumeLayout(False)
@@ -105,7 +105,7 @@ Public Class HDLibTree
             Dim go As Boolean = True
             If ExceptFolders.Count > 0 Then
                 For Each tx As String In ExceptFolders
-                    If tx = di.Name Then
+                    If tx.ToLower = di.Name.ToLower Then
                         go = False
                         Exit For
                     End If
@@ -134,33 +134,16 @@ Public Class HDLibTree
     '====================
     'Additional for HDLib
     '====================
-    'Private _OriginInf As HDLibInf
-    'Private _OriginManifest As HDManifest
-    'Private _OriginLinks As HDLinkList
-
-    'Public ReadOnly Property OriginInf As HDLibInf
-    '    Get
-    '        Return _OriginInf
-    '    End Get
-    'End Property
-
-    'Public ReadOnly Property OriginManifest As HDManifest
-    '    Get
-    '        Return _OriginManifest
-    '    End Get
-    'End Property
-
-    'Public ReadOnly Property OriginLinks As HDLinkList
-    '    Get
-    '        Return _OriginLinks
-    '    End Get
-    'End Property
-
-    'Public Property LibInf As HDLibInf
-    'Public Property Manifest As HDManifest
-    'Public Property Links As HDLinkList
 
 #Region "OverridesMethods"
+    ' Clean up any resources being used. 
+    Protected Overrides Sub Dispose(disposing As Boolean)
+        If disposing Then
+            LibTreeMenu.Dispose()
+        End If
+        MyBase.Dispose(disposing)
+    End Sub
+
     Protected Overrides Sub OnMouseClick(e As MouseEventArgs)
         If e.Button = MouseButtons.Left Or e.Button = MouseButtons.Right Then
             Dim nd As TreeNode = Me.GetNodeAt(e.Location)
@@ -254,37 +237,100 @@ Public Class HDLibTree
         MyBase.OnAfterLabelEdit(e)
     End Sub
 
-    'Protected Overrides Sub OnBeforeSelect(e As TreeViewCancelEventArgs)
-    '    'If Me.SelectedNode IsNot Nothing Then
-    '    '    If (Not LibInf.Equals(_OriginInf)) Or
-    '    '        (Not Manifest.Equals(_OriginManifest)) Or
-    '    '        (Not Links.Equals(_OriginLinks)) Then
+    Protected Overrides Sub OnItemDrag(e As ItemDragEventArgs)
+        MyBase.OnItemDrag(e)
+        'Set the drag node and initiate the DragDrop
+        DoDragDrop(e.Item, DragDropEffects.Move)
+    End Sub
 
-    '    '        Dim s As String = "當前資訊檔已經更改，是否保存？" & vbCrLf &
-    '    '            "【是】保存當前資訊檔後執行跳轉。" & vbCrLf &
-    '    '            "【否】不保存當前資訊即跳轉。" & vbCrLf & "【取消】終止跳轉。"
-    '    '        Dim r As MsgBoxResult = MsgBox(s, MsgBoxStyle.YesNo, "跳轉")
+    Protected Overrides Sub OnDragEnter(e As DragEventArgs)
+        MyBase.OnDragEnter(e)
+        'See if there is a TreeNode being dragged
+        If e.Data.GetDataPresent("System.Windows.Forms.TreeNode", True) Then
+            'TreeNode found allow move effect
+            e.Effect = DragDropEffects.Move
+        Else
+            'No TreeNode found, prevent move
+            e.Effect = DragDropEffects.None
+        End If
+    End Sub
 
-    '    '        If r = MsgBoxResult.Yes Then
-    '    '            'SaveInf(Me.SelectedNode)
+    Protected Overrides Sub OnDragOver(e As DragEventArgs)
+        MyBase.OnDragOver(e)
+        'Check that there is a TreeNode being dragged
+        If e.Data.GetDataPresent("System.Windows.Forms.TreeNode", True) = False Then Exit Sub
 
-    '    '        ElseIf r = MsgBoxResult.Cancel Then
-    '    '            e.Cancel = True
-    '    '        End If
-    '    '    End If
-    '    'End If
+        'As the mouse moves over nodes, provide feedback to
+        'the user by highlighting the node that is the
+        'current drop target
+        Dim pt As Point = PointToClient(New Point(e.X, e.Y))
+        Dim targetNode As TreeNode = GetNodeAt(pt)
 
-    '    MyBase.OnBeforeSelect(e)
-    'End Sub
+        'See if the targetNode is currently selected,
+        'if so no need to validate again
+        If Not (SelectedNode Is targetNode) Then
+            'Select the node currently under the cursor
+            SelectedNode = targetNode
 
-    'Protected Overrides Sub OnAfterSelect(e As TreeViewEventArgs)
-    '    MyBase.OnAfterSelect(e)
+            'Check that the selected node is not the dropNode and
+            'also that it is not a child of the dropNode and
+            'therefore an invalid target
+            Dim dropNode As TreeNode = CType(e.Data.GetData("System.Windows.Forms.TreeNode"), TreeNode)
 
-    '    'GetInf(e.Node)
+            Do Until targetNode Is Nothing
+                If targetNode Is dropNode Then
+                    e.Effect = DragDropEffects.None
+                    Exit Sub
+                End If
+                targetNode = targetNode.Parent
+            Loop
+        End If
 
-    'End Sub
+        'Currently selected node is a suitable target
+        e.Effect = DragDropEffects.Move
+    End Sub
 
-    'Public Event InfoChanged(sender As Object, e As EventArgs)
+    Protected Overrides Sub OnDragDrop(e As DragEventArgs)
+        MyBase.OnDragDrop(e)
+        'Check that there is a TreeNode being dragged
+        If e.Data.GetDataPresent("System.Windows.Forms.TreeNode", True) = False Then Exit Sub
+
+        'Get the TreeNode being dragged
+        Dim dropNode As TreeNode = CType(e.Data.GetData("System.Windows.Forms.TreeNode"), TreeNode)
+        Dim sourceDir As String = dropNode.FullPath
+
+        'The target node should be selected from the DragOver event
+        Dim targetNode As TreeNode = SelectedNode
+        Dim targetDir As String = targetNode.FullPath
+        'MsgBox("<s>" & sourceDir & vbCrLf & "<t>" & Path.Combine(targetDir, Path.GetFileName(sourceDir)))
+        Dim go As Boolean = False
+        Try
+            Directory.Move(sourceDir, Path.Combine(targetDir, Path.GetFileName(sourceDir)))
+            go = True
+        Catch ex As Exception
+            MsgBox("未能移動資料夾。原因：" & vbCrLf & ex.Message)
+        End Try
+
+        If go Then
+            'Remove the drop node from its current location
+            dropNode.Remove()
+
+            'If there is no targetNode add dropNode to the bottom of
+            'the TreeView root nodes, otherwise add it to the end of
+            'the dropNode child nodes
+            If targetNode Is Nothing Then
+                Nodes.Add(dropNode) ' selectedTreeview.Nodes.Add(dropNode)
+            Else
+                targetNode.Nodes.Add(dropNode)
+            End If
+
+            'Ensure the newley created node is visible to
+            'the user and select it
+            dropNode.EnsureVisible()
+            SelectedNode = dropNode
+        End If
+    End Sub
+
 #End Region 'OverridesMethods
 
 #Region "PrivateMethods"
@@ -351,54 +397,6 @@ Public Class HDLibTree
         Return Nothing
     End Function
 
-    'Private Sub GetInf(node As TreeNode)
-    '    _OriginInf = New HDLibInf
-    '    _OriginManifest = New HDManifest
-    '    _OriginLinks = New HDLinkList
-
-    '    Dim IsOrigin As Boolean = True
-
-    '    If node IsNot Nothing Then
-    '        Try
-    '            _OriginInf.Import(node.FullPath)
-    '            IsOrigin = False
-    '        Catch ex As Exception
-    '        End Try
-    '        Try
-    '            _OriginManifest.Import(node.FullPath)
-    '            IsOrigin = False
-    '        Catch ex As Exception
-    '        End Try
-    '        Try
-    '            _OriginLinks.Import(node.FullPath)
-    '            IsOrigin = False
-    '        Catch ex As Exception
-    '        End Try
-    '    End If
-
-    '    If Not IsOrigin Then
-    '        RaiseEvent InfoChanged(Me, Nothing)
-    '    End If
-
-    '    LibInf = _OriginInf
-    '    Manifest = _OriginManifest
-    '    Links = _OriginLinks
-    'End Sub
-
-    'Private Sub SaveInf(node As TreeNode)
-    '    If (node Is Nothing) OrElse
-    '        (node.Parent Is Nothing) Then
-    '        Exit Sub
-    '    End If
-
-    '    If Not LibInf.Equals(_OriginInf) Then
-    '        LibInf.Export(node.FullPath)
-    '        node.ImageIndex = GetImgId(New DirectoryInfo(node.FullPath))
-    '        node.SelectedImageIndex = node.ImageIndex
-    '    End If
-    '    If Not Manifest.Equals(_OriginManifest) Then Manifest.Export(node.FullPath)
-    '    If Not Links.Equals(_OriginLinks) Then Links.Export(node.FullPath)
-    'End Sub
 #End Region 'PrivateMethods
 
 #Region "ContextMenu"
@@ -411,6 +409,7 @@ Public Class HDLibTree
     Friend WithEvents PasteItem As ToolStripMenuItem
     Friend WithEvents DeleteItem As ToolStripMenuItem
     Friend WithEvents RefreshItem As ToolStripMenuItem
+    Friend WithEvents SortingItem As ToolStripMenuItem
 
     Private Sub CreateMenu()
         LibTreeMenu = New ContextMenuStrip
@@ -423,13 +422,15 @@ Public Class HDLibTree
         PasteItem = New ToolStripMenuItem("Paste")
         DeleteItem = New ToolStripMenuItem("Delete")
         RefreshItem = New ToolStripMenuItem("Refresh")
+        SortingItem = New ToolStripMenuItem("Sorting")
 
         LibTreeMenu.Items.AddRange(
             New ToolStripItem() {
             AddSubItem, AddHereItem, New ToolStripSeparator,
             RenameItem, New ToolStripSeparator,
             CopyItem, CutItem, PasteItem, New ToolStripSeparator,
-            DeleteItem, New ToolStripSeparator, RefreshItem})
+            DeleteItem, New ToolStripSeparator,
+            SortingItem, RefreshItem})
         LibTreeMenu.ResumeLayout(False)
         Me.ContextMenuStrip = LibTreeMenu
     End Sub
@@ -509,7 +510,22 @@ Public Class HDLibTree
             PasteItem.Enabled = False
         End If
 
+        If e.ClickedItem.Equals(SortingItem) Then
+            Sort()
+        End If
+
         If e.ClickedItem.Equals(RefreshItem) Then
+            'If SelectedNode IsNot Nothing Then
+            '    Dim TempNode As TreeNode = SelectedNode
+
+            '    Try
+            '        RefreshTree()
+            '        TempNode.EnsureVisible()
+            '    Catch ex As Exception
+
+            '    End Try
+            'End If
+
             Dim TempPath As String
 
             If SelectedNode Is Nothing Then

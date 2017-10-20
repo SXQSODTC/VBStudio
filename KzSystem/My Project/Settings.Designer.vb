@@ -165,7 +165,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("-無指定-|中文|古漢語|英文|日語|法語|德語|俄語|西班牙語|葡萄牙語")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("-無指定-|中文|古漢語|英文|日語|法語|德語|俄語|西班牙語|葡萄牙語|挪威語|瑞典語")>  _
         Public Property HDLibOrigins() As String
             Get
                 Return CType(Me("HDLibOrigins"),String)

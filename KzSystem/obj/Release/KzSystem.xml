@@ -1,0 +1,1960 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+KzSystem
+</name>
+</assembly>
+<members>
+<member name="T:KzSystem.My.Resources.Resources">
+<summary>
+  一个强类型的资源类，用于查找本地化的字符串等。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.ResourceManager">
+<summary>
+  返回此类使用的缓存的 ResourceManager 实例。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.Culture">
+<summary>
+  使用此强类型资源类，为所有资源查找
+  重写当前线程的 CurrentUICulture 属性。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.drive_hdd">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_beginselect">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_clearall">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_command">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_copy">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_cut">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_delete">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_findreplace">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_font">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_insert">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_new">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_open">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_paste">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_redo">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_refresh">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_save">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_saveas">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_selectall">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_tools">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_undo">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.edit_wrap">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.folder_close">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.folder_open">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.ico_author">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.ico_book">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.ico_category">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.ico_Lib">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.ico_list">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.ico_series">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.ico_settings">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.ico_special">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.ico_textpack">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.ico_tools">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.ico_unknown">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.lib_advsearch">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.lib_backup">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.lib_db">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.lib_nocover">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.lib_reset">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.lib_search">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.lib_settings">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.lib_show">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.lib_tryget">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.lib_update">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.liner_code">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.liner_copy">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.liner_edit">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.liner_export">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.liner_import">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.liner_search">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.liner_setting">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.liner_view">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.Number_0">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.Number_1">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.Number_2">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.Number_3">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.Number_4">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.Number_5">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.Number_6">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.Number_7">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.Number_8">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.Number_9">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.ODTC">
+<summary>
+  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.ODTCLogo">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_engines">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_favorites">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_finished">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_go">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_goback">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_goforward">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_history">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_home">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_pagesetup">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_preview">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_print">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_properties">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_refresh">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_running">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_save">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_search">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_settings">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_sourcecode">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_stop">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_switch">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.My.Resources.Resources.web_toolbox">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzSystem.KzData.BooleanType">
+ <summary>
+ Boolean : True 或 False
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzData.ByteType">
+ <summary>
+ Byte : 1 个字节，0 到 255（无符号）
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzData.CharType">
+ <summary>
+ Char : 2 个字节，0 到 65,535（无符号）
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzData.DateTimeType">
+ <summary>
+ DateTime : 8 个字节，0001 年 1 月 1 日午夜 0:00:00 到 9999 年 12 月 31 日晚上 11:59:59 。
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzData.DecimalType">
+ <summary>
+ Decimal : 16 个字节，0 到 +/-79,228,162,514,264,337,593,543,950,335 (+/-7.9...E+28) ，
+ 不包含小数点；0 到 +/-7.9228162514264337593543950335，包含小数点右边 28 位。
+ 最小非零数为 +/-0.0000000000000000000000000001 (+/-1E-28) 。
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzData.DoubleType">
+ <summary>
+ Double : 8 个字节，对于负值，为 -1.79769313486231570E+308 到 -4.94065645841246544E-324 。
+ 对于正值，为 4.94065645841246544E-324 到 1.79769313486231570E+308 。
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzData.IntegerType">
+ <summary>
+ Int32 : 4 个字节，-2,147,483,648 到 2,147,483,647（有符号）
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzData.LongType">
+ <summary>
+ Int64 : 8 个字节，（有符号）-9,223,372,036,854,775,808 到 9,223,372,036,854,775,807 (9.2...E+18)
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzData.ObjectType">
+ <summary>
+ Object（类） : 4 个字节（32 位平台上） or 8 个字节（64 位平台上），
+ 任何类型都可以存储在 Object 类型的变量中
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzData.SByteType">
+ <summary>
+ SByte : 1 个字节，-128 到 127（有符号）
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzData.ShortType">
+ <summary>
+ Int16 : 2 个字节，-32,768 到 32,767（有符号）
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzData.SingleType">
+ <summary>
+ Single : 4 个字节，对于负值，为 -3.4028235E+38 到 -1.401298E-45 。
+ 对于正值，为 1.401298E-45 到 3.4028235E+38 。
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzData.StringType">
+ <summary>
+ String（类） : 取决于实现平台，0 到大约 20 亿个 Unicode 字符
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzData.UIntegerType">
+ <summary>
+ UInt32 : 4 个字节，0 到 4,294,967,295（无符号）
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzData.ULongType">
+ <summary>
+ UInt64 : 8 个字节，0 到 18,446,744,073,709,551,615 (1.8...E+19)（无符号）
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzData.UShortType">
+ <summary>
+ UInt16 : 2 个字节，0 到 65,535（无符号）
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzData.BigIntegerType">
+ <summary>
+ 表示任意大的带符号整数。这是支持任意大整数的非基元整型类型。
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzColorHelper.CreateColorFromRGB(System.Int32,System.Int32,System.Int32)">
+ <summary>
+ 
+ </summary>
+ <param name="red"></param>
+ <param name="green"></param>
+ <param name="blue"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzColorHelper.OpacityMix(System.Drawing.Color,System.Drawing.Color,System.Int32)">
+ <summary>
+ 
+ </summary>
+ <param name="blendColor"></param>
+ <param name="baseColor"></param>
+ <param name="opacity"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzColorHelper.SoftLightMix(System.Drawing.Color,System.Drawing.Color,System.Int32)">
+ <summary>
+ 
+ </summary>
+ <param name="baseColor"></param>
+ <param name="blendColor"></param>
+ <param name="opacity"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzColorHelper.OverlayMix(System.Drawing.Color,System.Drawing.Color,System.Int32)">
+ <summary>
+ 
+ </summary>
+ <param name="baseColor"></param>
+ <param name="blendColor"></param>
+ <param name="opacity"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzColorHelper.SoftLightMath(System.Int32,System.Int32)">
+ <summary>
+ 
+ </summary>
+ <param name="ibase"></param>
+ <param name="blend"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzColorHelper.OverlayMath(System.Int32,System.Int32)">
+ <summary>
+ 
+ </summary>
+ <param name="ibase"></param>
+ <param name="blend"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzColorHelper.GetColorName(System.Drawing.Color)">
+ <summary>
+ Return a color name in KnownColorName else in Hex string.
+ </summary>
+ <param name="color"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzColorHelper.GetColorByName(System.String)">
+ <summary>
+ Return a color by name string both a KnownColorName and a Hex string.
+ </summary>
+ <param name="name"></param>
+ <returns></returns>
+</member>
+<member name="T:KzSystem.ColorConvert">
+ <summary>
+ Provides methods to convert from a color space to an other.
+ </summary>
+</member>
+<member name="M:KzSystem.ColorConvert.GetAlphaColor(System.Drawing.Color,System.Int32)">
+ <summary>
+ Gets the given color based on a color and an alpha.
+ </summary>
+ <param name="c">Color applying the alpha channel.</param>
+ <param name="alpha">Alpha channel value.</param>
+</member>
+<member name="M:KzSystem.ColorConvert.GetBlendColor(System.Drawing.Color,System.Drawing.Color,System.Double)">
+ <summary>
+ Blends two colors.
+ </summary>
+ <param name="c1">First color to blend</param>
+ <param name="c2">Second color to blend</param>
+ <param name="ratio">Blend ratio. 0.5 will give even blend, 1.0 will return color1, 0.0 will return color2 and so on.</param>
+</member>
+<member name="M:KzSystem.ColorConvert.GetBlendColor(System.Drawing.Color,System.Drawing.Color)">
+ <summary>
+ Makes an even blend between two colors.
+ </summary>
+ <param name="c1">First color to blend</param>
+ <param name="c2">Second color to blend</param>
+</member>
+<member name="M:KzSystem.ColorConvert.GetColorDistance(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+ <summary>
+ Gets the "distance" between two colors.
+ RGB colors must be normalized (eg. values in [0.0, 1.0]).
+ </summary>
+ <param name="r1">First color red component.</param>
+ <param name="g1">First color green component.</param>
+ <param name="b1">First color blue component.</param>
+ <param name="r2">Second color red component.</param>
+ <param name="g2">Second color green component.</param>
+ <param name="b2">Second color blue component.</param>
+</member>
+<member name="M:KzSystem.ColorConvert.GetColorDistance(System.Double[],System.Double[])">
+ <summary>
+ Gets the "distance" between two colors.
+ RGB colors must be normalized (eg. values in [0.0, 1.0]).
+ </summary>
+ <param name="color1">First color [r,g,b]</param>
+ <param name="color2">Second color [r,g,b]</param>
+</member>
+<member name="M:KzSystem.ColorConvert.GetColorDistance(System.Drawing.Color,System.Drawing.Color)">
+ <summary>
+ Gets the "distance" between two colors.
+ </summary>
+ <param name="color1">First color.</param>
+ <param name="color2">Second color.</param>
+</member>
+<member name="M:KzSystem.ColorConvert.GetWheelColors(System.Int32)">
+ <summary>
+ Gets visible colors (color wheel).
+ </summary>
+ <param name="alpha">
+ The alpha value used for each colors.
+ </param>
+</member>
+<member name="M:KzSystem.ColorConvert.GetSpectrumColors(System.Int32)">
+ <summary>
+ Gets visible spectrum colors.
+ </summary>
+ <param name="alpha">The alpha value used for each colors.</param>
+</member>
+<member name="M:KzSystem.ColorConvert.GetSpectrumColors">
+ <summary>
+ Gets visible spectrum colors.
+ </summary>
+</member>
+<member name="M:KzSystem.ColorConvert.HEXtoColor(System.String)">
+ <summary>
+ Converts a Hex color to a .net Color.
+ </summary>
+ <param name="hexColor">The desired hexadecimal color to convert.</param>
+</member>
+<member name="M:KzSystem.ColorConvert.RGBtoHEX(System.Int32,System.Int32,System.Int32)">
+ <summary>
+ Converts a RGB color format to an hexadecimal color.
+ </summary>
+ <param name="r">The Red value.</param>
+ <param name="g">The Green value.</param>
+ <param name="b">The Blue value.</param>
+</member>
+<member name="M:KzSystem.ColorConvert.ColorToHEX(System.Drawing.Color)">
+ <summary>
+ Converts a .Net Color format to an hexadecimal color.
+ </summary>
+ <param name="c">The .net color to convert.</param>
+</member>
+<member name="M:KzSystem.ColorConvert.HSBtoRGB(KzSystem.HSB)">
+ <summary>
+ Converts HSB to RGB.
+ </summary>
+ <param name="hsb">The HSB structure to convert.</param>
+</member>
+<member name="M:KzSystem.ColorConvert.HSBtoRGB(System.Int32,System.Int32,System.Int32)">
+ <summary>
+ Converts HSB to RGB.
+ </summary>
+ <param name="H">Hue value. (must be between 0 and 360)</param>
+ <param name="S">Saturation value (must be between 0 and 100).</param>
+ <param name="b">Brigthness value (must be between 0 and 100).</param>
+</member>
+<member name="M:KzSystem.ColorConvert.HSBtoRGB(System.Double,System.Double,System.Double)">
+ <summary> 
+ Converts HSB to a RGB.
+ </summary>
+ <param name="h">Hue value (must be between 0 and 360).</param>
+ <param name="s">Saturation value (must be between 0 and 1).</param>
+ <param name="b">Brightness value (must be between 0 and 1).</param>
+</member>
+<member name="M:KzSystem.ColorConvert.HSBtoColor(KzSystem.HSB)">
+ <summary>
+ Converts HSB to .Net Color.
+ </summary>
+ <param name="hsb">the HSB structure to convert.</param>
+</member>
+<member name="M:KzSystem.ColorConvert.HSBtoColor(System.Double,System.Double,System.Double)">
+ <summary> 
+ Converts HSB to a .Net Color.
+ </summary>
+ <param name="h">Hue value (must be between 0 and 360).</param>
+ <param name="s">Saturation value (must be between 0 and 1).</param>
+ <param name="b">Brightness value (must be between 0 and 1).</param>
+</member>
+<member name="M:KzSystem.ColorConvert.HSLtoRGB(KzSystem.HSL)">
+ <summary>
+ Converts HSL to RGB.
+ </summary>
+ <param name="hsl">The HSL structure to convert.</param>
+</member>
+<member name="M:KzSystem.ColorConvert.HSLtoRGB(System.Int32,System.Int32,System.Int32)">
+ <summary>
+ Converts HSL to RGB.
+ </summary>
+ <param name="H">Hue value. (must be between 0 and 360)</param>
+ <param name="S">Saturation value (must be between 0 and 100).</param>
+ <param name="L">Luminance value (must be between 0 and 100).</param>
+</member>
+<member name="M:KzSystem.ColorConvert.HSLtoRGB(System.Double,System.Double,System.Double)">
+ <summary> 
+ Converts HSL to a .net Color.
+ </summary>
+ <param name="h">Hue value (must be between 0 and 360).</param>
+ <param name="s">Saturation value (must be between 0 and 1).</param>
+ <param name="l">Luminance value (must be between 0 and 1).</param>
+</member>
+<member name="M:KzSystem.ColorConvert.HSLtoColor(KzSystem.HSL)">
+ <summary>
+ Converts HSL to .net Color.
+ </summary>
+ <param name="hsl">The HSL structure to convert.</param>
+</member>
+<member name="M:KzSystem.ColorConvert.HSLtoColor(System.Double,System.Double,System.Double)">
+ <summary>
+ Converts HSL to .net Color.
+ </summary>
+ <param name="h">Hue value (must be between 0 and 360).</param>
+ <param name="s">Saturation value (must be between 0 and 1).</param>
+ <param name="l">Luminance value (must be between 0 and 1).</param>
+</member>
+<member name="M:KzSystem.ColorConvert.RGBtoHSB(System.Drawing.Color)">
+ <summary> 
+ Converts .Net Color to HSB.
+ </summary> 
+</member>
+<member name="M:KzSystem.ColorConvert.RGBtoHSB(KzSystem.RGB)">
+ <summary> 
+ Converts RGB to HSB.
+ </summary> 
+</member>
+<member name="M:KzSystem.ColorConvert.RGBtoHSB(System.Int32,System.Int32,System.Int32)">
+ <summary> 
+ Converts RGB to HSB.
+ </summary> 
+</member>
+<member name="M:KzSystem.ColorConvert.RGBtoHSL(System.Drawing.Color)">
+ <summary> 
+ Converts .Net Color to HSL.
+ </summary>
+</member>
+<member name="M:KzSystem.ColorConvert.RGBtoHSL(KzSystem.RGB)">
+ <summary> 
+ Converts RGB to HSL.
+ </summary>
+</member>
+<member name="M:KzSystem.ColorConvert.RGBtoHSL(System.Int32,System.Int32,System.Int32)">
+ <summary> 
+ Converts RGB to HSL.
+ </summary>
+ <param name="red">Red value (must be between 0 and 255).</param>
+ <param name="green">Green value (must be between 0 and 255).</param>
+ <param name="blue">Blue value (must be between 0 and 255).</param>
+</member>
+<member name="M:KzSystem.ColorConvert.RGBtoCMYK(KzSystem.RGB)">
+ <summary>
+ Converts RGB to CMYK
+ </summary >
+</member>
+<member name="M:KzSystem.ColorConvert.RGBtoCMYK(System.Drawing.Color)">
+ <summary>
+ Converts .Net Color to CMYK
+ </summary >
+</member>
+<member name="M:KzSystem.ColorConvert.RGBtoCMYK(System.Int32,System.Int32,System.Int32)">
+ <summary>
+ Converts RGB to CMYK
+ </summary >
+ <param name="red">Red vaue must be in [0, 255].</param>
+ <param name="green">Green vaue must be in [0, 255].</param>
+ <param name="blue">Blue vaue must be in [0, 255].</param>
+</member>
+<member name="M:KzSystem.ColorConvert.RGBtoYUV(KzSystem.RGB)">
+ <summary>
+ Converts RGB to YUV.
+ </summary >
+</member>
+<member name="M:KzSystem.ColorConvert.RGBtoYUV(System.Drawing.Color)">
+ <summary>
+ Converts .Net Color to YUV.
+ </summary >
+</member>
+<member name="M:KzSystem.ColorConvert.RGBtoYUV(System.Int32,System.Int32,System.Int32)">
+ <summary>
+ Converts RGB to YUV.
+ </summary >
+ <param name="red">red must be in [0, 255].</param>
+ <param name="green">green must be in [0, 255].</param>
+ <param name="blue">blue must be in [0, 255].</param>
+</member>
+<member name="M:KzSystem.ColorConvert.CMYKtoColor(System.Single,System.Single,System.Single,System.Single)">
+ <summary>
+ Converts CMYK to RGB.
+ </summary >
+ <param name="c">Cyan value (must be between 0 and 1).</param>
+ <param name="m">Magenta value (must be between 0 and 1).</param>
+ <param name="y">Yellow value (must be between 0 and 1).</param>
+ <param name="k">Black value (must be between 0 and 1).</param>
+</member>
+<member name="M:KzSystem.ColorConvert.CMYKtoColor(System.Double,System.Double,System.Double,System.Double)">
+ <summary>
+ Converts CMYK to RGB.
+ </summary >
+ <param name="c">Cyan value (must be between 0 and 1).</param>
+ <param name="m">Magenta value (must be between 0 and 1).</param>
+ <param name="y">Yellow value (must be between 0 and 1).</param>
+ <param name="k">Black value (must be between 0 and 1).</param>
+</member>
+<member name="M:KzSystem.ColorConvert.CMYKtoColor(KzSystem.CMYK)">
+ <summary>
+ Converts CMYK to RGB.
+ </summary >
+ <param name="cmyk"></param>
+</member>
+<member name="M:KzSystem.ColorConvert.CMYKtoRGB(System.Double,System.Double,System.Double,System.Double)">
+ <summary>
+ Converts CMYK to RGB.
+ </summary >
+ <param name="c">Cyan value (must be between 0 and 1).</param>
+ <param name="m">Magenta value (must be between 0 and 1).</param>
+ <param name="y">Yellow value (must be between 0 and 1).</param>
+ <param name="k">Black value (must be between 0 and 1).</param>
+</member>
+<member name="M:KzSystem.ColorConvert.CMYKtoRGB(KzSystem.CMYK)">
+ <summary>
+ Converts CMYK to RGB.
+ </summary >
+ <param name="cmyk"></param>
+</member>
+<member name="M:KzSystem.ColorConvert.YUVtoRGB(System.Double,System.Double,System.Double)">
+ <summary>
+ Converts YUV to RGB.
+ </summary >
+ <param name="y">Y (must be between 0 and 1).</param>
+ <param name="u">U (must be between -0.436 and 0.436).</param>
+ <param name="v">V (must be between -0.436 and 0.436).</param>
+</member>
+<member name="M:KzSystem.ColorConvert.YUVtoRGB(KzSystem.YUV)">
+ <summary>
+ Converts YUV to RGB.
+ </summary >
+</member>
+<member name="M:KzSystem.ColorConvert.YUVtoColor(System.Double,System.Double,System.Double)">
+ <summary>
+ Converts YUV to a .net Color.
+ </summary >
+ <param name="y">Y must be in [0, 1].</param>
+ <param name="u">U must be in [-0.436, +0.436].</param>
+ <param name="v">V must be in [-0.615, +0.615].</param>
+</member>
+<member name="M:KzSystem.ColorConvert.YUVtoColor(KzSystem.YUV)">
+ <summary>
+ Converts YUV to a .net Color.
+ </summary >
+</member>
+<member name="M:KzSystem.ColorConvert.XYZtoRGB(System.Double,System.Double,System.Double)">
+ <summary>
+ Converts CIEXYZ to RGB structure.
+ </summary>
+</member>
+<member name="M:KzSystem.ColorConvert.XYZtoRGB(System.Object)">
+ <summary>
+ Converts CIEXYZ to RGB structure.
+ </summary>
+</member>
+<member name="M:KzSystem.ColorConvert.Fxyz(System.Double)">
+ <summary>
+ XYZ to L*a*b* transformation function.
+ </summary>
+ <param name="t"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.ColorConvert.XYZtoLab(System.Double,System.Double,System.Double)">
+ <summary>
+ Converts CIEXYZ to CIELab structure.
+ </summary>
+</member>
+<member name="M:KzSystem.ColorConvert.XYZtoLab(KzSystem.CIEXYZ)">
+ <summary>
+ Converts CIEXYZ to CIELab structure.
+ </summary>
+</member>
+<member name="M:KzSystem.ColorConvert.LabtoXYZ(System.Double,System.Double,System.Double)">
+ <summary>
+ Converts CIELab to CIEXYZ.
+ </summary>
+</member>
+<member name="M:KzSystem.ColorConvert.LabtoXYZ(KzSystem.CIELab)">
+ <summary>
+ Converts CIELab to CIEXYZ.
+ </summary>
+</member>
+<member name="M:KzSystem.ColorConvert.LabtoRGB(System.Double,System.Double,System.Double)">
+ <summary>
+ Converts CIELab to RGB.
+ </summary>
+</member>
+<member name="M:KzSystem.ColorConvert.LabtoRGB(KzSystem.CIELab)">
+ <summary>
+ Converts CIELab to RGB.
+ </summary>
+</member>
+<member name="T:KzSystem.CIELab">
+ <summary>
+ Structure to define CIELab.
+ </summary>
+</member>
+<member name="M:KzSystem.CIELab.#ctor(System.Double,System.Double,System.Double)">
+ <summary>
+ Creates an instance of a CIELAB structure.
+ </summary>
+</member>
+<member name="T:KzSystem.CIEXYZ">
+ <summary>
+ Structure to define CIEXYZ.
+ </summary>
+</member>
+<member name="M:KzSystem.CIEXYZ.#ctor(System.Double,System.Double,System.Double)">
+ <summary>
+ Creates an instance of a CIEXYZ structure.
+ </summary>
+</member>
+<member name="T:KzSystem.CMYK">
+ <summary>
+ Structure to define CMYK.
+ </summary>
+</member>
+<member name="M:KzSystem.CMYK.#ctor(System.Double,System.Double,System.Double,System.Double)">
+ <summary>
+ Creates an instance of a CMYK structure.
+ </summary>
+ <param name="c">Cyan value (must be between 0 and 1).</param>
+ <param name="m">Magenta value (must be between 0 and 1).</param>
+ <param name="y">Yellow value (must be between 0 and 1).</param>
+ <param name="k">Black value (must be between 0 and 1).</param>
+</member>
+<member name="T:KzSystem.HSB">
+ <summary>
+ Structure to define HSB.
+ </summary>
+</member>
+<member name="M:KzSystem.HSB.#ctor(System.Double,System.Double,System.Double)">
+ <summary>
+ Creates an instance of a HSB structure.
+ </summary>
+ <param name="h">Hue value (must be between 0 and 360).</param>
+ <param name="s">Saturation value (must be between 0 and 1).</param>
+ <param name="b">Brightness value (must be between 0 and 1).</param>
+</member>
+<member name="T:KzSystem.HSL">
+ <summary>
+ Structure to define HSL.
+ </summary>
+</member>
+<member name="M:KzSystem.HSL.#ctor(System.Double,System.Double,System.Double)">
+ <summary>
+ Creates an instance of a HSL structure.
+ </summary>
+ <param name="h">Hue value (must be between 0 and 360).</param>
+ <param name="s">Saturation value (must be between 0 and 1).</param>
+ <param name="l">Luminance value (must be between 0 and 1).</param>
+</member>
+<member name="T:KzSystem.RGB">
+ <summary>
+ Structure to define RGB.
+ </summary>
+</member>
+<member name="M:KzSystem.RGB.#ctor(System.Int32,System.Int32,System.Int32)">
+ <summary>
+ Creates an instance of a RGB structure.
+ </summary>
+ <param name="r">Red value (must be between 0 and 255).</param>
+ <param name="g">Green value (must be between 0 and 255).</param>
+ <param name="b">Blue value (must be between 0 and 255).</param>
+</member>
+<member name="T:KzSystem.YUV">
+ <summary>
+ Structure to define YUV.
+ </summary>
+</member>
+<member name="M:KzSystem.YUV.#ctor(System.Double,System.Double,System.Double)">
+ <summary>
+ Creates an instance of a YUV structure.
+ </summary>
+ <param name="y">Y (must be between 0 and 1).</param>
+ <param name="u">U (must be between -0.436 and 0.436).</param>
+ <param name="v">V (must be between -0.436 and 0.436).</param>
+</member>
+<member name="P:KzSystem.KzDirectoryTreeView.ShowAllDirectories">
+ <summary>
+ 指示是否顯示全系統的資料夾樹形結構，True：全部顯示；False：從指定的分支開始顯示。
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzDirectoryTreeView.StartDirectory">
+ <summary>
+ 指定樹形結構的開始資料夾，用以創建路徑起點。 
+ 如 ShowAllDirectories 設為 True，本屬性將失效。
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzFileListView.OnItemActivate(System.EventArgs)">
+ <summary>
+ Overrides the base class OnItemActivate event handler. Extends the base
+ class implementation to run any .exe or file with an associated executable.
+ </summary>
+</member>
+<member name="M:KzSystem.KzFileListView.ShowFiles(System.String)">
+ <summary>
+ This subroutine is used to display a list of all files in the directory
+ currently selected by the user from the custom TreeView control.
+ </summary>
+</member>
+<member name="M:KzSystem.DirectoryScanner.DirectoryScanner_Load(System.Object,System.EventArgs)">
+ <summary>
+ Handles the Load event for the DirectoryScanner.
+ </summary>
+</member>
+<member name="M:KzSystem.DirectoryScanner.AddToListView(System.String,System.String)">
+ <summary>
+ This subroutine adds the strSubDirectory that the user selects on the TreeView 
+ to the ListView, and sets the text, size, and color.
+ </summary>
+</member>
+<member name="M:KzSystem.DirectoryScanner.GetSizeColor(System.String)">
+ <summary>
+ This subroutine returns a Color based on the combined size of the directory 
+ and all its subdirectories. This is one of two overloads.
+ </summary>
+</member>
+<member name="M:KzSystem.DirectoryScanner.GetSizeColor(System.Int64)">
+ <summary>
+ This function returns a Color based on the combined size of the directory 
+ and all its subdirectories. This is the second of two overloads.
+ </summary>
+</member>
+<member name="M:KzSystem.DirectoryScanner.GetDirectorySize(System.String,KzSystem.DirectoryNode)">
+ <summary>
+ This function returns the size of a directory, and all its sub-directories.
+ </summary>
+</member>
+<member name="M:KzSystem.DirectoryScanner.ShowSubDirectories(KzSystem.DirectoryNode)">
+ <summary>
+ When a directory node is expanded, add its subdirectories to the ListView. 
+ </summary>
+</member>
+<member name="M:KzSystem.DirectoryScanner.exitToolStripMenuItem_Click(System.Object,System.EventArgs)">
+ <summary>
+ Close the application
+ </summary>
+</member>
+<member name="M:KzSystem.DirectoryScanner.TreeView1_AfterExpand(System.Object,System.Windows.Forms.TreeViewEventArgs)">
+ <summary>
+ Handles the AfterExpand event for the TreeView, which does not occur after 
+ the TreeView is selected, but after the application decides that the user's 
+ attempt to expand the node should be allowed. The corresponding BeforeExpand 
+ event handler is used for this decision making, if desired. All Before
+ events pass a TreeViewCancelEventArgs object that contains a Cancel property.
+ This property can be used for vetoing the user's action. Thus, the "AfterExpand"
+ event could rightly be named "AfterExpandApproval".
+ </summary>
+</member>
+<member name="M:KzSystem.DirectoryScanner.TreeView1_AfterSelect(System.Object,System.Windows.Forms.TreeViewEventArgs)">
+ <summary>
+ Handles the AfterSelect event for the TreeView, which does not occur after 
+ the TreeView is selected, but after the application decides that the user's 
+ attempt to select the node should be allowed. The corresponding BeforeSelect 
+ event handler is used for this decision making, if desired. All Before
+ events pass a TreeViewCancelEventArgs object that contains a Cancel property.
+ This property can be used for vetoing the user's action. Thus, the "AfterSelect"
+ event could rightly be named "AfterSelectApproval".
+ </summary>
+</member>
+<member name="T:KzSystem.KzItemPosition">
+ <summary>
+ 
+ </summary>
+</member>
+<member name="T:KzSystem.KzActionStatus">
+ <summary>
+ 
+ </summary>
+</member>
+<member name="T:KzSystem.KzFlatSides">
+ <summary>
+ KzSystem 定制針對方形對象之「邊」的描述
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatSides.None">
+ <summary>
+ 未指定
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatSides.All">
+ <summary>
+ 四邊皆有
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatSides.Top">
+ <summary>
+ 上邊
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatSides.Bottom">
+ <summary>
+ 下邊
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatSides.Left">
+ <summary>
+ 左邊
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatSides.Right">
+ <summary>
+ 右邊
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatSides.Horizontal">
+ <summary>
+ 水平兩邊，即 Left and Right
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatSides.Vertical">
+ <summary>
+ 垂直兩邊，即 Top and Bottom
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatSides.LeftTop">
+ <summary>
+ 左邊及上邊，等同於 TopLeft，可用於描畫順序之區別
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatSides.TopLeft">
+ <summary>
+ 上邊及左邊，等同於 LeftTop，可用於描畫順序之區別
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatSides.RightTop">
+ <summary>
+ 右邊及上邊，等同於 TopRight，可用於描畫順序之區別
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatSides.TopRight">
+ <summary>
+ 上邊及右邊，等同於 RightTop，可用於描畫順序之區別
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatSides.LeftBottom">
+ <summary>
+ 左邊及下邊，等同於 BottomLeft，可用於描畫順序之區別
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatSides.BottomLeft">
+ <summary>
+ 下邊及左邊，等同於 BottomLeft，可用於描畫順序之區別
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatSides.RightBottom">
+ <summary>
+ 右邊及下邊，等同於 BottomRight，可用於描畫順序之區別
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatSides.BottomRight">
+ <summary>
+ 下邊及右邊，等同於 RightBottom，可用於描畫順序之區別
+ </summary>
+</member>
+<member name="T:KzSystem.KzFlatCorners">
+ <summary>
+ KzSystem 定制針對方形對象之「角」的描述
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatCorners.None">
+ <summary>
+ 未設定
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatCorners.All">
+ <summary>
+ 四角皆有
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatCorners.LeftTop">
+ <summary>
+ 左上角，等同於 TopLeft
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatCorners.TopLeft">
+ <summary>
+ 左上角，等同於 LeftTop
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatCorners.RightTop">
+ <summary>
+ 右上角，等同於 TopRight
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatCorners.TopRight">
+ <summary>
+ 右上角，等同於 RightTop
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatCorners.LeftBottom">
+ <summary>
+ 左下角，等同於 BottomLeft
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatCorners.BottomLeft">
+ <summary>
+ 左下角，等同於 LeftBottom
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatCorners.RightBottom">
+ <summary>
+ 右上角，等同於 BottomRight
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatCorners.BottomRight">
+ <summary>
+ 右上角，等同於 RightBottom
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatCorners.Top">
+ <summary>
+ 上方兩角，即 TopLeft + TopRight
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatCorners.Left">
+ <summary>
+ 左方兩角，即 TopLeft + LeftBottom
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatCorners.Right">
+ <summary>
+ 右方兩角，即 TopRight + RightBottom
+ </summary>
+</member>
+<member name="F:KzSystem.KzFlatCorners.Bottom">
+ <summary>
+ 下方兩角，即 LeftBottom + RightBottom
+ </summary>
+</member>
+<member name="M:KzSystem.KzStr.CFullWidth(System.String)">
+ <summary>
+ Convert all half width char to full width in InputString
+ 半角轉全角
+ </summary>
+ <param name="InputString"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzStr.CHalfWidth(System.String)">
+ <summary>
+ Convert full width char to half width in InputString if the char's half form exists.
+ 全角轉半角
+ </summary>
+ <param name="InputString"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzStr.GetTimeSerial(System.DateTime,System.Int32)">
+ <summary>
+ 
+ </summary>
+ <param name="datetime"></param>
+ <param name="index"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzStr.GetFileLength(System.Int64,System.Boolean,System.Boolean,System.Boolean)">
+ <summary>
+ 
+ </summary>
+ <param name="LengthInByte"></param>
+ <param name="StandardView"></param>
+ <param name="UnitShowB"></param>
+ <param name="OriginReturn"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzStr.GetLinkFileName(System.String,System.Boolean)">
+ <summary>
+ Get the file name from a url link or a file path.
+ </summary>
+ <param name="FullPath">String of a url string or a full file path.</param>
+ <param name="IsUrl">Is a url string or not. If false that's a file path.</param>
+ <returns>String of a file name.</returns>
+</member>
+<member name="M:KzSystem.KzWeb.GetWebCode(System.String)">
+ <summary>
+ Get source code from the html page indecated by URL string
+ </summary>
+ <param name="strURL"></param>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzColorConverter.Form1_Load(System.Object,System.EventArgs)">
+ <summary>
+ Testing Application
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:KzSystem.TestSlideBar.Dispose(System.Boolean)">
+ <summary>
+ Clean up any resources being used.
+ </summary>
+</member>
+<member name="M:KzSystem.TestSlideBar.InitializeComponent">
+ <summary>
+ Required method for Designer support - do not modify
+ the contents of this method with the code editor.
+ </summary>
+</member>
+<member name="M:KzSystem.TestSlideBar.Main">
+ <summary>
+ The main entry point for the application.
+ </summary>
+</member>
+<member name="M:KzSystem.KzPadingSetterDesigner.PostFilterProperties(System.Collections.IDictionary)">
+ <summary>
+ Remove Button and Control properties that are 
+ not supported by the <see cref="T:KzSystem.KzPadingSetter"/>.
+ </summary>
+</member>
+<member name="M:KzSystem.KzPadingSetterDesigner.PostFilterEvents(System.Collections.IDictionary)">
+ <summary>
+ Remove Button and Control events that are 
+ not supported by the <see cref="T:KzSystem.KzTrackBar"/>.
+ </summary>
+</member>
+<member name="P:KzSystem.KzTabControl.NewTitlePrefix">
+ <summary>
+ 用於命名新 TabPage 的前綴，與 NewSerialNumber 同時使用。格式為 NewTitlePrefix + NewSerialNumber 的字符串
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzTabControl.NewAddedAutoSelect">
+ <summary>
+ 指示新增 TabPage 時是否即使應用選擇
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzTabControl.TabsAppearance">
+ <summary>
+ 讀取或設置用於繪製 Tabs 的呈現
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzTabControl.AddNewTab">
+ <summary>
+ 具備點擊新增功能的特殊 TabPage
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzTabControl.ShowAddNewTab">
+ <summary>
+ 指示是否使用新增 Tab
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzTabControl.SelectAfterAdd">
+ <summary>
+ 指示新增後是否選中新 Tab
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:KzSystem.KzTabControl.NewSerialNumber">
+ <summary>
+ 在當前狀態下取得用於命名新 TabPage 的索引號，從 0 開始按 1 遞增
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:KzSystem.KzTabControl.SetTabWidth">
+ <summary>
+ 自動設定 Tab 的寬度
+ </summary>
+</member>
+<member name="M:KzSystem.KzTabControl.RemoveTab(KzSystem.KzItemPosition,System.Windows.Forms.TabPage)">
+ <summary>
+ 移除 Tab
+ </summary>
+ <param name="SelectionAfterRemove">移除指定 Tab 之後的選定位置</param>
+ <param name="TheTabPage">指定需要移除的 TabPage，如為 Nothing 則默認為 SelectedTab</param>
+</member>
+<member name="M:KzSystem.KzTabControl.AddTab(KzSystem.KzItemPosition,System.Windows.Forms.TabPage,System.Int32)">
+ <summary>
+ 添加 Tab，含插入功能
+ </summary>
+ <param name="AddToPosition">添加指定 TabPage 的位置（根據現有 Tabs 的位置）</param>
+ <param name="TheTabPage">指定需要添加的 TabPage，如為 Nothing 則默認為 NewTab</param>
+ <param name="InsertToIndex">指定位置添加，如其值大於 -1，則 AddToPosition 將失效</param>
+</member>
+<member name="M:KzSystem.KzTabControl.RemoveAll">
+ <summary>
+ 清除所有 Tab
+ </summary>
+</member>
+<member name="M:KzSystem.KzTabControl.MoveTab(KzSystem.KzItemPosition,System.Windows.Forms.TabPage,System.Int32)">
+ <summary>
+ 移動 Tab
+ </summary>
+ <param name="MoveToPosition"></param>
+ <param name="TheTabPage"></param>
+ <param name="MoveToIndex"></param>
+</member>
+<member name="T:KzSystem.KzTabsAppearance">
+ <summary>
+ 用於描述 TabControl 的描畫呈現
+ </summary>
+</member>
+<member name="T:KzSystem.KzTabStatusAppearance">
+ <summary>
+ 依據狀態描述單個 Tab 的呈現 
+ </summary>
+</member>
+<member name="T:KzSystem.KzTabPageStyle">
+ <summary>
+ KzSystem 定制 TabPage 形式
+ </summary>
+</member>
+<member name="F:KzSystem.KzTabPageStyle.None">
+ <summary>
+ 未指定，對 Page 不作修飾
+ </summary>
+</member>
+<member name="F:KzSystem.KzTabPageStyle.PageFrame">
+ <summary>
+ Page 呈現範圍周邊描畫 Frame，可應用 Tab 的 BorderColor 或 BackColor
+ </summary>
+</member>
+<member name="F:KzSystem.KzTabPageStyle.SideLine">
+ <summary>
+ 在 Tab 和 Page 之間描畫分割線，可應用 Tab 的 BorderColor 或 BackColor
+ </summary>
+</member>
+<member name="F:KzSystem.KzTabPageStyle.OpenPageFrame">
+ <summary>
+ Page 呈現範圍周邊描畫 Frame，但 Tab 接壤處不描畫
+ </summary>
+</member>
+<member name="F:KzSystem.KzTabPageStyle.OpenSideLine">
+ <summary>
+ 在 Tab 和 Page 之間描畫分割線，但 Tab 接壤處不描畫
+ </summary>
+</member>
+<member name="T:KzSystem.ValueChangedHandler">
+ <summary>
+ Represents the method that will handle a change in value.
+ </summary>
+</member>
+<member name="F:KzSystem.KzBorderStyle.None">
+ <summary>
+ No border.
+ </summary>
+</member>
+<member name="F:KzSystem.KzBorderStyle.Dashed">
+ <summary>
+ A dashed border.
+ </summary>
+</member>
+<member name="F:KzSystem.KzBorderStyle.Dotted">
+ <summary>
+ A dotted-line border.
+ </summary>
+</member>
+<member name="F:KzSystem.KzBorderStyle.Inset">
+ <summary>
+ A sunken border.
+ </summary>
+</member>
+<member name="F:KzSystem.KzBorderStyle.Outset">
+ <summary>
+ A raised border.
+ </summary>
+</member>
+<member name="F:KzSystem.KzBorderStyle.Solid">
+ <summary>
+ A solid border.
+ </summary>
+</member>
+<member name="F:KzSystem.KzBorderStyle.Adjust">
+ <summary>
+ The border is drawn outside the specified rectangle, preserving the dimensions of the rectangle for drawing.
+ </summary>
+</member>
+<member name="F:KzSystem.KzBorderStyle.Bump">
+ <summary>
+ The inner and outer edges of the border have a raised appearance.
+ </summary>
+</member>
+<member name="F:KzSystem.KzBorderStyle.Etched">
+ <summary>
+ The inner and outer edges of the border have an etched appearance.
+ </summary>
+</member>
+<member name="F:KzSystem.KzBorderStyle.Flat">
+ <summary>
+ The border has no three-dimensional effects.
+ </summary>
+</member>
+<member name="F:KzSystem.KzBorderStyle.Raised">
+ <summary>
+ The border has raised inner and outer edges.
+ </summary>
+</member>
+<member name="F:KzSystem.KzBorderStyle.RaisedInner">
+ <summary>
+ The border has a raised inner edge and no outer edge.
+ </summary>
+</member>
+<member name="F:KzSystem.KzBorderStyle.RaisedOuter">
+ <summary>
+ The border has a raised outer edge and no inner edge.
+ </summary>
+</member>
+<member name="F:KzSystem.KzBorderStyle.Sunken">
+ <summary>
+ The border has sunken inner and outer edges.
+ </summary>
+</member>
+<member name="F:KzSystem.KzBorderStyle.SunkenInner">
+ <summary>
+ The border has a sunken inner edge and no outer edge.
+ </summary>
+</member>
+<member name="F:KzSystem.KzBorderStyle.SunkenOuter">
+ <summary>
+ The border has a sunken outer edge and no inner edge.
+ </summary>
+</member>
+<member name="T:KzSystem.KzTrackBarDesigner">
+ <summary>
+ The Designer for the <see cref="T:KzSystem.KzTrackBar"/>.
+ </summary>
+</member>
+<member name="P:KzSystem.KzTrackBarDesigner.SelectionRules">
+ <summary>
+ Returns the allowable design time selection rules.
+ </summary>
+</member>
+<member name="M:KzSystem.KzTrackBarDesigner.PostFilterProperties(System.Collections.IDictionary)">
+ <summary>
+ Remove Button and Control properties that are 
+ not supported by the <see cref="T:KzSystem.KzTrackBar"/>.
+ </summary>
+</member>
+<member name="M:KzSystem.KzTrackBarDesigner.PostFilterEvents(System.Collections.IDictionary)">
+ <summary>
+ Remove Button and Control events that are 
+ not supported by the <see cref="T:KzSystem.KzTrackBar"/>.
+ </summary>
+</member>
+<member name="T:KzSystem.KzTrackBar">
+ <summary>
+	  <para>
+		KzTrackBar represents an advanced track bar that is very better than the 
+		standard trackbar.
+   </para>
+   <para>
+   KzTrackBar supports the following features:
+   <list type="bullet">
+     <item><c>MAC style, Office2003 style, IDE2003 style and Plain style.</c></item>
+     <item><c>Vertical and Horizontal trackbar.</c></item>
+     <item><c>Supports many Text Tick styles: None, TopLeft, BottomRight, Both. You can change Text Font, ForeColor.</c></item> 
+     <item><c>Supports many Tick styles: None, TopLeft, BottomRight, Both.</c></item> 
+     <item><c>You can change <see cref="P:KzSystem.KzTrackBar.TickColor"/>, <see cref="P:KzSystem.KzTrackBar.TickFrequency"/>, <see cref="P:KzSystem.KzTrackBar.TickHeight"/>.</c></item> 
+     <item><c>You can change <see cref="P:KzSystem.KzTrackBar.TrackerColor"/> and <see cref="P:KzSystem.KzTrackBar.TrackerSize"/>.</c></item> 
+     <item><c>You can change <see cref="P:KzSystem.KzTrackBar.TrackLineColor"/> and <see cref="P:KzSystem.KzTrackBar.TrackLineHeight"/>.</c></item> 	
+     <item><c>Easy to Use and Integrate in Visual Studio .NET.</c></item> 
+     <item><c>100% compatible to the standard control in VS.NET.</c></item> 
+     <item><c>100% managed code.</c></item> 
+     <item><c>No coding RAD component.</c></item> 
+   </list>
+   </para>
+ </summary>
+</member>
+<member name="E:KzSystem.KzTrackBar.ValueChanged">
+ <summary>
+ Occurs when the property Value has been changed.
+ </summary>
+</member>
+<member name="E:KzSystem.KzTrackBar.Scroll">
+ <summary>
+ Occurs when either a mouse or keyboard action moves the slider.
+ </summary>
+</member>
+<member name="M:KzSystem.KzTrackBar.#ctor">
+ <summary>
+ Constructor method of <see cref="T:KzSystem.KzTrackBar"/> class
+ </summary>
+</member>
+<member name="P:KzSystem.KzTrackBar.AutoSize">
+ <summary>
+ Gets or sets a value indicating whether the height or width of the track bar is being automatically sized.
+ </summary>
+ <remarks>You can set the AutoSize property to true to cause the track bar to adjust either its height or width, depending on orientation, to ensure that the control uses only the required amount of space.</remarks>
+ <value>true if the track bar is being automatically sized; otherwise, false. The default is true.</value>
+</member>
+<member name="P:KzSystem.KzTrackBar.LargeChange">
+ <summary>
+ Gets or sets a value to be added to or subtracted from the <see cref="P:KzSystem.KzTrackBar.Value"/> property when the slider is moved a large distance.
+ </summary>
+ <remarks>
+ When the user presses the PAGE UP or PAGE DOWN key or clicks the track bar on either side of the slider, the <see cref="P:KzSystem.KzTrackBar.Value"/> 
+ property changes according to the value set in the <see cref="P:KzSystem.KzTrackBar.LargeChange"/> property. 
+ You might consider setting the <see cref="P:KzSystem.KzTrackBar.LargeChange"/> value to a percentage of the <see cref="P:System.Windows.Forms.Control.Height"/> (for a vertically oriented track bar) or 
+ <see cref="P:System.Windows.Forms.Control.Width"/> (for a horizontally oriented track bar) values. This keeps the distance your track bar moves proportionate to its size.
+ </remarks>
+ <value>A numeric value. The default value is 2.</value>
+</member>
+<member name="P:KzSystem.KzTrackBar.SmallChange">
+ <summary>
+ Gets or sets a value to be added to or subtracted from the <see cref="P:KzSystem.KzTrackBar.Value"/> property when the slider is moved a small distance.
+ </summary>
+ <remarks>
+ When the user presses one of the arrow keys, the <see cref="P:KzSystem.KzTrackBar.Value"/> property changes according to the value set in the SmallChange property.
+ You might consider setting the <see cref="P:KzSystem.KzTrackBar.SmallChange"/> value to a percentage of the <see cref="P:System.Windows.Forms.Control.Height"/> (for a vertically oriented track bar) or 
+ <see cref="P:System.Windows.Forms.Control.Width"/> (for a horizontally oriented track bar) values. This keeps the distance your track bar moves proportionate to its size.
+ </remarks>
+ <value>A numeric value. The default value is 1.</value>
+</member>
+<member name="P:KzSystem.KzTrackBar.TrackLineHeight">
+ <summary>
+ Gets or sets the height of track line.
+ </summary>
+ <value>The default value is 4.</value>
+</member>
+<member name="P:KzSystem.KzTrackBar.TickColor">
+ <summary>
+ Gets or sets the tick's <see cref="T:System.Drawing.Color"/> of the control.
+ </summary>
+</member>
+<member name="P:KzSystem.KzTrackBar.TickFrequency">
+ <summary>
+ Gets or sets a value that specifies the delta between ticks drawn on the control.
+ </summary>
+ <remarks>
+ For a <see cref="T:KzSystem.KzTrackBar"/> with a large range of values between the <see cref="P:KzSystem.KzTrackBar.Minimum"/> and the 
+ <see cref="P:KzSystem.KzTrackBar.Maximum"/>, it might be impractical to draw all the ticks for values on the control. 
+ For example, if you have a control with a range of 100, passing in a value of 
+ five here causes the control to draw 20 ticks. In this case, each tick 
+ represents five units in the range of values.
+ </remarks>
+ <value>The numeric value representing the delta between ticks. The default is 1.</value>
+</member>
+<member name="P:KzSystem.KzTrackBar.TickHeight">
+ <summary>
+ Gets or sets the height of tick.
+ </summary>
+ <value>The height of tick in pixels. The default value is 2.</value>
+</member>
+<member name="P:KzSystem.KzTrackBar.IndentHeight">
+ <summary>
+ Gets or sets the height of indent (or Padding-Y).
+ </summary>
+ <value>The height of indent in pixels. The default value is 6.</value>
+</member>
+<member name="P:KzSystem.KzTrackBar.IndentWidth">
+ <summary>
+ Gets or sets the width of indent (or Padding-Y).
+ </summary>
+ <value>The width of indent in pixels. The default value is 6.</value>
+</member>
+<member name="P:KzSystem.KzTrackBar.TrackerSize">
+ <summary>
+ Gets or sets the tracker's size. 
+ The tracker's width must be greater or equal to tracker's height.
+ </summary>
+ <value>The <see cref="P:System.Windows.Forms.Control.Size"/> object that represents the height and width of the tracker in pixels.</value>
+</member>
+<member name="P:KzSystem.KzTrackBar.TextTickStyle">
+ <summary>
+ Gets or sets the text tick style of the trackbar.
+ There are 4 styles for selection: None, TopLeft, BottomRight, Both. 
+ </summary>
+ <remarks>You can use the <see cref="P:System.Windows.Forms.Control.Font"/>, <see cref="P:System.Windows.Forms.Control.ForeColor"/>
+ properties to customize the tick text.</remarks>
+ <value>One of the <see cref="P:KzSystem.KzTrackBar.TickStyle"/> values. The default is <b>BottomRight</b>.</value>
+</member>
+<member name="P:KzSystem.KzTrackBar.TickStyle">
+ <summary>
+ Gets or sets the tick style of the trackbar.
+ There are 4 styles for selection: None, TopLeft, BottomRight, Both. 
+ </summary>
+ <remarks>You can use the <see cref="P:KzSystem.KzTrackBar.TickColor"/>, <see cref="P:KzSystem.KzTrackBar.TickFrequency"/>, 
+ <see cref="P:KzSystem.KzTrackBar.TickHeight"/> properties to customize the trackbar's ticks.</remarks>
+ <value>One of the <see cref="P:KzSystem.KzTrackBar.TickStyle"/> values. The default is <b>BottomRight</b>.</value>
+</member>
+<member name="P:KzSystem.KzTrackBar.TrackerColor">
+ <summary>
+ Gets or set tracker's color.
+ </summary>
+ <value>
+ <remarks>You can change size of tracker by <see cref="P:KzSystem.KzTrackBar.TrackerSize"/> property.</remarks>
+ A <see cref="T:System.Drawing.Color"/> that represents the color of the tracker. 
+ </value>
+</member>
+<member name="P:KzSystem.KzTrackBar.Value">
+ <summary>
+ Gets or sets a numeric value that represents the current position of the slider on the track bar.
+ </summary>
+ <remarks>The Value property contains the number that represents the current position of the slider on the track bar.</remarks>
+ <value>A numeric value that is within the <see cref="P:KzSystem.KzTrackBar.Minimum"/> and <see cref="P:KzSystem.KzTrackBar.Maximum"/> range. 
+ The default value is 0.</value>
+</member>
+<member name="P:KzSystem.KzTrackBar.Minimum">
+ <summary>
+ Gets or sets the lower limit of the range this <see cref="T:KzSystem.KzTrackBar"/> is working with.
+ </summary>
+ <remarks>You can use the <see cref="M:KzSystem.KzTrackBar.SetRange(System.Int32,System.Int32)"/> method to set both the <see cref="P:KzSystem.KzTrackBar.Maximum"/> and <see cref="P:KzSystem.KzTrackBar.Minimum"/> properties at the same time.</remarks>
+ <value>The minimum value for the <see cref="T:KzSystem.KzTrackBar"/>. The default value is 0.</value>
+</member>
+<member name="P:KzSystem.KzTrackBar.Maximum">
+ <summary>
+ Gets or sets the upper limit of the range this <see cref="T:KzSystem.KzTrackBar"/> is working with.
+ </summary>
+ <remarks>You can use the <see cref="M:KzSystem.KzTrackBar.SetRange(System.Int32,System.Int32)"/> method to set both the <see cref="P:KzSystem.KzTrackBar.Maximum"/> and <see cref="P:KzSystem.KzTrackBar.Minimum"/> properties at the same time.</remarks>
+ <value>The maximum value for the <see cref="T:KzSystem.KzTrackBar"/>. The default value is 10.</value>
+</member>
+<member name="P:KzSystem.KzTrackBar.Orientation">
+ <summary>
+ Gets or sets a value indicating the horizontal or vertical orientation of the track bar.
+ </summary>
+ <remarks>
+ When the <b>Orientation</b> property is set to <b>Orientation.Horizontal</b>, 
+ the slider moves from left to right as the <see cref="P:KzSystem.KzTrackBar.Value"/> increases. 
+ When the <b>Orientation</b> property is set to <b>Orientation.Vertical</b>, the slider moves 
+ from bottom to top as the <see cref="P:KzSystem.KzTrackBar.Value"/> increases.
+ </remarks>
+ <value>One of the <see cref="P:KzSystem.KzTrackBar.Orientation"/> values. The default value is <b>Horizontal</b>.</value>
+</member>
+<member name="P:KzSystem.KzTrackBar.BorderStyle">
+ <summary>
+ Gets or sets the border type of the trackbar control.
+ </summary>
+ <value>A <see cref="T:KzSystem.KzBorderStyle"/> that represents the border type of the trackbar control. 
+ The default is <b>KzBorderStyle.None</b>.</value>
+</member>
+<member name="P:KzSystem.KzTrackBar.BorderColor">
+ <summary>
+ Gets or sets the border color of the control.
+ </summary>
+ <value>A <see cref="T:System.Drawing.Color"/> object that represents the border color of the control.</value>
+</member>
+<member name="P:KzSystem.KzTrackBar.TrackLineColor">
+ <summary>
+ Gets or sets the color of the track line.
+ </summary>
+ <value>A <see cref="T:System.Drawing.Color"/> object that represents the color of the track line.</value>
+</member>
+<member name="P:KzSystem.KzTrackBar.FitSize">
+ <summary>
+ Gets the Size of area need for drawing.
+ </summary>
+</member>
+<member name="P:KzSystem.KzTrackBar.TrackerRect">
+ <summary>
+ Gets the rectangle containing the tracker.
+ </summary>
+</member>
+<member name="M:KzSystem.KzTrackBar.OnScroll">
+ <summary>
+ Raises the Scroll event.
+ </summary>
+</member>
+<member name="M:KzSystem.KzTrackBar.SetRange(System.Int32,System.Int32)">
+ <summary>
+ Sets the minimum and maximum values for a TrackBar.
+ </summary>
+ <param name="minValue">The lower limit of the range of the track bar.</param>
+ <param name="maxValue">The upper limit of the range of the track bar.</param>
+</member>
+<member name="M:KzSystem.KzTrackBar.ResetAppearance">
+ <summary>
+ Reset the appearance properties.
+ </summary>
+</member>
+<member name="M:KzSystem.KzTrackBar.OnCreateControl">
+ <summary>
+ The OnCreateControl method is called when the control is first created.
+ </summary>
+</member>
+<member name="M:KzSystem.KzTrackBar.OnLostFocus(System.EventArgs)">
+ <summary>
+ This member overrides <see cref="M:System.Windows.Forms.Control.OnLostFocus(System.EventArgs)">Control.OnLostFocus</see>.
+ </summary>
+</member>
+<member name="M:KzSystem.KzTrackBar.OnGotFocus(System.EventArgs)">
+ <summary>
+ This member overrides <see cref="M:System.Windows.Forms.Control.OnGotFocus(System.EventArgs)">Control.OnGotFocus</see>.
+ </summary>
+</member>
+<member name="M:KzSystem.KzTrackBar.OnClick(System.EventArgs)">
+ <summary>
+ This member overrides <see cref="M:System.Windows.Forms.Control.OnClick(System.EventArgs)">Control.OnClick</see>.
+ </summary>
+</member>
+<member name="M:KzSystem.KzTrackBar.ProcessCmdKey(System.Windows.Forms.Message@,System.Windows.Forms.Keys)">
+ <summary>
+ This member overrides <see cref="M:System.Windows.Forms.Control.ProcessCmdKey(System.Windows.Forms.Message@,System.Windows.Forms.Keys)">Control.ProcessCmdKey</see>.
+ </summary>
+</member>
+<member name="M:KzSystem.KzTrackBar.Dispose(System.Boolean)">
+ <summary>
+ Dispose of instance resources.
+ </summary>
+ <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
+</member>
+<member name="M:KzSystem.KzTrackBar.OnPaint(System.Windows.Forms.PaintEventArgs)">
+ <summary>
+ This member overrides <see cref="M:System.Windows.Forms.Control.OnPaint(System.Windows.Forms.PaintEventArgs)">Control.OnPaint</see>.
+ </summary>
+</member>
+<member name="M:KzSystem.KzTrackBar.DrawTrackLine(System.Drawing.Graphics,System.Drawing.RectangleF)">
+ <summary>
+ 
+ </summary>
+ <param name="g"></param>
+ <param name="drawRect"></param>
+</member>
+<member name="M:KzSystem.KzTrackBar.DrawTracker(System.Drawing.Graphics,System.Drawing.RectangleF)">
+ <summary>
+ 
+ </summary>
+ <param name="g"></param>
+ <param name="trackerRect_Renamed"></param>
+</member>
+<member name="M:KzSystem.KzTrackBar.DrawTickTextLine(System.Drawing.Graphics,System.Drawing.RectangleF,System.Int32,System.Int32,System.Int32,System.Drawing.Color,System.Drawing.Font,System.Windows.Forms.Orientation)">
+ <summary>
+ 
+ </summary>
+ <param name="g"></param>
+ <param name="drawRect"></param>
+ <param name="tickFrequency_Renamed"></param>
+ <param name="minimum_Renamed"></param>
+ <param name="maximum_Renamed"></param>
+ <param name="foreColor"></param>
+ <param name="font"></param>
+ <param name="orientation_Renamed"></param>
+</member>
+<member name="M:KzSystem.KzTrackBar.DrawTickLine(System.Drawing.Graphics,System.Drawing.RectangleF,System.Int32,System.Int32,System.Int32,System.Drawing.Color,System.Windows.Forms.Orientation)">
+ <summary>
+ 
+ </summary>
+ <param name="g"></param>
+ <param name="drawRect"></param>
+ <param name="tickFrequency_Renamed"></param>
+ <param name="minimum_Renamed"></param>
+ <param name="maximum_Renamed"></param>
+ <param name="tickColor_Renamed"></param>
+ <param name="orientation_Renamed"></param>
+</member>
+<member name="M:KzSystem.KzTrackBar.DrawBorder(System.Drawing.Graphics)">
+ <summary>
+ 
+ </summary>
+ <param name="g"></param>
+</member>
+<member name="T:KzSystem.KzDrawStyleHelper">
+ <summary>
+ Summary description for KzDrawStyleHelper.
+ </summary>
+</member>
+<member name="M:KzSystem.KzDrawStyleHelper.#ctor">
+ <summary>
+ The contructor 
+ </summary>
+</member>
+<member name="M:KzSystem.KzDrawStyleHelper.DrawAquaPill(System.Drawing.Graphics,System.Drawing.RectangleF,System.Drawing.Color,System.Windows.Forms.Orientation)">
+ <summary>
+ 
+ </summary>
+ <param name="g"></param>
+ <param name="drawRectF"></param>
+ <param name="drawColor"></param>
+ <param name="orientation"></param>
+</member>
+<member name="M:KzSystem.KzDrawStyleHelper.DrawAquaPillSingleLayer(System.Drawing.Graphics,System.Drawing.RectangleF,System.Drawing.Color,System.Windows.Forms.Orientation)">
+ <summary>
+ 
+ </summary>
+ <param name="g"></param>
+ <param name="drawRectF"></param>
+ <param name="drawColor"></param>
+ <param name="orientation"></param>
+</member>
+<member name="M:KzSystem.KzDrawStyleHelper.FillPill(System.Drawing.Brush,System.Drawing.RectangleF,System.Drawing.Graphics)">
+ <summary>
+ 
+ </summary>
+ <param name="b"></param>
+ <param name="rect"></param>
+ <param name="g"></param>
+</member>
+</members>
+</doc>

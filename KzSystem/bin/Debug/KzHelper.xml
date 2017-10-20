@@ -1,0 +1,797 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+KzHelper
+</name>
+</assembly>
+<members>
+<member name="T:KzHelper.My.Resources.Resources">
+<summary>
+  一个强类型的资源类，用于查找本地化的字符串等。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.ResourceManager">
+<summary>
+  返回此类使用的缓存的 ResourceManager 实例。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.Culture">
+<summary>
+  使用此强类型资源类，为所有资源查找
+  重写当前线程的 CurrentUICulture 属性。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.edit_beginselect">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.edit_clearall">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.edit_command">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.edit_copy">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.edit_cut">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.edit_delete">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.edit_findreplace">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.edit_font">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.edit_insert">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.edit_new">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.edit_open">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.edit_paste">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.edit_redo">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.edit_refresh">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.edit_save">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.edit_saveas">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.edit_selectall">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.edit_tools">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.edit_undo">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.edit_wrap">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.ODTC">
+<summary>
+  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.ODTCLogo">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.web_engines">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.web_favorites">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.web_finished">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.web_go">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.web_goback">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.web_goforward">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.web_history">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.web_home">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.web_pagesetup">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.web_preview">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.web_print">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.web_properties">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.web_refresh">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.web_running">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.web_save">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.web_search">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.web_settings">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.web_sourcecode">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.web_stop">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.web_switch">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:KzHelper.My.Resources.Resources.web_toolbox">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="T:KzHelper.Controller.CompletedDelegate">
+ <summary>
+ 此委托签名与 IClient.Completed 中的签名相匹配，并用于安全地调用 UI 线程上的方法
+ </summary>
+ <param name="Cancelled"></param>
+</member>
+<member name="T:KzHelper.Controller.DisplayDelegate">
+ <summary>
+ 此委托签名与 IClient.Display 中的签名相匹配，并用于安全地调用 UI 线程上的方法
+ </summary>
+ <param name="Text"></param>
+</member>
+<member name="T:KzHelper.Controller.FailedDelegate">
+ <summary>
+ 此委托签名与 IClient.Failed 中的签名相匹配，并用于安全地调用 UI 线程上的方法
+ </summary>
+ <param name="e"></param>
+</member>
+<member name="M:KzHelper.Controller.#ctor(KzHelper.IClient)">
+ <summary>
+ 使用客户端初始化 Controller
+ </summary>
+ <param name="Client"></param>
+</member>
+<member name="M:KzHelper.Controller.Start(KzHelper.IWorker)">
+ <summary>
+ 此方法由 UI 调用，因此在 UI 线程上运行。此处我们将启动辅助线程
+ </summary>
+ <param name="Worker"></param>
+</member>
+<member name="M:KzHelper.Controller.Cancel">
+ <summary>
+ 此代码由 UI 调用，因此在 UI 线程上运行。它只设置了请求取消的标志
+ </summary>
+</member>
+<member name="P:KzHelper.Controller.Percent">
+ <summary>
+ 返回完成百分比值，并且只被 UI 线程调用
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:KzHelper.Controller.Display(System.String)">
+ <summary>
+ 从辅助线程调用，以更新显示。
+ 这将触发对包含状态文本的 UI 的方法调用 - 该调用是在 UI 线程上进行的
+ </summary>
+ <param name="Text"></param>
+</member>
+<member name="M:KzHelper.Controller.Failed(System.Exception)">
+ <summary>
+ 从辅助线程调用，以表明出现故障。
+ 这将触发对包含异常对象的 UI 的方法调用 - 该调用是在 UI 线程上进行的
+ </summary>
+ <param name="e"></param>
+</member>
+<member name="M:KzHelper.Controller.SetPercent(System.Int32)">
+ <summary>
+ 从辅助线程上调用，以指出完成的百分比。值将转到 Controller，由 UI 在需要时读取
+ </summary>
+ <param name="Percent"></param>
+</member>
+<member name="M:KzHelper.Controller.Completed(System.Boolean)">
+ <summary>
+ 从辅助线程调用，以表明已完成。
+ 我们还传递参数，以表明是否真正完成，以及是否取消在 UI 线程上进行的对 UI 的调用
+ </summary>
+ <param name="Cancelled"></param>
+</member>
+<member name="P:KzHelper.Controller.Running">
+ <summary>
+ 表明是否仍在运行或是否已请求取消。
+ 这将在辅助线程上进行调用，因此辅助代码可以查看它是否应该正常退出
+ </summary>
+ <returns></returns>
+</member>
+<member name="T:KzHelper.ColorConvert">
+ <summary>
+ Provides methods to convert from a color space to an other.
+ </summary>
+</member>
+<member name="M:KzHelper.ColorConvert.GetAlphaColor(System.Drawing.Color,System.Int32)">
+ <summary>
+ Gets the given color based on a color and an alpha.
+ </summary>
+ <param name="c">Color applying the alpha channel.</param>
+ <param name="alpha">Alpha channel value.</param>
+</member>
+<member name="M:KzHelper.ColorConvert.GetBlendColor(System.Drawing.Color,System.Drawing.Color,System.Double)">
+ <summary>
+ Blends two colors.
+ </summary>
+ <param name="c1">First color to blend</param>
+ <param name="c2">Second color to blend</param>
+ <param name="ratio">Blend ratio. 0.5 will give even blend, 1.0 will return color1, 0.0 will return color2 and so on.</param>
+</member>
+<member name="M:KzHelper.ColorConvert.GetBlendColor(System.Drawing.Color,System.Drawing.Color)">
+ <summary>
+ Makes an even blend between two colors.
+ </summary>
+ <param name="c1">First color to blend</param>
+ <param name="c2">Second color to blend</param>
+</member>
+<member name="M:KzHelper.ColorConvert.GetColorDistance(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+ <summary>
+ Gets the "distance" between two colors.
+ RGB colors must be normalized (eg. values in [0.0, 1.0]).
+ </summary>
+ <param name="r1">First color red component.</param>
+ <param name="g1">First color green component.</param>
+ <param name="b1">First color blue component.</param>
+ <param name="r2">Second color red component.</param>
+ <param name="g2">Second color green component.</param>
+ <param name="b2">Second color blue component.</param>
+</member>
+<member name="M:KzHelper.ColorConvert.GetColorDistance(System.Double[],System.Double[])">
+ <summary>
+ Gets the "distance" between two colors.
+ RGB colors must be normalized (eg. values in [0.0, 1.0]).
+ </summary>
+ <param name="color1">First color [r,g,b]</param>
+ <param name="color2">Second color [r,g,b]</param>
+</member>
+<member name="M:KzHelper.ColorConvert.GetColorDistance(System.Drawing.Color,System.Drawing.Color)">
+ <summary>
+ Gets the "distance" between two colors.
+ </summary>
+ <param name="color1">First color.</param>
+ <param name="color2">Second color.</param>
+</member>
+<member name="M:KzHelper.ColorConvert.GetWheelColors(System.Int32)">
+ <summary>
+ Gets visible colors (color wheel).
+ </summary>
+ <param name="alpha">
+ The alpha value used for each colors.
+ </param>
+</member>
+<member name="M:KzHelper.ColorConvert.GetSpectrumColors(System.Int32)">
+ <summary>
+ Gets visible spectrum colors.
+ </summary>
+ <param name="alpha">The alpha value used for each colors.</param>
+</member>
+<member name="M:KzHelper.ColorConvert.GetSpectrumColors">
+ <summary>
+ Gets visible spectrum colors.
+ </summary>
+</member>
+<member name="M:KzHelper.ColorConvert.HEXtoColor(System.String)">
+ <summary>
+ Converts a Hex color to a .net Color.
+ </summary>
+ <param name="hexColor">The desired hexadecimal color to convert.</param>
+</member>
+<member name="M:KzHelper.ColorConvert.RGBtoHEX(System.Int32,System.Int32,System.Int32)">
+ <summary>
+ Converts a RGB color format to an hexadecimal color.
+ </summary>
+ <param name="r">The Red value.</param>
+ <param name="g">The Green value.</param>
+ <param name="b">The Blue value.</param>
+</member>
+<member name="M:KzHelper.ColorConvert.ColorToHEX(System.Drawing.Color)">
+ <summary>
+ Converts a .Net Color format to an hexadecimal color.
+ </summary>
+ <param name="c">The .net color to convert.</param>
+</member>
+<member name="M:KzHelper.ColorConvert.HSBtoRGB(KzHelper.HSB)">
+ <summary>
+ Converts HSB to RGB.
+ </summary>
+ <param name="hsb">The HSB structure to convert.</param>
+</member>
+<member name="M:KzHelper.ColorConvert.HSBtoRGB(System.Int32,System.Int32,System.Int32)">
+ <summary>
+ Converts HSB to RGB.
+ </summary>
+ <param name="H">Hue value. (must be between 0 and 360)</param>
+ <param name="S">Saturation value (must be between 0 and 100).</param>
+ <param name="b">Brigthness value (must be between 0 and 100).</param>
+</member>
+<member name="M:KzHelper.ColorConvert.HSBtoRGB(System.Double,System.Double,System.Double)">
+ <summary> 
+ Converts HSB to a RGB.
+ </summary>
+ <param name="h">Hue value (must be between 0 and 360).</param>
+ <param name="s">Saturation value (must be between 0 and 1).</param>
+ <param name="b">Brightness value (must be between 0 and 1).</param>
+</member>
+<member name="M:KzHelper.ColorConvert.HSBtoColor(KzHelper.HSB)">
+ <summary>
+ Converts HSB to .Net Color.
+ </summary>
+ <param name="hsb">the HSB structure to convert.</param>
+</member>
+<member name="M:KzHelper.ColorConvert.HSBtoColor(System.Double,System.Double,System.Double)">
+ <summary> 
+ Converts HSB to a .Net Color.
+ </summary>
+ <param name="h">Hue value (must be between 0 and 360).</param>
+ <param name="s">Saturation value (must be between 0 and 1).</param>
+ <param name="b">Brightness value (must be between 0 and 1).</param>
+</member>
+<member name="M:KzHelper.ColorConvert.HSLtoRGB(KzHelper.HSL)">
+ <summary>
+ Converts HSL to RGB.
+ </summary>
+ <param name="hsl">The HSL structure to convert.</param>
+</member>
+<member name="M:KzHelper.ColorConvert.HSLtoRGB(System.Int32,System.Int32,System.Int32)">
+ <summary>
+ Converts HSL to RGB.
+ </summary>
+ <param name="H">Hue value. (must be between 0 and 360)</param>
+ <param name="S">Saturation value (must be between 0 and 100).</param>
+ <param name="L">Luminance value (must be between 0 and 100).</param>
+</member>
+<member name="M:KzHelper.ColorConvert.HSLtoRGB(System.Double,System.Double,System.Double)">
+ <summary> 
+ Converts HSL to a .net Color.
+ </summary>
+ <param name="h">Hue value (must be between 0 and 360).</param>
+ <param name="s">Saturation value (must be between 0 and 1).</param>
+ <param name="l">Luminance value (must be between 0 and 1).</param>
+</member>
+<member name="M:KzHelper.ColorConvert.HSLtoColor(KzHelper.HSL)">
+ <summary>
+ Converts HSL to .net Color.
+ </summary>
+ <param name="hsl">The HSL structure to convert.</param>
+</member>
+<member name="M:KzHelper.ColorConvert.HSLtoColor(System.Double,System.Double,System.Double)">
+ <summary>
+ Converts HSL to .net Color.
+ </summary>
+ <param name="h">Hue value (must be between 0 and 360).</param>
+ <param name="s">Saturation value (must be between 0 and 1).</param>
+ <param name="l">Luminance value (must be between 0 and 1).</param>
+</member>
+<member name="M:KzHelper.ColorConvert.RGBtoHSB(System.Drawing.Color)">
+ <summary> 
+ Converts .Net Color to HSB.
+ </summary> 
+</member>
+<member name="M:KzHelper.ColorConvert.RGBtoHSB(KzHelper.RGB)">
+ <summary> 
+ Converts RGB to HSB.
+ </summary> 
+</member>
+<member name="M:KzHelper.ColorConvert.RGBtoHSB(System.Int32,System.Int32,System.Int32)">
+ <summary> 
+ Converts RGB to HSB.
+ </summary> 
+</member>
+<member name="M:KzHelper.ColorConvert.RGBtoHSL(System.Drawing.Color)">
+ <summary> 
+ Converts .Net Color to HSL.
+ </summary>
+</member>
+<member name="M:KzHelper.ColorConvert.RGBtoHSL(KzHelper.RGB)">
+ <summary> 
+ Converts RGB to HSL.
+ </summary>
+</member>
+<member name="M:KzHelper.ColorConvert.RGBtoHSL(System.Int32,System.Int32,System.Int32)">
+ <summary> 
+ Converts RGB to HSL.
+ </summary>
+ <param name="red">Red value (must be between 0 and 255).</param>
+ <param name="green">Green value (must be between 0 and 255).</param>
+ <param name="blue">Blue value (must be between 0 and 255).</param>
+</member>
+<member name="M:KzHelper.ColorConvert.RGBtoCMYK(KzHelper.RGB)">
+ <summary>
+ Converts RGB to CMYK
+ </summary >
+</member>
+<member name="M:KzHelper.ColorConvert.RGBtoCMYK(System.Drawing.Color)">
+ <summary>
+ Converts .Net Color to CMYK
+ </summary >
+</member>
+<member name="M:KzHelper.ColorConvert.RGBtoCMYK(System.Int32,System.Int32,System.Int32)">
+ <summary>
+ Converts RGB to CMYK
+ </summary >
+ <param name="red">Red vaue must be in [0, 255].</param>
+ <param name="green">Green vaue must be in [0, 255].</param>
+ <param name="blue">Blue vaue must be in [0, 255].</param>
+</member>
+<member name="M:KzHelper.ColorConvert.RGBtoYUV(KzHelper.RGB)">
+ <summary>
+ Converts RGB to YUV.
+ </summary >
+</member>
+<member name="M:KzHelper.ColorConvert.RGBtoYUV(System.Drawing.Color)">
+ <summary>
+ Converts .Net Color to YUV.
+ </summary >
+</member>
+<member name="M:KzHelper.ColorConvert.RGBtoYUV(System.Int32,System.Int32,System.Int32)">
+ <summary>
+ Converts RGB to YUV.
+ </summary >
+ <param name="red">red must be in [0, 255].</param>
+ <param name="green">green must be in [0, 255].</param>
+ <param name="blue">blue must be in [0, 255].</param>
+</member>
+<member name="M:KzHelper.ColorConvert.CMYKtoColor(System.Single,System.Single,System.Single,System.Single)">
+ <summary>
+ Converts CMYK to RGB.
+ </summary >
+ <param name="c">Cyan value (must be between 0 and 1).</param>
+ <param name="m">Magenta value (must be between 0 and 1).</param>
+ <param name="y">Yellow value (must be between 0 and 1).</param>
+ <param name="k">Black value (must be between 0 and 1).</param>
+</member>
+<member name="M:KzHelper.ColorConvert.CMYKtoColor(System.Double,System.Double,System.Double,System.Double)">
+ <summary>
+ Converts CMYK to RGB.
+ </summary >
+ <param name="c">Cyan value (must be between 0 and 1).</param>
+ <param name="m">Magenta value (must be between 0 and 1).</param>
+ <param name="y">Yellow value (must be between 0 and 1).</param>
+ <param name="k">Black value (must be between 0 and 1).</param>
+</member>
+<member name="M:KzHelper.ColorConvert.CMYKtoColor(KzHelper.CMYK)">
+ <summary>
+ Converts CMYK to RGB.
+ </summary >
+ <param name="cmyk"></param>
+</member>
+<member name="M:KzHelper.ColorConvert.CMYKtoRGB(System.Double,System.Double,System.Double,System.Double)">
+ <summary>
+ Converts CMYK to RGB.
+ </summary >
+ <param name="c">Cyan value (must be between 0 and 1).</param>
+ <param name="m">Magenta value (must be between 0 and 1).</param>
+ <param name="y">Yellow value (must be between 0 and 1).</param>
+ <param name="k">Black value (must be between 0 and 1).</param>
+</member>
+<member name="M:KzHelper.ColorConvert.CMYKtoRGB(KzHelper.CMYK)">
+ <summary>
+ Converts CMYK to RGB.
+ </summary >
+ <param name="cmyk"></param>
+</member>
+<member name="M:KzHelper.ColorConvert.YUVtoRGB(System.Double,System.Double,System.Double)">
+ <summary>
+ Converts YUV to RGB.
+ </summary >
+ <param name="y">Y (must be between 0 and 1).</param>
+ <param name="u">U (must be between -0.436 and 0.436).</param>
+ <param name="v">V (must be between -0.436 and 0.436).</param>
+</member>
+<member name="M:KzHelper.ColorConvert.YUVtoRGB(KzHelper.YUV)">
+ <summary>
+ Converts YUV to RGB.
+ </summary >
+</member>
+<member name="M:KzHelper.ColorConvert.YUVtoColor(System.Double,System.Double,System.Double)">
+ <summary>
+ Converts YUV to a .net Color.
+ </summary >
+ <param name="y">Y must be in [0, 1].</param>
+ <param name="u">U must be in [-0.436, +0.436].</param>
+ <param name="v">V must be in [-0.615, +0.615].</param>
+</member>
+<member name="M:KzHelper.ColorConvert.YUVtoColor(KzHelper.YUV)">
+ <summary>
+ Converts YUV to a .net Color.
+ </summary >
+</member>
+<member name="M:KzHelper.ColorConvert.XYZtoRGB(System.Double,System.Double,System.Double)">
+ <summary>
+ Converts CIEXYZ to RGB structure.
+ </summary>
+</member>
+<member name="M:KzHelper.ColorConvert.XYZtoRGB(System.Object)">
+ <summary>
+ Converts CIEXYZ to RGB structure.
+ </summary>
+</member>
+<member name="M:KzHelper.ColorConvert.Fxyz(System.Double)">
+ <summary>
+ XYZ to L*a*b* transformation function.
+ </summary>
+ <param name="t"></param>
+ <returns></returns>
+</member>
+<member name="M:KzHelper.ColorConvert.XYZtoLab(System.Double,System.Double,System.Double)">
+ <summary>
+ Converts CIEXYZ to CIELab structure.
+ </summary>
+</member>
+<member name="M:KzHelper.ColorConvert.XYZtoLab(KzHelper.CIEXYZ)">
+ <summary>
+ Converts CIEXYZ to CIELab structure.
+ </summary>
+</member>
+<member name="M:KzHelper.ColorConvert.LabtoXYZ(System.Double,System.Double,System.Double)">
+ <summary>
+ Converts CIELab to CIEXYZ.
+ </summary>
+</member>
+<member name="M:KzHelper.ColorConvert.LabtoXYZ(KzHelper.CIELab)">
+ <summary>
+ Converts CIELab to CIEXYZ.
+ </summary>
+</member>
+<member name="M:KzHelper.ColorConvert.LabtoRGB(System.Double,System.Double,System.Double)">
+ <summary>
+ Converts CIELab to RGB.
+ </summary>
+</member>
+<member name="M:KzHelper.ColorConvert.LabtoRGB(KzHelper.CIELab)">
+ <summary>
+ Converts CIELab to RGB.
+ </summary>
+</member>
+<member name="T:KzHelper.CIELab">
+ <summary>
+ Structure to define CIELab.
+ </summary>
+</member>
+<member name="M:KzHelper.CIELab.#ctor(System.Double,System.Double,System.Double)">
+ <summary>
+ Creates an instance of a CIELAB structure.
+ </summary>
+</member>
+<member name="T:KzHelper.CIEXYZ">
+ <summary>
+ Structure to define CIEXYZ.
+ </summary>
+</member>
+<member name="M:KzHelper.CIEXYZ.#ctor(System.Double,System.Double,System.Double)">
+ <summary>
+ Creates an instance of a CIEXYZ structure.
+ </summary>
+</member>
+<member name="T:KzHelper.CMYK">
+ <summary>
+ Structure to define CMYK.
+ </summary>
+</member>
+<member name="M:KzHelper.CMYK.#ctor(System.Double,System.Double,System.Double,System.Double)">
+ <summary>
+ Creates an instance of a CMYK structure.
+ </summary>
+ <param name="c">Cyan value (must be between 0 and 1).</param>
+ <param name="m">Magenta value (must be between 0 and 1).</param>
+ <param name="y">Yellow value (must be between 0 and 1).</param>
+ <param name="k">Black value (must be between 0 and 1).</param>
+</member>
+<member name="T:KzHelper.HSB">
+ <summary>
+ Structure to define HSB.
+ </summary>
+</member>
+<member name="M:KzHelper.HSB.#ctor(System.Double,System.Double,System.Double)">
+ <summary>
+ Creates an instance of a HSB structure.
+ </summary>
+ <param name="h">Hue value (must be between 0 and 360).</param>
+ <param name="s">Saturation value (must be between 0 and 1).</param>
+ <param name="b">Brightness value (must be between 0 and 1).</param>
+</member>
+<member name="T:KzHelper.HSL">
+ <summary>
+ Structure to define HSL.
+ </summary>
+</member>
+<member name="M:KzHelper.HSL.#ctor(System.Double,System.Double,System.Double)">
+ <summary>
+ Creates an instance of a HSL structure.
+ </summary>
+ <param name="h">Hue value (must be between 0 and 360).</param>
+ <param name="s">Saturation value (must be between 0 and 1).</param>
+ <param name="l">Luminance value (must be between 0 and 1).</param>
+</member>
+<member name="T:KzHelper.RGB">
+ <summary>
+ Structure to define RGB.
+ </summary>
+</member>
+<member name="M:KzHelper.RGB.#ctor(System.Int32,System.Int32,System.Int32)">
+ <summary>
+ Creates an instance of a RGB structure.
+ </summary>
+ <param name="r">Red value (must be between 0 and 255).</param>
+ <param name="g">Green value (must be between 0 and 255).</param>
+ <param name="b">Blue value (must be between 0 and 255).</param>
+</member>
+<member name="T:KzHelper.YUV">
+ <summary>
+ Structure to define YUV.
+ </summary>
+</member>
+<member name="M:KzHelper.YUV.#ctor(System.Double,System.Double,System.Double)">
+ <summary>
+ Creates an instance of a YUV structure.
+ </summary>
+ <param name="y">Y (must be between 0 and 1).</param>
+ <param name="u">U (must be between -0.436 and 0.436).</param>
+ <param name="v">V (must be between -0.436 and 0.436).</param>
+</member>
+<member name="M:KzHelper.StringHelper.CFullWidth(System.String)">
+ <summary>
+ Convert all half width char to full width in InputString
+ 半角轉全角
+ </summary>
+ <param name="InputString"></param>
+ <returns></returns>
+</member>
+<member name="M:KzHelper.StringHelper.CHalfWidth(System.String)">
+ <summary>
+ Convert full width char to half width in InputString if the char's half form exists.
+ 全角轉半角
+ </summary>
+ <param name="InputString"></param>
+ <returns></returns>
+</member>
+<member name="M:KzHelper.StringHelper.GetTimeSerial(System.DateTime,System.Int32)">
+ <summary>
+ 
+ </summary>
+ <param name="datetime"></param>
+ <param name="index"></param>
+ <returns></returns>
+</member>
+<member name="M:KzHelper.StringHelper.GetFileLength(System.Int64,System.Boolean,System.Boolean,System.Boolean)">
+ <summary>
+ 
+ </summary>
+ <param name="LengthInByte"></param>
+ <param name="StandardView"></param>
+ <param name="UnitShowB"></param>
+ <param name="OriginReturn"></param>
+ <returns></returns>
+</member>
+<member name="M:KzHelper.StringHelper.GetLinkFileName(System.String,System.Boolean)">
+ <summary>
+ Get the file name from a url link or a file path.
+ </summary>
+ <param name="FullPath">String of a url string or a full file path.</param>
+ <param name="IsUrl">Is a url string or not. If false that's a file path.</param>
+ <returns>String of a file name.</returns>
+</member>
+<member name="M:KzHelper.WebHelper.GetWebCode(System.String)">
+ <summary>
+ Get source code from the html page indecated by URL string
+ </summary>
+ <param name="strURL"></param>
+ <returns></returns>
+</member>
+</members>
+</doc>

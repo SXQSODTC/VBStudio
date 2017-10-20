@@ -45,23 +45,26 @@ Public Class KzImageView
         End Set
     End Property
 
+    Public Property Checked As Boolean
+
     Private Sub GetImageList(ByVal Folder As String)
-        If Directory.Exists(Folder) Then Exit Sub
-
-        Dim di As New DirectoryInfo(Folder)
-        Dim fis As FileInfo() = di.GetFiles
-
         IViewList.Images.Clear()
 
-        For Each fi As FileInfo In fis
-            If KzFiles.IsImageFile(fi) Then
-                Try
-                    IViewList.Images.Add(Image.FromFile(fi.FullName))
-                Catch ex As Exception
+        If Directory.Exists(Folder) Then
+            Dim di As New DirectoryInfo(Folder)
+            Dim fis As FileInfo() = di.GetFiles
 
-                End Try
-            End If
-        Next
+            For Each fi As FileInfo In fis
+                If KzFiles.IsImageFile(fi) Then
+                    Try
+                        IViewList.Images.Add(Image.FromFile(fi.FullName))
+                    Catch ex As Exception
+
+                    End Try
+                End If
+            Next
+        End If
+
     End Sub
 
     Private Sub RefreshFlow()
@@ -69,23 +72,148 @@ Public Class KzImageView
         Dim pb As PictureBox
 
         If IViewList.Images.Count > 0 Then
-            For Each img As Image In IViewList.Images
+            For i As Integer = 0 To IViewList.Images.Count - 1
                 pb = New PictureBox()
                 pb.Size = New Size(_ISideLength, _ISideLength)
-                pb.Image = img
+                pb.Image = IViewList.Images(i)
                 pb.SizeMode = PictureBoxSizeMode.Zoom
-
-                AddHandler pb.Click, AddressOf IListFlowSelectedChanged
+                pb.Tag = i
+                AddHandler pb.Click, AddressOf PictureBoxClick
+                AddHandler pb.DoubleClick, AddressOf PictureBoxDoubleClick
 
                 IListFlow.Controls.Add(pb)
             Next
         End If
     End Sub
 
-    Private Sub IListFlowSelectedChanged()
+    Private SelectedBox As PictureBox
+
+    Private Sub PictureBoxClick(sender As Object, e As EventArgs)
+        Dim pb As PictureBox = CType(sender, PictureBox)
+
+        If Not pb.Equals(SelectedBox) Then
+            SelectedBox = pb
+
+            'Dim sbce As New ImageViewSelectedChangedEventArgs
+            'sbce.Box = SelectedBox
+            'sbce.Index = SelectedBox.Tag
+            'RaiseEvent FlowListSelectedChanged(SelectedBox, sbce)
+        End If
+    End Sub
+
+    Private Sub PictureBoxDoubleClick(sender As Object, e As EventArgs)
 
     End Sub
+
 End Class
+
+Public Class ImageViewStatusChangedEventArgs
+    Inherits EventArgs
+
+    Public Property Index As Integer
+    Public Property Checked As Boolean
+    Public Property Selected As Boolean
+End Class
+
+Public Class KzImageBox
+    Inherits PictureBox
+
+    Private _Checked As Boolean
+    Private _Selected As Boolean
+    Private _Index As Integer
+
+    Public Sub New()
+
+    End Sub
+
+    Private Function GetCurrentArgs() As ImageViewStatusChangedEventArgs
+        Return New ImageViewStatusChangedEventArgs With {
+            .Index = _Index, .Checked = _Checked, .Selected = _Selected}
+    End Function
+
+    Public Property Index As Integer
+        Get
+            Return _Index
+        End Get
+        Set(value As Integer)
+            If _Index <> value Then
+                _Index = value
+
+                OnIndexChanged(GetCurrentArgs())
+            End If
+        End Set
+    End Property
+
+    Public Property Checked As Boolean
+        Get
+            Return _Checked
+        End Get
+        Set(value As Boolean)
+            If _Checked <> value Then
+                _Checked = value
+
+                OnCheckedChanged(GetCurrentArgs())
+            End If
+        End Set
+    End Property
+
+    Public Property Selected As Boolean
+        Get
+            Return _Selected
+        End Get
+        Set(value As Boolean)
+            If _Selected <> value Then
+                _Selected = value
+
+                OnSelectedChanged(GetCurrentArgs())
+            End If
+        End Set
+    End Property
+
+    Public Shadows Property BorderStyle As BorderStyle
+
+    Protected Overrides Sub OnPaint(pe As PaintEventArgs)
+        MyBase.OnPaint(pe)
+
+        'ControlPaint.DrawBorder(pe.Graphics,)
+    End Sub
+
+    Protected Overrides Sub OnClick(e As EventArgs)
+        _Selected = Not _Selected
+        OnSelectedChanged(GetCurrentArgs())
+
+        MyBase.OnClick(e)
+    End Sub
+
+    Protected Overrides Sub OnDoubleClick(e As EventArgs)
+        _Checked = Not _Checked
+        OnCheckedChanged(GetCurrentArgs())
+
+        MyBase.OnDoubleClick(e)
+    End Sub
+
+    Protected Overridable Sub OnCheckedChanged(e As ImageViewStatusChangedEventArgs)
+        If Me.Checked Then
+
+        Else
+
+        End If
+        RaiseEvent CheckedChanged(Me, e)
+    End Sub
+
+    Protected Overridable Sub OnSelectedChanged(e As ImageViewStatusChangedEventArgs)
+        RaiseEvent SelectedChanged(Me, e)
+    End Sub
+
+    Protected Overridable Sub OnIndexChanged(e As ImageViewStatusChangedEventArgs)
+        RaiseEvent IndexChenged(Me, e)
+    End Sub
+
+    Public Event CheckedChanged As EventHandler(Of ImageViewStatusChangedEventArgs)
+    Public Event SelectedChanged As EventHandler(Of ImageViewStatusChangedEventArgs)
+    Public Event IndexChenged As EventHandler(Of ImageViewStatusChangedEventArgs)
+End Class
+
 
 'Ext | Mode | Description | Notes
 'ART | R | PFS: 1st Publisher | Format originally used on the Macintosh (MacPaint?) And later used for PFS: 1st Publisher clip art.

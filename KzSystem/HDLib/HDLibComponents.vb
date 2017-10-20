@@ -1,5 +1,6 @@
 ﻿Imports System.IO
 Imports System.Text
+Imports System.Text.RegularExpressions
 Imports KzSystem
 
 Public Module HDLibPublic
@@ -31,50 +32,6 @@ Public Module HDLibPublic
                 Return "-"
         End Select
     End Function
-
-    'Public Function MIT(MITType As HDManifestLineType, Optional InChs As Boolean = False) As String
-    '    Select Case MITType
-    '        Case HDManifestLineType.Unknown : Return If(InChs, "未知”, "未知")
-    '        Case HDManifestLineType.LibInfo : Return If(InChs, "庫資訊”, "库信息")
-    '        Case HDManifestLineType.Package : Return If(InChs, "封裝檔”, "封装文件")
-    '        Case HDManifestLineType.Editable : Return If(InChs, "編輯檔”, "编辑文件")
-    '        Case HDManifestLineType.Printable : Return If(InChs, "印刷檔”, "印刷文件")
-    '        Case HDManifestLineType.WebView : Return If(InChs, "瀏覽檔”, "浏览文件")
-    '        Case HDManifestLineType.Image : Return If(InChs, "圖像”, "图像")
-    '        Case HDManifestLineType.Video : Return If(InChs, "視訊”, "视频")
-    '        Case HDManifestLineType.Audio : Return If(InChs, "音訊”, "音频")
-    '        Case HDManifestLineType.Compressed : Return If(InChs, "壓縮檔”, "压缩文件")
-    '        Case Else : Return If(InChs, "其他”, "其他")
-    '    End Select
-    'End Function
-
-    'Public Function CMIT(extension As String) As HDManifestLineType
-    '    Select Case extension.ToLower
-    '        Case ".updb", ".prc", ".mobi", ".epub"
-    '            Return HDManifestLineType.Package ' "書籍"' "Package"
-    '        Case ".doc", ".docx", ".txt", ".rtf"
-    '            Return HDManifestLineType.Editable ' "文檔" '"Editable"
-    '        Case ".pdf", ".djvu"
-    '            Return HDManifestLineType.Printable ' "發佈" '"Published"
-    '        Case ".html", ".htm", ".lnk"
-    '            Return HDManifestLineType.WebView ' "網頁" '"Webpage"
-    '        Case ".jpg", ".jepg", ".png", ".bmp", ".tif", ".tiff", ".gif"
-    '            Return HDManifestLineType.Image ' "圖像" '"Image"
-    '        Case ".kzinf", ".kzlst", ".inf", ".info", ".ini"
-    '            Return HDManifestLineType.LibInfo ' "資訊" '"Libinfo"
-    '        Case ".rar", ".zip", ".7z"
-    '            Return HDManifestLineType.Compressed ' "壓縮" '"Compressed"
-    '        Case ".avi", ".mkv", ".mov", ".ts", ".rmvb", ".mp4"
-    '            Return HDManifestLineType.Video ' "視訊"
-    '        Case ".mp3", ".flac", ".wav"
-    '            Return HDManifestLineType.Audio ' "音訊"
-    '        Case ""
-    '            Return HDManifestLineType.Unknown
-    '        Case Else
-    '            Return HDManifestLineType.Others
-    '    End Select
-    'End Function
-
 End Module
 
 Public Enum HDLibInfType
@@ -109,11 +66,11 @@ Public Class HDLibInf
     Public Overloads Function Equals(other As HDLibInf) As Boolean Implements IEquatable(Of HDLibInf).Equals
         Try
             If Address = other.Address And Author = other.Author And
-                Category = other.Category And Contributor = other.Contributor And
+                Category = other.Category And InternalRef = other.InternalRef And
                 Description = other.Description And ID = other.ID And
-                Language = other.Language And Logo = other.Logo And
+                Origin = other.Origin And Logo = other.Logo And
                 Name = other.Name And Origin = other.Origin And
-                RefAddress = other.RefAddress And Remarks = other.Remarks And
+                ExternalRef = other.ExternalRef And Remarks = other.Remarks And
                 Series = other.Series And Special = other.Special And
                 Type = other.Type And Version = other.Version Then
 
@@ -141,9 +98,8 @@ Public Class HDLibInf
     Public Property Series As String
     Public Property SID As Integer
     Public Property Author As String
-    Public Property RefAddress As String
-    Public Property Contributor As String
-    Public Property Language As String
+    Public Property ExternalRef As String
+    Public Property InternalRef As String
     Public Property Version As String
     Public Property Category As String
     Public Property Special As String
@@ -166,18 +122,6 @@ Public Class HDLibInf
     Public ReadOnly Property FileMeta As String
         Get
             Return CMeta(Type)
-        End Get
-    End Property
-
-    Public ReadOnly Property ListLine As HDBookListLine
-        Get
-            Return New HDBookListLine With {
-                .Name = Name,
-                .Address = Address,
-                .Series = Series,
-                .Author = Author,
-                .Category = Category,
-                .Special = Special}
         End Get
     End Property
 
@@ -212,12 +156,11 @@ Public Class HDLibInf
         sb.AppendLine("ID: " & ID)
         sb.AppendLine(If(Me.Type = HDLibInfType.BookInfo, "Title: ", "Name: ") & Name)
         sb.AppendLine("Origin: " & Origin)
-        sb.AppendLine("Series: " & Series)
-        sb.AppendLine("SID: " & If(Series Is Nothing Or Series.Trim.Length <= 0 Or SID <= 0, "-1", SID.ToString))
+        sb.AppendLine(If(Me.Type = HDLibInfType.CategoryInfo, "Prifix: ", "Series: ") & Series)
+        sb.AppendLine(If(Me.Type = HDLibInfType.CategoryInfo, "Max: ", "SID: ") & SID.ToString) ' If(Series Is Nothing Or Series.Trim.Length <= 0 Or SID <= 0, "-1", SID.ToString))
         sb.AppendLine("Author: " & Author)
-        sb.AppendLine("Refaddress: " & RefAddress)
-        sb.AppendLine("Contributor: " & Contributor)
-        sb.AppendLine("Language: " & Language)
+        sb.AppendLine("ExternalRef: " & ExternalRef)
+        sb.AppendLine("InternalRef: " & InternalRef)
         sb.AppendLine("Version: " & Version)
         sb.AppendLine("Category: " & Category)
         sb.AppendLine("Special: " & Special)
@@ -252,26 +195,23 @@ Public Class HDLibInf
     Public Sub Export(Folder As String)
         Dim di As DirectoryInfo
         Dim fs As FileInfo()
+
         Try
             di = New DirectoryInfo(Folder)
             fs = di.GetFiles("*.kzinf", SearchOption.TopDirectoryOnly)
 
-            If fs.Count > 1 Then
+            If fs.Count > 0 Then
                 For Each f As FileInfo In fs
                     If f.Name <> FileName Then
                         f.Delete()
                     End If
                 Next
-            ElseIf fs.Count = 1 Then
-                If fs(0).Name <> FileName Then
-                    fs(0).Delete()
-                End If
             End If
 
             Updated = Now()
             File.WriteAllText(Path.Combine(Folder, FileName), ToString(), Encoding.UTF8)
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MsgBox("未能創建或寫入資訊檔。原因：" & vbCrLf & ex.Message)
         End Try
     End Sub
 
@@ -307,17 +247,16 @@ Public Class HDLibInf
                                 Case "ID" : ID = value
                                 Case "Title", "Name" : Name = value
                                 Case "Origin" : Origin = value
-                                Case "Series" : Series = value
-                                Case "SID"
+                                Case "Series", "Prefix" : Series = value
+                                Case "SID", "Max"
                                     Try
                                         SID = value
                                     Catch ex As Exception
                                         SID = -1
                                     End Try
                                 Case "Author" : Author = value
-                                Case "Refaddress" : RefAddress = value
-                                Case "Contributor" : Contributor = value
-                                Case "Language" : Language = value
+                                Case "ExternalRef", "Refaddress" : ExternalRef = value
+                                Case "InternalRef", "Contributor" : InternalRef = value
                                 Case "Version" : Version = value
                                 Case "Category" : Category = value
                                 Case "Special" : Special = value
@@ -349,6 +288,81 @@ Public Class HDLibInf
             'MsgBox(ex.Message)
         End Try
     End Sub
+
+    Public Sub FromCategoryLine(line As String)
+        Try
+            Dim keys As String() = line.Split("|")
+            ID = keys(2).Trim
+            Name = keys(1).Trim
+            Series = keys(0)
+            SID = keys(3).Trim
+            ExternalRef = HDSrc.CategoryMainPage.Replace("{mark}", ID)
+
+            Try
+                Links = New HDList
+                For i As Integer = 1 To SID
+                    Links.Add("P" & i.ToString, HDSrc.CategorySplitPage.Replace("{mark}", ID).Replace("{idx}", i))
+                Next
+            Catch ex As Exception
+
+            End Try
+
+            Type = HDLibInfType.CategoryInfo
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Public Sub FromBooksLine(line As String)
+        Try
+            Dim keys As String() = line.Split("|")
+            Category = keys(0)
+            Author = keys(1)
+            ID = keys(2)
+            Name = keys(3)
+            Version = keys(4)
+            ExternalRef = keys(5)
+            Type = HDLibInfType.BookInfo
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Public Sub FromAuthorLine(line As String)
+
+    End Sub
+
+    Public Sub FromDBLine(line As String)
+
+    End Sub
+
+    Public Function ToCategoryLine() As String
+        If Type = HDLibInfType.CategoryInfo Then
+            Return Series & "|" & Name & "|" & ID & "|" & SID
+        Else
+            Return Nothing
+        End If
+    End Function
+
+    Public Function ToBooksLine() As String
+        If Type = HDLibInfType.BookInfo Then
+            Return Category & "|" & Author & "|" & ID & "|" & Name & "|" & Version & "|" & ExternalRef
+        Else
+            Return Nothing
+        End If
+    End Function
+
+    Public Function ToAuthorLine() As String
+        If Type = HDLibInfType.AuthorInfo Then
+            Return ""
+        Else
+            Return Nothing
+        End If
+    End Function
+
+    Public Function ToDBLine() As String
+        Return ""
+    End Function
 
 End Class
 
@@ -390,67 +404,6 @@ Public Class HDList
         Return sb.ToString
     End Function
 End Class
-
-Public Structure KzBrackets
-    Public Shared ReadOnly Property Parentheses As KzBracketsPair
-        Get
-            Return New KzBracketsPair("(", ")")
-        End Get
-    End Property
-    Public Shared ReadOnly Property Brackets As KzBracketsPair
-        Get
-            Return New KzBracketsPair("[", "]")
-        End Get
-    End Property
-    Public Shared ReadOnly Property Braces As KzBracketsPair
-        Get
-            Return New KzBracketsPair("{", "}")
-        End Get
-    End Property
-    Public Shared ReadOnly Property AngleBrackets As KzBracketsPair
-        Get
-            Return New KzBracketsPair("<", ">")
-        End Get
-    End Property
-    Public Shared ReadOnly Property SingleQuote As KzBracketsPair
-        Get
-            Return New KzBracketsPair("'", "'")
-        End Get
-    End Property
-    Public Shared ReadOnly Property DoubleQuote As KzBracketsPair
-        Get
-            Return New KzBracketsPair("""", """")
-        End Get
-    End Property
-End Structure
-
-Public Structure KzBracketsPair
-    Public Sub New(OpenChar As Char, CloseChar As Char)
-        Me.OpenChar = OpenChar
-        Me.CloseChar = CloseChar
-    End Sub
-
-    Public Property OpenChar As Char
-    Public Property CloseChar As Char
-End Structure
-
-
-
-
-'Public Enum HDManifestLineType
-'    Unknown
-'    LibInfo
-'    Package
-'    Editable
-'    Printable
-'    WebView
-'    Image
-'    Video
-'    Audio
-'    Compressed
-'    Others
-'End Enum
-
 
 Public Class HDBookList
     Inherits List(Of HDBookListLine)
@@ -664,6 +617,336 @@ Public Enum HDBookListKeyType
     Special
 End Enum
 
+Public Class HDLibHelper
+    Public Shared Function GetHDList(source As String) As String
+        Dim sb As New StringBuilder
+
+        Dim ARgx As New Regex("<font color=""CC0000"">.{2,15}?</font>.{0,25}?<br>|<font color=""CC0000"">.{2,15}?</font><a")
+        Dim AMts As MatchCollection = ARgx.Matches(source)
+        Dim BRgx As New Regex("=.{2,8}?"">《.+?》|=.{2,8}?"">【.+?】")
+        Dim BMts As MatchCollection
+        Dim AMt, BMt As Match
+        Dim thisI, nextI As Integer
+        Dim at, author, title, id As String
+
+        Dim category As String = Regex.Match(source, "SetTitle\("".{3,6}""\)").ToString.Replace("SetTitle(""", "").Replace(""")", "")
+
+        For Each AMt In AMts
+            thisI = AMt.Index
+            If AMt.NextMatch IsNot Nothing Then
+                nextI = AMt.NextMatch.Index
+                If nextI < thisI Then
+                    nextI = source.Length
+                End If
+            Else
+                nextI = source.Length
+            End If
+            author = Regex.Replace(AMt.ToString.Replace("<a", ""), "<.+?>", "")
+            at = source.Substring(thisI, nextI - thisI)
+            BMts = BRgx.Matches(at)
+            For Each BMt In BMts
+                title = BMt.ToString.Replace("=", "").Replace(""">【", "|").Replace(""">《", "|").Replace("】", "").Replace("》", "")
+                id = title.Substring(0, title.IndexOf("|"))
+                title = title.Substring(title.IndexOf("|") + 1)
+                sb.AppendLine(category & "|" & author & "|" & id & "|" & title) ' & "http://www.haodoo.net/?M=book&P=" & id)
+            Next
+        Next
+
+        Return sb.ToString
+    End Function
+
+    Public Shared Function GetHDVersionList(source As String, Optional HDCat As HDCategory = Nothing) As String
+        Dim sb As New StringBuilder
+
+        Dim ARgx As New Regex("<font color=""CC0000"">(\w{2,16})</font>")
+        Dim AMts As MatchCollection = ARgx.Matches(source)
+        Dim BRgx As New Regex("href=""(\?M=.{3,8}&P=)(.{3,8})"">(.{1,32})</a>(.{1,64})<br>")
+        Dim BMts As MatchCollection
+        Dim AMt, BMt As Match
+        Dim thisI, nextI As Integer
+        Dim at, author, link, title, id, desc As String
+        Dim category, catchar As String
+
+        If HDCat Is Nothing Then
+            Dim CMt As Match = Regex.Match(source, "SetTitle\(""(\w{2,6})-\w{1,2}""\)")
+            category = CMt.Groups(1).Value
+            catchar = HDCategory.GetCatChar(category)
+        Else
+            category = HDCat.Name
+            catchar = HDCat.Prefix
+        End If
+
+        For Each AMt In AMts
+            thisI = AMt.Index
+            If AMt.NextMatch IsNot Nothing Then
+                nextI = AMt.NextMatch.Index
+                If nextI < thisI Then
+                    nextI = source.Length
+                End If
+            Else
+                nextI = source.Length
+            End If
+
+            author = AMt.Groups(1).Value
+
+            at = source.Substring(thisI, nextI - thisI)
+            BMts = BRgx.Matches(at)
+
+            For Each BMt In BMts
+                id = BMt.Groups(2).Value
+                link = BMt.Groups(1).Value & BMt.Groups(2).Value
+                title = BMt.Groups(3).Value
+                desc = BMt.Groups(4).Value
+
+                sb.AppendLine(catchar & "|" & category & "|" & author & "|" & id & "|" & title & "|" & link & "|" & desc)
+            Next
+        Next
+
+        Return sb.ToString
+    End Function
+
+    Public Shared Function GetCombinedSource(HDCat As HDCategory) As String
+        Dim sb As New StringBuilder
+        Dim src As String
+        Dim urls As Specialized.StringCollection = HDCat.GetPageLinks
+        Dim starI, endI As Integer
+
+        For i As Integer = 0 To urls.Count - 1
+            src = KzWeb.GetWebCode(urls.Item(i))
+            starI = src.IndexOf("START INCLUDE FILES")
+            If starI <= 0 Then starI = src.IndexOf("<div class=""a03"">")
+            endI = src.IndexOf("SetTitle(")
+            src = src.Substring(starI, endI - starI)
+
+            sb.Append(src & vbCrLf)
+            Console.WriteLine("{0} Page {1} read.", HDCat.Mark, i)
+            'sb.AppendLine(urls.Item(i))
+        Next
+
+        Return sb.ToString
+    End Function
+
+    Public Shared Sub CreateCompletList(HDCat As HDCategory, Folder As String)
+        Dim fnsrc As String = Path.Combine(Folder, "src_" & HDCat.Mark & ".kzsrc")
+        Dim fndic As String = Path.Combine(Folder, "dic_" & HDCat.Mark & ".kzdic")
+        Dim src As String = GetCombinedSource(HDCat)
+        File.WriteAllText(fnsrc, src, Encoding.UTF8)
+        Console.WriteLine("Source file writed to {0}", fnsrc)
+        File.WriteAllText(fndic, GetHDVersionList(src, HDCat))
+        Console.WriteLine("List file writed to {0}", fndic)
+    End Sub
+
+    Public Shared Sub CombineCompletList(Folder As String)
+        Dim di As New DirectoryInfo(Folder)
+        Dim fis As FileInfo() = di.GetFiles("dic_*.kzdic")
+        Dim temps As String
+
+        Using fs As FileStream = New FileStream("lst_complet.kzlst", FileMode.Create, FileAccess.Write)
+            Using fw As StreamWriter = New StreamWriter(fs, Encoding.UTF8)
+                For Each fi As FileInfo In fis
+                    temps = File.ReadAllText(fi.FullName, Encoding.UTF8)
+                    fw.WriteLine()
+                    fw.Write(temps)
+                Next
+            End Using
+        End Using
+    End Sub
+
+    Public Shared Function GetBookLink(BookID As String) As String
+        Return "http://www.haodoo.net/?M=book&P=" & BookID
+    End Function
+
+    Public Shared Function GetCoverLink(BookID As String, Optional ImageExtension As String = ".jpg") As String
+        Return "http://www.haodoo.net/covers/" & BookID & ImageExtension
+    End Function
+
+    Public Shared ReadOnly Property HomePage As String
+        Get
+            Return "http://www.haodoo.net/"
+        End Get
+    End Property
+End Class
+
+Public Structure HDCategories
+    Public Shared ReadOnly Property The100 As HDCategory
+        Get
+            Return New HDCategory With {
+                .Name = "世紀百強",
+                .Mark = "100",
+                .Prefix = "A",
+                .MaxIndex = 5}
+        End Get
+    End Property
+
+    Public Shared ReadOnly Property Wisdom As HDCategory
+        Get
+            Return New HDCategory With {
+                .Name = "隨身智囊",
+                .Mark = "wisdom",
+                .Prefix = "B",
+                .MaxIndex = 6}
+        End Get
+    End Property
+
+    Public Shared ReadOnly Property History As HDCategory
+        Get
+            Return New HDCategory With {
+                .Name = "歷史煙雲",
+                .Mark = "history",
+                .Prefix = "C",
+                .MaxIndex = 3}
+        End Get
+    End Property
+
+    Public Shared ReadOnly Property Martial As HDCategory
+        Get
+            Return New HDCategory With {
+                .Name = "武俠小說",
+                .Mark = "martial",
+                .Prefix = "D",
+                .MaxIndex = 10}
+        End Get
+    End Property
+
+    Public Shared ReadOnly Property Mystery As HDCategory
+        Get
+            Return New HDCategory With {
+                .Name = "懸疑小說",
+                .Mark = "mystery",
+                .Prefix = "E",
+                .MaxIndex = 5}
+        End Get
+    End Property
+
+    Public Shared ReadOnly Property Romance As HDCategory
+        Get
+            Return New HDCategory With {
+                .Name = "言情小說",
+                .Mark = "romance",
+                .Prefix = "F",
+                .MaxIndex = 6}
+        End Get
+    End Property
+
+    Public Shared ReadOnly Property SciFi As HDCategory
+        Get
+            Return New HDCategory With {
+                .Name = "奇幻小說",
+                .Mark = "scifi",
+                .Prefix = "G",
+                .MaxIndex = 10}
+        End Get
+    End Property
+
+    Public Shared ReadOnly Property Fiction As HDCategory
+        Get
+            Return New HDCategory With {
+                .Name = "小說園地",
+                .Mark = "fiction",
+                .Prefix = "H",
+                .MaxIndex = 5}
+        End Get
+    End Property
+End Structure
+
+Public Class HDCategory
+
+    Public Sub New()
+
+    End Sub
+
+    Public Property Name As String
+    Public Property Mark As String
+    Public Property Prefix As Char
+    Public Property MaxIndex As Integer
+
+    Public ReadOnly Property MainLink As String
+        Get
+            Return "?M=hd&P=" & Mark
+        End Get
+    End Property
+
+    Public ReadOnly Property PageLinkTemplate As String
+        Get
+            Return MainLink & "-"
+        End Get
+    End Property
+
+    Public ReadOnly Property DownloadLinkTemplate As String
+        Get
+            Return "http://www.haodoo.net/?M=d&P=" & Prefix & "{}" & ".updb"
+        End Get
+    End Property
+
+    Public Function GetPageLink(index As Integer) As String
+        Return PageLinkTemplate & index.ToString
+    End Function
+
+    Public Function GetPageLinks() As Specialized.StringCollection
+        Dim sc As New Specialized.StringCollection
+
+        For i As Integer = 1 To MaxIndex
+            sc.Add(GetPageLink(i))
+        Next
+
+        Return sc
+    End Function
+
+    Public Function GetDownloadLink(FileID As String) As String
+        Return DownloadLinkTemplate.Replace("{}", FileID)
+    End Function
+
+    Public Shared Function GetCatChar(CatStr As String) As Char
+        Select Case CatStr
+            Case "世紀百強" : Return "A"
+            Case "隨身智囊" : Return "B"
+            Case "歷史煙雲" : Return "C"
+            Case "武俠小說" : Return "D"
+            Case "懸疑小說" : Return "E"
+            Case "言情小說" : Return "F"
+            Case "奇幻小說" : Return "G"
+            Case "小說園地" : Return "H"
+            Case Else : Return "?"
+        End Select
+    End Function
+
+    Public Shared Function GetFullCat(CatStr As String) As Char
+        With CatStr
+            If .Contains("百強") Then
+                Return "世紀百強"
+            ElseIf .Contains("智囊") Then
+                Return "隨身智囊"
+            ElseIf .Contains("歷史") Then
+                Return "歷史煙雲"
+            ElseIf .Contains("武俠") Then
+                Return "武俠小說"
+            ElseIf .Contains("懸疑") Then
+                Return "懸疑小說"
+            ElseIf .Contains("言情") Then
+                Return "言情小說"
+            ElseIf .Contains("奇幻") Then
+                Return "奇幻小說"
+            ElseIf .Contains("小說") Then
+                Return "小說園地"
+            Else
+                Return "(不明)"
+            End If
+        End With
+    End Function
+
+    Public Overrides Function ToString() As String
+        Return Prefix & "|" & Name & "|" & Mark & "|" & MaxIndex & "|" & MainLink
+    End Function
+
+    Public Sub FromLine(line As String)
+        Dim keys As String() = line.Split("|")
+        Prefix = keys(0).Trim
+        Name = keys(1).Trim
+        Mark = keys(2).Trim
+        MaxIndex = keys(3).Trim
+    End Sub
+End Class
+
 
 Public Class HDBooksTable
     Inherits DataTable
@@ -784,5 +1067,157 @@ Public Class HDBooksTable
     End Sub
 End Class
 
+Public Class HDOriginList
+    Inherits List(Of HDOriginListLine)
 
+    Public Sub New()
+
+    End Sub
+
+    Public Sub FromFile(Optional FileName As String = Nothing)
+        If FileName Is Nothing Then FileName = Path.Combine(My.Settings.HDLibPath, "LibDB", "Lib_NewUpdated.kzdb")
+        Try
+            Using fs As New FileStream(FileName, FileMode.Open, FileAccess.Read)
+                Using sr As StreamReader = New StreamReader(fs, Encoding.UTF8)
+                    Dim line As String
+                    Dim oll As HDOriginListLine
+                    Do
+                        line = sr.ReadLine
+                        oll = New HDOriginListLine
+                        oll.FromLine(line)
+                        Add(oll)
+                    Loop Until sr.EndOfStream
+                End Using
+            End Using
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Public Overrides Function ToString() As String
+        Dim sb As New StringBuilder
+
+        For Each oll As HDOriginListLine In Me
+            sb.AppendLine(oll.ToString())
+        Next
+
+        Return sb.ToString
+    End Function
+
+    Public Sub ToFile(FileName As String)
+        If Count <= 0 Then Exit Sub
+
+        Try
+            File.WriteAllText(FileName, Me.ToString, Encoding.UTF8)
+        Catch ex As Exception
+
+        End Try
+    End Sub
+End Class
+
+Public Class HDOriginListLine
+    Implements IComparable, IEquatable(Of HDOriginListLine)
+
+    Public Sub New()
+
+    End Sub
+
+    Public Function CompareTo(obj As Object) As Integer Implements IComparable.CompareTo
+        If obj Is Nothing Then Return 1
+
+        Try
+            Dim otherLine As HDOriginListLine = CType(obj, HDOriginListLine)
+
+            If Title = otherLine.Title Then
+                Return Author.CompareTo(otherLine.Author)
+            Else
+                Return Title.CompareTo(otherLine.Title)
+            End If
+        Catch ex As Exception
+            Throw New NotImplementedException("Not implemented!")
+        End Try
+    End Function
+
+    Public Overloads Function Equals(other As HDOriginListLine) As Boolean Implements IEquatable(Of HDOriginListLine).Equals
+        Try
+            If Category = other.Category And Title = other.Title And ID = other.ID And
+                Author = other.Author And Version = other.Version Then
+                Return True
+            Else
+                Return False
+            End If
+        Catch ex As Exception
+            Return False
+        End Try
+    End Function
+
+    Public Property Category As String
+    Public Property Author As String
+    Public Property ID As String
+    Public Property Title As String
+    Public Property Version As String
+    Public Property ExternalRef As String
+
+    Public Function SetHDLibInf() As HDLibInf
+        Return New HDLibInf With {
+            .Type = HDLibInfType.BookInfo,
+            .ID = ID,
+            .Name = Title,
+            .Author = Author,
+            .Category = Category,
+            .Version = Version,
+            .ExternalRef = ExternalRef,
+            .Address = Category & "\" & Author & "\" & Title,
+            .Logo = ID & ".jpg"}
+    End Function
+
+    Public Function GetHDCategory(Optional FileName As String = Nothing) As HDCategory
+        Dim hdc As New HDCategory
+
+        If FileName Is Nothing Then FileName = Path.Combine(My.Settings.HDLibPath, "LibDB", "Lib_Categories.kzdb")
+
+        Try
+            Using fs As New FileStream(FileName, FileMode.Open, FileAccess.Read)
+                Using sr As StreamReader = New StreamReader(fs, Encoding.UTF8)
+                    Dim line As String
+                    Dim keys As String()
+                    Dim go As Boolean = True
+
+                    Do
+                        line = sr.ReadLine
+                        If Not line.StartsWith("?") Then
+                            keys = line.Split("|")
+                            If keys(1).Trim = Category OrElse keys(2).Trim = Category Then
+                                With hdc
+                                    .Prefix = keys(0).Trim
+                                    .Name = keys(1).Trim
+                                    .Mark = keys(2).Trim
+                                    .MaxIndex = CInt(keys(3).Trim)
+                                End With
+                                go = False
+                            End If
+                        End If
+                    Loop Until Not go
+                End Using
+            End Using
+        Catch ex As Exception
+        End Try
+
+        Return hdc
+    End Function
+
+    Public Overrides Function ToString() As String
+        Return Category & "|" & Author & "|" & ID & "|" & Title & "|" & Version & "|" & ExternalRef
+    End Function
+
+    Public Sub FromLine(line As String)
+        Dim keys As String() = line.Split("|")
+        Category = keys(0).Trim
+        Author = keys(1).Trim
+        ID = keys(2).Trim
+        Title = keys(3).Trim
+        Version = keys(4).Trim
+        ExternalRef = keys(5).Trim
+    End Sub
+End Class
 

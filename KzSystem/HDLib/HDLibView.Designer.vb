@@ -24,6 +24,12 @@ Partial Class HDLibView
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(HDLibView))
+        Me.LibDataContextMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.LibMenu = New System.Windows.Forms.MenuStrip()
+        Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LibRootToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LibTips = New System.Windows.Forms.ToolTip(Me.components)
+        Me.DEditUrlListButton = New System.Windows.Forms.Button()
         Me.LibSpliter = New System.Windows.Forms.SplitContainer()
         Me.InnerSpliter = New System.Windows.Forms.SplitContainer()
         Me.LibView = New KzSystem.HDLibTree()
@@ -36,13 +42,14 @@ Partial Class HDLibView
         Me.HCoverImageBox = New System.Windows.Forms.PictureBox()
         Me.ViewBookInfoPanel = New System.Windows.Forms.TableLayoutPanel()
         Me.HPilotLabel = New System.Windows.Forms.Label()
-        Me.R4 = New System.Windows.Forms.Label()
+        Me.LabelHDescreption = New System.Windows.Forms.Label()
         Me.HAuthorLabel = New System.Windows.Forms.Label()
-        Me.R3 = New System.Windows.Forms.Label()
+        Me.LabelHAuthor = New System.Windows.Forms.Label()
         Me.HTitleLabel = New System.Windows.Forms.Label()
-        Me.R2 = New System.Windows.Forms.Label()
-        Me.R1 = New System.Windows.Forms.Label()
+        Me.LabelHSubject = New System.Windows.Forms.Label()
+        Me.LabelHID = New System.Windows.Forms.Label()
         Me.HIDLabel = New System.Windows.Forms.Label()
+        Me.HIcon = New System.Windows.Forms.PictureBox()
         Me.DetailTabs = New System.Windows.Forms.TabControl()
         Me.PageBook = New System.Windows.Forms.TabPage()
         Me.BookDataPanel = New System.Windows.Forms.TableLayoutPanel()
@@ -60,25 +67,25 @@ Partial Class HDLibView
         Me.LogoTextBox = New System.Windows.Forms.TextBox()
         Me.SpecialTextBox = New System.Windows.Forms.TextBox()
         Me.CategoryTextBox = New System.Windows.Forms.TextBox()
-        Me.Label15 = New System.Windows.Forms.Label()
-        Me.Label14 = New System.Windows.Forms.Label()
-        Me.Label13 = New System.Windows.Forms.Label()
-        Me.Label12 = New System.Windows.Forms.Label()
-        Me.Label11 = New System.Windows.Forms.Label()
+        Me.LabelCreated = New System.Windows.Forms.Label()
+        Me.LabelUpdated = New System.Windows.Forms.Label()
+        Me.LabelRefaddress = New System.Windows.Forms.Label()
+        Me.LabelAddress = New System.Windows.Forms.Label()
+        Me.LabelLogo = New System.Windows.Forms.Label()
         Me.SeriesTextBox = New System.Windows.Forms.TextBox()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.Label9 = New System.Windows.Forms.Label()
+        Me.LabelSeries = New System.Windows.Forms.Label()
+        Me.LabelOrigin = New System.Windows.Forms.Label()
         Me.ContributorTextBox = New System.Windows.Forms.TextBox()
-        Me.Label8 = New System.Windows.Forms.Label()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.Label6 = New System.Windows.Forms.Label()
+        Me.LabelVersion = New System.Windows.Forms.Label()
+        Me.LabelSpecial = New System.Windows.Forms.Label()
+        Me.LabelCategory = New System.Windows.Forms.Label()
         Me.AuthorTextBox = New System.Windows.Forms.TextBox()
         Me.NameTextBox = New System.Windows.Forms.TextBox()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.LabelID = New System.Windows.Forms.Label()
+        Me.LabelContributor = New System.Windows.Forms.Label()
+        Me.LabelAuthor = New System.Windows.Forms.Label()
+        Me.LabelSubject = New System.Windows.Forms.Label()
+        Me.LabelType = New System.Windows.Forms.Label()
         Me.TypeComboBox = New System.Windows.Forms.ComboBox()
         Me.IDTextBox = New System.Windows.Forms.TextBox()
         Me.OriginComboBox = New System.Windows.Forms.ComboBox()
@@ -88,10 +95,9 @@ Partial Class HDLibView
         Me.PageIntro = New System.Windows.Forms.TabPage()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.DescriptionTextBox = New System.Windows.Forms.TextBox()
-        Me.Label17 = New System.Windows.Forms.Label()
+        Me.LabelDescription = New System.Windows.Forms.Label()
         Me.RemarksTextBox = New System.Windows.Forms.TextBox()
-        Me.Label16 = New System.Windows.Forms.Label()
-        Me.PageAuthor = New System.Windows.Forms.TabPage()
+        Me.LabelRemarks = New System.Windows.Forms.Label()
         Me.PageFiles = New System.Windows.Forms.TabPage()
         Me.FilesView = New System.Windows.Forms.ListView()
         Me.NameColumn = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -100,16 +106,16 @@ Partial Class HDLibView
         Me.SizeColumn = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.InfoColumn = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.CreatedColumn = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.LibDataContextMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.ListEditPanel = New System.Windows.Forms.TableLayoutPanel()
         Me.LViewButton = New System.Windows.Forms.Button()
         Me.LWritedLabel = New System.Windows.Forms.Label()
         Me.LAccessedLabel = New System.Windows.Forms.Label()
         Me.LCreatedLabel = New System.Windows.Forms.Label()
         Me.LFileNameLabel = New System.Windows.Forms.Label()
-        Me.Label20 = New System.Windows.Forms.Label()
+        Me.LabelComments = New System.Windows.Forms.Label()
         Me.LCommentsTextBox = New System.Windows.Forms.TextBox()
         Me.LUpdateButton = New System.Windows.Forms.Button()
+        Me.LInTimeChecker = New System.Windows.Forms.CheckBox()
         Me.PageLinks = New System.Windows.Forms.TabPage()
         Me.LinksView = New System.Windows.Forms.ListView()
         Me.UKeyColumn = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -120,30 +126,27 @@ Partial Class HDLibView
         Me.UBroButton = New System.Windows.Forms.Button()
         Me.UUpdateButton = New System.Windows.Forms.Button()
         Me.ULinkTextBox = New System.Windows.Forms.TextBox()
-        Me.Label21 = New System.Windows.Forms.Label()
+        Me.LabelULink = New System.Windows.Forms.Label()
         Me.UKeyTextBox = New System.Windows.Forms.TextBox()
-        Me.Label19 = New System.Windows.Forms.Label()
-        Me.PageImage = New System.Windows.Forms.TabPage()
+        Me.LabelUKey = New System.Windows.Forms.Label()
         Me.PageDownload = New System.Windows.Forms.TabPage()
         Me.DownloadPanel = New System.Windows.Forms.TableLayoutPanel()
         Me.DFileNameTextBox = New System.Windows.Forms.TextBox()
-        Me.Label25 = New System.Windows.Forms.Label()
-        Me.DEditUrlListButton = New System.Windows.Forms.Button()
-        Me.Label24 = New System.Windows.Forms.Label()
+        Me.LabelDFileName = New System.Windows.Forms.Label()
+        Me.LabelDUrlList = New System.Windows.Forms.Label()
         Me.DRunButton = New System.Windows.Forms.Button()
-        Me.DClearPathButton = New System.Windows.Forms.Button()
-        Me.DClearLinkButton = New System.Windows.Forms.Button()
         Me.DChangePathButton = New System.Windows.Forms.Button()
         Me.DFolderTextBox = New System.Windows.Forms.TextBox()
         Me.DLinkTextBox = New System.Windows.Forms.TextBox()
-        Me.Label23 = New System.Windows.Forms.Label()
-        Me.Label22 = New System.Windows.Forms.Label()
+        Me.LabelDFolder = New System.Windows.Forms.Label()
+        Me.LabelDLink = New System.Windows.Forms.Label()
         Me.DUrlListBox = New System.Windows.Forms.ListBox()
         Me.DProgressBar = New System.Windows.Forms.ProgressBar()
         Me.DMsgLabel = New System.Windows.Forms.Label()
         Me.DFileExistsChecker = New System.Windows.Forms.CheckBox()
         Me.DFolderExistsChecker = New System.Windows.Forms.CheckBox()
         Me.DToCoverChecker = New System.Windows.Forms.CheckBox()
+        Me.DPersentageLabel = New System.Windows.Forms.Label()
         Me.InfTools = New System.Windows.Forms.ToolStrip()
         Me.UpdateInfButton = New System.Windows.Forms.ToolStripButton()
         Me.CancelEditButton = New System.Windows.Forms.ToolStripButton()
@@ -151,22 +154,31 @@ Partial Class HDLibView
         Me.TryGetButton = New System.Windows.Forms.ToolStripDropDownButton()
         Me.HDBookInfoItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CategoryInfoItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.OriginListItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.VersionListItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DBButton = New System.Windows.Forms.ToolStripDropDownButton()
         Me.DBBookTableItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CompletListItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.OpenDataPanelItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BackupButton = New System.Windows.Forms.ToolStripDropDownButton()
         Me.SettingsButton = New System.Windows.Forms.ToolStripButton()
         Me.LibStatusStrip = New System.Windows.Forms.StatusStrip()
+        Me.TreeStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.CurrentNodeLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.BrowserTabs = New System.Windows.Forms.TabControl()
         Me.PageWeb = New System.Windows.Forms.TabPage()
         Me.WebViewer = New KzSystem.KzOnePageWeb()
         Me.PageView = New System.Windows.Forms.TabPage()
         Me.QuickViewer = New KzSystem.KzSingleEditor()
+        Me.PageImage = New System.Windows.Forms.TabPage()
+        Me.InfoGroup = New System.Windows.Forms.GroupBox()
+        Me.FileInfoLabel = New System.Windows.Forms.Label()
+        Me.ImgGroup = New System.Windows.Forms.GroupBox()
+        Me.ImgPreviewBox = New System.Windows.Forms.PictureBox()
         Me.PageLogs = New System.Windows.Forms.TabPage()
-        Me.LibMenu = New System.Windows.Forms.MenuStrip()
-        Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.LibRootToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.LibTips = New System.Windows.Forms.ToolTip(Me.components)
+        Me.LibMenu.SuspendLayout()
         CType(Me.LibSpliter, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.LibSpliter.Panel1.SuspendLayout()
         Me.LibSpliter.Panel2.SuspendLayout()
@@ -186,6 +198,7 @@ Partial Class HDLibView
         Me.HeaderSpliter.SuspendLayout()
         CType(Me.HCoverImageBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ViewBookInfoPanel.SuspendLayout()
+        CType(Me.HIcon, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.DetailTabs.SuspendLayout()
         Me.PageBook.SuspendLayout()
         Me.BookDataPanel.SuspendLayout()
@@ -203,8 +216,54 @@ Partial Class HDLibView
         Me.BrowserTabs.SuspendLayout()
         Me.PageWeb.SuspendLayout()
         Me.PageView.SuspendLayout()
-        Me.LibMenu.SuspendLayout()
+        Me.PageImage.SuspendLayout()
+        Me.InfoGroup.SuspendLayout()
+        Me.ImgGroup.SuspendLayout()
+        CType(Me.ImgPreviewBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
+        '
+        'LibDataContextMenu
+        '
+        Me.LibDataContextMenu.Name = "LibDataContextMenu"
+        Me.LibDataContextMenu.Size = New System.Drawing.Size(153, 26)
+        '
+        'LibMenu
+        '
+        Me.LibMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem})
+        Me.LibMenu.Location = New System.Drawing.Point(0, 0)
+        Me.LibMenu.Name = "LibMenu"
+        Me.LibMenu.Size = New System.Drawing.Size(843, 25)
+        Me.LibMenu.TabIndex = 1
+        Me.LibMenu.Text = "MenuStrip1"
+        Me.LibMenu.Visible = False
+        '
+        'FileToolStripMenuItem
+        '
+        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LibRootToolStripMenuItem})
+        Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(39, 21)
+        Me.FileToolStripMenuItem.Text = "File"
+        '
+        'LibRootToolStripMenuItem
+        '
+        Me.LibRootToolStripMenuItem.Name = "LibRootToolStripMenuItem"
+        Me.LibRootToolStripMenuItem.Size = New System.Drawing.Size(121, 22)
+        Me.LibRootToolStripMenuItem.Text = "LibRoot"
+        '
+        'DEditUrlListButton
+        '
+        Me.DEditUrlListButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.DEditUrlListButton.FlatAppearance.BorderSize = 0
+        Me.DEditUrlListButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.DEditUrlListButton.Location = New System.Drawing.Point(15, 122)
+        Me.DEditUrlListButton.Margin = New System.Windows.Forms.Padding(0)
+        Me.DEditUrlListButton.Name = "DEditUrlListButton"
+        Me.DEditUrlListButton.Size = New System.Drawing.Size(25, 22)
+        Me.DEditUrlListButton.TabIndex = 20
+        Me.DEditUrlListButton.Text = "+"
+        Me.DEditUrlListButton.TextAlign = System.Drawing.ContentAlignment.BottomRight
+        Me.LibTips.SetToolTip(Me.DEditUrlListButton, "編輯既定填入列表")
+        Me.DEditUrlListButton.UseVisualStyleBackColor = True
         '
         'LibSpliter
         '
@@ -221,7 +280,7 @@ Partial Class HDLibView
         'LibSpliter.Panel2
         '
         Me.LibSpliter.Panel2.Controls.Add(Me.BrowserTabs)
-        Me.LibSpliter.Size = New System.Drawing.Size(843, 488)
+        Me.LibSpliter.Size = New System.Drawing.Size(843, 505)
         Me.LibSpliter.SplitterDistance = 524
         Me.LibSpliter.SplitterWidth = 5
         Me.LibSpliter.TabIndex = 0
@@ -242,13 +301,14 @@ Partial Class HDLibView
         '
         Me.InnerSpliter.Panel2.Controls.Add(Me.DetailSpliter)
         Me.InnerSpliter.Panel2.Controls.Add(Me.InfTools)
-        Me.InnerSpliter.Size = New System.Drawing.Size(524, 466)
+        Me.InnerSpliter.Size = New System.Drawing.Size(524, 479)
         Me.InnerSpliter.SplitterDistance = 173
         Me.InnerSpliter.SplitterWidth = 5
         Me.InnerSpliter.TabIndex = 0
         '
         'LibView
         '
+        Me.LibView.AllowDrop = True
         Me.LibView.Dock = System.Windows.Forms.DockStyle.Fill
         Me.LibView.ExceptFolders = CType(resources.GetObject("LibView.ExceptFolders"), System.Collections.Specialized.StringCollection)
         Me.LibView.HideSelection = False
@@ -259,7 +319,7 @@ Partial Class HDLibView
         Me.LibView.Location = New System.Drawing.Point(0, 25)
         Me.LibView.Name = "LibView"
         Me.LibView.SelectedImageIndex = 0
-        Me.LibView.Size = New System.Drawing.Size(173, 441)
+        Me.LibView.Size = New System.Drawing.Size(173, 454)
         Me.LibView.TabIndex = 3
         '
         'LibSearchTools
@@ -318,8 +378,8 @@ Partial Class HDLibView
         'DetailSpliter.Panel2
         '
         Me.DetailSpliter.Panel2.Controls.Add(Me.DetailTabs)
-        Me.DetailSpliter.Size = New System.Drawing.Size(346, 441)
-        Me.DetailSpliter.SplitterDistance = 157
+        Me.DetailSpliter.Size = New System.Drawing.Size(346, 454)
+        Me.DetailSpliter.SplitterDistance = 177
         Me.DetailSpliter.SplitterWidth = 3
         Me.DetailSpliter.TabIndex = 0
         '
@@ -338,8 +398,8 @@ Partial Class HDLibView
         'HeaderSpliter.Panel2
         '
         Me.HeaderSpliter.Panel2.Controls.Add(Me.ViewBookInfoPanel)
-        Me.HeaderSpliter.Size = New System.Drawing.Size(344, 155)
-        Me.HeaderSpliter.SplitterDistance = 113
+        Me.HeaderSpliter.Size = New System.Drawing.Size(344, 175)
+        Me.HeaderSpliter.SplitterDistance = 125
         Me.HeaderSpliter.SplitterWidth = 5
         Me.HeaderSpliter.TabIndex = 1
         '
@@ -349,7 +409,7 @@ Partial Class HDLibView
         Me.HCoverImageBox.Location = New System.Drawing.Point(0, 0)
         Me.HCoverImageBox.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.HCoverImageBox.Name = "HCoverImageBox"
-        Me.HCoverImageBox.Size = New System.Drawing.Size(113, 155)
+        Me.HCoverImageBox.Size = New System.Drawing.Size(125, 175)
         Me.HCoverImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.HCoverImageBox.TabIndex = 0
         Me.HCoverImageBox.TabStop = False
@@ -358,16 +418,17 @@ Partial Class HDLibView
         '
         Me.ViewBookInfoPanel.ColumnCount = 3
         Me.ViewBookInfoPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.ViewBookInfoPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.ViewBookInfoPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
+        Me.ViewBookInfoPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70.0!))
+        Me.ViewBookInfoPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.0!))
         Me.ViewBookInfoPanel.Controls.Add(Me.HPilotLabel, 1, 3)
-        Me.ViewBookInfoPanel.Controls.Add(Me.R4, 0, 3)
+        Me.ViewBookInfoPanel.Controls.Add(Me.LabelHDescreption, 0, 3)
         Me.ViewBookInfoPanel.Controls.Add(Me.HAuthorLabel, 1, 2)
-        Me.ViewBookInfoPanel.Controls.Add(Me.R3, 0, 2)
+        Me.ViewBookInfoPanel.Controls.Add(Me.LabelHAuthor, 0, 2)
         Me.ViewBookInfoPanel.Controls.Add(Me.HTitleLabel, 1, 1)
-        Me.ViewBookInfoPanel.Controls.Add(Me.R2, 0, 1)
-        Me.ViewBookInfoPanel.Controls.Add(Me.R1, 0, 0)
+        Me.ViewBookInfoPanel.Controls.Add(Me.LabelHSubject, 0, 1)
+        Me.ViewBookInfoPanel.Controls.Add(Me.LabelHID, 0, 0)
         Me.ViewBookInfoPanel.Controls.Add(Me.HIDLabel, 1, 0)
+        Me.ViewBookInfoPanel.Controls.Add(Me.HIcon, 2, 0)
         Me.ViewBookInfoPanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ViewBookInfoPanel.Location = New System.Drawing.Point(0, 0)
         Me.ViewBookInfoPanel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
@@ -377,90 +438,93 @@ Partial Class HDLibView
         Me.ViewBookInfoPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45.0!))
         Me.ViewBookInfoPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.ViewBookInfoPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.ViewBookInfoPanel.Size = New System.Drawing.Size(226, 155)
+        Me.ViewBookInfoPanel.Size = New System.Drawing.Size(214, 175)
         Me.ViewBookInfoPanel.TabIndex = 0
         '
         'HPilotLabel
         '
         Me.HPilotLabel.AutoEllipsis = True
+        Me.ViewBookInfoPanel.SetColumnSpan(Me.HPilotLabel, 2)
         Me.HPilotLabel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.HPilotLabel.Location = New System.Drawing.Point(43, 99)
         Me.HPilotLabel.Name = "HPilotLabel"
-        Me.HPilotLabel.Size = New System.Drawing.Size(170, 56)
+        Me.HPilotLabel.Size = New System.Drawing.Size(168, 76)
         Me.HPilotLabel.TabIndex = 7
         Me.HPilotLabel.Text = "Pilot"
         '
-        'R4
+        'LabelHDescreption
         '
-        Me.R4.AutoSize = True
-        Me.R4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.R4.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.R4.Location = New System.Drawing.Point(3, 99)
-        Me.R4.Name = "R4"
-        Me.R4.Size = New System.Drawing.Size(34, 56)
-        Me.R4.TabIndex = 6
-        Me.R4.Text = "簡介"
-        Me.R4.TextAlign = System.Drawing.ContentAlignment.TopRight
+        Me.LabelHDescreption.AutoSize = True
+        Me.LabelHDescreption.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LabelHDescreption.ForeColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.LabelHDescreption.Location = New System.Drawing.Point(3, 99)
+        Me.LabelHDescreption.Name = "LabelHDescreption"
+        Me.LabelHDescreption.Size = New System.Drawing.Size(34, 76)
+        Me.LabelHDescreption.TabIndex = 6
+        Me.LabelHDescreption.Text = "簡介"
+        Me.LabelHDescreption.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'HAuthorLabel
         '
         Me.HAuthorLabel.AutoEllipsis = True
+        Me.ViewBookInfoPanel.SetColumnSpan(Me.HAuthorLabel, 2)
         Me.HAuthorLabel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.HAuthorLabel.Font = New System.Drawing.Font("Microsoft YaHei UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.HAuthorLabel.Location = New System.Drawing.Point(43, 69)
         Me.HAuthorLabel.Name = "HAuthorLabel"
-        Me.HAuthorLabel.Size = New System.Drawing.Size(170, 30)
+        Me.HAuthorLabel.Size = New System.Drawing.Size(168, 30)
         Me.HAuthorLabel.TabIndex = 5
         Me.HAuthorLabel.Text = "作者"
         Me.HAuthorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'R3
+        'LabelHAuthor
         '
-        Me.R3.AutoSize = True
-        Me.R3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.R3.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.R3.Location = New System.Drawing.Point(3, 69)
-        Me.R3.Name = "R3"
-        Me.R3.Size = New System.Drawing.Size(34, 30)
-        Me.R3.TabIndex = 4
-        Me.R3.Text = "作者"
-        Me.R3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.LabelHAuthor.AutoSize = True
+        Me.LabelHAuthor.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LabelHAuthor.ForeColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.LabelHAuthor.Location = New System.Drawing.Point(3, 69)
+        Me.LabelHAuthor.Name = "LabelHAuthor"
+        Me.LabelHAuthor.Size = New System.Drawing.Size(34, 30)
+        Me.LabelHAuthor.TabIndex = 4
+        Me.LabelHAuthor.Text = "作者"
+        Me.LabelHAuthor.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'HTitleLabel
         '
         Me.HTitleLabel.AutoEllipsis = True
+        Me.ViewBookInfoPanel.SetColumnSpan(Me.HTitleLabel, 2)
         Me.HTitleLabel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.HTitleLabel.Font = New System.Drawing.Font("Microsoft YaHei UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.HTitleLabel.Location = New System.Drawing.Point(43, 24)
         Me.HTitleLabel.Name = "HTitleLabel"
-        Me.HTitleLabel.Size = New System.Drawing.Size(170, 45)
+        Me.HTitleLabel.Size = New System.Drawing.Size(168, 45)
         Me.HTitleLabel.TabIndex = 3
         Me.HTitleLabel.Text = "書籍標題"
         Me.HTitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'R2
+        'LabelHSubject
         '
-        Me.R2.AutoSize = True
-        Me.R2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.R2.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.R2.Location = New System.Drawing.Point(3, 24)
-        Me.R2.Name = "R2"
-        Me.R2.Size = New System.Drawing.Size(34, 45)
-        Me.R2.TabIndex = 2
-        Me.R2.Text = "書名"
-        Me.R2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.LabelHSubject.AutoSize = True
+        Me.LabelHSubject.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LabelHSubject.ForeColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.LabelHSubject.Location = New System.Drawing.Point(3, 24)
+        Me.LabelHSubject.Name = "LabelHSubject"
+        Me.LabelHSubject.Size = New System.Drawing.Size(34, 45)
+        Me.LabelHSubject.TabIndex = 2
+        Me.LabelHSubject.Text = "書名"
+        Me.LabelHSubject.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'R1
+        'LabelHID
         '
-        Me.R1.AutoSize = True
-        Me.R1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.R1.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.R1.Location = New System.Drawing.Point(3, 0)
-        Me.R1.Name = "R1"
-        Me.R1.Size = New System.Drawing.Size(34, 24)
-        Me.R1.TabIndex = 0
-        Me.R1.Text = "編號"
-        Me.R1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.LabelHID.AutoSize = True
+        Me.LabelHID.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LabelHID.ForeColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.LabelHID.Location = New System.Drawing.Point(3, 0)
+        Me.LabelHID.Name = "LabelHID"
+        Me.LabelHID.Size = New System.Drawing.Size(34, 24)
+        Me.LabelHID.TabIndex = 0
+        Me.LabelHID.Text = "編號"
+        Me.LabelHID.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'HIDLabel
         '
@@ -468,26 +532,35 @@ Partial Class HDLibView
         Me.HIDLabel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.HIDLabel.Location = New System.Drawing.Point(43, 0)
         Me.HIDLabel.Name = "HIDLabel"
-        Me.HIDLabel.Size = New System.Drawing.Size(170, 24)
+        Me.HIDLabel.Size = New System.Drawing.Size(115, 24)
         Me.HIDLabel.TabIndex = 1
         Me.HIDLabel.Text = "ID"
         Me.HIDLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'HIcon
+        '
+        Me.HIcon.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.HIcon.Location = New System.Drawing.Point(177, 2)
+        Me.HIcon.Margin = New System.Windows.Forms.Padding(0)
+        Me.HIcon.Name = "HIcon"
+        Me.HIcon.Size = New System.Drawing.Size(20, 20)
+        Me.HIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.HIcon.TabIndex = 8
+        Me.HIcon.TabStop = False
         '
         'DetailTabs
         '
         Me.DetailTabs.Controls.Add(Me.PageBook)
         Me.DetailTabs.Controls.Add(Me.PageIntro)
-        Me.DetailTabs.Controls.Add(Me.PageAuthor)
         Me.DetailTabs.Controls.Add(Me.PageFiles)
         Me.DetailTabs.Controls.Add(Me.PageLinks)
-        Me.DetailTabs.Controls.Add(Me.PageImage)
         Me.DetailTabs.Controls.Add(Me.PageDownload)
         Me.DetailTabs.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DetailTabs.Location = New System.Drawing.Point(0, 0)
         Me.DetailTabs.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.DetailTabs.Name = "DetailTabs"
         Me.DetailTabs.SelectedIndex = 0
-        Me.DetailTabs.Size = New System.Drawing.Size(344, 279)
+        Me.DetailTabs.Size = New System.Drawing.Size(344, 272)
         Me.DetailTabs.TabIndex = 0
         '
         'PageBook
@@ -497,7 +570,7 @@ Partial Class HDLibView
         Me.PageBook.Location = New System.Drawing.Point(4, 26)
         Me.PageBook.Name = "PageBook"
         Me.PageBook.Padding = New System.Windows.Forms.Padding(3)
-        Me.PageBook.Size = New System.Drawing.Size(336, 249)
+        Me.PageBook.Size = New System.Drawing.Size(336, 242)
         Me.PageBook.TabIndex = 0
         Me.PageBook.Text = "書籍"
         Me.PageBook.UseVisualStyleBackColor = True
@@ -525,25 +598,25 @@ Partial Class HDLibView
         Me.BookDataPanel.Controls.Add(Me.LogoTextBox, 3, 7)
         Me.BookDataPanel.Controls.Add(Me.SpecialTextBox, 1, 6)
         Me.BookDataPanel.Controls.Add(Me.CategoryTextBox, 1, 5)
-        Me.BookDataPanel.Controls.Add(Me.Label15, 0, 9)
-        Me.BookDataPanel.Controls.Add(Me.Label14, 2, 9)
-        Me.BookDataPanel.Controls.Add(Me.Label13, 2, 8)
-        Me.BookDataPanel.Controls.Add(Me.Label12, 0, 8)
-        Me.BookDataPanel.Controls.Add(Me.Label11, 2, 7)
+        Me.BookDataPanel.Controls.Add(Me.LabelCreated, 0, 9)
+        Me.BookDataPanel.Controls.Add(Me.LabelUpdated, 2, 9)
+        Me.BookDataPanel.Controls.Add(Me.LabelRefaddress, 2, 8)
+        Me.BookDataPanel.Controls.Add(Me.LabelAddress, 0, 8)
+        Me.BookDataPanel.Controls.Add(Me.LabelLogo, 2, 7)
         Me.BookDataPanel.Controls.Add(Me.SeriesTextBox, 1, 2)
-        Me.BookDataPanel.Controls.Add(Me.Label10, 0, 2)
-        Me.BookDataPanel.Controls.Add(Me.Label9, 3, 3)
+        Me.BookDataPanel.Controls.Add(Me.LabelSeries, 0, 2)
+        Me.BookDataPanel.Controls.Add(Me.LabelOrigin, 3, 3)
         Me.BookDataPanel.Controls.Add(Me.ContributorTextBox, 1, 4)
-        Me.BookDataPanel.Controls.Add(Me.Label8, 0, 7)
-        Me.BookDataPanel.Controls.Add(Me.Label7, 0, 6)
-        Me.BookDataPanel.Controls.Add(Me.Label6, 0, 5)
+        Me.BookDataPanel.Controls.Add(Me.LabelVersion, 0, 7)
+        Me.BookDataPanel.Controls.Add(Me.LabelSpecial, 0, 6)
+        Me.BookDataPanel.Controls.Add(Me.LabelCategory, 0, 5)
         Me.BookDataPanel.Controls.Add(Me.AuthorTextBox, 1, 3)
         Me.BookDataPanel.Controls.Add(Me.NameTextBox, 1, 1)
-        Me.BookDataPanel.Controls.Add(Me.Label5, 2, 0)
-        Me.BookDataPanel.Controls.Add(Me.Label4, 0, 4)
-        Me.BookDataPanel.Controls.Add(Me.Label3, 0, 3)
-        Me.BookDataPanel.Controls.Add(Me.Label2, 0, 1)
-        Me.BookDataPanel.Controls.Add(Me.Label1, 0, 0)
+        Me.BookDataPanel.Controls.Add(Me.LabelID, 2, 0)
+        Me.BookDataPanel.Controls.Add(Me.LabelContributor, 0, 4)
+        Me.BookDataPanel.Controls.Add(Me.LabelAuthor, 0, 3)
+        Me.BookDataPanel.Controls.Add(Me.LabelSubject, 0, 1)
+        Me.BookDataPanel.Controls.Add(Me.LabelType, 0, 0)
         Me.BookDataPanel.Controls.Add(Me.TypeComboBox, 1, 0)
         Me.BookDataPanel.Controls.Add(Me.IDTextBox, 3, 0)
         Me.BookDataPanel.Controls.Add(Me.OriginComboBox, 4, 3)
@@ -736,60 +809,60 @@ Partial Class HDLibView
         Me.CategoryTextBox.Size = New System.Drawing.Size(187, 23)
         Me.CategoryTextBox.TabIndex = 22
         '
-        'Label15
+        'LabelCreated
         '
-        Me.Label15.AutoSize = True
-        Me.Label15.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label15.Location = New System.Drawing.Point(3, 217)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(39, 24)
-        Me.Label15.TabIndex = 21
-        Me.Label15.Text = "創建"
-        Me.Label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.LabelCreated.AutoSize = True
+        Me.LabelCreated.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LabelCreated.Location = New System.Drawing.Point(3, 217)
+        Me.LabelCreated.Name = "LabelCreated"
+        Me.LabelCreated.Size = New System.Drawing.Size(39, 24)
+        Me.LabelCreated.TabIndex = 21
+        Me.LabelCreated.Text = "創建"
+        Me.LabelCreated.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'Label14
+        'LabelUpdated
         '
-        Me.Label14.AutoSize = True
-        Me.Label14.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label14.Location = New System.Drawing.Point(144, 217)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(39, 24)
-        Me.Label14.TabIndex = 20
-        Me.Label14.Text = "更改"
-        Me.Label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.LabelUpdated.AutoSize = True
+        Me.LabelUpdated.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LabelUpdated.Location = New System.Drawing.Point(144, 217)
+        Me.LabelUpdated.Name = "LabelUpdated"
+        Me.LabelUpdated.Size = New System.Drawing.Size(39, 24)
+        Me.LabelUpdated.TabIndex = 20
+        Me.LabelUpdated.Text = "更改"
+        Me.LabelUpdated.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'Label13
+        'LabelRefaddress
         '
-        Me.Label13.AutoSize = True
-        Me.Label13.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label13.Location = New System.Drawing.Point(144, 193)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(39, 24)
-        Me.Label13.TabIndex = 19
-        Me.Label13.Text = "參考"
-        Me.Label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.LabelRefaddress.AutoSize = True
+        Me.LabelRefaddress.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LabelRefaddress.Location = New System.Drawing.Point(144, 193)
+        Me.LabelRefaddress.Name = "LabelRefaddress"
+        Me.LabelRefaddress.Size = New System.Drawing.Size(39, 24)
+        Me.LabelRefaddress.TabIndex = 19
+        Me.LabelRefaddress.Text = "參考"
+        Me.LabelRefaddress.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'Label12
+        'LabelAddress
         '
-        Me.Label12.AutoSize = True
-        Me.Label12.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label12.Location = New System.Drawing.Point(3, 193)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(39, 24)
-        Me.Label12.TabIndex = 18
-        Me.Label12.Text = "地址"
-        Me.Label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.LabelAddress.AutoSize = True
+        Me.LabelAddress.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LabelAddress.Location = New System.Drawing.Point(3, 193)
+        Me.LabelAddress.Name = "LabelAddress"
+        Me.LabelAddress.Size = New System.Drawing.Size(39, 24)
+        Me.LabelAddress.TabIndex = 18
+        Me.LabelAddress.Text = "地址"
+        Me.LabelAddress.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'Label11
+        'LabelLogo
         '
-        Me.Label11.AutoSize = True
-        Me.Label11.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label11.Location = New System.Drawing.Point(144, 169)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(39, 24)
-        Me.Label11.TabIndex = 17
-        Me.Label11.Text = "封面"
-        Me.Label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.LabelLogo.AutoSize = True
+        Me.LabelLogo.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LabelLogo.Location = New System.Drawing.Point(144, 169)
+        Me.LabelLogo.Name = "LabelLogo"
+        Me.LabelLogo.Size = New System.Drawing.Size(39, 24)
+        Me.LabelLogo.TabIndex = 17
+        Me.LabelLogo.Text = "封面"
+        Me.LabelLogo.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'SeriesTextBox
         '
@@ -802,27 +875,27 @@ Partial Class HDLibView
         Me.SeriesTextBox.Size = New System.Drawing.Size(187, 23)
         Me.SeriesTextBox.TabIndex = 16
         '
-        'Label10
+        'LabelSeries
         '
-        Me.Label10.AutoSize = True
-        Me.Label10.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label10.Location = New System.Drawing.Point(3, 49)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(39, 24)
-        Me.Label10.TabIndex = 15
-        Me.Label10.Text = "系列"
-        Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.LabelSeries.AutoSize = True
+        Me.LabelSeries.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LabelSeries.Location = New System.Drawing.Point(3, 49)
+        Me.LabelSeries.Name = "LabelSeries"
+        Me.LabelSeries.Size = New System.Drawing.Size(39, 24)
+        Me.LabelSeries.TabIndex = 15
+        Me.LabelSeries.Text = "系列"
+        Me.LabelSeries.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'Label9
+        'LabelOrigin
         '
-        Me.Label9.AutoSize = True
-        Me.Label9.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label9.Location = New System.Drawing.Point(189, 73)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(42, 24)
-        Me.Label9.TabIndex = 13
-        Me.Label9.Text = "原文"
-        Me.Label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.LabelOrigin.AutoSize = True
+        Me.LabelOrigin.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LabelOrigin.Location = New System.Drawing.Point(189, 73)
+        Me.LabelOrigin.Name = "LabelOrigin"
+        Me.LabelOrigin.Size = New System.Drawing.Size(42, 24)
+        Me.LabelOrigin.TabIndex = 13
+        Me.LabelOrigin.Text = "原語"
+        Me.LabelOrigin.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'ContributorTextBox
         '
@@ -835,38 +908,38 @@ Partial Class HDLibView
         Me.ContributorTextBox.Size = New System.Drawing.Size(235, 23)
         Me.ContributorTextBox.TabIndex = 12
         '
-        'Label8
+        'LabelVersion
         '
-        Me.Label8.AutoSize = True
-        Me.Label8.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label8.Location = New System.Drawing.Point(3, 169)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(39, 24)
-        Me.Label8.TabIndex = 11
-        Me.Label8.Text = "版本"
-        Me.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.LabelVersion.AutoSize = True
+        Me.LabelVersion.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LabelVersion.Location = New System.Drawing.Point(3, 169)
+        Me.LabelVersion.Name = "LabelVersion"
+        Me.LabelVersion.Size = New System.Drawing.Size(39, 24)
+        Me.LabelVersion.TabIndex = 11
+        Me.LabelVersion.Text = "版本"
+        Me.LabelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'Label7
+        'LabelSpecial
         '
-        Me.Label7.AutoSize = True
-        Me.Label7.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label7.Location = New System.Drawing.Point(3, 145)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(39, 24)
-        Me.Label7.TabIndex = 10
-        Me.Label7.Text = "專題"
-        Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.LabelSpecial.AutoSize = True
+        Me.LabelSpecial.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LabelSpecial.Location = New System.Drawing.Point(3, 145)
+        Me.LabelSpecial.Name = "LabelSpecial"
+        Me.LabelSpecial.Size = New System.Drawing.Size(39, 24)
+        Me.LabelSpecial.TabIndex = 10
+        Me.LabelSpecial.Text = "專題"
+        Me.LabelSpecial.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'Label6
+        'LabelCategory
         '
-        Me.Label6.AutoSize = True
-        Me.Label6.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label6.Location = New System.Drawing.Point(3, 121)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(39, 24)
-        Me.Label6.TabIndex = 9
-        Me.Label6.Text = "類別"
-        Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.LabelCategory.AutoSize = True
+        Me.LabelCategory.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LabelCategory.Location = New System.Drawing.Point(3, 121)
+        Me.LabelCategory.Name = "LabelCategory"
+        Me.LabelCategory.Size = New System.Drawing.Size(39, 24)
+        Me.LabelCategory.TabIndex = 9
+        Me.LabelCategory.Text = "類別"
+        Me.LabelCategory.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'AuthorTextBox
         '
@@ -890,60 +963,60 @@ Partial Class HDLibView
         Me.NameTextBox.Size = New System.Drawing.Size(235, 23)
         Me.NameTextBox.TabIndex = 7
         '
-        'Label5
+        'LabelID
         '
-        Me.Label5.AutoSize = True
-        Me.Label5.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label5.Location = New System.Drawing.Point(144, 0)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(39, 25)
-        Me.Label5.TabIndex = 4
-        Me.Label5.Text = "ID"
-        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.LabelID.AutoSize = True
+        Me.LabelID.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LabelID.Location = New System.Drawing.Point(144, 0)
+        Me.LabelID.Name = "LabelID"
+        Me.LabelID.Size = New System.Drawing.Size(39, 25)
+        Me.LabelID.TabIndex = 4
+        Me.LabelID.Text = "ID"
+        Me.LabelID.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'Label4
+        'LabelContributor
         '
-        Me.Label4.AutoSize = True
-        Me.Label4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label4.Location = New System.Drawing.Point(3, 97)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(39, 24)
-        Me.Label4.TabIndex = 3
-        Me.Label4.Text = "協作"
-        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.LabelContributor.AutoSize = True
+        Me.LabelContributor.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LabelContributor.Location = New System.Drawing.Point(3, 97)
+        Me.LabelContributor.Name = "LabelContributor"
+        Me.LabelContributor.Size = New System.Drawing.Size(39, 24)
+        Me.LabelContributor.TabIndex = 3
+        Me.LabelContributor.Text = "協作"
+        Me.LabelContributor.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'Label3
+        'LabelAuthor
         '
-        Me.Label3.AutoSize = True
-        Me.Label3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label3.Location = New System.Drawing.Point(3, 73)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(39, 24)
-        Me.Label3.TabIndex = 2
-        Me.Label3.Text = "作者"
-        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.LabelAuthor.AutoSize = True
+        Me.LabelAuthor.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LabelAuthor.Location = New System.Drawing.Point(3, 73)
+        Me.LabelAuthor.Name = "LabelAuthor"
+        Me.LabelAuthor.Size = New System.Drawing.Size(39, 24)
+        Me.LabelAuthor.TabIndex = 2
+        Me.LabelAuthor.Text = "作者"
+        Me.LabelAuthor.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'Label2
+        'LabelSubject
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label2.Location = New System.Drawing.Point(3, 25)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(39, 24)
-        Me.Label2.TabIndex = 1
-        Me.Label2.Text = "標題"
-        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.LabelSubject.AutoSize = True
+        Me.LabelSubject.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LabelSubject.Location = New System.Drawing.Point(3, 25)
+        Me.LabelSubject.Name = "LabelSubject"
+        Me.LabelSubject.Size = New System.Drawing.Size(39, 24)
+        Me.LabelSubject.TabIndex = 1
+        Me.LabelSubject.Text = "標題"
+        Me.LabelSubject.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'Label1
+        'LabelType
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label1.Location = New System.Drawing.Point(3, 0)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(39, 25)
-        Me.Label1.TabIndex = 0
-        Me.Label1.Text = "類型"
-        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.LabelType.AutoSize = True
+        Me.LabelType.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LabelType.Location = New System.Drawing.Point(3, 0)
+        Me.LabelType.Name = "LabelType"
+        Me.LabelType.Size = New System.Drawing.Size(39, 25)
+        Me.LabelType.TabIndex = 0
+        Me.LabelType.Text = "類型"
+        Me.LabelType.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'TypeComboBox
         '
@@ -1019,7 +1092,7 @@ Partial Class HDLibView
         Me.PageIntro.Controls.Add(Me.TableLayoutPanel2)
         Me.PageIntro.Location = New System.Drawing.Point(4, 22)
         Me.PageIntro.Name = "PageIntro"
-        Me.PageIntro.Size = New System.Drawing.Size(336, 253)
+        Me.PageIntro.Size = New System.Drawing.Size(336, 246)
         Me.PageIntro.TabIndex = 1
         Me.PageIntro.Text = "簡介"
         Me.PageIntro.UseVisualStyleBackColor = True
@@ -1030,9 +1103,9 @@ Partial Class HDLibView
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.DescriptionTextBox, 0, 3)
-        Me.TableLayoutPanel2.Controls.Add(Me.Label17, 0, 2)
+        Me.TableLayoutPanel2.Controls.Add(Me.LabelDescription, 0, 2)
         Me.TableLayoutPanel2.Controls.Add(Me.RemarksTextBox, 0, 1)
-        Me.TableLayoutPanel2.Controls.Add(Me.Label16, 0, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.LabelRemarks, 0, 0)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel2.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
@@ -1041,7 +1114,7 @@ Partial Class HDLibView
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(336, 253)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(336, 246)
         Me.TableLayoutPanel2.TabIndex = 0
         '
         'DescriptionTextBox
@@ -1054,19 +1127,19 @@ Partial Class HDLibView
         Me.DescriptionTextBox.Multiline = True
         Me.DescriptionTextBox.Name = "DescriptionTextBox"
         Me.DescriptionTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.DescriptionTextBox.Size = New System.Drawing.Size(334, 153)
+        Me.DescriptionTextBox.Size = New System.Drawing.Size(334, 146)
         Me.DescriptionTextBox.TabIndex = 9
         '
-        'Label17
+        'LabelDescription
         '
-        Me.Label17.AutoSize = True
-        Me.Label17.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label17.Location = New System.Drawing.Point(3, 74)
-        Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(162, 24)
-        Me.Label17.TabIndex = 8
-        Me.Label17.Text = "簡介"
-        Me.Label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LabelDescription.AutoSize = True
+        Me.LabelDescription.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LabelDescription.Location = New System.Drawing.Point(3, 74)
+        Me.LabelDescription.Name = "LabelDescription"
+        Me.LabelDescription.Size = New System.Drawing.Size(162, 24)
+        Me.LabelDescription.TabIndex = 8
+        Me.LabelDescription.Text = "簡介"
+        Me.LabelDescription.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'RemarksTextBox
         '
@@ -1077,36 +1150,29 @@ Partial Class HDLibView
         Me.RemarksTextBox.Margin = New System.Windows.Forms.Padding(1)
         Me.RemarksTextBox.Multiline = True
         Me.RemarksTextBox.Name = "RemarksTextBox"
+        Me.RemarksTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both
         Me.RemarksTextBox.Size = New System.Drawing.Size(334, 48)
         Me.RemarksTextBox.TabIndex = 7
         '
-        'Label16
+        'LabelRemarks
         '
-        Me.Label16.AutoSize = True
-        Me.Label16.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label16.Location = New System.Drawing.Point(3, 0)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(162, 24)
-        Me.Label16.TabIndex = 1
-        Me.Label16.Text = "備註"
-        Me.Label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'PageAuthor
-        '
-        Me.PageAuthor.Location = New System.Drawing.Point(4, 22)
-        Me.PageAuthor.Name = "PageAuthor"
-        Me.PageAuthor.Size = New System.Drawing.Size(336, 253)
-        Me.PageAuthor.TabIndex = 2
-        Me.PageAuthor.Text = "作者"
-        Me.PageAuthor.UseVisualStyleBackColor = True
+        Me.LabelRemarks.AutoSize = True
+        Me.LabelRemarks.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LabelRemarks.Location = New System.Drawing.Point(3, 0)
+        Me.LabelRemarks.Name = "LabelRemarks"
+        Me.LabelRemarks.Size = New System.Drawing.Size(162, 24)
+        Me.LabelRemarks.TabIndex = 1
+        Me.LabelRemarks.Text = "備註"
+        Me.LabelRemarks.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'PageFiles
         '
+        Me.PageFiles.AutoScroll = True
         Me.PageFiles.Controls.Add(Me.FilesView)
         Me.PageFiles.Controls.Add(Me.ListEditPanel)
         Me.PageFiles.Location = New System.Drawing.Point(4, 22)
         Me.PageFiles.Name = "PageFiles"
-        Me.PageFiles.Size = New System.Drawing.Size(336, 253)
+        Me.PageFiles.Size = New System.Drawing.Size(336, 246)
         Me.PageFiles.TabIndex = 3
         Me.PageFiles.Text = "文檔"
         Me.PageFiles.UseVisualStyleBackColor = True
@@ -1124,7 +1190,7 @@ Partial Class HDLibView
         Me.FilesView.Location = New System.Drawing.Point(0, 0)
         Me.FilesView.MultiSelect = False
         Me.FilesView.Name = "FilesView"
-        Me.FilesView.Size = New System.Drawing.Size(336, 155)
+        Me.FilesView.Size = New System.Drawing.Size(336, 148)
         Me.FilesView.TabIndex = 2
         Me.FilesView.UseCompatibleStateImageBehavior = False
         Me.FilesView.View = System.Windows.Forms.View.Details
@@ -1154,27 +1220,24 @@ Partial Class HDLibView
         '
         Me.CreatedColumn.Text = "創建"
         '
-        'LibDataContextMenu
-        '
-        Me.LibDataContextMenu.Name = "LibDataContextMenu"
-        Me.LibDataContextMenu.Size = New System.Drawing.Size(61, 4)
-        '
         'ListEditPanel
         '
-        Me.ListEditPanel.ColumnCount = 3
+        Me.ListEditPanel.ColumnCount = 4
         Me.ListEditPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 45.0!))
         Me.ListEditPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.ListEditPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.ListEditPanel.Controls.Add(Me.LViewButton, 2, 3)
+        Me.ListEditPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
+        Me.ListEditPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
+        Me.ListEditPanel.Controls.Add(Me.LViewButton, 3, 0)
         Me.ListEditPanel.Controls.Add(Me.LWritedLabel, 2, 2)
         Me.ListEditPanel.Controls.Add(Me.LAccessedLabel, 1, 3)
         Me.ListEditPanel.Controls.Add(Me.LCreatedLabel, 1, 2)
         Me.ListEditPanel.Controls.Add(Me.LFileNameLabel, 0, 0)
-        Me.ListEditPanel.Controls.Add(Me.Label20, 0, 1)
+        Me.ListEditPanel.Controls.Add(Me.LabelComments, 0, 1)
         Me.ListEditPanel.Controls.Add(Me.LCommentsTextBox, 1, 1)
         Me.ListEditPanel.Controls.Add(Me.LUpdateButton, 2, 0)
+        Me.ListEditPanel.Controls.Add(Me.LInTimeChecker, 2, 3)
         Me.ListEditPanel.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.ListEditPanel.Location = New System.Drawing.Point(0, 155)
+        Me.ListEditPanel.Location = New System.Drawing.Point(0, 148)
         Me.ListEditPanel.Name = "ListEditPanel"
         Me.ListEditPanel.RowCount = 5
         Me.ListEditPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24.0!))
@@ -1188,10 +1251,10 @@ Partial Class HDLibView
         'LViewButton
         '
         Me.LViewButton.Dock = System.Windows.Forms.DockStyle.Right
-        Me.LViewButton.Location = New System.Drawing.Point(272, 70)
+        Me.LViewButton.Location = New System.Drawing.Point(272, 0)
         Me.LViewButton.Margin = New System.Windows.Forms.Padding(1, 0, 4, 0)
         Me.LViewButton.Name = "LViewButton"
-        Me.LViewButton.Size = New System.Drawing.Size(60, 22)
+        Me.LViewButton.Size = New System.Drawing.Size(60, 24)
         Me.LViewButton.TabIndex = 36
         Me.LViewButton.Text = "預覽"
         Me.LViewButton.UseVisualStyleBackColor = True
@@ -1199,6 +1262,7 @@ Partial Class HDLibView
         'LWritedLabel
         '
         Me.LWritedLabel.AutoSize = True
+        Me.ListEditPanel.SetColumnSpan(Me.LWritedLabel, 2)
         Me.LWritedLabel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.LWritedLabel.Font = New System.Drawing.Font("Consolas", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LWritedLabel.Location = New System.Drawing.Point(193, 48)
@@ -1245,21 +1309,21 @@ Partial Class HDLibView
         Me.LFileNameLabel.Text = "File name"
         Me.LFileNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'Label20
+        'LabelComments
         '
-        Me.Label20.AutoSize = True
-        Me.Label20.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label20.Location = New System.Drawing.Point(3, 24)
-        Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(39, 24)
-        Me.Label20.TabIndex = 1
-        Me.Label20.Text = "描述"
-        Me.Label20.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.LabelComments.AutoSize = True
+        Me.LabelComments.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LabelComments.Location = New System.Drawing.Point(3, 24)
+        Me.LabelComments.Name = "LabelComments"
+        Me.LabelComments.Size = New System.Drawing.Size(39, 24)
+        Me.LabelComments.TabIndex = 1
+        Me.LabelComments.Text = "描述"
+        Me.LabelComments.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'LCommentsTextBox
         '
         Me.LCommentsTextBox.AllowDrop = True
-        Me.ListEditPanel.SetColumnSpan(Me.LCommentsTextBox, 2)
+        Me.ListEditPanel.SetColumnSpan(Me.LCommentsTextBox, 3)
         Me.LCommentsTextBox.Dock = System.Windows.Forms.DockStyle.Fill
         Me.LCommentsTextBox.Location = New System.Drawing.Point(46, 25)
         Me.LCommentsTextBox.Margin = New System.Windows.Forms.Padding(1)
@@ -1270,7 +1334,7 @@ Partial Class HDLibView
         'LUpdateButton
         '
         Me.LUpdateButton.Dock = System.Windows.Forms.DockStyle.Right
-        Me.LUpdateButton.Location = New System.Drawing.Point(272, 0)
+        Me.LUpdateButton.Location = New System.Drawing.Point(198, 0)
         Me.LUpdateButton.Margin = New System.Windows.Forms.Padding(1, 0, 4, 0)
         Me.LUpdateButton.Name = "LUpdateButton"
         Me.LUpdateButton.Size = New System.Drawing.Size(60, 24)
@@ -1278,13 +1342,25 @@ Partial Class HDLibView
         Me.LUpdateButton.Text = "保存"
         Me.LUpdateButton.UseVisualStyleBackColor = True
         '
+        'LInTimeChecker
+        '
+        Me.LInTimeChecker.AutoSize = True
+        Me.ListEditPanel.SetColumnSpan(Me.LInTimeChecker, 2)
+        Me.LInTimeChecker.Font = New System.Drawing.Font("Consolas", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LInTimeChecker.Location = New System.Drawing.Point(193, 73)
+        Me.LInTimeChecker.Name = "LInTimeChecker"
+        Me.LInTimeChecker.Size = New System.Drawing.Size(98, 16)
+        Me.LInTimeChecker.TabIndex = 37
+        Me.LInTimeChecker.Text = "Show in time"
+        Me.LInTimeChecker.UseVisualStyleBackColor = True
+        '
         'PageLinks
         '
         Me.PageLinks.Controls.Add(Me.LinksView)
         Me.PageLinks.Controls.Add(Me.LinkEditPanel)
         Me.PageLinks.Location = New System.Drawing.Point(4, 22)
         Me.PageLinks.Name = "PageLinks"
-        Me.PageLinks.Size = New System.Drawing.Size(336, 253)
+        Me.PageLinks.Size = New System.Drawing.Size(336, 246)
         Me.PageLinks.TabIndex = 4
         Me.PageLinks.Text = "鏈接"
         Me.PageLinks.UseVisualStyleBackColor = True
@@ -1296,9 +1372,10 @@ Partial Class HDLibView
         Me.LinksView.ContextMenuStrip = Me.LibDataContextMenu
         Me.LinksView.Dock = System.Windows.Forms.DockStyle.Fill
         Me.LinksView.FullRowSelect = True
+        Me.LinksView.LabelEdit = True
         Me.LinksView.Location = New System.Drawing.Point(0, 0)
         Me.LinksView.Name = "LinksView"
-        Me.LinksView.Size = New System.Drawing.Size(336, 199)
+        Me.LinksView.Size = New System.Drawing.Size(336, 192)
         Me.LinksView.TabIndex = 1
         Me.LinksView.UseCompatibleStateImageBehavior = False
         Me.LinksView.View = System.Windows.Forms.View.Details
@@ -1325,11 +1402,11 @@ Partial Class HDLibView
         Me.LinkEditPanel.Controls.Add(Me.UBroButton, 3, 0)
         Me.LinkEditPanel.Controls.Add(Me.UUpdateButton, 5, 0)
         Me.LinkEditPanel.Controls.Add(Me.ULinkTextBox, 1, 1)
-        Me.LinkEditPanel.Controls.Add(Me.Label21, 0, 1)
+        Me.LinkEditPanel.Controls.Add(Me.LabelULink, 0, 1)
         Me.LinkEditPanel.Controls.Add(Me.UKeyTextBox, 1, 0)
-        Me.LinkEditPanel.Controls.Add(Me.Label19, 0, 0)
+        Me.LinkEditPanel.Controls.Add(Me.LabelUKey, 0, 0)
         Me.LinkEditPanel.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.LinkEditPanel.Location = New System.Drawing.Point(0, 199)
+        Me.LinkEditPanel.Location = New System.Drawing.Point(0, 192)
         Me.LinkEditPanel.Name = "LinkEditPanel"
         Me.LinkEditPanel.RowCount = 3
         Me.LinkEditPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24.0!))
@@ -1393,16 +1470,16 @@ Partial Class HDLibView
         Me.ULinkTextBox.Size = New System.Drawing.Size(289, 23)
         Me.ULinkTextBox.TabIndex = 7
         '
-        'Label21
+        'LabelULink
         '
-        Me.Label21.AutoSize = True
-        Me.Label21.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label21.Location = New System.Drawing.Point(3, 24)
-        Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(39, 24)
-        Me.Label21.TabIndex = 6
-        Me.Label21.Text = "鏈接"
-        Me.Label21.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.LabelULink.AutoSize = True
+        Me.LabelULink.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LabelULink.Location = New System.Drawing.Point(3, 24)
+        Me.LabelULink.Name = "LabelULink"
+        Me.LabelULink.Size = New System.Drawing.Size(39, 24)
+        Me.LabelULink.TabIndex = 6
+        Me.LabelULink.Text = "鏈接"
+        Me.LabelULink.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'UKeyTextBox
         '
@@ -1414,26 +1491,16 @@ Partial Class HDLibView
         Me.UKeyTextBox.Size = New System.Drawing.Size(129, 23)
         Me.UKeyTextBox.TabIndex = 5
         '
-        'Label19
+        'LabelUKey
         '
-        Me.Label19.AutoSize = True
-        Me.Label19.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label19.Location = New System.Drawing.Point(3, 0)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(39, 24)
-        Me.Label19.TabIndex = 2
-        Me.Label19.Text = "名稱"
-        Me.Label19.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'PageImage
-        '
-        Me.PageImage.Location = New System.Drawing.Point(4, 26)
-        Me.PageImage.Name = "PageImage"
-        Me.PageImage.Padding = New System.Windows.Forms.Padding(3)
-        Me.PageImage.Size = New System.Drawing.Size(336, 249)
-        Me.PageImage.TabIndex = 5
-        Me.PageImage.Text = "圖像"
-        Me.PageImage.UseVisualStyleBackColor = True
+        Me.LabelUKey.AutoSize = True
+        Me.LabelUKey.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LabelUKey.Location = New System.Drawing.Point(3, 0)
+        Me.LabelUKey.Name = "LabelUKey"
+        Me.LabelUKey.Size = New System.Drawing.Size(39, 24)
+        Me.LabelUKey.TabIndex = 2
+        Me.LabelUKey.Text = "名稱"
+        Me.LabelUKey.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'PageDownload
         '
@@ -1441,7 +1508,7 @@ Partial Class HDLibView
         Me.PageDownload.Location = New System.Drawing.Point(4, 22)
         Me.PageDownload.Name = "PageDownload"
         Me.PageDownload.Padding = New System.Windows.Forms.Padding(3)
-        Me.PageDownload.Size = New System.Drawing.Size(336, 253)
+        Me.PageDownload.Size = New System.Drawing.Size(336, 246)
         Me.PageDownload.TabIndex = 6
         Me.PageDownload.Text = "下載"
         Me.PageDownload.UseVisualStyleBackColor = True
@@ -1455,23 +1522,22 @@ Partial Class HDLibView
         Me.DownloadPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.DownloadPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.DownloadPanel.Controls.Add(Me.DFileNameTextBox, 1, 0)
-        Me.DownloadPanel.Controls.Add(Me.Label25, 0, 0)
+        Me.DownloadPanel.Controls.Add(Me.LabelDFileName, 0, 0)
         Me.DownloadPanel.Controls.Add(Me.DEditUrlListButton, 0, 5)
-        Me.DownloadPanel.Controls.Add(Me.Label24, 1, 5)
+        Me.DownloadPanel.Controls.Add(Me.LabelDUrlList, 1, 5)
         Me.DownloadPanel.Controls.Add(Me.DRunButton, 3, 4)
-        Me.DownloadPanel.Controls.Add(Me.DClearPathButton, 4, 2)
-        Me.DownloadPanel.Controls.Add(Me.DClearLinkButton, 4, 1)
         Me.DownloadPanel.Controls.Add(Me.DChangePathButton, 3, 2)
         Me.DownloadPanel.Controls.Add(Me.DFolderTextBox, 1, 2)
         Me.DownloadPanel.Controls.Add(Me.DLinkTextBox, 1, 1)
-        Me.DownloadPanel.Controls.Add(Me.Label23, 0, 2)
-        Me.DownloadPanel.Controls.Add(Me.Label22, 0, 1)
+        Me.DownloadPanel.Controls.Add(Me.LabelDFolder, 0, 2)
+        Me.DownloadPanel.Controls.Add(Me.LabelDLink, 0, 1)
         Me.DownloadPanel.Controls.Add(Me.DUrlListBox, 0, 6)
         Me.DownloadPanel.Controls.Add(Me.DProgressBar, 1, 4)
         Me.DownloadPanel.Controls.Add(Me.DMsgLabel, 2, 6)
         Me.DownloadPanel.Controls.Add(Me.DFileExistsChecker, 2, 3)
         Me.DownloadPanel.Controls.Add(Me.DFolderExistsChecker, 1, 3)
         Me.DownloadPanel.Controls.Add(Me.DToCoverChecker, 2, 0)
+        Me.DownloadPanel.Controls.Add(Me.DPersentageLabel, 0, 4)
         Me.DownloadPanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DownloadPanel.Location = New System.Drawing.Point(3, 3)
         Me.DownloadPanel.Name = "DownloadPanel"
@@ -1483,7 +1549,8 @@ Partial Class HDLibView
         Me.DownloadPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24.0!))
         Me.DownloadPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24.0!))
         Me.DownloadPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.DownloadPanel.Size = New System.Drawing.Size(330, 247)
+        Me.DownloadPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.DownloadPanel.Size = New System.Drawing.Size(330, 240)
         Me.DownloadPanel.TabIndex = 0
         '
         'DFileNameTextBox
@@ -1495,42 +1562,27 @@ Partial Class HDLibView
         Me.DFileNameTextBox.Size = New System.Drawing.Size(145, 23)
         Me.DFileNameTextBox.TabIndex = 23
         '
-        'Label25
+        'LabelDFileName
         '
-        Me.Label25.AutoSize = True
-        Me.Label25.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label25.Location = New System.Drawing.Point(3, 0)
-        Me.Label25.Name = "Label25"
-        Me.Label25.Size = New System.Drawing.Size(34, 24)
-        Me.Label25.TabIndex = 22
-        Me.Label25.Text = "檔名"
-        Me.Label25.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.LabelDFileName.AutoSize = True
+        Me.LabelDFileName.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LabelDFileName.Location = New System.Drawing.Point(3, 0)
+        Me.LabelDFileName.Name = "LabelDFileName"
+        Me.LabelDFileName.Size = New System.Drawing.Size(34, 24)
+        Me.LabelDFileName.TabIndex = 22
+        Me.LabelDFileName.Text = "檔名"
+        Me.LabelDFileName.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'DEditUrlListButton
+        'LabelDUrlList
         '
-        Me.DEditUrlListButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.DEditUrlListButton.FlatAppearance.BorderSize = 0
-        Me.DEditUrlListButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.DEditUrlListButton.Location = New System.Drawing.Point(15, 122)
-        Me.DEditUrlListButton.Margin = New System.Windows.Forms.Padding(0)
-        Me.DEditUrlListButton.Name = "DEditUrlListButton"
-        Me.DEditUrlListButton.Size = New System.Drawing.Size(25, 22)
-        Me.DEditUrlListButton.TabIndex = 20
-        Me.DEditUrlListButton.Text = "+"
-        Me.DEditUrlListButton.TextAlign = System.Drawing.ContentAlignment.BottomRight
-        Me.LibTips.SetToolTip(Me.DEditUrlListButton, "編輯既定填入列表")
-        Me.DEditUrlListButton.UseVisualStyleBackColor = True
-        '
-        'Label24
-        '
-        Me.Label24.AutoSize = True
-        Me.Label24.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label24.Location = New System.Drawing.Point(43, 120)
-        Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(141, 24)
-        Me.Label24.TabIndex = 18
-        Me.Label24.Text = "既定填寫鏈接"
-        Me.Label24.TextAlign = System.Drawing.ContentAlignment.BottomLeft
+        Me.LabelDUrlList.AutoSize = True
+        Me.LabelDUrlList.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LabelDUrlList.Location = New System.Drawing.Point(43, 120)
+        Me.LabelDUrlList.Name = "LabelDUrlList"
+        Me.LabelDUrlList.Size = New System.Drawing.Size(141, 24)
+        Me.LabelDUrlList.TabIndex = 18
+        Me.LabelDUrlList.Text = "既定填寫鏈接"
+        Me.LabelDUrlList.TextAlign = System.Drawing.ContentAlignment.BottomLeft
         '
         'DRunButton
         '
@@ -1542,28 +1594,6 @@ Partial Class HDLibView
         Me.DRunButton.TabIndex = 16
         Me.DRunButton.Text = "下載"
         Me.DRunButton.UseVisualStyleBackColor = True
-        '
-        'DClearPathButton
-        '
-        Me.DClearPathButton.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.DClearPathButton.Location = New System.Drawing.Point(290, 48)
-        Me.DClearPathButton.Margin = New System.Windows.Forms.Padding(0)
-        Me.DClearPathButton.Name = "DClearPathButton"
-        Me.DClearPathButton.Size = New System.Drawing.Size(40, 24)
-        Me.DClearPathButton.TabIndex = 15
-        Me.DClearPathButton.Text = "清除"
-        Me.DClearPathButton.UseVisualStyleBackColor = True
-        '
-        'DClearLinkButton
-        '
-        Me.DClearLinkButton.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.DClearLinkButton.Location = New System.Drawing.Point(290, 24)
-        Me.DClearLinkButton.Margin = New System.Windows.Forms.Padding(0)
-        Me.DClearLinkButton.Name = "DClearLinkButton"
-        Me.DClearLinkButton.Size = New System.Drawing.Size(40, 24)
-        Me.DClearLinkButton.TabIndex = 14
-        Me.DClearLinkButton.Text = "清除"
-        Me.DClearLinkButton.UseVisualStyleBackColor = True
         '
         'DChangePathButton
         '
@@ -1598,27 +1628,27 @@ Partial Class HDLibView
         Me.DLinkTextBox.Size = New System.Drawing.Size(248, 23)
         Me.DLinkTextBox.TabIndex = 5
         '
-        'Label23
+        'LabelDFolder
         '
-        Me.Label23.AutoSize = True
-        Me.Label23.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label23.Location = New System.Drawing.Point(3, 48)
-        Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(34, 24)
-        Me.Label23.TabIndex = 3
-        Me.Label23.Text = "檔夾"
-        Me.Label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.LabelDFolder.AutoSize = True
+        Me.LabelDFolder.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LabelDFolder.Location = New System.Drawing.Point(3, 48)
+        Me.LabelDFolder.Name = "LabelDFolder"
+        Me.LabelDFolder.Size = New System.Drawing.Size(34, 24)
+        Me.LabelDFolder.TabIndex = 3
+        Me.LabelDFolder.Text = "檔夾"
+        Me.LabelDFolder.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'Label22
+        'LabelDLink
         '
-        Me.Label22.AutoSize = True
-        Me.Label22.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label22.Location = New System.Drawing.Point(3, 24)
-        Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(34, 24)
-        Me.Label22.TabIndex = 2
-        Me.Label22.Text = "鏈接"
-        Me.Label22.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.LabelDLink.AutoSize = True
+        Me.LabelDLink.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LabelDLink.Location = New System.Drawing.Point(3, 24)
+        Me.LabelDLink.Name = "LabelDLink"
+        Me.LabelDLink.Size = New System.Drawing.Size(34, 24)
+        Me.LabelDLink.TabIndex = 2
+        Me.LabelDLink.Text = "鏈接"
+        Me.LabelDLink.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'DUrlListBox
         '
@@ -1629,7 +1659,7 @@ Partial Class HDLibView
         Me.DUrlListBox.ItemHeight = 17
         Me.DUrlListBox.Location = New System.Drawing.Point(3, 147)
         Me.DUrlListBox.Name = "DUrlListBox"
-        Me.DUrlListBox.Size = New System.Drawing.Size(181, 97)
+        Me.DUrlListBox.Size = New System.Drawing.Size(181, 90)
         Me.DUrlListBox.TabIndex = 12
         '
         'DProgressBar
@@ -1648,7 +1678,7 @@ Partial Class HDLibView
         Me.DMsgLabel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DMsgLabel.Location = New System.Drawing.Point(190, 144)
         Me.DMsgLabel.Name = "DMsgLabel"
-        Me.DMsgLabel.Size = New System.Drawing.Size(137, 103)
+        Me.DMsgLabel.Size = New System.Drawing.Size(137, 96)
         Me.DMsgLabel.TabIndex = 19
         Me.DMsgLabel.Text = "Message:"
         '
@@ -1687,6 +1717,18 @@ Partial Class HDLibView
         Me.DToCoverChecker.TabIndex = 24
         Me.DToCoverChecker.Text = "設為封面"
         Me.DToCoverChecker.UseVisualStyleBackColor = True
+        '
+        'DPersentageLabel
+        '
+        Me.DPersentageLabel.AutoSize = True
+        Me.DPersentageLabel.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.DPersentageLabel.Font = New System.Drawing.Font("Consolas", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DPersentageLabel.Location = New System.Drawing.Point(3, 96)
+        Me.DPersentageLabel.Name = "DPersentageLabel"
+        Me.DPersentageLabel.Size = New System.Drawing.Size(34, 24)
+        Me.DPersentageLabel.TabIndex = 25
+        Me.DPersentageLabel.Text = "0%"
+        Me.DPersentageLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'InfTools
         '
@@ -1731,7 +1773,7 @@ Partial Class HDLibView
         'TryGetButton
         '
         Me.TryGetButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.TryGetButton.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HDBookInfoItem, Me.CategoryInfoItem})
+        Me.TryGetButton.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HDBookInfoItem, Me.CategoryInfoItem, Me.ToolStripSeparator1, Me.OriginListItem, Me.VersionListItem})
         Me.TryGetButton.Image = CType(resources.GetObject("TryGetButton.Image"), System.Drawing.Image)
         Me.TryGetButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.TryGetButton.Name = "TryGetButton"
@@ -1752,10 +1794,27 @@ Partial Class HDLibView
         Me.CategoryInfoItem.Size = New System.Drawing.Size(152, 22)
         Me.CategoryInfoItem.Text = "CategoryInfo"
         '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(149, 6)
+        '
+        'OriginListItem
+        '
+        Me.OriginListItem.Name = "OriginListItem"
+        Me.OriginListItem.Size = New System.Drawing.Size(152, 22)
+        Me.OriginListItem.Text = "OriginList"
+        '
+        'VersionListItem
+        '
+        Me.VersionListItem.Name = "VersionListItem"
+        Me.VersionListItem.Size = New System.Drawing.Size(152, 22)
+        Me.VersionListItem.Text = "VersionList"
+        '
         'DBButton
         '
         Me.DBButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.DBButton.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DBBookTableItem})
+        Me.DBButton.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DBBookTableItem, Me.CompletListItem, Me.ToolStripSeparator2, Me.OpenDataPanelItem})
         Me.DBButton.Image = CType(resources.GetObject("DBButton.Image"), System.Drawing.Image)
         Me.DBButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.DBButton.Name = "DBButton"
@@ -1767,8 +1826,25 @@ Partial Class HDLibView
         'DBBookTableItem
         '
         Me.DBBookTableItem.Name = "DBBookTableItem"
-        Me.DBBookTableItem.Size = New System.Drawing.Size(156, 22)
+        Me.DBBookTableItem.Size = New System.Drawing.Size(166, 22)
         Me.DBBookTableItem.Text = "DBBookTable"
+        '
+        'CompletListItem
+        '
+        Me.CompletListItem.Name = "CompletListItem"
+        Me.CompletListItem.Size = New System.Drawing.Size(166, 22)
+        Me.CompletListItem.Text = "CompletList"
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(163, 6)
+        '
+        'OpenDataPanelItem
+        '
+        Me.OpenDataPanelItem.Name = "OpenDataPanelItem"
+        Me.OpenDataPanelItem.Size = New System.Drawing.Size(166, 22)
+        Me.OpenDataPanelItem.Text = "OpenDataPanel"
         '
         'BackupButton
         '
@@ -1792,17 +1868,24 @@ Partial Class HDLibView
         '
         'LibStatusStrip
         '
-        Me.LibStatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CurrentNodeLabel})
-        Me.LibStatusStrip.Location = New System.Drawing.Point(0, 466)
+        Me.LibStatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TreeStatusLabel, Me.CurrentNodeLabel})
+        Me.LibStatusStrip.Location = New System.Drawing.Point(0, 479)
         Me.LibStatusStrip.Name = "LibStatusStrip"
-        Me.LibStatusStrip.Size = New System.Drawing.Size(524, 22)
+        Me.LibStatusStrip.Size = New System.Drawing.Size(524, 26)
         Me.LibStatusStrip.TabIndex = 1
         Me.LibStatusStrip.Text = "StatusStrip1"
+        '
+        'TreeStatusLabel
+        '
+        Me.TreeStatusLabel.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right
+        Me.TreeStatusLabel.Name = "TreeStatusLabel"
+        Me.TreeStatusLabel.Size = New System.Drawing.Size(36, 21)
+        Me.TreeStatusLabel.Text = "就緒"
         '
         'CurrentNodeLabel
         '
         Me.CurrentNodeLabel.Name = "CurrentNodeLabel"
-        Me.CurrentNodeLabel.Size = New System.Drawing.Size(41, 17)
+        Me.CurrentNodeLabel.Size = New System.Drawing.Size(41, 21)
         Me.CurrentNodeLabel.Text = "Node"
         '
         'BrowserTabs
@@ -1810,13 +1893,14 @@ Partial Class HDLibView
         Me.BrowserTabs.Appearance = System.Windows.Forms.TabAppearance.Buttons
         Me.BrowserTabs.Controls.Add(Me.PageWeb)
         Me.BrowserTabs.Controls.Add(Me.PageView)
+        Me.BrowserTabs.Controls.Add(Me.PageImage)
         Me.BrowserTabs.Controls.Add(Me.PageLogs)
         Me.BrowserTabs.Dock = System.Windows.Forms.DockStyle.Fill
         Me.BrowserTabs.Location = New System.Drawing.Point(0, 0)
         Me.BrowserTabs.Name = "BrowserTabs"
         Me.BrowserTabs.Padding = New System.Drawing.Point(0, 0)
         Me.BrowserTabs.SelectedIndex = 0
-        Me.BrowserTabs.Size = New System.Drawing.Size(314, 488)
+        Me.BrowserTabs.Size = New System.Drawing.Size(314, 505)
         Me.BrowserTabs.TabIndex = 0
         '
         'PageWeb
@@ -1826,7 +1910,7 @@ Partial Class HDLibView
         Me.PageWeb.Location = New System.Drawing.Point(4, 29)
         Me.PageWeb.Margin = New System.Windows.Forms.Padding(0)
         Me.PageWeb.Name = "PageWeb"
-        Me.PageWeb.Size = New System.Drawing.Size(306, 455)
+        Me.PageWeb.Size = New System.Drawing.Size(306, 472)
         Me.PageWeb.TabIndex = 0
         Me.PageWeb.Text = "聯網"
         '
@@ -1837,7 +1921,7 @@ Partial Class HDLibView
         Me.WebViewer.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.WebViewer.Name = "WebViewer"
         Me.WebViewer.ShowSourceInternal = True
-        Me.WebViewer.Size = New System.Drawing.Size(306, 455)
+        Me.WebViewer.Size = New System.Drawing.Size(306, 472)
         Me.WebViewer.TabIndex = 0
         Me.WebViewer.WebRoot = Nothing
         '
@@ -1847,9 +1931,9 @@ Partial Class HDLibView
         Me.PageView.Location = New System.Drawing.Point(4, 25)
         Me.PageView.Name = "PageView"
         Me.PageView.Padding = New System.Windows.Forms.Padding(3)
-        Me.PageView.Size = New System.Drawing.Size(306, 459)
+        Me.PageView.Size = New System.Drawing.Size(306, 476)
         Me.PageView.TabIndex = 2
-        Me.PageView.Text = "快覽"
+        Me.PageView.Text = "文字"
         Me.PageView.UseVisualStyleBackColor = True
         '
         'QuickViewer
@@ -1861,47 +1945,78 @@ Partial Class HDLibView
         Me.QuickViewer.Location = New System.Drawing.Point(3, 3)
         Me.QuickViewer.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.QuickViewer.Name = "QuickViewer"
-        Me.QuickViewer.Size = New System.Drawing.Size(300, 453)
+        Me.QuickViewer.Size = New System.Drawing.Size(300, 470)
         Me.QuickViewer.TabIndex = 0
+        '
+        'PageImage
+        '
+        Me.PageImage.Controls.Add(Me.InfoGroup)
+        Me.PageImage.Controls.Add(Me.ImgGroup)
+        Me.PageImage.Location = New System.Drawing.Point(4, 25)
+        Me.PageImage.Name = "PageImage"
+        Me.PageImage.Padding = New System.Windows.Forms.Padding(3)
+        Me.PageImage.Size = New System.Drawing.Size(306, 476)
+        Me.PageImage.TabIndex = 4
+        Me.PageImage.Text = "圖像"
+        Me.PageImage.UseVisualStyleBackColor = True
+        '
+        'InfoGroup
+        '
+        Me.InfoGroup.Controls.Add(Me.FileInfoLabel)
+        Me.InfoGroup.Dock = System.Windows.Forms.DockStyle.Top
+        Me.InfoGroup.Location = New System.Drawing.Point(3, 245)
+        Me.InfoGroup.Name = "InfoGroup"
+        Me.InfoGroup.Size = New System.Drawing.Size(300, 176)
+        Me.InfoGroup.TabIndex = 1
+        Me.InfoGroup.TabStop = False
+        Me.InfoGroup.Text = "Info"
+        '
+        'FileInfoLabel
+        '
+        Me.FileInfoLabel.AutoSize = True
+        Me.FileInfoLabel.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.FileInfoLabel.Location = New System.Drawing.Point(3, 19)
+        Me.FileInfoLabel.Name = "FileInfoLabel"
+        Me.FileInfoLabel.Size = New System.Drawing.Size(53, 17)
+        Me.FileInfoLabel.TabIndex = 38
+        Me.FileInfoLabel.Text = "[Image]"
+        '
+        'ImgGroup
+        '
+        Me.ImgGroup.Controls.Add(Me.ImgPreviewBox)
+        Me.ImgGroup.Dock = System.Windows.Forms.DockStyle.Top
+        Me.ImgGroup.Location = New System.Drawing.Point(3, 3)
+        Me.ImgGroup.Name = "ImgGroup"
+        Me.ImgGroup.Size = New System.Drawing.Size(300, 242)
+        Me.ImgGroup.TabIndex = 0
+        Me.ImgGroup.TabStop = False
+        Me.ImgGroup.Text = "Preview"
+        '
+        'ImgPreviewBox
+        '
+        Me.ImgPreviewBox.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ImgPreviewBox.Location = New System.Drawing.Point(3, 19)
+        Me.ImgPreviewBox.Name = "ImgPreviewBox"
+        Me.ImgPreviewBox.Size = New System.Drawing.Size(294, 220)
+        Me.ImgPreviewBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.ImgPreviewBox.TabIndex = 37
+        Me.ImgPreviewBox.TabStop = False
         '
         'PageLogs
         '
         Me.PageLogs.Location = New System.Drawing.Point(4, 25)
         Me.PageLogs.Name = "PageLogs"
         Me.PageLogs.Padding = New System.Windows.Forms.Padding(3)
-        Me.PageLogs.Size = New System.Drawing.Size(306, 459)
+        Me.PageLogs.Size = New System.Drawing.Size(306, 476)
         Me.PageLogs.TabIndex = 3
         Me.PageLogs.Text = "履歷"
         Me.PageLogs.UseVisualStyleBackColor = True
-        '
-        'LibMenu
-        '
-        Me.LibMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem})
-        Me.LibMenu.Location = New System.Drawing.Point(0, 0)
-        Me.LibMenu.Name = "LibMenu"
-        Me.LibMenu.Size = New System.Drawing.Size(843, 25)
-        Me.LibMenu.TabIndex = 1
-        Me.LibMenu.Text = "MenuStrip1"
-        Me.LibMenu.Visible = False
-        '
-        'FileToolStripMenuItem
-        '
-        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LibRootToolStripMenuItem})
-        Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(39, 21)
-        Me.FileToolStripMenuItem.Text = "File"
-        '
-        'LibRootToolStripMenuItem
-        '
-        Me.LibRootToolStripMenuItem.Name = "LibRootToolStripMenuItem"
-        Me.LibRootToolStripMenuItem.Size = New System.Drawing.Size(121, 22)
-        Me.LibRootToolStripMenuItem.Text = "LibRoot"
         '
         'HDLibView
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(843, 488)
+        Me.ClientSize = New System.Drawing.Size(843, 505)
         Me.Controls.Add(Me.LibSpliter)
         Me.Controls.Add(Me.LibMenu)
         Me.Font = New System.Drawing.Font("微软雅黑", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
@@ -1909,6 +2024,8 @@ Partial Class HDLibView
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Name = "HDLibView"
         Me.Text = "HDLibView"
+        Me.LibMenu.ResumeLayout(False)
+        Me.LibMenu.PerformLayout()
         Me.LibSpliter.Panel1.ResumeLayout(False)
         Me.LibSpliter.Panel1.PerformLayout()
         Me.LibSpliter.Panel2.ResumeLayout(False)
@@ -1933,6 +2050,7 @@ Partial Class HDLibView
         CType(Me.HCoverImageBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ViewBookInfoPanel.ResumeLayout(False)
         Me.ViewBookInfoPanel.PerformLayout()
+        CType(Me.HIcon, System.ComponentModel.ISupportInitialize).EndInit()
         Me.DetailTabs.ResumeLayout(False)
         Me.PageBook.ResumeLayout(False)
         Me.BookDataPanel.ResumeLayout(False)
@@ -1957,8 +2075,11 @@ Partial Class HDLibView
         Me.BrowserTabs.ResumeLayout(False)
         Me.PageWeb.ResumeLayout(False)
         Me.PageView.ResumeLayout(False)
-        Me.LibMenu.ResumeLayout(False)
-        Me.LibMenu.PerformLayout()
+        Me.PageImage.ResumeLayout(False)
+        Me.InfoGroup.ResumeLayout(False)
+        Me.InfoGroup.PerformLayout()
+        Me.ImgGroup.ResumeLayout(False)
+        CType(Me.ImgPreviewBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1967,11 +2088,6 @@ Partial Class HDLibView
     Friend WithEvents LibSpliter As SplitContainer
     Friend WithEvents InnerSpliter As SplitContainer
     Friend WithEvents DetailSpliter As SplitContainer
-    Friend WithEvents DetailTabs As TabControl
-    Friend WithEvents PageIntro As TabPage
-    Friend WithEvents PageAuthor As TabPage
-    Friend WithEvents PageFiles As TabPage
-    Friend WithEvents PageLinks As TabPage
     Friend WithEvents LibMenu As MenuStrip
     Friend WithEvents FileToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents LibRootToolStripMenuItem As ToolStripMenuItem
@@ -1979,52 +2095,7 @@ Partial Class HDLibView
     Friend WithEvents LibSearchTextBox As ToolStripTextBox
     Friend WithEvents LibSearchGoButton As ToolStripButton
     Friend WithEvents LibSearchAdvanceButton As ToolStripButton
-    Friend WithEvents PageBook As TabPage
-    Friend WithEvents PageImage As TabPage
     Friend WithEvents LibView As HDLibTree
-    Friend WithEvents BookDataPanel As TableLayoutPanel
-    Friend WithEvents Label8 As Label
-    Friend WithEvents Label7 As Label
-    Friend WithEvents Label6 As Label
-    Friend WithEvents AuthorTextBox As TextBox
-    Friend WithEvents NameTextBox As TextBox
-    Friend WithEvents Label5 As Label
-    Friend WithEvents Label4 As Label
-    Friend WithEvents Label3 As Label
-    Friend WithEvents Label2 As Label
-    Friend WithEvents Label1 As Label
-    Friend WithEvents TypeComboBox As ComboBox
-    Friend WithEvents IDTextBox As TextBox
-    Friend WithEvents SeriesTextBox As TextBox
-    Friend WithEvents Label10 As Label
-    Friend WithEvents Label9 As Label
-    Friend WithEvents ContributorTextBox As TextBox
-    Friend WithEvents Label13 As Label
-    Friend WithEvents Label12 As Label
-    Friend WithEvents Label11 As Label
-    Friend WithEvents TableLayoutPanel2 As TableLayoutPanel
-    Friend WithEvents Label15 As Label
-    Friend WithEvents Label14 As Label
-    Friend WithEvents DescriptionTextBox As TextBox
-    Friend WithEvents Label17 As Label
-    Friend WithEvents RemarksTextBox As TextBox
-    Friend WithEvents Label16 As Label
-    Friend WithEvents CreatedTextBox As TextBox
-    Friend WithEvents UpdatedTextBox As TextBox
-    Friend WithEvents AddressTextBox As TextBox
-    Friend WithEvents RefaddressTextBox As TextBox
-    Friend WithEvents VersionTextBox As TextBox
-    Friend WithEvents LogoTextBox As TextBox
-    Friend WithEvents SpecialTextBox As TextBox
-    Friend WithEvents CategoryTextBox As TextBox
-    Friend WithEvents OriginComboBox As ComboBox
-    Friend WithEvents FilesView As ListView
-    Friend WithEvents NameColumn As ColumnHeader
-    Friend WithEvents TypeColumn As ColumnHeader
-    Friend WithEvents LengthColumn As ColumnHeader
-    Friend WithEvents SizeColumn As ColumnHeader
-    Friend WithEvents InfoColumn As ColumnHeader
-    Friend WithEvents CreatedColumn As ColumnHeader
     Friend WithEvents LibStatusStrip As StatusStrip
     Friend WithEvents InfTools As ToolStrip
     Friend WithEvents UpdateInfButton As ToolStripButton
@@ -2032,43 +2103,14 @@ Partial Class HDLibView
     Friend WithEvents HCoverImageBox As PictureBox
     Friend WithEvents ViewBookInfoPanel As TableLayoutPanel
     Friend WithEvents HPilotLabel As Label
-    Friend WithEvents R4 As Label
+    Friend WithEvents LabelHDescreption As Label
     Friend WithEvents HAuthorLabel As Label
-    Friend WithEvents R3 As Label
+    Friend WithEvents LabelHAuthor As Label
     Friend WithEvents HTitleLabel As Label
-    Friend WithEvents R2 As Label
-    Friend WithEvents R1 As Label
+    Friend WithEvents LabelHSubject As Label
+    Friend WithEvents LabelHID As Label
     Friend WithEvents HIDLabel As Label
-    Friend WithEvents CLinksChecker As CheckBox
-    Friend WithEvents CManifestChecker As CheckBox
-    Friend WithEvents CEmptyChecker As CheckBox
-    Friend WithEvents CLogoFileChecker As CheckBox
-    Friend WithEvents CInfFileChecker As CheckBox
-    Friend WithEvents Label18 As Label
-    Friend WithEvents CFolderChecker As CheckBox
-    Friend WithEvents ListEditPanel As TableLayoutPanel
-    Friend WithEvents LWritedLabel As Label
-    Friend WithEvents LAccessedLabel As Label
-    Friend WithEvents LCreatedLabel As Label
-    Friend WithEvents LFileNameLabel As Label
-    Friend WithEvents Label20 As Label
-    Friend WithEvents LCommentsTextBox As TextBox
-    Friend WithEvents LUpdateButton As Button
-    Friend WithEvents LViewButton As Button
-    Friend WithEvents CContansChecker As CheckBox
     Friend WithEvents CancelEditButton As ToolStripButton
-    Friend WithEvents LinksView As ListView
-    Friend WithEvents UKeyColumn As ColumnHeader
-    Friend WithEvents ULinkColumn As ColumnHeader
-    Friend WithEvents LinkEditPanel As TableLayoutPanel
-    Friend WithEvents UDownButton As Button
-    Friend WithEvents UBroButton As Button
-    Friend WithEvents UUpdateButton As Button
-    Friend WithEvents ULinkTextBox As TextBox
-    Friend WithEvents Label21 As Label
-    Friend WithEvents UKeyTextBox As TextBox
-    Friend WithEvents Label19 As Label
-    Friend WithEvents UAddButton As Button
     Friend WithEvents ShowInfButton As ToolStripButton
     Friend WithEvents TryGetButton As ToolStripDropDownButton
     Friend WithEvents HDBookInfoItem As ToolStripMenuItem
@@ -2079,32 +2121,122 @@ Partial Class HDLibView
     Friend WithEvents WebViewer As KzOnePageWeb
     Friend WithEvents PageView As TabPage
     Friend WithEvents QuickViewer As KzSingleEditor
-    Friend WithEvents PageDownload As TabPage
-    Friend WithEvents DownloadPanel As TableLayoutPanel
-    Friend WithEvents Label24 As Label
-    Friend WithEvents DRunButton As Button
-    Friend WithEvents DClearPathButton As Button
-    Friend WithEvents DClearLinkButton As Button
-    Friend WithEvents DChangePathButton As Button
-    Friend WithEvents DFolderTextBox As TextBox
-    Friend WithEvents DLinkTextBox As TextBox
-    Friend WithEvents Label23 As Label
-    Friend WithEvents Label22 As Label
-    Friend WithEvents DFileExistsChecker As CheckBox
-    Friend WithEvents DUrlListBox As ListBox
-    Friend WithEvents DProgressBar As ProgressBar
-    Friend WithEvents DMsgLabel As Label
-    Friend WithEvents DEditUrlListButton As Button
     Friend WithEvents CurrentNodeLabel As ToolStripStatusLabel
     Friend WithEvents LibTips As ToolTip
-    Friend WithEvents DFolderExistsChecker As CheckBox
-    Friend WithEvents DFileNameTextBox As TextBox
-    Friend WithEvents Label25 As Label
-    Friend WithEvents DToCoverChecker As CheckBox
     Friend WithEvents DBButton As ToolStripDropDownButton
     Friend WithEvents PageLogs As TabPage
     Friend WithEvents DBBookTableItem As ToolStripMenuItem
     Friend WithEvents BackupButton As ToolStripDropDownButton
     Friend WithEvents SettingsButton As ToolStripButton
+    Friend WithEvents DetailTabs As TabControl
+    Friend WithEvents PageBook As TabPage
+    Friend WithEvents BookDataPanel As TableLayoutPanel
+    Friend WithEvents CContansChecker As CheckBox
+    Friend WithEvents CLinksChecker As CheckBox
+    Friend WithEvents CManifestChecker As CheckBox
+    Friend WithEvents CEmptyChecker As CheckBox
+    Friend WithEvents CLogoFileChecker As CheckBox
+    Friend WithEvents CInfFileChecker As CheckBox
+    Friend WithEvents CreatedTextBox As TextBox
+    Friend WithEvents UpdatedTextBox As TextBox
+    Friend WithEvents AddressTextBox As TextBox
+    Friend WithEvents RefaddressTextBox As TextBox
+    Friend WithEvents VersionTextBox As TextBox
+    Friend WithEvents LogoTextBox As TextBox
+    Friend WithEvents SpecialTextBox As TextBox
+    Friend WithEvents CategoryTextBox As TextBox
+    Friend WithEvents LabelCreated As Label
+    Friend WithEvents LabelUpdated As Label
+    Friend WithEvents LabelRefaddress As Label
+    Friend WithEvents LabelAddress As Label
+    Friend WithEvents LabelLogo As Label
+    Friend WithEvents SeriesTextBox As TextBox
+    Friend WithEvents LabelSeries As Label
+    Friend WithEvents LabelOrigin As Label
+    Friend WithEvents ContributorTextBox As TextBox
+    Friend WithEvents LabelVersion As Label
+    Friend WithEvents LabelSpecial As Label
+    Friend WithEvents LabelCategory As Label
+    Friend WithEvents AuthorTextBox As TextBox
+    Friend WithEvents NameTextBox As TextBox
+    Friend WithEvents LabelID As Label
+    Friend WithEvents LabelContributor As Label
+    Friend WithEvents LabelAuthor As Label
+    Friend WithEvents LabelSubject As Label
+    Friend WithEvents LabelType As Label
+    Friend WithEvents TypeComboBox As ComboBox
+    Friend WithEvents IDTextBox As TextBox
+    Friend WithEvents OriginComboBox As ComboBox
+    Friend WithEvents Label18 As Label
+    Friend WithEvents CFolderChecker As CheckBox
     Friend WithEvents SeriesIDUD As NumericUpDown
+    Friend WithEvents PageIntro As TabPage
+    Friend WithEvents TableLayoutPanel2 As TableLayoutPanel
+    Friend WithEvents DescriptionTextBox As TextBox
+    Friend WithEvents LabelDescription As Label
+    Friend WithEvents RemarksTextBox As TextBox
+    Friend WithEvents LabelRemarks As Label
+    Friend WithEvents PageFiles As TabPage
+    Friend WithEvents ListEditPanel As TableLayoutPanel
+    Friend WithEvents LViewButton As Button
+    Friend WithEvents LWritedLabel As Label
+    Friend WithEvents LAccessedLabel As Label
+    Friend WithEvents LCreatedLabel As Label
+    Friend WithEvents LFileNameLabel As Label
+    Friend WithEvents LabelComments As Label
+    Friend WithEvents LCommentsTextBox As TextBox
+    Friend WithEvents LUpdateButton As Button
+    Friend WithEvents ImgPreviewBox As PictureBox
+    Friend WithEvents FilesView As ListView
+    Friend WithEvents NameColumn As ColumnHeader
+    Friend WithEvents TypeColumn As ColumnHeader
+    Friend WithEvents LengthColumn As ColumnHeader
+    Friend WithEvents SizeColumn As ColumnHeader
+    Friend WithEvents InfoColumn As ColumnHeader
+    Friend WithEvents CreatedColumn As ColumnHeader
+    Friend WithEvents PageLinks As TabPage
+    Friend WithEvents LinksView As ListView
+    Friend WithEvents UKeyColumn As ColumnHeader
+    Friend WithEvents ULinkColumn As ColumnHeader
+    Friend WithEvents LinkEditPanel As TableLayoutPanel
+    Friend WithEvents UAddButton As Button
+    Friend WithEvents UDownButton As Button
+    Friend WithEvents UBroButton As Button
+    Friend WithEvents UUpdateButton As Button
+    Friend WithEvents ULinkTextBox As TextBox
+    Friend WithEvents LabelULink As Label
+    Friend WithEvents UKeyTextBox As TextBox
+    Friend WithEvents LabelUKey As Label
+    Friend WithEvents PageDownload As TabPage
+    Friend WithEvents DownloadPanel As TableLayoutPanel
+    Friend WithEvents DFileNameTextBox As TextBox
+    Friend WithEvents LabelDFileName As Label
+    Friend WithEvents DEditUrlListButton As Button
+    Friend WithEvents LabelDUrlList As Label
+    Friend WithEvents DRunButton As Button
+    Friend WithEvents DChangePathButton As Button
+    Friend WithEvents DFolderTextBox As TextBox
+    Friend WithEvents DLinkTextBox As TextBox
+    Friend WithEvents LabelDFolder As Label
+    Friend WithEvents LabelDLink As Label
+    Friend WithEvents DUrlListBox As ListBox
+    Friend WithEvents DProgressBar As ProgressBar
+    Friend WithEvents DMsgLabel As Label
+    Friend WithEvents DFileExistsChecker As CheckBox
+    Friend WithEvents DFolderExistsChecker As CheckBox
+    Friend WithEvents DToCoverChecker As CheckBox
+    Friend WithEvents PageImage As TabPage
+    Friend WithEvents InfoGroup As GroupBox
+    Friend WithEvents FileInfoLabel As Label
+    Friend WithEvents ImgGroup As GroupBox
+    Friend WithEvents LInTimeChecker As CheckBox
+    Friend WithEvents HIcon As PictureBox
+    Friend WithEvents TreeStatusLabel As ToolStripStatusLabel
+    Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
+    Friend WithEvents OriginListItem As ToolStripMenuItem
+    Friend WithEvents DPersentageLabel As Label
+    Friend WithEvents VersionListItem As ToolStripMenuItem
+    Friend WithEvents CompletListItem As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
+    Friend WithEvents OpenDataPanelItem As ToolStripMenuItem
 End Class

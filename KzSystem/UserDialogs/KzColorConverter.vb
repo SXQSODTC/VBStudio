@@ -1,4 +1,6 @@
-﻿Public Class KzColorConverter
+﻿Imports KzHelper
+
+Public Class KzColorConverter
 
     Private updating As Boolean = False
 #Region "Handlers"

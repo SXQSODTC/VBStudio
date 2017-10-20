@@ -13,7 +13,7 @@ Public Class HDLibView
     Private Sub HDLibView_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         LibView.LibRoot = My.Settings.HDLibPath
-        LibView.ExceptFolders.Add("LibDB")
+        LibView.ExceptFolders.AddRange({"LibDB", "LibApp"})
         LibView.RefreshTree()
         LibView.Nodes(0).Expand()
 
@@ -55,6 +55,7 @@ Public Class HDLibView
         Try
             If UpdateInfButton.Enabled AndAlso (Not CurrentInf.IsEmpty) Then
                 Try
+                    CurrentInf.Address = LibView.SelectedNode.FullPath.Replace(LibView.LibRoot & "\", "")
                     CurrentInf.Export(LibView.SelectedNode.FullPath)
                 Catch ex As Exception
                     MsgBox("未能保存 Inf。原因：" & vbCrLf & ex.Message)
@@ -67,6 +68,7 @@ Public Class HDLibView
     End Sub
 
     Private Sub LibView_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles LibView.AfterSelect
+        If LibView.SelectedNode Is Nothing Then Exit Sub
         CurrentNodeLabel.Text = e.Node.FullPath
         LibSearchTextBox.Text = e.Node.Text
 
@@ -78,8 +80,30 @@ Public Class HDLibView
         EntryChecking(e.Node.FullPath, CurrentInf)
         SetManifest(e.Node.FullPath, CurrentInf)
         SetLinks(CurrentInf)
-
+        ShowImg("")
         UpdateInfButton.Enabled = False
+    End Sub
+
+    Private Sub ReSelected(Node As TreeNode)
+        Try
+            Dim fp As String = Node.FullPath
+
+            CurrentNodeLabel.Text = fp
+            LibSearchTextBox.Text = Node.Text
+
+            CurrentInf = New HDLibInf
+            CurrentInf.Import(fp)
+
+            SetUIFromInf(CurrentInf)
+            SetHeader(fp, CurrentInf)
+            EntryChecking(fp, CurrentInf)
+            SetManifest(fp, CurrentInf)
+            SetLinks(CurrentInf)
+            ShowImg("")
+            UpdateInfButton.Enabled = False
+        Catch ex As Exception
+
+        End Try
     End Sub
 
 #End Region 'LibTree
@@ -98,7 +122,7 @@ Public Class HDLibView
 
         If fbd.ShowDialog = DialogResult.OK Then
             LibView.LibRoot = fbd.SelectedPath
-            LibView.ExceptFolders.Add("LibDB")
+            LibView.ExceptFolders.AddRange({"LibDB", "LibApp"})
             My.Settings.HDLibPath = fbd.SelectedPath
             LibView.RefreshTree()
             LibView.Nodes(0).Expand()
@@ -111,31 +135,32 @@ Public Class HDLibView
 
     Private Sub UpdateInfButton_Click(sender As Object, e As EventArgs) Handles UpdateInfButton.Click
         'MsgBox(LibView.SelectedNode.FullPath & "\" & CurrentInf.FileName)
-        Dim fp As String = LibView.SelectedNode.FullPath
-
         Try
+            Dim fp As String = LibView.SelectedNode.FullPath
             CurrentInf.Address = fp.Replace(LibView.LibRoot & "\", "")
             CurrentInf.Export(fp)
-
-            'LibView.SelectedNode.ImageIndex = LibView.GetImgId(New DirectoryInfo(fp))
-
-            'OriginInf.Import(fp)
             UpdateInfButton.Enabled = False
-        Catch ex As Exception
 
+            ReSelected(LibView.SelectedNode)
+        Catch ex As Exception
+            MsgBox("未能保存 Inf。原因：" & vbCrLf & ex.Message)
         End Try
     End Sub
 
+    Private Sub CancelEditButton_Click(sender As Object, e As EventArgs) Handles CancelEditButton.Click
+        If LibView.SelectedNode IsNot Nothing Then
+            ReSelected(LibView.SelectedNode)
+            UpdateInfButton.Enabled = False
+        End If
+    End Sub
+
     Private Sub ShowInfButton_Click(sender As Object, e As EventArgs) Handles ShowInfButton.Click
-        'SourceTextBox.Text = CurrentInf.ToString
         QuickViewer.Contents = CurrentInf.ToString
         BrowserTabs.SelectedTab = PageView
     End Sub
 
     Private Sub HDBookInfoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HDBookInfoItem.Click
-        If iBro.Document Is Nothing Then
-            Exit Sub
-        End If
+        If iBro.Document Is Nothing Then Exit Sub
 
         If Not TypeComboBox.SelectedItem = HDLibInfType.BookInfo Then
             MsgBox("請選定此項目為 BookInfo。")
@@ -174,44 +199,70 @@ Public Class HDLibView
         End Try
 
         Try
-            key = Regex.Match(src, "DownloadUpdb\(.+?\<br").ToString
-            IDTextBox.Text = key.Substring(key.IndexOf("(") + 1, key.IndexOf(")") - key.IndexOf("(") - 1).Replace("'", "")
-            t = key.Substring(key.IndexOf("<font size=2>") + 14, key.IndexOf("</font><br") - key.IndexOf("<font size=2>") - 14)
-            t = Regex.Replace(t, "\(.+\)", "-")
-            If t.EndsWith("-") Then t.Replace("-", "").Trim()
-            VersionTextBox.Text = t
-            LinksViewAdd("BookFile", "http://www.haodoo.net/?M=d&P=" & IDTextBox.Text & ".updb")
-            sb.AppendLine("[ ][DownloadUpdb] 取得 ID 及 Version。")
+            Dim rgx As New Regex("<font color.+?<input type=""button"" value=""線上閱讀"".+?下載 updb 檔.+?font>") '  .+\<input type\=""button""  value\=""下載 updb 檔"".+\<input type\=""button""")
+            Dim mts As MatchCollection = rgx.Matches(src)
+
+            Dim mtstr, id, vr As String
+            Dim ck As Boolean = True
+            For Each mt As Match In mts
+                mtstr = mt.ToString
+                key = Regex.Match(mtstr, "font>.+?<input").ToString.Replace("font>", "").Replace("<input", "").Replace("《", "").Replace("》", "")
+                id = Regex.Match(mtstr, "DownloadUpdb\('.+?'\)").ToString.Replace("DownloadUpdb('", "").Replace("')", "")
+                t = "http://www.haodoo.net/?M=d&P=" & id & ".updb"
+                vr = Regex.Match(mtstr, "<font size=2>.+</font>").ToString.Replace("<font size=2>", "").Replace("</font>", "")
+
+                LinksViewAdd(key, t, True)
+
+                If ck Then
+                    IDTextBox.Text = id
+                    VersionTextBox.Text = Regex.Replace(vr, "\(.+\)", "-").Trim
+                    ck = False
+                End If
+            Next
+            sb.AppendLine("[ ][Links] 取得Links、ID 及 Version。")
         Catch ex As Exception
-            sb.AppendLine("[X][DownloadUpdb] 未能取得 ID 或 Version。"）
+            sb.AppendLine("[X][Links] 未能取得Links 或 ID 或 Version。"）
         End Try
 
         Try
-            key = Regex.Match(src, "\<img src\=""covers.+"" ").ToString
-            t = key.Substring(key.IndexOf("covers"), key.IndexOf("""", key.IndexOf("covers")) - key.IndexOf("covers"))
-            LinksViewAdd("Cover", "http://www.haodoo.net/" & t, True)
-            sb.AppendLine("[ ][img src] 取得 Cover。"）
+            Dim rgx As New Regex("<img src=""covers/.+?""")
+            Dim mts As MatchCollection = rgx.Matches(src)
+
+            If mts.Count > 0 Then
+                For Each mt As Match In mts
+                    key = mt.ToString.Replace("<img src=""covers/", "").Replace("""", "")
+                    t = "http://www.haodoo.net/covers/" & key
+                    LinksViewAdd(key, t, True)
+                Next
+                sb.AppendLine("[ ][Images] 取得 Cover 等圖像。"）
+            Else
+                sb.AppendLine("[X][Images] 未能取得 Cover。"）
+            End If
         Catch ex As Exception
-            sb.AppendLine("[X][img src] 未能取得 Cover。"）
+            sb.AppendLine("[X][Images] 未能取得 Cover。"）
         End Try
 
         Try
-            key = Regex.Match(src, "HSPACE\=.+勘誤表", RegexOptions.Singleline).ToString
+            key = Regex.Match(src, "好讀書櫃《.+?》.+?勘誤表", RegexOptions.Singleline).ToString
             t = key.Replace("勘誤表", "")
-            t = Regex.Replace(t, "HSPACE\=.+?\>", "")
             t = Regex.Replace(t, "\<.+?\>", "")
-            t = t.Replace(vbCrLf & vbCrLf & vbCrLf, vbCrLf & vbCrLf)
+            t = t.Replace(vbCrLf & vbCrLf & vbCrLf, vbCrLf & vbCrLf).Replace(vbCrLf & vbCrLf, vbCrLf)
             DescriptionTextBox.Text = t
-            sb.AppendLine("[ ][Intro] 取得 Intro。"）
+
+            If t.Trim.Length > 0 Then
+                sb.AppendLine("[ ][Intro] 取得 Intro。"）
+            Else
+                sb.AppendLine("[X][Intro] 未能取得 Intro。"）
+            End If
         Catch ex As Exception
-            sb.AppendLine("[X][Intro] 未能取得 Intro。"）            '
+            sb.AppendLine("[X][Intro] 未能取得 Intro。"）
         End Try
 
         MsgBox("TryGet 結果：" & vbCrLf & sb.ToString)
         LinksViewAdd("BookView", iBro.Url.ToString, True)
     End Sub
 
-#End Region 'MenuActions
+#End Region 'ToolButton
 
 #Region "PrivateMethods"
     Private Sub SetIcons()
@@ -237,7 +288,7 @@ Public Class HDLibView
             IDTextBox.Text = .ID
             NameTextBox.Text = .Name
             SeriesTextBox.Text = .Series
-            SeriesIDUD.Value = .SID.ToString
+            SeriesIDUD.Value = .SID
             AuthorTextBox.Text = .Author
             If .Origin IsNot Nothing AndAlso (OriginComboBox.Items.Contains(.Origin)) Then
                 OriginComboBox.SelectedItem = .Origin
@@ -246,20 +297,69 @@ Public Class HDLibView
                     OriginComboBox.SelectedIndex = 0
                 End If
             End If
-            ContributorTextBox.Text = .Contributor
+            ContributorTextBox.Text = .InternalRef
             CategoryTextBox.Text = .Category
             SpecialTextBox.Text = .Special
             VersionTextBox.Text = .Version
             LogoTextBox.Text = .Logo
             AddressTextBox.Text = .Address
-            RefaddressTextBox.Text = .RefAddress
+            RefaddressTextBox.Text = .ExternalRef
             CreatedTextBox.Text = .Created.ToString
             UpdatedTextBox.Text = .Updated.ToString
             RemarksTextBox.Text = .Remarks
             DescriptionTextBox.Text = .Description
+
+            SetUIDisplay(TypeComboBox.SelectedItem)
         End With
         NeedUpdateInf = True
 
+    End Sub
+
+    Private Sub SetUIDisplay(InfType As HDLibInfType)
+        Select Case InfType
+            Case HDLibInfType.AuthorInfo
+                LabelSubject.Text = "姓名"
+                LabelAuthor.Text = "原名"
+                LabelHAuthor.Text = LabelAuthor.Text
+                SeriesTextBox.Enabled = False
+                SeriesIDUD.Enabled = False
+                OriginComboBox.Enabled = True
+                AuthorTextBox.Enabled = True
+            Case HDLibInfType.BookInfo
+                LabelSubject.Text = "書名"
+                LabelAuthor.Text = "作者"
+                LabelHAuthor.Text = LabelAuthor.Text
+                SeriesTextBox.Enabled = True
+                If SeriesTextBox.Text Is Nothing Or SeriesTextBox.Text.Trim.Length <= 0 Then
+                    SeriesIDUD.Enabled = False
+                Else
+                    SeriesIDUD.Enabled = True
+                End If
+                OriginComboBox.Enabled = True
+                AuthorTextBox.Enabled = True
+            Case HDLibInfType.CategoryInfo, HDLibInfType.SeriesInfo, HDLibInfType.SpecialInfo
+                LabelSubject.Text = "名稱"
+                LabelAuthor.Text = "作者"
+                LabelHAuthor.Text = ""
+                SeriesTextBox.Enabled = False
+                SeriesIDUD.Enabled = False
+                OriginComboBox.Enabled = False
+                AuthorTextBox.Enabled = False
+            Case HDLibInfType.LibInfo
+                LabelSubject.Text = "書庫"
+                LabelAuthor.Text = "作者"
+                LabelHAuthor.Text = ""
+                SeriesTextBox.Enabled = False
+                SeriesIDUD.Enabled = False
+                OriginComboBox.Enabled = False
+                AuthorTextBox.Enabled = False
+            Case Else
+        End Select
+
+        LabelHSubject.Text = LabelSubject.Text
+        ContributorTextBox.Enabled = SeriesTextBox.Enabled
+        CategoryTextBox.Enabled = SeriesTextBox.Enabled
+        SpecialTextBox.Enabled = SeriesTextBox.Enabled
     End Sub
 
     Private Sub SetHeader(Folder As String, Inf As HDLibInf)
@@ -272,6 +372,12 @@ Public Class HDLibView
             HCoverImageBox.Image = Image.FromFile(Path.Combine(Folder, Inf.Logo))
         Catch ex As Exception
             HCoverImageBox.Image = My.Resources.lib_nocover
+        End Try
+
+        Try
+            HIcon.Image = LibView.ImageList.Images.Item(LibView.SelectedNode.ImageIndex)
+        Catch ex As Exception
+            HIcon.Image = Nothing
         End Try
     End Sub
 
@@ -358,9 +464,9 @@ Public Class HDLibView
         If FilesView.Items.Count > 0 Then
             For Each it As ListViewItem In FilesView.Items
                 If (it.SubItems(4).Text IsNot Nothing) Or
-                    (it.SubItems(4).Text.Length) > 0 Then
+                    (it.SubItems(4).Text.Trim.Length > 0) Then
 
-                    mf.Add(it.SubItems(0).Text, it.SubItems(4).Text)
+                    mf.Add(it.Text, it.SubItems(4).Text)
                 End If
             Next
         End If
@@ -399,7 +505,6 @@ Public Class HDLibView
         Return mf
     End Function
 
-
     Private Sub GetInfFromUI(Optional TheInf As HDLibInf = Nothing)
         If TheInf Is Nothing Then
             TheInf = CurrentInf
@@ -412,13 +517,13 @@ Public Class HDLibView
             .Series = SeriesTextBox.Text
             .Author = AuthorTextBox.Text
             .Origin = OriginComboBox.SelectedItem
-            .Contributor = ContributorTextBox.Text
+            .InternalRef = ContributorTextBox.Text
             .Category = CategoryTextBox.Text
             .Special = SpecialTextBox.Text
             .Version = VersionTextBox.Text
             .Logo = LogoTextBox.Text
             .Address = AddressTextBox.Text
-            .RefAddress = RefaddressTextBox.Text
+            .ExternalRef = RefaddressTextBox.Text
             .Created = CDate(CreatedTextBox.Text)
             .Updated = CDate(UpdatedTextBox.Text)
             .Remarks = RemarksTextBox.Text
@@ -439,7 +544,6 @@ Public Class HDLibView
         For Each s In My.Settings.HDLibUrlList
             DUrlListBox.Items.Add(s)
         Next
-
     End Sub
 
     Private Sub EntryChecking(Folder As String, Inf As HDLibInf)
@@ -520,6 +624,8 @@ Public Class HDLibView
                 CInfFileChecker.Text = "Inf: "
                 CInfFileChecker.Checked = False
             End Try
+
+            SetUIDisplay(TypeComboBox.SelectedItem)
         End If
 
         If sender.Equals(OriginComboBox) Then
@@ -529,12 +635,23 @@ Public Class HDLibView
         UpdateInfButton.Enabled = True
     End Sub
 
+    Private Sub UDValueChanged(sender As Object, e As EventArgs) Handles SeriesIDUD.ValueChanged
+        If Not NeedUpdateInf Then Exit Sub
+
+        If SeriesTextBox.Text Is Nothing Or SeriesTextBox.Text.Trim.Length <= 0 Then
+            SeriesIDUD.Value = 0
+        Else
+            CurrentInf.SID = SeriesIDUD.Value
+        End If
+    End Sub
+
     Private Sub TextDataChanged(sender As Object, e As EventArgs) Handles _
         IDTextBox.TextChanged, NameTextBox.TextChanged, SeriesTextBox.TextChanged,
         AuthorTextBox.TextChanged, ContributorTextBox.TextChanged, CategoryTextBox.TextChanged,
         SpecialTextBox.TextChanged, VersionTextBox.TextChanged, LogoTextBox.TextChanged,
         AddressTextBox.TextChanged, RefaddressTextBox.TextChanged, RemarksTextBox.TextChanged,
-        DescriptionTextBox.TextChanged
+        DescriptionTextBox.TextChanged, LCommentsTextBox.TextChanged,
+        UKeyTextBox.TextChanged, ULinkTextBox.TextChanged
 
         If Not NeedUpdateInf Then Exit Sub
 
@@ -550,6 +667,11 @@ Public Class HDLibView
 
         If sender.Equals(SeriesTextBox) Then
             CurrentInf.Series = SeriesTextBox.Text
+            If SeriesTextBox.Text Is Nothing Or SeriesTextBox.Text.Trim.Length <= 0 Then
+                SeriesIDUD.Enabled = False
+            Else
+                SeriesIDUD.Enabled = True
+            End If
         End If
 
         If sender.Equals(AuthorTextBox) Then
@@ -558,7 +680,7 @@ Public Class HDLibView
         End If
 
         If sender.Equals(ContributorTextBox) Then
-            CurrentInf.Contributor = ContributorTextBox.Text
+            CurrentInf.InternalRef = ContributorTextBox.Text
         End If
 
         If sender.Equals(CategoryTextBox) Then
@@ -574,7 +696,7 @@ Public Class HDLibView
         End If
 
         If sender.Equals(RefaddressTextBox) Then
-            CurrentInf.RefAddress = RefaddressTextBox.Text
+            CurrentInf.ExternalRef = RefaddressTextBox.Text
         End If
 
         If sender.Equals(RemarksTextBox) Then
@@ -595,6 +717,14 @@ Public Class HDLibView
             HCoverImageBox.Image = Image.FromFile(Path.Combine(LibView.SelectedNode.FullPath, LogoTextBox.Text))
         End If
 
+        If sender.Equals(LCommentsTextBox) Then
+            LUpdateButton.Enabled = True
+        End If
+
+        If sender.Equals(UKeyTextBox) Or sender.Equals(DLinkTextBox) Then
+            UUpdateButton.Enabled = True
+        End If
+
         UpdateInfButton.Enabled = True
     End Sub
 
@@ -603,7 +733,8 @@ Public Class HDLibView
         AuthorTextBox.DragEnter, ContributorTextBox.DragEnter, CategoryTextBox.DragEnter,
         SpecialTextBox.DragEnter, VersionTextBox.DragEnter, LogoTextBox.DragEnter,
         AddressTextBox.DragEnter, RefaddressTextBox.DragEnter, RemarksTextBox.DragEnter,
-        DescriptionTextBox.DragEnter, LCommentsTextBox.DragEnter
+        DescriptionTextBox.DragEnter, LCommentsTextBox.DragEnter, UKeyTextBox.DragEnter,
+        ULinkTextBox.DragEnter, DFileNameTextBox.DragEnter, DLinkTextBox.DragEnter
 
         If (e.Data.GetDataPresent("Text")) Then
             e.Effect = DragDropEffects.Copy
@@ -615,10 +746,23 @@ Public Class HDLibView
         AuthorTextBox.DragDrop, ContributorTextBox.DragDrop, CategoryTextBox.DragDrop,
         SpecialTextBox.DragDrop, VersionTextBox.DragDrop, LogoTextBox.DragDrop,
         AddressTextBox.DragDrop, RefaddressTextBox.DragDrop, RemarksTextBox.DragDrop,
-        DescriptionTextBox.DragDrop, LCommentsTextBox.DragDrop
+        DescriptionTextBox.DragDrop, LCommentsTextBox.DragDrop, UKeyTextBox.DragDrop,
+        ULinkTextBox.DragDrop, DFileNameTextBox.DragDrop, DLinkTextBox.DragDrop
 
         CType(sender, TextBox).Paste(e.Data.GetData("Text"))
     End Sub
+
+    Private Sub TextBox_DoubleClick(sender As Object, e As EventArgs) Handles _
+        IDTextBox.DoubleClick, NameTextBox.DoubleClick, SeriesTextBox.DoubleClick,
+        AuthorTextBox.DoubleClick, ContributorTextBox.DoubleClick, CategoryTextBox.DoubleClick,
+        SpecialTextBox.DoubleClick, VersionTextBox.DoubleClick, LogoTextBox.DoubleClick,
+        AddressTextBox.DoubleClick, RefaddressTextBox.DoubleClick, RemarksTextBox.DoubleClick,
+        DescriptionTextBox.DoubleClick, LCommentsTextBox.DoubleClick, UKeyTextBox.DoubleClick,
+        ULinkTextBox.DoubleClick, DFileNameTextBox.DoubleClick, DLinkTextBox.DoubleClick
+
+        CType(sender, TextBox).SelectAll()
+    End Sub
+
 
 #End Region 'DataChangedAction
 
@@ -639,12 +783,8 @@ Public Class HDLibView
         End If
     End Sub
 
-    Private Sub LCommentsTextBox_TextChanged(sender As Object, e As EventArgs) Handles LCommentsTextBox.TextChanged
-        LUpdateButton.Enabled = True
-    End Sub
-
     Private Sub FilesView_SelectedIndexChanged(sender As Object, e As EventArgs) Handles FilesView.SelectedIndexChanged
-        If FilesView.SelectedItems.Count > 0 And LibView.SelectedNode IsNot Nothing Then
+        If FilesView.SelectedItems.Count > 0 AndAlso LibView.SelectedNode IsNot Nothing Then
             Dim fi As New FileInfo(Path.Combine(LibView.SelectedNode.FullPath, FilesView.SelectedItems(0).SubItems(0).Text))
 
             LFileNameLabel.Text = fi.Name
@@ -654,6 +794,12 @@ Public Class HDLibView
             LAccessedLabel.Text = "Read: " & fi.LastAccessTime.ToString
 
             LViewButton.Enabled = (fi.Extension = ".txt")
+
+            If LInTimeChecker.Checked AndAlso FilesView.SelectedItems(0).SubItems(1).Text = "圖像" Then
+                ShowImg(fi)
+            Else
+                ShowImg("")
+            End If
         Else
             LFileNameLabel.Text = "[None]"
             LCommentsTextBox.Text = ""
@@ -661,9 +807,54 @@ Public Class HDLibView
             LWritedLabel.Text = "Writed: "
             LAccessedLabel.Text = "Read: "
             LViewButton.Enabled = False
+            ShowImg("")
         End If
 
         LUpdateButton.Enabled = False
+    End Sub
+
+    Private Sub LInTimeChecker_CheckedChanged(sender As Object, e As EventArgs) Handles LInTimeChecker.CheckedChanged
+        If FilesView.SelectedItems.Count > 0 AndAlso
+            LibView.SelectedNode IsNot Nothing AndAlso
+            LInTimeChecker.Checked AndAlso
+            FilesView.SelectedItems(0).SubItems(1).Text = "圖像" Then
+
+            ShowImg(Path.Combine(LibView.SelectedNode.FullPath, FilesView.SelectedItems(0).SubItems(0).Text))
+        Else
+            ShowImg("")
+        End If
+    End Sub
+
+    Private Sub ShowImg(imgFile As FileInfo)
+        Dim sb As New StringBuilder("[Image]" & vbCrLf)
+        Try
+            Dim img As Image = Image.FromFile(imgFile.FullName)
+            Dim l As Long = imgFile.Length
+            With img
+                sb.AppendLine("File: " & imgFile.FullName)
+                sb.AppendLine("Type: " & imgFile.Extension)
+                sb.AppendLine("Size: " & .Width & " x " & .Height & " pixel")
+                sb.AppendLine("Resolution: " & If(.HorizontalResolution = .VerticalResolution, .HorizontalResolution & "dpi", .HorizontalResolution & " x " & .VerticalResolution & "dpi"))
+                sb.AppendLine("AbsSize: " & Math.Round(.HorizontalResolution / .Width * 2.54, 2) & " x " & Math.Round(.VerticalResolution / .Height * 2.54, 2) & " cm")
+                sb.AppendLine("Length: " & KzStr.GetFileLength(l, True, False, True) & " " & If(l < 1024, "", "(" & KzStr.GetFileLength(l, True, True) & ")"))
+            End With
+
+            ImgPreviewBox.Image = img
+        Catch ex As Exception
+            sb.AppendLine("[-]")
+            ImgPreviewBox.Image = Nothing
+        End Try
+
+        FileInfoLabel.Text = sb.ToString
+    End Sub
+
+    Private Sub ShowImg(imgFile As String)
+        Try
+            Dim fi As New FileInfo(imgFile)
+            ShowImg(fi)
+        Catch ex As Exception
+
+        End Try
     End Sub
 
     Private Sub FilesView_AfterLabelEdit(sender As Object, e As LabelEditEventArgs) Handles FilesView.AfterLabelEdit
@@ -699,7 +890,6 @@ Public Class HDLibView
     Private Sub FilesView_DragEnter(sender As Object, e As DragEventArgs) Handles FilesView.DragEnter
         If (e.Data.GetDataPresent("FileDrop")) Then
             e.Effect = DragDropEffects.Link
-            'ElseIf (e.Data.get) Then
         End If
     End Sub
 
@@ -719,11 +909,8 @@ Public Class HDLibView
     Private Sub LViewButton_Click(sender As Object, e As EventArgs) Handles LViewButton.Click
         Try
             Dim fn As String = Path.Combine(LibView.SelectedNode.FullPath, FilesView.SelectedItems(0).SubItems(0).Text)
-            'SourceTextBox.Text = File.ReadAllText(fn, Encoding.UTF8)
             QuickViewer.Contents = File.ReadAllText(fn, Encoding.UTF8)
-            'TEncodingLabel.Text = "UTF8"
             QuickViewer.DefaultEncoding = Encoding.UTF8
-            'TPathLabel.Text = fn
             QuickViewer.FilePath = fn
             BrowserTabs.SelectedTab = PageView
         Catch ex As Exception
@@ -755,41 +942,43 @@ Public Class HDLibView
         If LinksView.SelectedItems.Count > 0 Then
             UKeyTextBox.Text = LinksView.SelectedItems(0).Text
             ULinkTextBox.Text = LinksView.SelectedItems(0).SubItems(1).Text
+        Else
+            UKeyTextBox.Text = ""
+            ULinkTextBox.Text = ""
         End If
 
         UUpdateButton.Enabled = False
-    End Sub
-
-    Private Sub UTextBox_TextChanged(sender As Object, e As EventArgs) Handles UKeyTextBox.TextChanged, ULinkTextBox.TextChanged
-        UUpdateButton.Enabled = True
     End Sub
 
     Private Sub UDownButton_Click(sender As Object, e As EventArgs) Handles UDownButton.Click
         If LinksView.SelectedItems.Count > 0 And LibView.SelectedNode IsNot Nothing Then
             DLinkTextBox.Text = LinksView.SelectedItems(0).SubItems(1).Text
             DFolderTextBox.Text = LibView.SelectedNode.FullPath
-            DFileNameTextBox.Text = KzStr.GetLinkFileName(DLinkTextBox.Text)
+            DFileNameTextBox.Text = KzStr.GetLinkFileName(DLinkTextBox.Text).Replace("?M=d&P=", "")
+            DProgressBar.Value = 0
+            DMsgLabel.Text = "【即時資訊】" & vbCrLf
             DetailTabs.SelectedTab = PageDownload
         End If
     End Sub
 
     Private Sub UAddButton_Click(sender As Object, e As EventArgs) Handles UAddButton.Click
-        If ListViewHelper.ContainsItemText(LinksView, UKeyTextBox.Text) Then
-            If MsgBox("鏈接名稱已存在，是否覆蓋？", MsgBoxStyle.YesNo, "新增") = MsgBoxResult.Yes Then
-                LinksViewAdd(UKeyTextBox.Text, ULinkTextBox.Text, True)
-            Else
-                LinksViewAdd(UKeyTextBox.Text, ULinkTextBox.Text, False)
-            End If
-        End If
+        LinksViewAdd(UKeyTextBox.Text, ULinkTextBox.Text, False)
+        'If ListViewHelper.ContainsItemText(LinksView, UKeyTextBox.Text) Then
+        '    If MsgBox("鏈接名稱已存在，是否覆蓋？", MsgBoxStyle.YesNo, "新增") = MsgBoxResult.Yes Then
+        '        LinksViewAdd(UKeyTextBox.Text, ULinkTextBox.Text, True)
+        '    Else
+        '        LinksViewAdd(UKeyTextBox.Text, ULinkTextBox.Text, False)
+        '    End If
+        'End If
     End Sub
 
     Private Sub LinksViewAdd(key As String, value As String, Optional replace As Boolean = False)
         If LinksView.Items.Count > 0 And ListViewHelper.ContainsItemText(LinksView, key) Then
             If replace Then
-                Dim TheItem As ListViewItem = ListViewHelper.GetItemByText(LinksView, key) ' GetListViewItemByText(LinksView, key)
+                Dim TheItem As ListViewItem = ListViewHelper.GetItemByText(LinksView, key)
                 TheItem.SubItems(1).Text = value
             Else
-                Dim newkey As String = ListViewHelper.GetNewItemText(LinksView, key) ' GetNewListViewItemText(LinksView, key)
+                Dim newkey As String = ListViewHelper.GetNewItemText(LinksView, key)
                 Dim item As New ListViewItem(newkey)
                 item.SubItems.Add(value)
                 LinksView.Items.Add(item)
@@ -846,6 +1035,7 @@ Public Class HDLibView
     Private Sub wc_DownloadProgressChanged(sender As Object, e As DownloadProgressChangedEventArgs)
         DProgressBar.Maximum = 100
         DProgressBar.Value = CInt(Math.Floor(e.BytesReceived * 100 / e.TotalBytesToReceive))
+        DPersentageLabel.Text = Fix(DProgressBar.Value) & "%"
     End Sub
 
     Private Sub wc_DownloadFileCompleted(sender As Object, e As AsyncCompletedEventArgs)
@@ -898,14 +1088,6 @@ Public Class HDLibView
     Private Sub DFileNameTextBox_TextChanged(sender As Object, e As EventArgs) Handles DFileNameTextBox.TextChanged
         DFileExistsChecker.Checked = File.Exists(Path.Combine(DFolderTextBox.Text, DFileNameTextBox.Text))
         DToCoverChecker.Enabled = KzFiles.IsImageFile(DFileNameTextBox.Text)
-    End Sub
-
-    Private Sub DClearLinkButton_Click(sender As Object, e As EventArgs) Handles DClearLinkButton.Click
-        DLinkTextBox.Clear()
-    End Sub
-
-    Private Sub DClearPathButton_Click(sender As Object, e As EventArgs) Handles DClearPathButton.Click
-        DFolderTextBox.Clear()
     End Sub
 
     Private Sub DChangePathButton_Click(sender As Object, e As EventArgs) Handles DChangePathButton.Click
@@ -1010,9 +1192,43 @@ Public Class HDLibView
         End If
     End Sub
 
-    Private Sub DetailTabs_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DetailTabs.SelectedIndexChanged
-        If DetailTabs.SelectedTab.Equals(PageImage) Then
-
+    Private Sub HDLibView_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        If UpdateInfButton.Enabled Then
+            If MsgBox("當前 Inf 未保存。是否保存？", MsgBoxStyle.YesNo, "退出") = MsgBoxResult.No Then
+                e.Cancel = True
+            Else
+                UpdateInfButton_Click(Nothing, Nothing)
+            End If
         End If
     End Sub
+
+    Private Sub OriginListItem_Click(sender As Object, e As EventArgs) Handles OriginListItem.Click
+        If iBro.Document Is Nothing Then Exit Sub
+        Me.Cursor = Cursors.WaitCursor
+        Dim src As String = KzWeb.GetWebCode(iBro.Url.AbsoluteUri)
+        QuickViewer.Contents = HDLibHelper.GetHDList(src)
+        BrowserTabs.SelectedTab = PageView
+        Me.Cursor = Cursors.Default
+    End Sub
+
+    Private Sub VersionListItem_Click(sender As Object, e As EventArgs) Handles VersionListItem.Click
+        If iBro.Document Is Nothing Then Exit Sub
+        Me.Cursor = Cursors.WaitCursor
+        Dim src As String = KzWeb.GetWebCode(iBro.Url.AbsoluteUri)
+        QuickViewer.Contents = HDLibHelper.GetHDVersionList(src)
+        BrowserTabs.SelectedTab = PageView
+        Me.Cursor = Cursors.Default
+    End Sub
+
+    Private Sub CompletListItem_Click(sender As Object, e As EventArgs) Handles CompletListItem.Click
+        HDLibHelper.CreateCompletList(HDCategories.Mystery, Path.Combine(LibView.LibRoot, "LibDB"))
+        'MsgBox(HDLibHelper.GetCombinedSource(HDCategories.Mystery))
+    End Sub
+
+    Private Sub OpenDataPanelItem_Click(sender As Object, e As EventArgs) Handles OpenDataPanelItem.Click
+        Dim ldb As New HDLibDB
+        ldb.RootTextBox.Text = LibView.LibRoot
+        ldb.ShowDialog()
+    End Sub
 End Class
+
